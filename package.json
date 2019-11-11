@@ -1,0 +1,114 @@
+{
+  "name": "@code11/ui-engine",
+  "version": "1.0.0",
+  "description": "An UI Engine for Code11 projects",
+  "main": "build/main/index.js",
+  "typings": "build/main/index.d.ts",
+  "module": "build/module/index.js",
+  "repository": "http://34.243.85.53/@code11/ui-engine",
+  "license": "UNLICENSED",
+  "keywords": [],
+  "publishConfig": {
+    "repository": "http://34.243.85.53"
+  },
+  "author": {
+    "name": "Constantin Dumitrescu",
+    "email": "constantin.dumitrescu@code11.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Oprisean",
+      "email": "alexandru.oprisean@code11.com"
+    }
+  ],
+  "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
+  "scripts": {
+    "describe": "npm-scripts-info",
+    "build": "run-s clean && run-p build:*",
+    "build:main": "tsc -p tsconfig.json",
+    "build:module": "tsc -p tsconfig.module.json",
+    "fix": "run-s fix:*",
+    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "fix:tslint": "tslint --fix --project .",
+    "test": "run-s build test:unit:cov",
+    "test:unit": "jest",
+    "test:unit:cov": "jest --coverage",
+    "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
+    "doc": "run-s doc:html && open-cli build/docs/index.html",
+    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs --jsx react",
+    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc.json",
+    "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
+    "version": "standard-version",
+    "reset": "echo \"should clone into a repo and do things from scratch\"",
+    "clean": "trash build test",
+    "prepare-release": "run-s reset test version"
+  },
+  "scripts-info": {
+    "info": "Display information about the package scripts",
+    "build": "Clean and rebuild the project",
+    "fix": "Try to automatically fix any linting problems",
+    "test": "Lint and unit test the project",
+    "watch": "Watch and rebuild the project on save, then rerun relevant tests",
+    "cov": "Rebuild, run tests, then create and open the coverage report",
+    "doc": "Generate HTML API documentation and open it in a browser",
+    "doc:json": "Generate API documentation in typedoc JSON format",
+    "version": "Bump package.json version, update CHANGELOG.md, tag release",
+    "reset": "Delete all untracked files and reset the repo to the last commit",
+    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
+  },
+  "engines": {
+    "node": ">=8.9"
+  },
+  "dependencies": {
+    "jsonmvc-datastore": "^0.3.35",
+    "react": "^16.11.0"
+  },
+  "devDependencies": {
+    "@bitjson/npm-scripts-info": "^1.0.0",
+    "@bitjson/typedoc": "^0.15.0-0",
+    "@types/enzyme": "^3.10.3",
+    "@types/jest": "^24.0.22",
+    "@types/lodash": "^4.14.144",
+    "@types/lodash-es": "^4.17.3",
+    "@types/node": "^12.12.6",
+    "@types/react": "^16.9.11",
+    "ava": "2.2.0",
+    "browser-env": "^3.3.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "gh-pages": "^2.0.1",
+    "jest": "^24.9.0",
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
+    "npm-run-all": "^4.1.5",
+    "open-cli": "^5.0.0",
+    "prettier": "^1.18.2",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.11.0",
+    "standard-version": "^6.0.1",
+    "trash-cli": "^3.0.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-immutable": "^6.0.1",
+    "typescript": "^3.5.3"
+  },
+  "ava": {
+    "failFast": true,
+    "files": [
+      "build/main/**/*.spec.js"
+    ],
+    "sources": [
+      "build/main/**/*.js"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "prettier": {
+    "singleQuote": true
+  }
+}
