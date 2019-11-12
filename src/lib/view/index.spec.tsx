@@ -1,12 +1,12 @@
 // tslint:disable:no-expression-statement
 import React from 'react';
-import { view } from './view';
+import { view } from './index';
 import browserEnv from 'browser-env';
 import dbFn from 'jsonmvc-datastore';
 import cloneDeep from 'lodash/cloneDeep';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme from 'enzyme';
-import ui from '../ui-producer';
+import ui from '../../ui-producer';
 
 jest.useFakeTimers();
 
@@ -575,4 +575,105 @@ test('Should propagate an ui-patch from the component to the component', () => {
   el.update();
   expect(el.find(`#${testId}`).text()).toBe(newValue);
   unsubscribe && unsubscribe();
+});
+
+test('Should keep unsed properties and remove used properties', () => {
+  const state = {};
+  const db = dbFn(cloneDeep(state));
+  (window as any).db = db;
+
+  const barValue = '123';
+  const comp1Id = 'comp1id';
+  const Comp1 = view({
+    args: {
+      foo: '<foo>'
+    },
+    fn: ({ foo }) => <div id={comp1Id}>{foo}</div>
+  });
+
+  const Component = view({
+    args: {},
+    fn: ({ foo }: any) => (
+      <div>
+        <Comp1 foo="123" data-bar={barValue}></Comp1>
+      </div>
+    )
+  });
+
+  const el = Enzyme.mount(<Component></Component>);
+  const comp1el = el.find(`#${comp1Id}`);
+
+  expect(comp1el.prop('data-bar')).toBe(barValue);
+});
+
+test('(for development) Should add used properties under data-props-*', () => {
+  const state = {};
+  const db = dbFn(cloneDeep(state));
+  (window as any).db = db;
+
+  const barValue = '123';
+  const fooValue = '321';
+  const comp2Id = 'comp2id';
+  const Comp2 = view({
+    args: {
+      foo: '<foo>',
+      bar: '<bar>'
+    },
+    fn: ({ foo, bar }) => (
+      <div id={comp2Id}>
+        {foo} {bar}
+      </div>
+    )
+  });
+
+  const Comp1 = view({
+    args: {},
+    fn: () => (
+      <div>
+        <Comp2 foo={fooValue} bar={barValue}></Comp2>
+      </div>
+    )
+  });
+
+  const el = Enzyme.mount(<Comp1></Comp1>);
+  const comp2el = el.find(`#${comp2Id}`);
+
+  expect(comp2el.prop('data-props-bar')).toBe(barValue);
+  expect(comp2el.prop('data-props-foo')).toBe(fooValue);
+});
+
+test('Should add values under data-values-*', () => {
+  const fooValue = '123';
+  const barValue = '321';
+  const state = {
+    foo: fooValue,
+    bar: barValue
+  };
+  const db = dbFn(cloneDeep(state));
+  (window as any).db = db;
+
+  const compId = 'compid';
+  const Comp = view({
+    args: {
+      foo: '/foo',
+      bar: '/bar'
+    },
+    fn: ({ foo, bar }) => (
+      <div id={compId}>
+        {foo} {bar}
+      </div>
+    )
+  });
+
+  const el = Enzyme.mount(<Comp></Comp>);
+  const compEl = el.find(`#${compId}`);
+
+  expect(compEl.prop('data-values-foo')).toBe(fooValue);
+  expect(compEl.prop('data-values-bar')).toBe(barValue);
+});
+
+test('Should be able to pass children to target component', () => {
+  // throw new Error('not implemented');
+  // <Sample><div>Something</div></Sample>
+  // args: { children: '<children>' }
 });

@@ -1,97 +1,15 @@
 import React from 'react';
-import dbFn from 'jsonmvc-datastore';
 import isEqual from 'lodash/isEqual';
-
-interface GenericState {
-  [key: string]: any;
-}
-
-/*
-type Prop = string | number | null;
-
-interface Args {
-  [key: string]: string;
-}
-
-interface GenericProp {
-  [key: string]: Prop;
-}
-
-type ElementFn = (args: Args) => null | JSX.Element;
-type Guard = (args: Args | null | void) => boolean | null | void;
-
-interface View {
-  state?: string;
-  args: Args;
-  fn: ElementFn;
-  guard?: Guard;
-}
-
-function structure(views: View[] | View) {
-  if (!views) {
-    return;
-  }
-}
-*/
-
-interface Patch {
-  op: string;
-  path: string;
-  value?: any;
-}
-interface DB {
-  get(path: string): any;
-  on(path: string, cb: (value: any) => void): () => void;
-  patch(patches: Patch[]): void;
-}
-
-interface Foo {
-  id: string;
-  name: string;
-}
-
-export interface Schema {
-  foos: {
-    ids: string[];
-    list: {
-      [key: string]: Foo;
-    };
-  };
-  chosen?: string;
-}
-
-export interface BaseState {
-  [key: string]: any;
-  hasError?: boolean;
-  errorMessage?: string;
-}
-/*
-export type BaseData<T> = {
-  [K in keyof T]: T[K];
-}
-*/
-export interface BaseData {
-  [key: string]: any;
-}
-
-export interface BaseProps {
-  [key: string]: any;
-}
-
-export interface Path {}
+import kebabCase from 'kebab-case';
+import {
+  DataPathStructure,
+  BaseState,
+  BaseProps,
+  BaseData,
+  GenericState
+} from './types';
 
 const PROP_REGEX = /<([a-zA-Z0-9]+)>/g;
-
-type DynamicDataPath = (
-  data: { [key: string]: string },
-  props: { [key: string]: string }
-) => string;
-
-interface DataPathStructure {
-  name: string;
-  vars?: string[];
-  path: string | DynamicDataPath;
-}
 
 /**
  * Return data paths either as string or ready for injecting props
@@ -99,46 +17,43 @@ interface DataPathStructure {
  * @param data the data paths to be processed
  */
 function getOrderedDataPaths(data: BaseData): DataPathStructure[] {
-  const paths = Object.keys(data).reduce(
-    (acc, x: string) => {
-      if (data[x].indexOf('/') === 0) {
-        const vars: string[] = [];
-        data[x].replace(PROP_REGEX, (_a: any, b: string, _c: any, _d: any) => {
-          if (!vars.includes(b)) {
-            vars.push(b);
+  const paths = Object.keys(data).reduce((acc, x: string) => {
+    if (data[x].indexOf('/') === 0) {
+      const vars: string[] = [];
+      data[x].replace(PROP_REGEX, (_a: any, b: string, _c: any, _d: any) => {
+        if (!vars.includes(b)) {
+          vars.push(b);
+        }
+      });
+      if (vars.length === 0) {
+        acc.push({
+          name: x,
+          path: data[x]
+        });
+      } else {
+        acc.push({
+          name: x,
+          vars,
+          path: (vars, props) => {
+            let isInvalid = false;
+            const path = data[x].replace(
+              PROP_REGEX,
+              (_a: any, b: string, _c: any, _d: any) => {
+                const value = vars[b] || props[b];
+                if (typeof value !== 'string' || value.length === 0) {
+                  isInvalid = true;
+                  return;
+                }
+                return value;
+              }
+            );
+            return isInvalid ? undefined : path;
           }
         });
-        if (vars.length === 0) {
-          acc.push({
-            name: x,
-            path: data[x]
-          });
-        } else {
-          acc.push({
-            name: x,
-            vars,
-            path: (vars, props) => {
-              let isInvalid = false;
-              const path = data[x].replace(
-                PROP_REGEX,
-                (_a: any, b: string, _c: any, _d: any) => {
-                  const value = vars[b] || props[b];
-                  if (typeof value !== 'string' || value.length === 0) {
-                    isInvalid = true;
-                    return;
-                  }
-                  return value;
-                }
-              );
-              return isInvalid ? undefined : path;
-            }
-          });
-        }
       }
-      return acc;
-    },
-    [] as DataPathStructure[]
-  );
+    }
+    return acc;
+  }, [] as DataPathStructure[]);
 
   const orderedPaths = paths.sort((a, b) => {
     if (b.vars && b.vars.includes(a.name)) {
@@ -183,23 +98,20 @@ function getPropsStructure(
     }
   );
 
-  const usedProps = types.paths.reduce(
-    (acc, x) => {
-      data[x].replace(PROP_REGEX, (_a: any, b: string, _c: any, _d: any) => {
-        if (
-          acc.indexOf(b) === -1 &&
-          !types.paths.includes(b) &&
-          !types.internalProps.includes(b) &&
-          b !== 'viewId' &&
-          b !== 'viewPath'
-        ) {
-          acc.push(b);
-        }
-      });
-      return acc;
-    },
-    [] as string[]
-  );
+  const usedProps = types.paths.reduce((acc, x) => {
+    data[x].replace(PROP_REGEX, (_a: any, b: string, _c: any, _d: any) => {
+      if (
+        acc.indexOf(b) === -1 &&
+        !types.paths.includes(b) &&
+        !types.internalProps.includes(b) &&
+        b !== 'viewId' &&
+        b !== 'viewPath'
+      ) {
+        acc.push(b);
+      }
+    });
+    return acc;
+  }, [] as string[]);
 
   return {
     external: types.externalProps.concat(usedProps),
@@ -208,70 +120,66 @@ function getPropsStructure(
   };
 }
 
-const state: Schema = {
-  foos: {
-    ids: ['id1', 'id2'],
-    list: {
-      id1: {
-        id: 'id1',
-        name: 'Foo 1'
-      },
-      id2: {
-        id: 'id2',
-        name: 'Foo 2'
-      }
-    }
-  }
-} as Schema;
-
-const DB: DB = dbFn(state);
-const db = DB;
-
-export { DB };
-// (window as any).db = DB;
-
 // FEAT: Rollback mechanism
 
-export function view<
-  D extends BaseData,
-  S extends BaseState,
-  P extends BaseProps
->(component: {
+export function view(component: {
   args: GenericState;
   defaultProps?: GenericState;
-  fn: React.FunctionComponent<S>;
-}): React.ComponentClass<P, S> {
+  fn: React.FunctionComponent<BaseProps>;
+}): React.ComponentClass<BaseProps, BaseState> {
   const db = window.db;
   const data = component.args;
   const view = component.fn;
   const defaultProps = component.defaultProps;
 
   // This needs to be here to catch errors
-  class Component extends React.Component<S> {
+  class Component extends React.Component<BaseState> {
     render() {
-      return view(this.props);
+      const valueProps = Object.keys(this.props).reduce((acc, x) => {
+        if (['receivedProps', 'hasError', 'errorMessage'].includes(x)) {
+          return acc;
+        }
+        acc[x] = this.props[x];
+        return acc;
+      }, {} as BaseProps);
+      let el = view(valueProps);
+      if (el) {
+        let dataProps = Object.keys(this.props.receivedProps.props).reduce(
+          (acc, x) => {
+            acc[`data-props-${x}`] = this.props.receivedProps.props[x];
+            return acc;
+          },
+          Object.assign({}, this.props.receivedProps.data)
+        );
+
+        dataProps = Object.keys(valueProps).reduce((acc, x) => {
+          const name = `data-values-${kebabCase(x)}`;
+          acc[name] = valueProps[x];
+          return acc;
+        }, dataProps);
+        return React.cloneElement(el as React.ReactElement, dataProps);
+      } else {
+        return null;
+      }
     }
   }
 
-  return class Wrapper extends React.Component<P, S> {
+  return class Wrapper extends React.Component<BaseProps, BaseState> {
     static defaultProps = {};
     propsMap: { [key: string]: string } = {};
     internalProps: string[] = [];
     propLinks: { [key: string]: string } = {};
     dataMap: DataPathStructure[] = [];
     dataListeners: { [key: string]: { (): void } } = {};
-    constructor(props: P) {
+    constructor(props: BaseProps) {
       super(props);
       const propsStructure = getPropsStructure(data);
-      const receivedProps = propsStructure.external.reduce(
-        (acc, x) => {
-          if (props[x] !== undefined) {
-            acc[x] = props[x];
-          }
-          return acc;
-        },
-        {} as BaseProps
-      );
+      const receivedProps = propsStructure.external.reduce((acc, x) => {
+        if (props[x] !== undefined) {
+          acc[x] = props[x];
+        }
+        return acc;
+      }, {} as BaseProps);
       this.propsMap = Object.assign(defaultProps || {}, receivedProps);
       this.internalProps = propsStructure.internal;
       this.propLinks = propsStructure.links;
@@ -299,7 +207,7 @@ export function view<
       return true;
     }
 
-    componentDidUpdate(prevProps: P, prevState: S) {
+    componentDidUpdate(prevProps: BaseProps, prevState: BaseState) {
       prevProps;
       prevState;
     }
@@ -312,7 +220,7 @@ export function view<
       return {
         hasError: true,
         errorMessage: e.message
-      } as S;
+      } as BaseState;
     }
 
     unsubscribeDataListeners() {
@@ -369,7 +277,7 @@ export function view<
     getState() {
       const state: any = {
         hasError: false
-      } as S;
+      } as BaseState;
       this.internalProps.forEach(x => {
         state[x] = this.propsMap[this.propLinks[x]];
       });
@@ -396,7 +304,23 @@ export function view<
           </div>
         );
       }
-      return <Component {...this.state} />;
+
+      const receivedProps = Object.keys(this.props).reduce(
+        (acc, x) => {
+          if (/^data\-/.test(x)) {
+            acc.data[x] = this.props[x];
+          } else {
+            acc.props[x] = this.props[x];
+          }
+          return acc;
+        },
+        {
+          data: {},
+          props: {}
+        } as any
+      );
+
+      return <Component {...this.state} receivedProps={receivedProps} />;
     }
   };
 }

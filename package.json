@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "jsonmvc-datastore": "^0.3.35",
+    "kebab-case": "^1.0.0",
     "react": "^16.11.0"
   },
   "devDependencies": {
