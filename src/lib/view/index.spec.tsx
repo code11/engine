@@ -677,3 +677,30 @@ test('Should be able to pass children to target component', () => {
   // <Sample><div>Something</div></Sample>
   // args: { children: '<children>' }
 });
+
+test('Should keep and augment className for components', () => {
+  const state = {};
+  const db = dbFn(cloneDeep(state));
+  (window as any).db = db;
+
+  const className = 'fooClass';
+  const initialClassName = 'barClass';
+  const comp1Id = 'comp1id';
+  const comp2Id = 'comp2id';
+  const Comp2 = view({
+    args: {},
+    fn: () => <div className={initialClassName} id={comp2Id}></div>
+  });
+  const Comp1 = view({
+    args: {},
+    fn: () => (
+      <div id={comp1Id}>
+        <Comp2 className={className}></Comp2>
+      </div>
+    )
+  });
+
+  const el = Enzyme.mount(<Comp1></Comp1>);
+  const compEl = el.find(`#${comp2Id}`).getDOMNode();
+  expect(compEl.getAttribute('class')).toBe(className + ' ' + initialClassName);
+});

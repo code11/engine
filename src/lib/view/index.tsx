@@ -159,6 +159,14 @@ export function view(component: {
           acc[name] = valueProps[x];
           return acc;
         }, dataProps);
+
+        if (this.props.receivedProps.props.className) {
+          dataProps.className = this.props.receivedProps.props.className;
+          if (el.props.className) {
+            // TODO: Dedupe class names
+            dataProps.className += ' ' + el.props.className;
+          }
+        }
         return React.cloneElement(el as React.ReactElement, dataProps);
       } else {
         return null;
