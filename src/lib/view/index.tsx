@@ -146,7 +146,9 @@ export function view(component: {
       if (el) {
         let dataProps = Object.keys(this.props.receivedProps.props).reduce(
           (acc, x) => {
-            acc[`data-props-${x}`] = this.props.receivedProps.props[x];
+            acc[`data-props-${kebabCase(x)}`] = this.props.receivedProps.props[
+              x
+            ];
             return acc;
           },
           Object.assign({}, this.props.receivedProps.data)
