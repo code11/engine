@@ -541,7 +541,7 @@ test('Should not throw error if the provided properties have falsy values', () =
   expect(el.find(`#${testId}`).text()).toBeFalsy();
 });
 
-test('Should propagate an ui-patch from the component to the component', () => {
+test('Should propagate a patch from the component back to the component', () => {
   const state = {};
   const db = dbFn(cloneDeep(state));
   (window as any).db = db;
@@ -577,36 +577,42 @@ test('Should propagate an ui-patch from the component to the component', () => {
   unsubscribe && unsubscribe();
 });
 
-test('Should keep unsed properties and remove used properties', () => {
+test('Should keep data-*, aria-* and role properties', () => {
   const state = {};
   const db = dbFn(cloneDeep(state));
   (window as any).db = db;
 
-  const barValue = '123';
+  const ns = 'foo';
   const comp1Id = 'comp1id';
   const Comp1 = view({
-    args: {
-      foo: '<foo>'
-    },
-    fn: ({ foo }) => <div id={comp1Id}>{foo}</div>
+    args: {},
+    fn: () => <div id={comp1Id}></div>
   });
-
+  const props = {
+    [`data-${ns}`]: '123',
+    [`aria-valuenow`]: '321',
+    role: 'sample'
+  };
   const Component = view({
     args: {},
-    fn: ({ foo }: any) => (
-      <div>
-        <Comp1 foo="123" data-bar={barValue}></Comp1>
-      </div>
-    )
+    fn: () => {
+      return (
+        <div>
+          <Comp1 {...props}></Comp1>
+        </div>
+      );
+    }
   });
 
   const el = Enzyme.mount(<Component></Component>);
   const comp1el = el.find(`#${comp1Id}`);
 
-  expect(comp1el.prop('data-bar')).toBe(barValue);
+  Object.keys(props).forEach(x => {
+    expect(comp1el.prop(x)).toBe(props[x]);
+  });
 });
 
-test('(for development) Should add used properties under data-props-*', () => {
+test('Should add used properties under data-props-*', () => {
   const state = {};
   const db = dbFn(cloneDeep(state));
   (window as any).db = db;
