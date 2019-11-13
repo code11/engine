@@ -15,6 +15,8 @@ import {
   Patch
 } from './lib';
 
+import { mount } from './mount';
+
 export interface Args {
   [key: string]: any;
 }
@@ -65,12 +67,5 @@ export function producer(body: Body) {
     on: on(db, body)
   };
 
-  const data: { [key: string]: any } = {};
-  Object.entries(body.args).forEach(([key, path]: [string, any]) => {
-    data[key] = undefined;
-    db.on(path, (x: any) => {
-      data[key] = x;
-      body.fn(data, lib);
-    });
-  });
+  const unsub = mount(db, body, lib);
 }
