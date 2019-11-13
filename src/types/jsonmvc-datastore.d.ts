@@ -10,6 +10,7 @@ declare module 'jsonmvc-datastore' {
       args: { [key: string]: string },
       fn: (args: any) => any
     ): any;
+    has(path: string): boolean;
     get(path: string): any;
     on(path: string, cb: (value: any) => void): () => void;
     patch(patches: Patch[]): void;
