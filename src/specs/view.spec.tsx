@@ -1,12 +1,12 @@
 // tslint:disable:no-expression-statement
 import React from 'react';
-import { view } from './index';
+import { view } from '../index';
 import browserEnv from 'browser-env';
 import dbFn from 'jsonmvc-datastore';
 import cloneDeep from 'lodash/cloneDeep';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme from 'enzyme';
-import ui from '../../ui-producer';
+import ui from '../ui-producer';
 
 jest.useFakeTimers();
 
