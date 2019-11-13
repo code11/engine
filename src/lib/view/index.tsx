@@ -144,7 +144,7 @@ export function view(component: {
       }, {} as BaseProps);
       let el = view(valueProps);
       if (el) {
-        let dataProps = Object.keys(this.props.receivedProps.props).reduce(
+        let extraProps = Object.keys(this.props.receivedProps.props).reduce(
           (acc, x) => {
             acc[`data-props-${kebabCase(x)}`] = this.props.receivedProps.props[
               x
@@ -154,20 +154,27 @@ export function view(component: {
           Object.assign({}, this.props.receivedProps.data)
         );
 
-        dataProps = Object.keys(valueProps).reduce((acc, x) => {
+        extraProps = Object.keys(valueProps).reduce((acc, x) => {
           const name = `data-values-${kebabCase(x)}`;
           acc[name] = valueProps[x];
           return acc;
-        }, dataProps);
+        }, extraProps);
 
         if (this.props.receivedProps.props.className) {
-          dataProps.className = this.props.receivedProps.props.className;
+          extraProps.className = this.props.receivedProps.props.className;
           if (el.props.className) {
             // TODO: Dedupe class names
-            dataProps.className += ' ' + el.props.className;
+            extraProps.className += ' ' + el.props.className;
           }
         }
-        return React.cloneElement(el as React.ReactElement, dataProps);
+
+        extraProps = Object.assign(extraProps, this.props.receivedProps.aria);
+
+        if (this.props.receivedProps.role) {
+          extraProps['role'] = this.props.receivedProps.role;
+        }
+
+        return React.cloneElement(el as React.ReactElement, extraProps);
       } else {
         return null;
       }
@@ -319,6 +326,10 @@ export function view(component: {
         (acc, x) => {
           if (/^data\-/.test(x)) {
             acc.data[x] = this.props[x];
+          } else if (/^aria\-/.test(x)) {
+            acc.aria[x] = this.props[x];
+          } else if (/^role/.test(x)) {
+            acc.role = this.props[x];
           } else {
             acc.props[x] = this.props[x];
           }
@@ -326,7 +337,9 @@ export function view(component: {
         },
         {
           data: {},
-          props: {}
+          props: {},
+          aria: {},
+          role: undefined
         } as any
       );
 
@@ -335,6 +348,7 @@ export function view(component: {
   };
 }
 
+// TODO: Refactor
 // TopLevel{
 //   ErrorManagement,
 //   propsManagement
