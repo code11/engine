@@ -335,11 +335,8 @@ test('Should handle an error', () => {
   (window as any).db = db;
   const errorMessage = 'Sample error';
   const component = {
-    args: {
-      foo: '/foo'
-    },
-    fn: ({ foo }: any) => {
-      foo;
+    args: {},
+    fn: () => {
       throw new Error(errorMessage);
     }
   };

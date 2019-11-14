@@ -84,10 +84,17 @@ export function view(component: {
 
   // This needs to be here to catch errors
   class Component extends React.Component<BaseState> {
+    componentDidCatch(error: Error, info: React.ErrorInfo) {
+      console.log('Error error', error, info);
+    }
+    static getDerivedStateFromError(e: any) {
+      console.log('error', e);
+    }
     render() {
       let el = view(this.props.state);
       if (el) {
-        const extraProps = calculateExtraProps(this.props, el);
+        let extraProps;
+        extraProps = calculateExtraProps(this.props, el);
         // TODO: if !extraProps just return the initial el without clonning
         return React.cloneElement(el as React.ReactElement, extraProps);
       } else {
@@ -139,7 +146,7 @@ export function view(component: {
     }
     // TODO: Figure out how to catch errors that originate from handlers
     componentDidCatch(error: Error, info: React.ErrorInfo) {
-      // console.log('Error error', error, info);
+      console.error(error);
     }
 
     static getDerivedStateFromError(e: any) {
@@ -231,33 +238,13 @@ export function view(component: {
         );
       }
 
-      const receivedProps = Object.keys(this.props).reduce(
-        (acc, x) => {
-          if (/^data\-/.test(x)) {
-            acc.data[x] = this.props[x];
-          } else if (/^aria\-/.test(x)) {
-            acc.aria[x] = this.props[x];
-          } else if (/^role/.test(x)) {
-            acc.role = this.props[x];
-          } else if (/^className/.test(x)) {
-            acc.className = this.props[x];
-          } else {
-            if (this.propsStructure.external.includes(x)) {
-              acc.props[x] = this.props[x];
-            }
-          }
-          return acc;
-        },
-        {
-          className: undefined,
-          data: {},
-          props: {},
-          aria: {},
-          role: undefined
-        } as any
+      return (
+        <Component
+          propsStructure={this.propsStructure}
+          state={this.state}
+          rProps={this.props}
+        />
       );
-
-      return <Component state={this.state} receivedProps={receivedProps} />;
     }
   };
 }
