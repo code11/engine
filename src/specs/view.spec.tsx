@@ -710,3 +710,30 @@ test('Should keep and augment className for components', () => {
   const compEl = el.find(`#${comp2Id}`).getDOMNode();
   expect(compEl.getAttribute('class')).toBe(className + ' ' + initialClassName);
 });
+
+test('Should include in data-props only the specified props', () => {
+  const state = {};
+  const db = dbFn(cloneDeep(state));
+  (window as any).db = db;
+
+  const compId = 'comp1id';
+  const Comp2 = view({
+    args: {
+      prop: '<prop1>',
+      bam: '<baz>'
+    },
+    fn: () => <div id={compId}></div>
+  });
+  const Comp1 = view({
+    args: {},
+    fn: () => (
+      <div>
+        <Comp2 prop1="123" prop2="321"></Comp2>
+      </div>
+    )
+  });
+
+  const el = Enzyme.mount(<Comp1></Comp1>);
+  const compEl = el.find(`#${compId}`).getDOMNode();
+  expect(compEl.getAttribute('data-props-prop2')).toBeFalsy();
+});

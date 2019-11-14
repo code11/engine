@@ -62,7 +62,8 @@
   "dependencies": {
     "jsonmvc-datastore": "^0.3.35",
     "kebab-case": "^1.0.0",
-    "react": "^16.11.0"
+    "react": "^16.11.0",
+    "react-html-attributes": "^1.4.6"
   },
   "devDependencies": {
     "@bitjson/npm-scripts-info": "^1.0.0",
