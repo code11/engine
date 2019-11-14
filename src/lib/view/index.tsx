@@ -1,6 +1,5 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
-import kebabCase from 'kebab-case';
 import {
   DataPathStructure,
   BaseState,
@@ -8,6 +7,11 @@ import {
   BaseData,
   GenericState
 } from './types';
+import {
+  getPropsStructure,
+  calculateExtraProps,
+  PropsStructure
+} from './props';
 
 const PROP_REGEX = /<([a-zA-Z0-9]+)>/g;
 
@@ -66,60 +70,6 @@ function getOrderedDataPaths(data: BaseData): DataPathStructure[] {
   return orderedPaths;
 }
 
-/**
- * Processes data bindings and figures out what properties should be
- * provided to the component at run-time
- * @param data the data schema containing paths and props
- */
-function getPropsStructure(
-  data: BaseData
-): {
-  external: string[];
-  internal: string[];
-  links: { [key: string]: string };
-} {
-  const types = Object.keys(data).reduce(
-    (acc, x: string) => {
-      if (data[x].indexOf('/') === 0) {
-        acc.paths.push(x);
-      } else if (data[x].indexOf('<') === 0) {
-        const prop = data[x].replace('<', '').replace('>', '');
-        acc.externalProps.push(prop);
-        acc.internalProps.push(x);
-        acc.links[x] = prop;
-      }
-      return acc;
-    },
-    {
-      internalProps: [] as string[],
-      externalProps: [] as string[],
-      links: {} as { [key: string]: string },
-      paths: [] as string[]
-    }
-  );
-
-  const usedProps = types.paths.reduce((acc, x) => {
-    data[x].replace(PROP_REGEX, (_a: any, b: string, _c: any, _d: any) => {
-      if (
-        acc.indexOf(b) === -1 &&
-        !types.paths.includes(b) &&
-        !types.internalProps.includes(b) &&
-        b !== 'viewId' &&
-        b !== 'viewPath'
-      ) {
-        acc.push(b);
-      }
-    });
-    return acc;
-  }, [] as string[]);
-
-  return {
-    external: types.externalProps.concat(usedProps),
-    internal: types.internalProps,
-    links: types.links
-  };
-}
-
 // FEAT: Rollback mechanism
 
 export function view(component: {
@@ -135,45 +85,10 @@ export function view(component: {
   // This needs to be here to catch errors
   class Component extends React.Component<BaseState> {
     render() {
-      const valueProps = Object.keys(this.props).reduce((acc, x) => {
-        if (['receivedProps', 'hasError', 'errorMessage'].includes(x)) {
-          return acc;
-        }
-        acc[x] = this.props[x];
-        return acc;
-      }, {} as BaseProps);
-      let el = view(valueProps);
+      let el = view(this.props.state);
       if (el) {
-        let extraProps = Object.keys(this.props.receivedProps.props).reduce(
-          (acc, x) => {
-            acc[`data-props-${kebabCase(x)}`] = this.props.receivedProps.props[
-              x
-            ];
-            return acc;
-          },
-          Object.assign({}, this.props.receivedProps.data)
-        );
-
-        extraProps = Object.keys(valueProps).reduce((acc, x) => {
-          const name = `data-values-${kebabCase(x)}`;
-          acc[name] = valueProps[x];
-          return acc;
-        }, extraProps);
-
-        if (this.props.receivedProps.props.className) {
-          extraProps.className = this.props.receivedProps.props.className;
-          if (el.props.className) {
-            // TODO: Dedupe class names
-            extraProps.className += ' ' + el.props.className;
-          }
-        }
-
-        extraProps = Object.assign(extraProps, this.props.receivedProps.aria);
-
-        if (this.props.receivedProps.role) {
-          extraProps['role'] = this.props.receivedProps.role;
-        }
-
+        const extraProps = calculateExtraProps(this.props, el);
+        // TODO: if !extraProps just return the initial el without clonning
         return React.cloneElement(el as React.ReactElement, extraProps);
       } else {
         return null;
@@ -184,22 +99,16 @@ export function view(component: {
   return class Wrapper extends React.Component<BaseProps, BaseState> {
     static defaultProps = {};
     propsMap: { [key: string]: string } = {};
-    internalProps: string[] = [];
-    propLinks: { [key: string]: string } = {};
+    propsStructure: PropsStructure;
     dataMap: DataPathStructure[] = [];
     dataListeners: { [key: string]: { (): void } } = {};
     constructor(props: BaseProps) {
       super(props);
-      const propsStructure = getPropsStructure(data);
-      const receivedProps = propsStructure.external.reduce((acc, x) => {
-        if (props[x] !== undefined) {
-          acc[x] = props[x];
-        }
-        return acc;
-      }, {} as BaseProps);
-      this.propsMap = Object.assign(defaultProps || {}, receivedProps);
-      this.internalProps = propsStructure.internal;
-      this.propLinks = propsStructure.links;
+      this.propsStructure = getPropsStructure(data, props);
+      this.propsMap = Object.assign(
+        defaultProps || {},
+        this.propsStructure.receivedProps
+      );
       this.dataMap = getOrderedDataPaths(data);
       this.state = this.getState();
       this.listenOnState();
@@ -295,8 +204,8 @@ export function view(component: {
       const state: any = {
         hasError: false
       } as BaseState;
-      this.internalProps.forEach(x => {
-        state[x] = this.propsMap[this.propLinks[x]];
+      this.propsStructure.internal.forEach(x => {
+        state[x] = this.propsMap[this.propsStructure.links[x]];
       });
 
       this.dataMap.forEach(x => {
@@ -330,12 +239,17 @@ export function view(component: {
             acc.aria[x] = this.props[x];
           } else if (/^role/.test(x)) {
             acc.role = this.props[x];
+          } else if (/^className/.test(x)) {
+            acc.className = this.props[x];
           } else {
-            acc.props[x] = this.props[x];
+            if (this.propsStructure.external.includes(x)) {
+              acc.props[x] = this.props[x];
+            }
           }
           return acc;
         },
         {
+          className: undefined,
           data: {},
           props: {},
           aria: {},
@@ -343,10 +257,12 @@ export function view(component: {
         } as any
       );
 
-      return <Component {...this.state} receivedProps={receivedProps} />;
+      return <Component state={this.state} receivedProps={receivedProps} />;
     }
   };
 }
+
+// TODO: When creating the TS interface for a component include all the valid htmlAttributes on it
 
 // TODO: Refactor
 // TopLevel{
