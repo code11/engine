@@ -5,12 +5,20 @@ import { PropsStructure, getPropsStructure } from './getPropsStructure';
 import { RenderComponent } from './renderComponent';
 import { getOrderedDataPaths } from './getOrderedDataPaths';
 
+/**
+ * - Builds up the state
+ * - Creates listeners to react to state changes
+ * - Gives the state to the renderComponent
+ * - Chooses in which view-state/variant the component needs to be in
+ * - Mounts and unmounts children states accordingly
+ */
 export function stateComponent(
   db: any,
   args: any,
   view: any,
   defaultProps: any
 ) {
+  // TODO: Move props logic to PropsComponent
   return class StateComponent extends React.Component<BaseProps, BaseState> {
     static defaultProps = {};
     propsMap: { [key: string]: string } = {};
