@@ -1,4 +1,4 @@
-import { BaseData, BaseProps } from '../types';
+import { BaseData, BaseProps } from './types';
 import htmlElementAttributes from 'react-html-attributes';
 
 htmlElementAttributes['*'];
