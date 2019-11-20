@@ -1,5 +1,5 @@
 {
-  "name": "@c11/ui-engine",
+  "name": "@c11/engine",
   "version": "1.4.3",
   "description": "An UI Engine for Code11 projects",
   "main": "build/main/index.js",

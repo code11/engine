@@ -1,12 +1,12 @@
-const pluginTester = require("babel-plugin-tester").default
-const prettier = require("prettier")
-const plugin = require("babel-plugin-macros")
+const pluginTester = require('babel-plugin-tester').default;
+const prettier = require('prettier');
+const plugin = require('babel-plugin-macros');
 
 pluginTester({
   plugin,
   snapshot: false,
   babelOptions: {
-    filename: __filename,
+    filename: __filename
   },
   formatResult: (result: any) => {
     return prettier.format(result);
@@ -30,7 +30,7 @@ export default view((
     `,
       output: `
 import React from "react";
-import { view } from "@c11/ui-engine";
+import { view } from "@c11/engine";
 import ReactDom from "react-dom";
 export default view({
   args: {
@@ -46,4 +46,4 @@ export default view({
     `
     }
   }
-})
+});
