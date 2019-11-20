@@ -1,16 +1,12 @@
 {
   "name": "@c11/ui-engine",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "An UI Engine for Code11 projects",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "http://34.243.85.53/@code11/ui-engine",
   "license": "UNLICENSED",
   "keywords": [],
-  "publishConfig": {
-    "repository": "http://34.243.85.53"
-  },
   "author": {
     "name": "Constantin Dumitrescu",
     "email": "constantin.dumitrescu@code11.com"

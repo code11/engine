@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://bitbucket.org/code11-com/ui-engine/compare/v1.4.0...v1.4.2) (2019-11-20)
+
+
+
 ### [1.4.1](http://34.243.85.53///compare/v1.4.0...v1.4.1) (2019-11-14)
 
 
