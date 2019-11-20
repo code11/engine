@@ -1,7 +1,7 @@
 # UI Engine
 
 ```javascript
-import { view } from '@code11/ui-engine';
+import { view } from '@code11/engine';
 
 export default {
   args: {
@@ -16,10 +16,9 @@ export default {
 };
 ```
 
-
 ```javascript
-import view from '@c11/ui-engine/view.macro';
-import { IGet } from '@c11/ui-engine';
+import view from '@c11/engine/view.macro';
+import { IGet } from '@c11/engine';
 import State from "./state";
 
 const Get = IGet<State>;
