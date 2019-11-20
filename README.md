@@ -18,8 +18,8 @@ export default {
 
 
 ```javascript
-import view from '@code11/ui-engine/view.macro';
-import { IGet } from '@code11/ui-engine';
+import view from '@c11/ui-engine/view.macro';
+import { IGet } from '@c11/ui-engine';
 import State from "./state";
 
 const Get = IGet<State>;

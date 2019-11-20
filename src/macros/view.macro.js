@@ -1,13 +1,19 @@
 // @ts-nocheck
+const DEFAULT_CONFIG = {
+  importEngine: "@c11/ui-engine",
+  importName: 'view',
+  importAs: 'view'
+}
 const createMacro = require('babel-plugin-macros').createMacro
 
 const webpackCommentImportMacros = ({ references, state, babel }) => {
+  const config = {...DEFAULT_CONFIG, ...(require(state.cwd+"/package.json")['@c11'] || {})}
   // lets walk through all calls of the macro
   references.default.map(referencePath => {
     // check if it is call expression e.g. someFunction("blah-blah")
     if (referencePath.parentPath.isCallExpression()) {
       // call our macro
-      requireWebpackCommentImport({ referencePath, state, babel })
+      requireWebpackCommentImport({ referencePath, state, babel, config })
     } else {
       // fail otherwise
       throw new Error(
@@ -28,7 +34,7 @@ const collect = (expr, ar = []) => {
   return ar
 }
 
-const requireWebpackCommentImport = ({ referencePath, state, babel }) => {
+const requireWebpackCommentImport = ({ referencePath, state, babel, config }) => {
   const t = babel.types
   const node = referencePath.parentPath.node
   const viewFunc = node.arguments[0]
@@ -56,7 +62,8 @@ const requireWebpackCommentImport = ({ referencePath, state, babel }) => {
     .get("body")
     .find(p => p.isImportDeclaration() && p.node.source.value.indexOf("view.macro") !== -1)
 
-  const viewImport = t.importDeclaration([t.importSpecifier(t.identifier('view'), t.identifier('view'))], t.stringLiteral('@c11/ui-engine'))
+
+  const viewImport = t.importDeclaration([t.importSpecifier(t.identifier(config.importName), t.identifier(config.importAs))], t.stringLiteral(config.importEngine))
   macroImport.insertAfter(viewImport)
 
   viewFunc.params = [t.objectPattern(fArguments)]
