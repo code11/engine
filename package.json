@@ -21,8 +21,9 @@
   "scripts": {
     "describe": "npm-scripts-info",
     "build": "run-s clean && run-p build:*",
-    "build:main": "tsc -p tsconfig.json && cp src/macros/* build/main",
-    "build:module": "tsc -p tsconfig.module.json && cp src/macros/* build/module",
+    "build:macro": "cp src/macros/* ./",
+    "build:main": "tsc -p tsconfig.json",
+    "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:tslint": "tslint --fix --project .",
