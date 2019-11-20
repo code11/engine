@@ -9,7 +9,9 @@ pluginTester({
     filename: __filename
   },
   formatResult: (result: any) => {
-    return prettier.format(result);
+    return prettier.format(result, {
+      parser: 'babel'
+    });
   },
   tests: {
     'does not change this': '\n\nexport const State = initialState;\n\n',
