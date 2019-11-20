@@ -30,7 +30,7 @@ export default view((
     `,
       output: `
 import React from "react";
-import { view } from "@code11/ui-engine";
+import { view } from "@c11/ui-engine";
 import ReactDom from "react-dom";
 export default view({
   args: {

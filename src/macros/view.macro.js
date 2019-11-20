@@ -56,7 +56,7 @@ const requireWebpackCommentImport = ({ referencePath, state, babel }) => {
     .get("body")
     .find(p => p.isImportDeclaration() && p.node.source.value.indexOf("view.macro") !== -1)
 
-  const viewImport = t.importDeclaration([t.importSpecifier(t.identifier('view'), t.identifier('view'))], t.stringLiteral('@code11/ui-engine'))
+  const viewImport = t.importDeclaration([t.importSpecifier(t.identifier('view'), t.identifier('view'))], t.stringLiteral('@c11/ui-engine'))
   macroImport.insertAfter(viewImport)
 
   viewFunc.params = [t.objectPattern(fArguments)]
