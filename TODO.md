@@ -80,3 +80,43 @@ C
 foo1: /foo
 
 A, B, C
+
+TODO: Fix changelog generation
+
+view((
+id = Get.foo.selectedI,
+item = Get.foo.list['$id'],
+baz = Set.foo.baz
+) => {
+return <div onClick={baz}></div>
+})
+
+const view = {
+data: {
+
+},
+operations: {
+
+},
+utils: {
+  
+ },
+fn: ({}) => {
+
+}
+}
+
+const producer = {
+data: {
+
+},
+operations: {
+
+},
+utils: {
+  
+ },
+fn: ({ }) => {
+
+}
+}
