@@ -3,8 +3,14 @@ image: node:10.15.3
 pipelines:
   default:
     - step:
+        deployment: npmjs
         caches:
           - node
         script: # Modify the commands below to build your repository.
+          # check if the version has changed
           - npm install
           - npm test
+          - npm build
+          - pipe: atlassian/npm-publish:0.2.5
+            variables:
+              NPM_TOKEN: $NPM_TOKEN
