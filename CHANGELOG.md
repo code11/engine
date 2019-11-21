@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.5](https://bitbucket.org/code11-com/engine/compare/v1.4.4...v1.4.5) (2019-11-21)
+
+
+### Build System
+
+* **version:** add npm run version:major script ([1473e5a](https://bitbucket.org/code11-com/engine/commit/1473e5a))
+* **version:** add standard-version configuration to include other types ([8be0a71](https://bitbucket.org/code11-com/engine/commit/8be0a71))
+
+
+### Tests
+
+* **view:** import propsComponent to also run in the tests ([3676e14](https://bitbucket.org/code11-com/engine/commit/3676e14))
+* **view-macro:** add babel parser to prettier ([d5382d0](https://bitbucket.org/code11-com/engine/commit/d5382d0))
+
+
+
 ### [1.4.4](https://bitbucket.org/code11-com/engine/compare/v1.4.3...v1.4.4) (2019-11-20)
 
 
