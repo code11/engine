@@ -38,7 +38,8 @@
     "version": "standard-version",
     "reset": "echo \"should clone into a repo and do things from scratch\"",
     "clean": "trash build test",
-    "prepare-release": "run-s reset test version"
+    "prepare-release": "run-s reset test version",
+    "commit" : "git-cz"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -79,6 +80,7 @@
     "babel-plugin-macros": "^2.6.2",
     "babel-plugin-tester": "^8.0.0",
     "browser-env": "^3.3.0",
+    "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^2.1.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
