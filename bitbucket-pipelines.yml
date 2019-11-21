@@ -1,8 +1,9 @@
 image: node:10.15.3
 
 pipelines:
-  default:
-    - step:
+  tags:
+    v*:
+      - step:
         deployment: production
         caches:
           - node

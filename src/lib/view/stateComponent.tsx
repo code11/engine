@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import isEqual from 'lodash/isEqual';
 import { BaseState, BaseProps, DataPathStructure } from './types';
 import { PropsStructure, getPropsStructure } from './getPropsStructure';
 import { RenderComponent } from './renderComponent';
 import { getOrderedDataPaths } from './getOrderedDataPaths';
+import DbContext from '../context';
 
 /**
  * - Builds up the state
@@ -20,6 +21,7 @@ export function stateComponent(
 ) {
   // TODO: Move props logic to PropsComponent
   return class StateComponent extends React.Component<BaseProps, BaseState> {
+    static contextType = DbContext;
     static defaultProps = {};
     propsMap: { [key: string]: string } = {};
     propsStructure: PropsStructure;
@@ -79,7 +81,7 @@ export function stateComponent(
     }
 
     listenOnPath(name: string, path: string) {
-      const unsubscriber = db.on(path, (x: any) => {
+      const unsubscriber = this.context.db.on(path, (x: any) => {
         this.setState({
           [name]: x
         });
