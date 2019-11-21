@@ -8,9 +8,9 @@ pipelines:
           - node
         script: # Modify the commands below to build your repository.
           # check if the version has changed
-          - npm install
-          - npm test
-          - npm build
+          - yarn install
+          - yarn test
+          - yarn build
           - pipe: atlassian/npm-publish:0.2.5
             variables:
               NPM_TOKEN: $NPM_TOKEN
