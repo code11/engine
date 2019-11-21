@@ -54,8 +54,12 @@ export interface DB {
   patch(patches: Patches): void;
 }
 
+export const producers: any[] = [];
+
 export function producer(body: Body) {
   const db = window.db;
+
+  producers.push(body);
 
   const lib = {
     patch: patch(db, body),
