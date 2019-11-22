@@ -57,19 +57,20 @@ export interface DB {
 export const producers: any[] = [];
 
 export function producer(body: Body) {
-  const db = window.db;
 
   producers.push(body);
 
-  const lib = {
-    patch: patch(db, body),
-    log: log(db, body),
-    add: add(db, body),
-    remove: remove(db, body),
-    merge: merge(db, body),
-    get: get(db, body),
-    on: on(db, body)
-  };
+  return ((db: any) => {
+    const lib = {
+      patch: patch(db, body),
+      log: log(db, body),
+      add: add(db, body),
+      remove: remove(db, body),
+      merge: merge(db, body),
+      get: get(db, body),
+      on: on(db, body)
+    };
+    const unsub = mount(db, body, lib);
+  })
 
-  const unsub = mount(db, body, lib);
 }

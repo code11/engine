@@ -5,15 +5,13 @@ import { DbProvider } from '../context';
 
 export const engine = (config: any) => {
   const DB = db(config.initialState);
-  const context = React.createContext({});
-  const Provider = context.Provider;
   return {
     start: () => {
-      config.producers.forEach((x: Function) => {
+      (config.producers || []).forEach((x: Function) => {
         x(DB);
       });
       ReactDOM.render(
-        <DbProvider value={{ db: DB }}>{config.app}</DbProvider>,
+        <DbProvider value={{db: DB}}>{config.view}</DbProvider>,
         config.root
       );
     }

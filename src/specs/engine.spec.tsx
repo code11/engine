@@ -29,7 +29,6 @@ test.only('Engine should get a config file and properly set up the application',
   };
 
   const Component = view(component);
-  jest.runAllTimers();
 
   const Producer = producer({
     args: {
@@ -45,16 +44,15 @@ test.only('Engine should get a config file and properly set up the application',
   });
 
   const producers = [Producer];
-
   const config = {
     root: root,
     view: <Component />,
-    producers,
+    producers: producers,
     initialState: state,
     utils: {}
   };
-
   const engineInstance = engine(config);
   engineInstance.start();
+  jest.runAllTimers();
   expect((document.getElementById('foo') as any).textContent).toBe(newValue);
 });
