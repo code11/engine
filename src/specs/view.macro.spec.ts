@@ -1,6 +1,6 @@
-const pluginTester = require('babel-plugin-tester').default;
-const prettier = require('prettier');
-const plugin = require('babel-plugin-macros');
+const pluginTester = require('babel-plugin-tester').default
+const prettier = require('prettier')
+const plugin = require('babel-plugin-macros')
 
 pluginTester({
   plugin,
@@ -9,12 +9,12 @@ pluginTester({
     filename: __filename
   },
   formatResult: (result: any) => {
-    return prettier.format(result);
+    return prettier.format(result)
   },
   tests: {
     'does not change this': '\n\nexport const State = initialState;\n\n',
     'does not change this2': 'module.exports.State = intiailState;',
-    'changes this code': {
+    'transforms defaults to arrays': {
       code: `
 import React from 'react'
 import view from '../macros/view.macro'
@@ -26,8 +26,7 @@ export default view((
 ) => {
   console.log('Icon render', isOpen, openPopUp)
   return !isOpen && "HTML"
-})
-    `,
+})`,
       output: `
 import React from "react";
 import { view } from "@c11/engine";
@@ -42,8 +41,68 @@ export default view({
     console.log("Icon render", isOpen, openPopUp);
     return !isOpen && "HTML";
   }
+});`
+    },
+    'can parse default value': {
+      code: `
+import React from 'react'
+import view from '../macros/view.macro'
+import ReactDom from 'react-dom'
+export default view((
+  isOpen = Get.notificationsPopup.visible || false
+) => {})
+    `,
+      output: `
+import React from "react";
+import { view } from "@c11/engine";
+import ReactDom from "react-dom";
+export default view({
+  args: {
+    isOpen: [
+      "Func",
+      {
+        args: [["Get", "notificationsPopup", "visible"]],
+        fn: param0 => {
+          return param0 || false;
+        }
+      }
+    ]
+  },
+  fn: ({ isOpen }) => {}
+});
+    `
+    },
+    'handles complex expressions': {
+      code: `
+import React from 'react'
+import view from '../macros/view.macro'
+import ReactDom from 'react-dom'
+export default view((
+  isOpen = Get.foo && (Get.bar.baz < 7) || 'foobar'
+) => {})
+    `,
+      output: `
+import React from "react";
+import { view } from "@c11/engine";
+import ReactDom from "react-dom";
+export default view({
+  args: {
+    isOpen: [
+      "Func",
+      {
+        args: [
+          ["Get", "bar", "baz"],
+          ["Get", "foo"]
+        ],
+        fn: (param0, param1) => {
+          return (param1 && param0 < 7) || "foobar";
+        }
+      }
+    ]
+  },
+  fn: ({ isOpen }) => {}
 });
     `
     }
   }
-});
+})
