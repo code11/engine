@@ -3,7 +3,7 @@ import React, { DOMElement } from 'react';
 import db from 'jsonmvc-datastore';
 import { DbProvider } from '../context';
 
-interface engineConfig {
+export interface EngineConfig {
   producers: any[],
   view: JSX.Element,
   initialState: {
@@ -13,10 +13,9 @@ interface engineConfig {
   utils: {
     [key: string]: Function
   }
-
 }
 
-export const engine = (config: engineConfig) => {
+export const engine = (config: EngineConfig) => {
   const DB = db(config.initialState);
   return {
     start: () => {

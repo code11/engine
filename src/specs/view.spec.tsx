@@ -118,7 +118,8 @@ test.only('Should propate change after patch', () => {
     initialState: state,
     producers,
     view: <Component />,
-    root
+    root,
+    utils: {}
   })
   engineInstance.start();
   jest.runAllTimers();
