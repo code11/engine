@@ -55,14 +55,15 @@
     "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
   },
   "engines": {
-    "node": ">=8.9"
+    "node": ">=9"
   },
   "dependencies": {
-    "@types/react-dom": "^16.9.4",
     "jsonmvc-datastore": "^0.3.35",
     "kebab-case": "^1.0.0",
-    "react": "^16.12.0",
     "react-html-attributes": "^1.4.6"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
