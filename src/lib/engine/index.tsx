@@ -1,9 +1,22 @@
 import ReactDOM from 'react-dom';
-import React from 'react';
+import React, { DOMElement } from 'react';
 import db from 'jsonmvc-datastore';
 import { DbProvider } from '../context';
 
-export const engine = (config: any) => {
+interface engineConfig {
+  producers: any[],
+  view: JSX.Element,
+  initialState: {
+    [key: string]: string
+  },
+  root: Element | HTMLDivElement,
+  utils: {
+    [key: string]: Function
+  }
+
+}
+
+export const engine = (config: engineConfig) => {
   const DB = db(config.initialState);
   return {
     start: () => {
