@@ -1,0 +1,17 @@
+image: node:10.15.3
+
+pipelines:
+  tags:
+    v*:
+      - step:
+        deployment: production
+        caches:
+          - node
+        script: # Modify the commands below to build your repository.
+          # check if the version has changed
+          - yarn install
+          - yarn test
+          - yarn build
+          - pipe: atlassian/npm-publish:0.2.5
+            variables:
+              NPM_TOKEN: $NPM_TOKEN

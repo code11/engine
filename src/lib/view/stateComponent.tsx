@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import isEqual from 'lodash/isEqual';
 import { BaseState, BaseProps, DataPathStructure } from './types';
 import { PropsStructure, getPropsStructure } from './getPropsStructure';
 import { RenderComponent } from './renderComponent';
 import { getOrderedDataPaths } from './getOrderedDataPaths';
+import DbContext from '../context';
 
 /**
  * - Builds up the state
@@ -20,54 +21,55 @@ export function stateComponent(
 ) {
   // TODO: Move props logic to PropsComponent
   return class StateComponent extends React.Component<BaseProps, BaseState> {
+    static contextType = DbContext;
     static defaultProps = {};
     propsMap: { [key: string]: string } = {};
     propsStructure: PropsStructure;
     dataMap: DataPathStructure[] = [];
     dataListeners: { [key: string]: { (): void } } = {};
-    constructor(props: BaseProps) {
-      super(props);
+    constructor(props: BaseProps, context: any) {
+      super(props, context);
       this.propsStructure = getPropsStructure(args, props);
       this.propsMap = Object.assign(
         defaultProps || {},
         this.propsStructure.receivedProps
-      );
-      this.dataMap = getOrderedDataPaths(args);
-      this.state = this.getState();
-      this.listenOnState();
-    }
-
-    componentDidMount() {
-      // console.log('Component mounted');
-    }
-    componentWillUnmount() {
-      this.unsubscribeDataListeners();
-    }
-
-    shouldComponentUpdate(nextProps: any, nextState: any) {
-      if (!isEqual(nextProps, this.props)) {
-        this.propsMap = nextProps;
-        this.setState(this.getState());
-        // TODO: Remove this - this.setState is async!
-        setTimeout(() => {
-          this.listenOnState();
-        });
+        );
+        this.dataMap = getOrderedDataPaths(args);
+        this.state = this.getState();
+        this.listenOnState();
       }
-      return true;
-    }
-
-    componentDidUpdate(prevProps: BaseProps, prevState: BaseState) {
-      prevProps;
-      prevState;
-    }
-    // TODO: Figure out how to catch errors that originate from handlers
-    componentDidCatch(error: Error, info: React.ErrorInfo) {
-      console.error(error);
-    }
-
-    static getDerivedStateFromError(e: any) {
-      return {
-        hasError: true,
+      
+      componentDidMount() {
+        // console.log('Component mounted');
+      }
+      componentWillUnmount() {
+        this.unsubscribeDataListeners();
+      }
+      
+      shouldComponentUpdate(nextProps: any, nextState: any) {
+        if (!isEqual(nextProps, this.props)) {
+          this.propsMap = nextProps;
+          this.setState(this.getState());
+          // TODO: Remove this - this.setState is async!
+          setTimeout(() => {
+            this.listenOnState();
+          });
+        }
+        return true;
+      }
+      
+      componentDidUpdate(prevProps: BaseProps, prevState: BaseState) {
+        prevProps;
+        prevState;
+      }
+      // TODO: Figure out how to catch errors that originate from handlers
+      componentDidCatch(error: Error, info: React.ErrorInfo) {
+        console.error(error);
+      }
+      
+      static getDerivedStateFromError(e: any) {
+        return {
+          hasError: true,
         errorMessage: e.message
       } as BaseState;
     }
@@ -79,7 +81,7 @@ export function stateComponent(
     }
 
     listenOnPath(name: string, path: string) {
-      const unsubscriber = db.on(path, (x: any) => {
+      const unsubscriber = this.context.db.on(path, (x: any) => {
         this.setState({
           [name]: x
         });
@@ -130,14 +132,14 @@ export function stateComponent(
       this.propsStructure.internal.forEach(x => {
         state[x] = this.propsMap[this.propsStructure.links[x]];
       });
-
+      
       this.dataMap.forEach(x => {
         if (typeof x.path === 'string') {
-          state[x.name] = db.get(x.path);
+          state[x.name] = this.context.db.get(x.path);
         } else {
           const path = x.path(state, this.propsMap);
           if (path !== undefined) {
-            state[x.name] = db.get(path);
+            state[x.name] = this.context.db.get(path);
           }
         }
       });
