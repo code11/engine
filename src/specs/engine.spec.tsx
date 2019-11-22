@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from 'react';
-import { producer, view, engine } from '../index';
+import { producer, view, engine, EngineConfig } from '../index'
 
 import browserEnv from 'browser-env';
 import cloneDeep from 'lodash/cloneDeep';
@@ -44,7 +44,7 @@ test.only('Engine should get a config file and properly set up the application',
   });
 
   const producers = [Producer];
-  const config = {
+  const config: EngineConfig = {
     root: root,
     view: <Component />,
     producers: producers,
