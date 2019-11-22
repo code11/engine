@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from 'react';
-import { view } from '../index';
+import { view, engine, producer } from '../index';
 import browserEnv from 'browser-env';
 import dbFn from 'jsonmvc-datastore';
 import cloneDeep from 'lodash/cloneDeep';
@@ -83,12 +83,12 @@ test('Should receive directly passed properties', () => {
   expect(el.find('#prop2').text()).toBe(prop2);
 });
 
-test('Should propate change after patch', () => {
+test.only('Should propate change after patch', () => {
+  const root = document.createElement('div');
+  document.body.appendChild(root);
   const state = {
     foo: '123'
   };
-  const db = dbFn(cloneDeep(state));
-  (window as any).db = db;
 
   const component = {
     args: {
@@ -97,23 +97,33 @@ test('Should propate change after patch', () => {
     fn: ({ foo }: any) => <div id="foo">{foo}</div>
   };
   const Component = view(component);
-  const el = Enzyme.mount(<Component></Component>);
-
-  expect(el.find('#foo').text()).toBe(state.foo);
-
   const newValue = '123 123';
 
-  db.patch([
-    {
-      op: 'add',
-      path: '/foo',
-      value: newValue
+  const Producer = producer({
+    args: {
+      foo: '/foo'
+    },
+    fn: ({foo}) => {
+      return {
+        op: 'add',
+        path: '/foo',
+        value: newValue
+      }
     }
-  ]);
+  })
 
+  const producers = [Producer]
+
+  const engineInstance = engine({
+    initialState: state,
+    producers,
+    view: <Component />,
+    root
+  })
+  engineInstance.start();
   jest.runAllTimers();
-  el.update();
-  expect(el.find('#foo').text()).toBe(newValue);
+  expect((document.getElementById('foo') as any).textContent).toBe(newValue);
+
 });
 
 test('Should propagate property changes', () => {

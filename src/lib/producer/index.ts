@@ -54,18 +54,23 @@ export interface DB {
   patch(patches: Patches): void;
 }
 
+export const producers: any[] = [];
+
 export function producer(body: Body) {
-  const db = window.db;
 
-  const lib = {
-    patch: patch(db, body),
-    log: log(db, body),
-    add: add(db, body),
-    remove: remove(db, body),
-    merge: merge(db, body),
-    get: get(db, body),
-    on: on(db, body)
-  };
+  producers.push(body);
 
-  const unsub = mount(db, body, lib);
+  return ((db: any) => {
+    const lib = {
+      patch: patch(db, body),
+      log: log(db, body),
+      add: add(db, body),
+      remove: remove(db, body),
+      merge: merge(db, body),
+      get: get(db, body),
+      on: on(db, body)
+    };
+    const unsub = mount(db, body, lib);
+  })
+
 }

@@ -3,6 +3,10 @@ import { BaseState, BaseProps, GenericState } from './types';
 
 import { stateComponent } from './stateComponent';
 
+import { propsComponent } from './propsComponent';
+
+propsComponent;
+
 // FEAT: Rollback mechanism
 
 export function view(component: {
