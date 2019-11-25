@@ -10,4 +10,3 @@ coverage
 package-lock.json
 build
 .vscode
-/*.macro.js
