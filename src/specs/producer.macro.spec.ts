@@ -18,15 +18,15 @@ pluginTester({
     'does not change this2': 'module.exports.State = intiailState;',
     'transforms defaults to arrays': {
       code: `
-  import provider from '../../provider.macro'
-  export default provider((
+  import producer from '../../producer.macro'
+  export default producer((
     isOpen = Get.notificationsPopup.visible,
     openPopUp = Set.currentPopup,
     t = Get.utils.i18n
   ) => {})`,
       output: `
-  import { provider } from "@c11/engine";
-  export default provider({
+  import { producer } from "@c11/engine";
+  export default producer({
     args: {
       isOpen: ["Get", "notificationsPopup", "visible"],
       openPopUp: ["Set", "currentPopup"],
@@ -37,14 +37,14 @@ pluginTester({
     },
     'can parse default value': {
       code: `
-  import provider from '../../provider.macro'
-  export default provider((
+  import producer from '../../producer.macro'
+  export default producer((
     isOpen = Get.notificationsPopup.visible || false
   ) => {})
       `,
       output: `
-  import { provider } from "@c11/engine";
-  export default provider({
+  import { producer } from "@c11/engine";
+  export default producer({
     args: {
       isOpen: [
         "Func",
@@ -60,16 +60,41 @@ pluginTester({
   });
       `
     },
+    'can parse binary exprssion': {
+      code: `
+  import producer from '../../producer.macro'
+  export default producer((
+    isOpen = Get.notificationsPopup.visible === true
+  ) => {})
+      `,
+      output: `
+  import { producer } from "@c11/engine";
+  export default producer({
+    args: {
+      isOpen: [
+        "Func",
+        {
+          args: [["Get", "notificationsPopup", "visible"]],
+          fn: param0 => {
+            return param0 === true;
+          }
+        }
+      ]
+    },
+    fn: ({ isOpen }) => {}
+  });
+      `
+    },
     'handles complex expressions': {
       code: `
-  import provider from '../../provider.macro'
-  export default provider((
+  import producer from '../../producer.macro'
+  export default producer((
     isOpen = Get.foo && (Get.bar.baz < 7) || 'foobar'
   ) => {})
       `,
       output: `
-  import { provider } from "@c11/engine";
-  export default provider({
+  import { producer } from "@c11/engine";
+  export default producer({
     args: {
       isOpen: [
         "Func",
