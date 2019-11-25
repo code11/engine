@@ -8,13 +8,46 @@ export enum OperationTypes {
   REF = 'REF'
 }
 
+export enum StructureTypes {
+  STATIC = 'STATIC',
+  MAP = 'MAP'
+}
+
+export enum PathValueTypes {
+  PLAIN = 'PLAIN',
+  EXTERNAL = 'EXTERNAL',
+  INTERNAL = 'INTERNAL',
+  INVOKE = 'INVOKE'
+}
+
+export interface PathValue {
+  type: PathValueTypes;
+  value: string;
+}
+
+export interface StaticValue {
+  type: StructureTypes.STATIC;
+  value: any;
+}
+
+export type Path = PathValue[];
+
 export interface Operation {
   type: OperationTypes;
-  path: string[];
+  path: Path;
+}
+
+export type ArgValue = Operation | NestedArgs | StaticValue;
+
+export interface NestedArgs {
+  type: StructureTypes.MAP;
+  args: {
+    [key: string]: ArgValue;
+  };
 }
 
 export interface ProducerArgs {
-  [key: string]: Operation | ProducerArgs;
+  [key: string]: ArgValue;
 }
 
 export interface ProducerData {
@@ -29,7 +62,9 @@ export interface ProducerConfig {
 }
 
 export interface ProducerInstance {
-  mount: () => {};
+  mount: () => void;
+  unmount: () => void;
+  update: () => void;
 }
 
 export interface ProducerContext {

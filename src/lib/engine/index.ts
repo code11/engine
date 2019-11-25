@@ -1,19 +1,21 @@
-export * from './context';
+import { ProducerConfig } from '../producer';
+
+export * from '../view/react/context';
 export * from './engine';
 
 export interface EngineConfig {
   producers?: {
-    list: any[];
+    list: ProducerConfig[];
   };
   view?: {
     element: JSX.Element;
     root: Element | HTMLDivElement;
   };
-  state?: {
+  state: {
     default: {
       [key: string]: any;
     };
-    schema: any;
+    schema?: any;
   };
 }
 
