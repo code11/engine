@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://bitbucket.org/code11-com/engine/compare/v1.4.7...v1.5.0) (2019-11-25)
+
+
+### Features
+
+* **provider:** Added the provider macro ([488c085](https://bitbucket.org/code11-com/engine/commit/488c0859d3507fe7a91cb3e7178785ac32b8333d))
+
+
+### Code Refactoring
+
+* wIP. setup the new types and relationship structure in lib ([8d88743](https://bitbucket.org/code11-com/engine/commit/8d88743083e2c2a3417cfb64834cd94bd2335400))
+
 ### [1.4.7](https://bitbucket.org/code11-com/engine/compare/v1.4.6...v1.4.7) (2019-11-22)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine",
-  "version": "1.4.7",
+  "version": "1.5.0",
   "description": "An UI Engine for Code11 projects",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
