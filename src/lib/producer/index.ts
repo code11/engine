@@ -10,7 +10,8 @@ export enum OperationTypes {
 
 export enum StructureTypes {
   STATIC = 'STATIC',
-  MAP = 'MAP'
+  MAP = 'MAP',
+  FUNC = 'FUNC'
 }
 
 export enum PathValueTypes {
@@ -37,14 +38,20 @@ export interface Operation {
   path: Path;
 }
 
-export type ArgValue = Operation | NestedArgs | StaticValue;
-
-export interface NestedArgs {
+export interface NestedArg {
   type: StructureTypes.MAP;
   args: {
     [key: string]: ArgValue;
   };
 }
+
+export interface FuncArg {
+  type: StructureTypes.FUNC;
+  args: ArgValue[];
+  fn: (...param: any) => any;
+}
+
+export type ArgValue = Operation | NestedArg | StaticValue | FuncArg;
 
 export interface ProducerArgs {
   [key: string]: ArgValue;
