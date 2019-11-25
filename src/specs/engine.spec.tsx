@@ -1,14 +1,40 @@
-// tslint:disable:no-expression-statement
 import React from 'react';
-import { producer, view, engine, EngineConfig } from '../index'
+import { render, fireEvent, waitForElement } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import { Engine, view, producer, OperationTypes } from '../index';
 
-import browserEnv from 'browser-env';
-import cloneDeep from 'lodash/cloneDeep';
+function getRoot() {
+  const el = document.createElement('div');
+  el.setAttribute('id', 'root');
+  return el;
+}
+
+afterEach(() => {});
 
 jest.useFakeTimers();
-browserEnv();
-
 test.only('Engine should get a config file and properly set up the application', () => {
+  const App = view({
+    args: {
+      foo: {
+        type: OperationTypes.GET,
+        path: ['foo']
+      }
+    },
+    fn: ({ foo }: any) => {
+      return <div>{foo}</div>;
+    }
+  });
+  const config = {
+    view: {
+      element: App,
+      root: getRoot()
+    }
+  };
+
+  const engine = new Engine(config);
+  engine.start();
+
+  /*
   const root = document.createElement('div');
   document.body.appendChild(root);
 
@@ -55,4 +81,5 @@ test.only('Engine should get a config file and properly set up the application',
   engineInstance.start();
   jest.runAllTimers();
   expect((document.getElementById('foo') as any).textContent).toBe(newValue);
+  */
 });

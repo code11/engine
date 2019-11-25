@@ -1,10 +1,22 @@
+declare module 'react-html-attributes' {
+  interface Elements {
+    [key: string]: any;
+  }
+  interface Attr {
+    '*': string[];
+    elements: Elements;
+  }
+  const attr: Attr;
+  export default attr;
+}
+
 declare module 'jsonmvc-datastore' {
   interface Patch {
     op: string;
     path: string;
     value?: any;
   }
-  interface DB {
+  export interface DB {
     node(
       path: string,
       args: { [key: string]: string },
@@ -15,6 +27,11 @@ declare module 'jsonmvc-datastore' {
     on(path: string, cb: (value: any) => void): () => void;
     patch(patches: Patch[]): void;
   }
-  function dbFn(obj: object): DB;
+  export function dbFn(obj: object): DB;
   export default dbFn;
+}
+
+declare module 'kebab-case' {
+  function fn(str: string): string;
+  export default fn;
 }
