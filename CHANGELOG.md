@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://bitbucket.org/code11-com/engine/compare/v1.5.1...v1.5.2) (2019-11-25)
+
+
+### Code Refactoring
+
+* renamed provider to producer ([3e2c7b0](https://bitbucket.org/code11-com/engine/commit/3e2c7b0e46095c2cff301b4ab7266ecfecb3c675))
+
 ### [1.5.1](https://bitbucket.org/code11-com/engine/compare/v1.5.0...v1.5.1) (2019-11-25)
 
 ## [1.5.0](https://bitbucket.org/code11-com/engine/compare/v1.4.7...v1.5.0) (2019-11-25)
