@@ -5,9 +5,9 @@ const DEFAULT_CONFIG = {
     imported: 'view',
     engine: '@c11/engine',
   },
-  provider: {
-    local: 'provider',
-    imported: 'provider',
+  producer: {
+    local: 'producer',
+    imported: 'producer',
     engine: '@c11/engine',
   }
 

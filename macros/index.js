@@ -3,7 +3,7 @@ const t = require("@babel/types")
 
 const transformParams = (params, referencePath, fArguments, args) => {
   params.forEach((a, i) => {
-    if (a.type === 'AssignmentPattern') {
+    if (t.isAssignmentPattern(a)) {
       const paramName = a.left
       const paramPath = referencePath.parentPath.get(`arguments.0.params.${i}`)
 
@@ -17,7 +17,7 @@ const transformParams = (params, referencePath, fArguments, args) => {
             t.arrayExpression(ar.map(a => t.stringLiteral(a)))
           )
         )
-      } else if (t.isLogicalExpression(a.right)) {
+      } else if (t.isLogicalExpression(a.right) || t.isBinaryExpression(a.right)) {
         const localArgs = []
         const visitor = utils.parseExpression(localArgs)
         paramPath.traverse({

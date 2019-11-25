@@ -15,3 +15,8 @@ coverage
 .editorconfig
 TODO.md
 jest.config.js
+.idea
+.npmignore
+.yarn.lock
+.package-lock.json
+*.tgz
