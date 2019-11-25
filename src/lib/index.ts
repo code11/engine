@@ -1,3 +1,3 @@
 export * from './engine';
 export * from './producer';
-export * from './view/index';
+export * from './view';

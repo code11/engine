@@ -1,72 +1,68 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import db from 'jsonmvc-datastore';
-import { EngineProvider } from './context';
 import { EngineConfig } from './';
-import { ProducerInstance } from '../index';
-import { ProducerContext } from '../producer';
+import {
+  ProducerInstance,
+  ProducerContext,
+  Producer,
+  Render,
+  RenderInstance
+} from '../index';
+
+enum EngineState {
+  NOT_INITIALIZED,
+  RUNNING,
+  STOPPED
+}
 
 export class Engine {
-  initialized = false;
-  config: EngineConfig;
-  producers: ProducerInstance[] = [];
-  view: Element | null = null;
-  context: ProducerContext | null = null;
+  state: EngineState = EngineState.NOT_INITIALIZED;
+  private config: EngineConfig;
+  private producers: ProducerInstance[] | null = null;
+  private render: RenderInstance | null = null;
+  private context: ProducerContext;
   constructor(config: EngineConfig) {
     this.config = config;
+    this.context = {
+      db: db(config.state.default)
+    };
   }
 
   private init() {
-    this.initialized = true;
-    this.context = {
-      db: db(this.config.state.default)
-    };
-    if (this.config.producers) {
-      this.producers = this.config.producers.map(x => {
-        return x();
+    const { view, producers } = this.config;
+    if (producers) {
+      this.producers = producers.list.map(config => {
+        const producer = new Producer(config, this.context);
+        producer.mount();
+        return producer;
       });
     }
-    if (this.config.view) {
-      this.view = ReactDOM.render(
-        <EngineProvider value={context}>{config.view}</EngineProvider>,
-        config.root
-      );
+    if (view) {
+      this.render = new Render(this.context, view.element, view.root);
+      this.render.mount();
     }
+    this.state = EngineState.RUNNING;
   }
 
-  private resume() {}
+  // private resume() {}
 
-  start() {
-    if (!this.initialized) {
+  /**
+   * Mounts the application and the producers.
+   * ```
+   * const engine = new Engine(config).start()
+   * ```
+   */
+  start(): Engine {
+    if (this.state === EngineState.NOT_INITIALIZED) {
       this.init();
+    } else if (this.state === EngineState.STOPPED) {
+      // this.resume();
     } else {
-      this.resume();
+      // nothing, engine already running
     }
+    return this;
   }
-  stop() {}
-  update() {
-    // for views ReactDOM.unmountComponentAtNode(container)
-  }
+  // stop() {}
+  // update() {
+  // for views ReactDOM.unmountComponentAtNode(container)
+  // }
 }
-
-export const engine = (config: EngineConfig): EngineApi => {
-  const DB = db(config.initialState);
-  const context = {
-    db: DB
-  };
-  let producers;
-  let view;
-  producers;
-  view;
-  return {
-    start: () => {},
-    update: () => {},
-    /**
-     * Will halt all execution.
-     * This could be resumed from start.
-     */
-    stop: () => {
-      throw new Error('Not implemented');
-    }
-  };
-};
