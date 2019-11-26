@@ -105,6 +105,24 @@ export default view({
   fn: ({ isOpen }) => {}
 });
     `
+    },
+    "static values": {
+      code: `
+import view from '../../view.macro'
+export default view((
+  foo = 'bar',
+  justAProp
+) => {})`
+      ,
+      output: `
+import { view } from "@c11/engine";
+export default view({
+  args: {
+    foo: "bar",
+    justAProp: ["Prop", "justAProp"]
+  },
+  fn: ({ foo, justAProp }) => {}
+});`
     }
   }
 })

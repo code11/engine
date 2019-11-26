@@ -1,15 +1,28 @@
 const utils = require('./utils')
-const t = require("@babel/types")
+const t = require('@babel/types')
 
 const transformParams = (params, referencePath, fArguments, args) => {
   params.forEach((a, i) => {
-    if (t.isAssignmentPattern(a)) {
+    if (t.isIdentifier(a)) {
+      fArguments.push(t.objectProperty(a, a, false, true))
+      args.push(t.objectProperty(a,
+        t.arrayExpression([
+          t.stringLiteral('Prop'),
+          t.stringLiteral(a.name)
+        ])
+      ))
+    } else if (t.isAssignmentPattern(a)) {
       const paramName = a.left
       const paramPath = referencePath.parentPath.get(`arguments.0.params.${i}`)
 
       fArguments.push(t.objectProperty(paramName, paramName, false, true))
 
-      if (t.isMemberExpression(a.right)) {
+      if (t.isLiteral(a.right)) {
+        args.push(t.objectProperty(
+          paramName,
+          a.right
+        ))
+      } else if (t.isMemberExpression(a.right)) {
         const ar = utils.collect(a.right)
         args.push(
           t.objectProperty(
