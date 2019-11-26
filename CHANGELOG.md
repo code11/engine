@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://bitbucket.org/code11-com/engine/compare/v1.5.2...v1.6.0) (2019-11-26)
+
+
+### Features
+
+* **macro:** parse static props and static values ([1444ba8](https://bitbucket.org/code11-com/engine/commit/1444ba84a5109acef02b5bf54008fa4d613a81a0))
+
+
+### Code Refactoring
+
+* add function type for producer args ([1c76d3d](https://bitbucket.org/code11-com/engine/commit/1c76d3d01a80158efddf4ca6c57bf9752e152f07))
+* create a coherent type structure ([8a4f765](https://bitbucket.org/code11-com/engine/commit/8a4f7659d381ab80e54736fe76dfe05a26c3778b))
+
 ### [1.5.2](https://bitbucket.org/code11-com/engine/compare/v1.5.1...v1.5.2) (2019-11-25)
 
 
