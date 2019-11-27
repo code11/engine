@@ -32,3 +32,9 @@ export default view((
   </div>
 ));
 ```
+
+## Macro props references:
+
+external: @
+internal: \$
+invokable: :
