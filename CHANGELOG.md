@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://bitbucket.org/code11-com/engine/compare/v1.6.0...v1.6.1) (2019-11-27)
+
+
+### Bug Fixes
+
+* **macro:** Macro would replace variable references with array ([ddeea52](https://bitbucket.org/code11-com/engine/commit/ddeea52779ede1cd4fa88c8260f4118d1de46bf8))
+
 ## [1.6.0](https://bitbucket.org/code11-com/engine/compare/v1.5.2...v1.6.0) (2019-11-26)
 
 
