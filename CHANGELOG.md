@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://bitbucket.org/code11-com/engine/compare/v1.6.1...v1.6.2) (2019-11-27)
+
+
+### Bug Fixes
+
+* **macro:** parse spread objects params the same way as params ([57a97d6](https://bitbucket.org/code11-com/engine/commit/57a97d625bf2459c572025ea0b9bc25ad2929af3))
+
+
+### Code Refactoring
+
+* **producer:** add implementation and tests for basic producer operations ([29bafc2](https://bitbucket.org/code11-com/engine/commit/29bafc23b5dc2f7106c8bbd81a71e7bca4c33ede))
+* **producer:** create resolvers for operations and dependencies ([9273f84](https://bitbucket.org/code11-com/engine/commit/9273f84424e508dc37fc87d27609f60177005a37))
+* **producer:** remove unnecessary code from mount ([6e729a9](https://bitbucket.org/code11-com/engine/commit/6e729a9703099bbd43c03b340ae3f05858843e4e))
+* **producer:** remove unnecessary console.logs ([deb7f6a](https://bitbucket.org/code11-com/engine/commit/deb7f6a1f472615a7b25e712a7d10d05053b22b8))
+
+
+### Styling
+
+* **producer:** remove commented code from specs ([b5de440](https://bitbucket.org/code11-com/engine/commit/b5de4400f6cade851e1484e3940de87f0362b454))
+
+
+### Docs
+
+* add macro prop references @, $, : in README.md ([b0ed09a](https://bitbucket.org/code11-com/engine/commit/b0ed09ab1174139b2fc3d5483d6185e8903c9bb9))
+
 ### [1.6.1](https://bitbucket.org/code11-com/engine/compare/v1.6.0...v1.6.1) (2019-11-27)
 
 
