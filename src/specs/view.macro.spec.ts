@@ -155,6 +155,35 @@ export default view({
   },
   fn: ({ foo, expr }) => {}
 });`
+    },
+    'can parse spread Params': {
+      code: `
+import React from 'react'
+import view from '../../view.macro'
+import ReactDom from 'react-dom'
+export default view(({
+  isOpen = Get.notificationsPopup.visible || false
+}) => {})
+    `,
+      output: `
+import React from "react";
+import { view } from "@c11/engine";
+import ReactDom from "react-dom";
+export default view({
+  args: {
+    isOpen: [
+      "Func",
+      {
+        args: [["Get", "notificationsPopup", "visible"]],
+        fn: param0 => {
+          return param0 || false;
+        }
+      }
+    ]
+  },
+  fn: ({ isOpen }) => {}
+});
+    `
     }
 
   }
