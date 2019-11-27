@@ -90,14 +90,12 @@ export class Producer implements ProducerInstance {
         if (op.type === OperationTypes.STRUCT) {
           const nestedDeps = generateDepsGraph(op.value, depName);
           deps = Object.assign(deps, nestedDeps);
-          console.log('nested graph', nestedDeps);
         }
       });
       return deps;
     };
 
     this.deps = generateDepsGraph(this.args);
-    console.log('[deps]', this.deps);
 
     const getDepsOrder = (deps: Dependencies) => {
       return Object.keys(deps).sort((a, b) => {
@@ -110,8 +108,6 @@ export class Producer implements ProducerInstance {
     };
 
     this.order = getDepsOrder(this.deps);
-
-    console.log('[order]', this.order);
 
     const resolveValue = (external: any, data: any, value: StaticValue) => {
       if (value.type === ValueTypes.CONST) {
@@ -142,7 +138,6 @@ export class Producer implements ProducerInstance {
           const getPath = op.path.map((x: any) => {
             return resolveValue(external, data, x);
           });
-          console.log('[path]', getPath);
           const finalPath = '/' + getPath.join('/');
           set(data, path, this.db.get(finalPath));
         } else if (op.type === OperationTypes.SET) {
@@ -174,7 +169,6 @@ export class Producer implements ProducerInstance {
               }
             });
             const finalPath = '/' + setPath.join('/');
-            console.log(finalPath);
             this.db.patch([
               {
                 op: 'merge',
@@ -186,7 +180,6 @@ export class Producer implements ProducerInstance {
           set(data, path, setFn);
         } else if (op.type === OperationTypes.REF) {
           const refGet = (params: any) => {
-            console.log('called', params);
             const setPath = op.path.map((x: any) => {
               if (x.type === ValueTypes.INVOKE) {
                 return params && params[x.name];
