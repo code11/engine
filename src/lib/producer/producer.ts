@@ -1,6 +1,7 @@
-import { DB } from 'jsonmvc-datastore';
+import { DB, RemoveListener } from 'jsonmvc-datastore';
 import get from 'lodash/get';
 import toPath from 'lodash/toPath';
+import merge from 'lodash/merge';
 import set from 'lodash/set';
 import {
   ProducerContext,
@@ -13,7 +14,12 @@ import {
   StaticValue,
   ValueTypes,
   ExternalProps,
-  RefDataType
+  RefDataType,
+  Operations,
+  GetOperation,
+  MergeOperation,
+  SetOperation,
+  StructOperation
 } from './';
 
 enum ProducerStates {
@@ -28,6 +34,77 @@ interface Dependencies {
     internal: string[];
     external: string[];
   };
+}
+
+type PathBuilder = (deps: { [key: string]: any }) => void;
+type ValueBuilder = (deps: { [key: string]: any }) => void;
+
+interface PathSchema {
+  [key: string]: {
+    type: OperationTypes;
+    value: any;
+    dependsOn: {
+      internal: string[];
+      external: string[];
+      invoke: string[];
+    };
+    isDependedBy: string[];
+    removeListener: RemoveListener | null;
+    getPath?: PathBuilder;
+    getValue?: ValueBuilder;
+  };
+}
+
+function getDeps(op: Operations, name: string, ns?: string) {
+  let deps: Dependencies = {};
+  const depName = ns ? `${ns}.${name}` : name;
+  if (!deps[depName] && op.type !== OperationTypes.STRUCT) {
+    deps[depName] = {
+      internal: [],
+      external: []
+    };
+  }
+
+  if (
+    op.type === OperationTypes.VALUE &&
+    op.value.type === ValueTypes.INTERNAL
+  ) {
+    deps[depName].internal.push(op.value.path.join('.'));
+  }
+  if (
+    op.type === OperationTypes.VALUE &&
+    op.value.type === ValueTypes.EXTERNAL
+  ) {
+    deps[depName].external.push(op.value.path.join('.'));
+  }
+
+  if (op.type === OperationTypes.GET) {
+    op.path.forEach(y => {
+      if (y.type === ValueTypes.INTERNAL) {
+        deps[depName].internal.push(y.path.join('.'));
+      } else if (y.type === ValueTypes.EXTERNAL) {
+        deps[depName].external.push(y.path.join('.'));
+      }
+    });
+  }
+
+  if (op.type === OperationTypes.STRUCT) {
+    let localDeps = {};
+    Object.keys(op.value).forEach(x => {
+      const localOp = op.value[x];
+      localDeps = merge(localDeps, getDeps(localOp, x, depName));
+    });
+    deps = merge(deps, localDeps);
+  }
+
+  if (op.type === OperationTypes.FUNC) {
+    let localDeps = {};
+    op.value.params.forEach((op: Operations) => {
+      localDeps = merge(localDeps, getDeps(op, depName));
+    });
+    deps = merge(deps, localDeps);
+  }
+  return deps;
 }
 
 // TODO: Add Ref.isValid() which can test if data at that location
@@ -57,40 +134,7 @@ export class Producer implements ProducerInstance {
       let deps: Dependencies = {};
       Object.keys(ops).map(x => {
         const op = ops[x];
-        const depName = ns ? `${ns}.${x}` : x;
-        if (!deps[x] && op.type !== OperationTypes.STRUCT) {
-          deps[depName] = {
-            internal: [],
-            external: []
-          };
-        }
-        if (
-          op.type === OperationTypes.VALUE &&
-          op.value.type === ValueTypes.INTERNAL
-        ) {
-          deps[depName].internal.push(op.value.path.join('.'));
-        }
-        if (
-          op.type === OperationTypes.VALUE &&
-          op.value.type === ValueTypes.EXTERNAL
-        ) {
-          deps[depName].external.push(op.value.path.join('.'));
-        }
-
-        if (op.type === OperationTypes.GET) {
-          op.path.forEach(y => {
-            if (y.type === ValueTypes.INTERNAL) {
-              deps[depName].internal.push(y.path.join('.'));
-            } else if (y.type === ValueTypes.EXTERNAL) {
-              deps[depName].external.push(y.path.join('.'));
-            }
-          });
-        }
-
-        if (op.type === OperationTypes.STRUCT) {
-          const nestedDeps = generateDepsGraph(op.value, depName);
-          deps = Object.assign(deps, nestedDeps);
-        }
+        deps = merge(deps, getDeps(op, x, ns));
       });
       return deps;
     };
@@ -119,6 +163,42 @@ export class Producer implements ProducerInstance {
       }
     };
 
+    /*
+    type OperationResolver = {
+      [key in OperationTypes]: (
+        external: any,
+        data: any,
+        op: Operations
+      ) => any;
+    };
+
+    const resolveOperation: OperationResolver = {
+      [OperationTypes.GET]: (external: any, data: any, op: GetOperation) => {
+        const getPath = op.path.map((x: any) => {
+          return resolveValue(external, data, x);
+        });
+        const finalPath = '/' + getPath.join('/');
+        return this.db.get(finalPath);
+      }
+    };
+    */
+
+    type OperationResolver = (external: any, data: any, op: Operations) => any;
+
+    type OperationResolvers = {
+      [key in OperationTypes]: OperationResolver;
+    };
+
+    const resolveOperation: OperationResolvers = {
+      [OperationTypes.GET]: (e: any, d: any, op: GetOperation) => '123',
+      [OperationTypes.MERGE]: (e: any, d: any, op: MergeOperation) => '123',
+      [OperationTypes.SET]: (e: any, d: any, op: SetOperation) => '123',
+      [OperationTypes.STRUCT]: (e: any, d: any, op: StructOperation) => '123',
+      [OperationTypes.VALUE]: (e: any, d: any, op: ValueOperation) => '123',
+      [OperationTypes.FUNC]: (e: any, d: any, op: FuncOperation) => '123',
+      [OperationTypes.REF]: (e: any, d: any, op: RefOperation) => '123'
+    };
+
     const computeData = (external: any, args: any, deps: any, order: any) => {
       const data: any = {};
       order.map((x: any) => {
@@ -131,6 +211,10 @@ export class Producer implements ProducerInstance {
           }
           return acc;
         }, args);
+
+        const resolver = resolveOperation[op.type];
+
+        set(data, path, resolver(external, data, op));
 
         if (op.type === OperationTypes.VALUE) {
           set(data, path, resolveValue(external, data, op.value));
@@ -178,6 +262,7 @@ export class Producer implements ProducerInstance {
             ]);
           };
           set(data, path, setFn);
+        } else if (op.type === OperationTypes.FUNC) {
         } else if (op.type === OperationTypes.REF) {
           const refGet = (params: any) => {
             const setPath = op.path.map((x: any) => {
@@ -243,6 +328,67 @@ export class Producer implements ProducerInstance {
       this.deps,
       this.order
     );
+
+    /**
+     * path schema:
+     * 'color.name': (deps) => `/known/${deps.first}/${deps.second}`,
+     * 'bar.baz': '/foo/bar/baz' -> this is static
+     *
+     * go through the path schema and attach listeners to valid paths
+     * when a value changes for then get all the deps of that value
+     * for each dep of that value unsubscribe the path listener
+     * and create a new one if the path can be computed
+     */
+    /*
+interface PathSchema {
+  [key: string]: {
+    type: OperationTypes;
+    value: any;
+    dependsOn: {
+      internal: string[];
+      external: string[];
+      invoke: string[];
+    };
+    isDependedBy: string[];
+    unsubscribe: () => void;
+    path: PathBuilder;
+  };
+}
+*/
+
+    const getOpSchema = (op: Operations, ns: string) => {
+      let schema: PathSchema = {};
+      if (op.type === OperationTypes.STRUCT) {
+        Object.keys(op.value).forEach(x => {
+          schema = merge(schema, getOpSchema(op.value[x], `${ns}.${x}`));
+        });
+      } else {
+        schema[ns] = {
+          type: op.type,
+          value: null,
+          dependsOn: {
+            internal: [],
+            external: [],
+            invoke: []
+          },
+          isDependedBy: [],
+          removeListener: null
+        };
+      }
+      return schema;
+    };
+
+    const generatePathSchema = (args: ProducerArgs) => {
+      let schema = {};
+      Object.keys(args).forEach(x => {
+        schema = merge(schema, getOpSchema(args[x], x));
+      });
+      return schema;
+    };
+
+    const schema = generatePathSchema(this.args);
+
+    // console.log(schema);
 
     this.fn(finalData);
 
