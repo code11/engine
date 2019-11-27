@@ -11,11 +11,13 @@ declare module 'react-html-attributes' {
 }
 
 declare module 'jsonmvc-datastore' {
-  interface Patch {
+  export interface Patch {
     op: string;
     path: string;
     value?: any;
   }
+
+  export type RemoveListener = () => void;
   export interface DB {
     node(
       path: string,
@@ -24,7 +26,7 @@ declare module 'jsonmvc-datastore' {
     ): any;
     has(path: string): boolean;
     get(path: string): any;
-    on(path: string, cb: (value: any) => void): () => void;
+    on(path: string, cb: (value: any) => void): RemoveListener;
     patch(patches: Patch[]): void;
   }
   export function dbFn(obj: object): DB;

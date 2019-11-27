@@ -1,14 +1,9 @@
-import db from 'jsonmvc-datastore';
+import db, { Patch } from 'jsonmvc-datastore';
 import get from 'lodash/get';
 import {
   Producer,
   OperationTypes,
   ValueTypes,
-  ValueOperation,
-  GetOperation,
-  SetOperation,
-  StructOperation,
-  RefOperation,
   ProducerArgs,
   ExternalProps
 } from './';
@@ -29,6 +24,7 @@ interface TestBody {
       };
     };
   };
+  patches?: Patch[];
   invoke?: {
     [key: string]: any[];
   };
@@ -70,6 +66,10 @@ const createTest = (config: TestBody) => () => {
   };
   const producer = new Producer(instance.config, instance.context);
   producer.mount();
+  if (config.patches) {
+    instance.context.db.patch(config.patches);
+  }
+
   jest.runAllTimers();
   if (config.expect.calls) {
     expect(fn).toBeCalledTimes(config.expect.calls.length);
@@ -529,3 +529,65 @@ test(
     }
   })
 );
+
+test.skip(
+  'Should support Func operations',
+  createTest({
+    args: {
+      a: {
+        type: OperationTypes.GET,
+        path: [{ type: ValueTypes.CONST, value: 'a' }]
+      },
+      result: {
+        type: OperationTypes.FUNC,
+        value: {
+          params: [
+            {
+              type: OperationTypes.VALUE,
+              value: { type: ValueTypes.INTERNAL, path: ['a'] }
+            },
+            {
+              type: OperationTypes.GET,
+              path: [{ type: ValueTypes.CONST, value: 'b' }]
+            }
+          ],
+          fn: (arg0, arg1) => arg0 + arg1
+        }
+      }
+    },
+    state: {
+      a: 1,
+      b: 2
+    },
+    expect: {
+      calls: [{ a: 1, result: 3 }]
+    }
+  })
+);
+
+/*
+test(
+  'Should react to changing state changes',
+  createTest({
+    args: {
+      foo: {
+        type: OperationTypes.GET,
+        path: [{ type: ValueTypes.CONST, value: 'foo' }]
+      }
+    },
+    state: {
+      foo: 'first'
+    },
+    patches: [
+      {
+        op: 'add',
+        path: '/foo',
+        value: 'second'
+      }
+    ],
+    expect: {
+      calls: [{ foo: 'first' }, { foo: 'second' }]
+    }
+  })
+);
+*/
