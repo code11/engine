@@ -237,21 +237,6 @@ export class Producer implements ProducerInstance {
       return data;
     };
 
-    const generatePath = (data: any, path: any) => {
-      return path.reduce((acc: string, x: any) => {
-        if (typeof x === 'string') {
-          acc += '/' + x;
-        } else {
-          if (x.type === 'internal') {
-            acc += '/' + data.internal[x.name];
-          } else if (x.type === 'external') {
-            acc += '/' + data.external[x.name];
-          }
-        }
-        return acc;
-      }, '');
-    };
-
     const finalData = computeData(
       this.external,
       this.args,
@@ -260,20 +245,6 @@ export class Producer implements ProducerInstance {
     );
 
     this.fn(finalData);
-
-    const internal = {
-      foo: '123'
-    };
-    const external = {};
-
-    const testPath = [
-      'firstConst',
-      'secondConst',
-      { name: 'something', type: 'external' },
-      'last'
-    ];
-
-    const finalPath = generatePath({ internal, external }, testPath);
 
     return this;
   }
