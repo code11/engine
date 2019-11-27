@@ -13,8 +13,6 @@ const transformParams = (params, referencePath, fArguments, args) => {
       ))
     } else if (t.isAssignmentPattern(a)) {
       const paramName = a.left
-      const paramPath = referencePath.parentPath.get(`arguments.0.params.${i}`)
-
       fArguments.push(t.objectProperty(paramName, paramName, false, true))
 
       if (t.isMemberExpression(a.right)) {
@@ -33,6 +31,7 @@ const transformParams = (params, referencePath, fArguments, args) => {
           ))
         }
       } else if (t.isLogicalExpression(a.right) || t.isBinaryExpression(a.right)) {
+        const paramPath = referencePath.parentPath.get(`arguments.0.params.${i}`)
         const localArgs = []
         const visitor = utils.parseExpression(localArgs)
         paramPath.traverse({
@@ -71,11 +70,13 @@ module.exports = (macroName) => {
   }) => {
     const node = referencePath.parentPath.node
     const viewFunc = node.arguments[0]
-    const params = node.arguments[0].params
+    if (node.arguments[0].params.length === 1 && t.isObjectPattern(node.arguments[0].params[0])) {
+      node.arguments[0].params = node.arguments[0].params[0].properties.map(prop => prop.value)
+    }
 
     const args = []
     const fArguments = []
-    transformParams(params, referencePath, fArguments, args)
+    transformParams(node.arguments[0].params, referencePath, fArguments, args)
 
     const macroImport = utils.getMacroImport(referencePath, macroName)
     const viewImport = utils.macroReplaceImport(config[macroName])
