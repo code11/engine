@@ -106,7 +106,7 @@ export default view({
 });
     `
     },
-    "static values": {
+    'static values': {
       code: `
 import view from '../../view.macro'
 export default view((
@@ -123,7 +123,40 @@ export default view({
   },
   fn: ({ foo, justAProp }) => {}
 });`
+    },
+    'Variable reference': {
+      code: `
+import view from '../../view.macro'
+const STATIC = {
+  TEST: 1
+}
+export default view((
+  foo = STATIC.TEST,
+  expr = Get.foo.bar === STATIC.TEST
+) => {})`
+      ,
+      output: `
+import { view } from "@c11/engine";
+const STATIC = {
+  TEST: 1
+};
+export default view({
+  args: {
+    foo: STATIC.TEST,
+    expr: [
+      "Func",
+      {
+        args: [["Get", "foo", "bar"]],
+        fn: param0 => {
+          return param0 === STATIC.TEST;
+        }
+      }
+    ]
+  },
+  fn: ({ foo, expr }) => {}
+});`
     }
+
   }
 })
 

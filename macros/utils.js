@@ -58,14 +58,24 @@ module.exports.macroReplaceImport = ({local, imported, engine}) => t.importDecla
   t.stringLiteral(engine)
 )
 
+const hasMarker = (ar) => {
+  return ar[0] === 'Get' || ar[0] === 'Set' || ar[0] === 'Func'
+}
+
 module.exports.parseExpression = localArgs => path => {
   if (t.isMemberExpression(path.node.left)) {
-    localArgs.push(collect(path.node.left))
-    path.node.left = t.identifier('param' + (localArgs.length - 1))
+    const args = collect(path.node.left)
+    if(hasMarker(args)) {
+      localArgs.push(args)
+      path.node.left = t.identifier('param' + (localArgs.length - 1))
+    }
   }
   if (t.isMemberExpression(path.node.right)) {
-    localArgs.push(collect(path.node.right))
-    path.node.right = t.identifier('param' + (localArgs.length - 1))
+    const args = collect(path.node.right)
+    if(hasMarker(args)) {
+      localArgs.push(args)
+      path.node.right = t.identifier('param' + (localArgs.length - 1))
+    }
   }
 }
 

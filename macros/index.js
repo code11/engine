@@ -17,25 +17,26 @@ const transformParams = (params, referencePath, fArguments, args) => {
 
       fArguments.push(t.objectProperty(paramName, paramName, false, true))
 
-      if (t.isLiteral(a.right)) {
-        args.push(t.objectProperty(
-          paramName,
-          a.right
-        ))
-      } else if (t.isMemberExpression(a.right)) {
+      if (t.isMemberExpression(a.right)) {
         const ar = utils.collect(a.right)
-        args.push(
-          t.objectProperty(
-            paramName,
-            t.arrayExpression(ar.map(a => t.stringLiteral(a)))
+        if (ar[0] === 'Get' || ar[0] === 'Set' || ar[0] === 'Ref' || ar[0] === 'Func') {
+          args.push(
+            t.objectProperty(
+              paramName,
+              t.arrayExpression(ar.map(a => t.stringLiteral(a)))
+            )
           )
-        )
+        } else {
+          args.push(t.objectProperty(
+            paramName,
+            a.right
+          ))
+        }
       } else if (t.isLogicalExpression(a.right) || t.isBinaryExpression(a.right)) {
         const localArgs = []
         const visitor = utils.parseExpression(localArgs)
         paramPath.traverse({
-          BinaryExpression: { exit: visitor },
-          LogicalExpression: { exit: visitor }
+          Expression: { exit: visitor }
         })
 
         const innerParams = localArgs.map((_, i) => t.identifier('param' + i))
@@ -53,6 +54,11 @@ const transformParams = (params, referencePath, fArguments, args) => {
             ])
           )
         )
+      } else {
+        args.push(t.objectProperty(
+          paramName,
+          a.right
+        ))
       }
     }
   })
