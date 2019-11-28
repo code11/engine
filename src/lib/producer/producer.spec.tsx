@@ -530,7 +530,7 @@ test(
   })
 );
 
-test.skip(
+test(
   'Should support Func operations',
   createTest({
     args: {
