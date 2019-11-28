@@ -81,7 +81,9 @@ export interface FuncOperation {
 
 export interface StructOperation {
   type: OperationTypes.STRUCT;
-  value: OperationsStruct;
+  value: {
+    [key: string]: Operation;
+  };
 }
 
 export interface ValueOperation {
@@ -89,7 +91,7 @@ export interface ValueOperation {
   value: ExternalValue | InternalValue | ConstValue;
 }
 
-export type Operations =
+export type Operation =
   | GetOperation
   | MergeOperation
   | SetOperation
@@ -98,11 +100,20 @@ export type Operations =
   | StructOperation
   | ValueOperation;
 
-export interface OperationsStruct {
-  [key: string]: Operations;
-}
+export type OperationResolver<T> = (
+  db: DB,
+  external: any,
+  data: any,
+  op: T
+) => any;
 
-export interface ProducerArgs extends OperationsStruct {}
+export type OperationResolvers = {
+  [key in OperationTypes]: OperationResolver<any>;
+};
+
+export interface ProducerArgs {
+  [key: string]: Operation;
+}
 
 export interface ProducerData {
   [key: string]: any;
