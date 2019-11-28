@@ -3,30 +3,32 @@ import { Operation } from '..';
 
 export * from './graph';
 
-export enum NodeType {
+export enum GraphNodeType {
   INTERNAL = 'INTERNAL',
   EXTERNAL = 'EXTERNAL'
 }
 
-export interface Node {
+export interface GraphNode {
   id: string;
-  type: NodeType;
+  nesting: string;
+  type: GraphNodeType;
   value: any;
   isDependedBy: string[];
 }
 
-export interface ExternalNode extends Node {
-  type: NodeType.EXTERNAL;
+export interface GraphExternalNode extends GraphNode {
+  type: GraphNodeType.EXTERNAL;
 }
 
-export interface InternalNode extends Node {
+export interface GraphInternalNode extends GraphNode {
   op: Operation;
-  type: NodeType.INTERNAL;
+  type: GraphNodeType.INTERNAL;
+  path: string | undefined;
   dependsOn: string[];
   invokableWith: string[];
-  removeListener: RemoveListener | null;
+  removeListener: RemoveListener | undefined;
 }
 
 export interface GraphStructure {
-  [key: string]: ExternalNode | InternalNode;
+  [key: string]: GraphExternalNode | GraphInternalNode;
 }

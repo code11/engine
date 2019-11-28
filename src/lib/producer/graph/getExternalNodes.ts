@@ -1,11 +1,12 @@
-import { GraphStructure, ExternalNode, NodeType } from '.';
+import { GraphStructure, GraphExternalNode, GraphNodeType } from '.';
 
 export const getExternalNodes = (external: any) => {
   const graph: GraphStructure = Object.keys(external).reduce((acc, x) => {
     const id = `external.${x}`;
-    const node: ExternalNode = {
+    const node: GraphExternalNode = {
       id,
-      type: NodeType.EXTERNAL,
+      nesting: x,
+      type: GraphNodeType.EXTERNAL,
       value: external[x],
       isDependedBy: []
     };

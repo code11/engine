@@ -1,6 +1,6 @@
 import merge from 'lodash/merge';
 import { Operation, OperationTypes } from '..';
-import { GraphStructure, InternalNode, NodeType } from '.';
+import { GraphStructure, GraphInternalNode, GraphNodeType } from '.';
 import { getDeps } from './getDeps';
 import { getInvoke } from './getInvoke';
 
@@ -12,14 +12,17 @@ export const getInternalNodes = (op: Operation, ns: string = 'internal') => {
       graph = merge(graph, getInternalNodes(op.value[x], id));
     });
   } else if (ns) {
-    const node: InternalNode = {
+    const nesting = ns.replace(/^internal\./, '');
+    const node: GraphInternalNode = {
       id: ns,
+      nesting,
+      path: undefined,
       op,
-      type: NodeType.INTERNAL,
+      type: GraphNodeType.INTERNAL,
       value: undefined,
       dependsOn: getDeps(op),
       isDependedBy: [],
-      removeListener: null,
+      removeListener: undefined,
       invokableWith: getInvoke(op)
     };
     graph[ns] = node;

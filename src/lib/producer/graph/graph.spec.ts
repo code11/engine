@@ -1,6 +1,8 @@
 import { OperationTypes, ValueTypes, StructOperation } from '..';
 import { Graph } from './graph';
+import DB from 'jsonmvc-datastore';
 
+jest.useFakeTimers();
 test('should work', () => {
   const external = {
     bam: '123',
@@ -14,18 +16,35 @@ test('should work', () => {
         path: [
           {
             type: ValueTypes.CONST,
-            value: 'foo'
+            value: 'articles'
+          },
+          {
+            type: ValueTypes.CONST,
+            value: 'list'
+          },
+          {
+            type: ValueTypes.EXTERNAL,
+            path: ['bam']
           }
         ]
       },
       bar: {
         type: OperationTypes.STRUCT,
         value: {
+          bip: {
+            type: OperationTypes.GET,
+            path: [
+              {
+                type: ValueTypes.CONST,
+                value: 'bamp'
+              }
+            ]
+          },
           name: {
             type: OperationTypes.VALUE,
             value: {
               type: ValueTypes.INTERNAL,
-              path: ['foo']
+              path: ['foo', 'title', 'short']
             }
           },
           title: {
@@ -36,15 +55,23 @@ test('should work', () => {
             }
           },
           bap: {
-            type: OperationTypes.MERGE,
+            type: OperationTypes.SET,
             path: [
               {
-                type: ValueTypes.INTERNAL,
-                path: ['bar.name']
+                type: ValueTypes.CONST,
+                value: 'articles'
+              },
+              {
+                type: ValueTypes.CONST,
+                value: 'list'
               },
               {
                 type: ValueTypes.INVOKE,
                 name: 'id'
+              },
+              {
+                type: ValueTypes.CONST,
+                value: 'name'
               }
             ]
           }
@@ -60,7 +87,29 @@ test('should work', () => {
     }
   };
 
-  const graph = new Graph(external, op);
-  graph.compute();
-  // console.log(JSON.stringify(graph, null, ' '));
+  const db = DB({
+    articles: {
+      list: {
+        '123': {
+          title: {
+            short: 'Article 123'
+          }
+        },
+        '321': {
+          name: 'baz'
+        }
+      }
+    }
+  });
+
+  db.on('/articles', (val: any) => {
+    // console.log(JSON.stringify(val, null, ' '));
+  });
+
+  // const graph = new Graph(db, external, op);
+  // const data: any = graph.compute();
+
+  // console.log(data);
+  // data.bar.bap('bam!', { id: '321' });
+  jest.runAllTimers();
 });

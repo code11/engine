@@ -100,17 +100,6 @@ export type Operation =
   | StructOperation
   | ValueOperation;
 
-export type OperationResolver<T> = (
-  db: DB,
-  external: any,
-  data: any,
-  op: T
-) => any;
-
-export type OperationResolvers = {
-  [key in OperationTypes]: OperationResolver<any>;
-};
-
 export interface ProducerArgs {
   [key: string]: Operation;
 }
