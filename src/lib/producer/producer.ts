@@ -27,7 +27,6 @@ export class Producer implements ProducerInstance {
   args: StructOperation;
   fn: ProducerFn;
   external: ExternalProps;
-  data: any = {};
   graph: Graph;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
@@ -43,8 +42,11 @@ export class Producer implements ProducerInstance {
     if (this.state === ProducerStates.MOUNTED) {
       return this;
     }
-    this.data = this.graph.compute();
-    this.fn(this.data);
+    const data = this.graph.compute();
+    this.fn(data);
+    // this.graph.listen((data: any) => {
+    //   this.fn(data);
+    // });
     return this;
   }
   unmount() {

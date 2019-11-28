@@ -1,91 +1,18 @@
 import merge from 'lodash/merge';
 import set from 'lodash/set';
-import get from 'lodash/get';
-import {
-  StructOperation,
-  OperationTypes,
-  ValueTypes,
-  StaticValue,
-  InvokableValue,
-  Operation
-} from '..';
+import { StructOperation, OperationTypes } from '..';
 import { GraphStructure, GraphNodeType } from '.';
 import { resolveDependencies } from './resolveDependencies';
 import { getExternalNodes } from './getExternalNodes';
 import { getInternalNodes } from './getInternalNodes';
 import { resolveOrder } from './resolveOrder';
-import { operations } from './../operations';
+import { resolveValue } from './resolveValue';
+import { getInvokablePath } from './getInvokablePath';
 import { DB } from 'jsonmvc-datastore';
 
 interface Data {
   [key: string]: any;
 }
-
-const getInvokablePath = (
-  structure: GraphStructure,
-  op: Operation,
-  params: any
-) => {
-  if (
-    op.type === OperationTypes.MERGE ||
-    op.type === OperationTypes.SET ||
-    op.type === OperationTypes.REF
-  ) {
-    const path = op.path.map((x: any) => {
-      return resolveValue(structure, x, params);
-    });
-    if (path.includes(undefined) || path.includes(null)) {
-      return;
-    } else {
-      return '/' + path.join('/');
-    }
-  } else {
-    return;
-  }
-};
-
-const getValue = (
-  type: string,
-  structure: GraphStructure,
-  fullPath: string[]
-) => {
-  const path = [type].concat(fullPath);
-  let found = false;
-  let node;
-  let parts = [];
-  while (path.length > 0 && !found) {
-    let tempPath = path.join('.');
-    node = structure[tempPath];
-    if (!node) {
-      parts.unshift(path.pop());
-    } else {
-      found = true;
-    }
-  }
-  if (node) {
-    if (parts.length > 0) {
-      return get(node.value, parts.join('.'));
-    } else {
-      return node.value;
-    }
-  }
-};
-
-const resolveValue = (
-  structure: GraphStructure,
-  value: InvokableValue,
-  invokable?: any
-) => {
-  if (value.type === ValueTypes.CONST) {
-    return value.value;
-  } else if (value.type === ValueTypes.EXTERNAL) {
-    return getValue('external', structure, value.path);
-  } else if (value.type === ValueTypes.INTERNAL) {
-    return getValue('internal', structure, value.path);
-  } else if (value.type === ValueTypes.INVOKE) {
-    return invokable[value.name];
-  }
-};
 
 export class Graph {
   private structure: GraphStructure;
