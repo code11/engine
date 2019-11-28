@@ -26,7 +26,7 @@ export const getDeps = (op: Operation) => {
       if (y.type === ValueTypes.INTERNAL) {
         deps.push('internal.' + y.path.join('.'));
       } else if (y.type === ValueTypes.EXTERNAL) {
-        deps.push('external' + y.path.join('.'));
+        deps.push('external.' + y.path.join('.'));
       }
     });
   }

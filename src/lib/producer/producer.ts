@@ -16,6 +16,7 @@ import {
 } from './';
 
 import { operations } from './operations';
+import { Graph } from './graph';
 
 enum ProducerStates {
   MOUNTED,
@@ -96,6 +97,7 @@ export class Producer implements ProducerInstance {
   data: any = {};
   deps: Dependencies = {};
   order: any = [];
+  graph: Graph;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
     this.args = config.args;
@@ -105,78 +107,14 @@ export class Producer implements ProducerInstance {
     };
     this.fn = config.fn;
     this.external = context.props || {};
+    this.graph = new Graph(this.db, this.external, this.argsNew);
   }
   mount() {
     if (this.state === ProducerStates.MOUNTED) {
       return this;
     }
-
-    const generateDepsGraph = (ops: StructOperation['value'], ns?: string) => {
-      let deps: Dependencies = {};
-      Object.keys(ops).map(x => {
-        const op = ops[x];
-        deps = merge(deps, getDeps(op, x, ns));
-      });
-      return deps;
-    };
-
-    this.deps = generateDepsGraph(this.args);
-
-    const getDepsOrder = (deps: Dependencies) => {
-      return Object.keys(deps).sort((a, b) => {
-        if (deps[b].internal.includes(a)) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-    };
-
-    this.order = getDepsOrder(this.deps);
-
-    const computeData = (external: any, args: any, deps: any, order: any) => {
-      const data: any = {};
-      order.map((x: any) => {
-        const path = toPath(x);
-        const op: Operation = path.reduce((acc, x) => {
-          if (acc[x].type === OperationTypes.STRUCT) {
-            acc = acc[x].value;
-          } else {
-            acc = acc[x];
-          }
-          return acc;
-        }, args);
-
-        const resolver = operations[op.type];
-        set(data, path, resolver(this.db, external, data, op));
-      });
-
-      return data;
-    };
-
-    const finalData = computeData(
-      this.external,
-      this.args,
-      this.deps,
-      this.order
-    );
-
-    /**
-     * path schema:
-     * 'color.name': (deps) => `/known/${deps.first}/${deps.second}`,
-     * 'bar.baz': '/foo/bar/baz' -> this is static
-     *
-     * go through the path schema and attach listeners to valid paths
-     * when a value changes for then get all the deps of that value
-     * for each dep of that value unsubscribe the path listener
-     * and create a new one if the path can be computed
-     */
-    /*
-
-*/
-
-    this.fn(finalData);
-
+    const data: any = this.graph.compute();
+    this.fn(data);
     return this;
   }
   unmount() {
