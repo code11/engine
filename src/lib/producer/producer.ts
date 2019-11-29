@@ -16,8 +16,6 @@ enum ProducerStates {
   UNMOUNTED
 }
 
-// Which arg will be influenced if this is
-
 // TODO: Add Ref.isValid() which can test if data at that location
 // is according to the schema
 

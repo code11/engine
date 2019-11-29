@@ -82,6 +82,9 @@ export class Graph {
                       this.structure,
                       node.op
                     );
+                    if (result === node.value) {
+                      return;
+                    }
                     node.value = result;
                     set(this.data, node.nestingPath, result);
                     this.cb(cloneDeep(this.data));
