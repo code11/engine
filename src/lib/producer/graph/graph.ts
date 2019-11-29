@@ -82,6 +82,9 @@ export class Graph {
                       this.structure,
                       node.op
                     );
+                    node.value = result;
+                    set(this.data, node.nestingPath, result);
+                    this.cb(cloneDeep(this.data));
                   }
                 });
               }
