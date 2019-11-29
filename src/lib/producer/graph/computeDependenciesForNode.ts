@@ -55,22 +55,6 @@ export const computeDependenciesForNode = (
                     id: dep.id,
                     param: i
                   });
-                  /*
-                  if (dep.removeFuncListeners[i]) {
-                    dep.removeFuncListeners[i]();
-                  }
-                  const path = getOperation(structure, op);
-                  if (path) {
-                    dep.removeFuncListeners[i] = db.on(path, val => {
-                      if (dep.op.type === OperationTypes.FUNC) {
-                        const result = funcOperation(db, structure, dep.op);
-                        dep.value = result;
-                        console.log('FInal is', dep.value);
-                        set(data, dep.nesting, dep.value);
-                      }
-                    });
-                  }
-                  */
                 }
               }
             });
