@@ -1,26 +1,18 @@
 import { GraphStructure } from '.';
-import { Operation, OperationTypes } from '..';
+import { SetOperation, RefOperation, MergeOperation } from '..';
 import { resolveValue } from './resolveValue';
 
 export const getInvokablePath = (
   structure: GraphStructure,
-  op: Operation,
+  op: MergeOperation | SetOperation | RefOperation,
   params: any
 ) => {
-  if (
-    op.type === OperationTypes.MERGE ||
-    op.type === OperationTypes.SET ||
-    op.type === OperationTypes.REF
-  ) {
-    const path = op.path.map((x: any) => {
-      return resolveValue(structure, x, params);
-    });
-    if (path.includes(undefined) || path.includes(null)) {
-      return;
-    } else {
-      return '/' + path.join('/');
-    }
-  } else {
+  const path = op.path.map((x: any) => {
+    return resolveValue(structure, x, params);
+  });
+  if (path.includes(undefined) || path.includes(null)) {
     return;
+  } else {
+    return '/' + path.join('/');
   }
 };

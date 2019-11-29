@@ -14,6 +14,8 @@ export const resolveValue = (
   } else if (value.type === ValueTypes.INTERNAL) {
     return getValue('internal', structure, value.path);
   } else if (value.type === ValueTypes.INVOKE) {
-    return invokable[value.name];
+    if (invokable) {
+      return invokable[value.name];
+    }
   }
 };

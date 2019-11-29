@@ -18,7 +18,9 @@ export const resolveDependencies = (graph: GraphStructure) => {
           }
         }
         const id = path.join('.');
-        graph[id].isDependedBy.push(x);
+        if (graph[id]) {
+          graph[id].isDependedBy.push(x);
+        }
       });
     }
   });
