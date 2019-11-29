@@ -18,6 +18,8 @@ export const funcOperation = (
         }
       } else if (x.type === OperationTypes.VALUE) {
         return valueOperation(structure, x);
+      } else {
+        // operation not supported
       }
     });
     return result;

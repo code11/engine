@@ -87,7 +87,7 @@ const createTest = (config: TestBody) => () => {
 
 jest.useFakeTimers();
 test(
-  'Should support Value operations with CONST values',
+  'should support Value operations with CONST values',
   createTest({
     args: {
       color: {
@@ -105,7 +105,7 @@ test(
 );
 
 test(
-  'Should support Value operations with INTERNAL values',
+  'should support Value operations with INTERNAL values',
   createTest({
     args: {
       color: {
@@ -151,7 +151,7 @@ test(
 );
 
 test(
-  'Should support path operations with CONST values',
+  'should support path operations with CONST values',
   createTest({
     args: {
       color: {
@@ -174,7 +174,7 @@ test(
 );
 
 test(
-  'Should support path operations with EXTERNAL values',
+  'should support path operations with EXTERNAL values',
   createTest({
     args: {
       isAvailable: {
@@ -203,7 +203,7 @@ test(
 );
 
 test(
-  'Should support path operations with INTERNAL values',
+  'should support path operations with INTERNAL values',
   createTest({
     args: {
       color: {
@@ -239,7 +239,7 @@ test(
 );
 
 test(
-  'Should support a structured operation',
+  'should support a structured operation',
   createTest({
     args: {
       color: {
@@ -320,7 +320,7 @@ test(
 );
 
 test(
-  'Should support Set operations',
+  'should support Set operations',
   createTest({
     args: {
       setProp: {
@@ -364,7 +364,7 @@ test(
 );
 
 test(
-  'Should support Merge operations',
+  'should support Merge operations',
   createTest({
     args: {
       mergeProp: {
@@ -405,7 +405,7 @@ test(
 );
 
 test(
-  'Should support Ref operations with get',
+  'should support Ref operations with get',
   createTest({
     args: {
       propRef: {
@@ -449,7 +449,7 @@ test(
 );
 
 test(
-  'Should support Ref operations with set',
+  'should support Ref operations with set',
   createTest({
     args: {
       propRef: {
@@ -493,7 +493,7 @@ test(
 );
 
 test(
-  'Should support Ref operations with merge',
+  'should support Ref operations with merge',
   createTest({
     args: {
       propRef: {
@@ -534,7 +534,7 @@ test(
 );
 
 test(
-  'Should support Func operations',
+  'should support Func operations',
   createTest({
     args: {
       a: {
@@ -569,7 +569,7 @@ test(
 );
 
 test(
-  'Should react to changing state changes with INTERNAL deps',
+  'should react to changing state changes with INTERNAL deps',
   createTest({
     args: {
       foo: {
@@ -616,7 +616,7 @@ test(
 );
 
 test(
-  'Should react to changing state changes complex args',
+  'should react to changing state changes complex args',
   createTest({
     args: {
       selectedId: {
@@ -700,7 +700,7 @@ test(
   })
 );
 
-test('Should react accordingly to state changes from patches', () => {
+test('should react accordingly to state changes from patches', () => {
   const fn = jest.fn((args: any) => {});
 
   const state = {
@@ -782,7 +782,7 @@ test('Should react accordingly to state changes from patches', () => {
   );
 });
 
-test('Should react accordingly to func declarations against external patches', () => {
+test('should react accordingly to func declarations against external patches', () => {
   const fn = jest.fn((args: any) => {
     // console.log(args);
   });
@@ -909,4 +909,218 @@ test('Should react accordingly to func declarations against external patches', (
       sum: 6
     })
   );
+});
+
+test('should not do anything if invokable operation are called with invalid values', () => {
+  const fn = jest.fn((args: any) => {
+    args.setFoo && args.setFoo(undefined, { id: undefined });
+    args.setFoo && args.setFoo(undefined, { id: null });
+    // console.log(args);
+  });
+
+  const state = {
+    list: {}
+  };
+  const args: ProducerArgs = {
+    setFoo: {
+      type: OperationTypes.SET,
+      path: [
+        {
+          type: ValueTypes.CONST,
+          value: 'list'
+        },
+        {
+          type: ValueTypes.INVOKE,
+          name: 'id'
+        }
+      ]
+    }
+  };
+  const instance = {
+    context: {
+      db: db(state),
+      props: {}
+    },
+    config: {
+      args,
+      fn
+    }
+  };
+
+  const producer = new Producer(instance.config, instance.context);
+  producer.mount();
+});
+
+test('should invoke a function even if some args could not be computed', () => {
+  const fn = jest.fn((args: any) => {});
+
+  const state = {
+    list: {}
+  };
+  const args: ProducerArgs = {
+    foo: {
+      type: OperationTypes.FUNC,
+      value: {
+        params: [
+          {
+            type: OperationTypes.GET,
+            path: [
+              {
+                type: ValueTypes.INTERNAL,
+                path: ['foo']
+              }
+            ]
+          }
+        ],
+        fn: params => {
+          return true;
+        }
+      }
+    }
+  };
+  const instance = {
+    context: {
+      db: db(state),
+      props: {}
+    },
+    config: {
+      args,
+      fn
+    }
+  };
+
+  const producer = new Producer(instance.config, instance.context);
+  producer.mount();
+  jest.runAllTimers();
+  expect(fn).toBeCalledWith({ foo: true });
+});
+
+test('should resolve nested args', () => {
+  const fn = jest.fn((args: any) => {});
+
+  const state = {
+    list: {
+      123: {
+        name: '123'
+      }
+    }
+  };
+  const args: ProducerArgs = {
+    list: {
+      type: OperationTypes.GET,
+      path: [
+        {
+          type: ValueTypes.CONST,
+          value: 'list'
+        }
+      ]
+    },
+    name: {
+      type: OperationTypes.VALUE,
+      value: {
+        type: ValueTypes.INTERNAL,
+        path: ['list', '123', 'name']
+      }
+    }
+  };
+
+  const instance = {
+    context: {
+      db: db(state),
+      props: {}
+    },
+    config: {
+      args,
+      fn
+    }
+  };
+
+  const producer = new Producer(instance.config, instance.context);
+  producer.mount();
+  jest.runAllTimers();
+  expect(fn).toBeCalledWith(expect.objectContaining({ name: '123' }));
+});
+
+test('should resolve args without a valid node as undefined', () => {
+  const fn = jest.fn((args: any) => {});
+
+  const state = {};
+  const args: ProducerArgs = {
+    foo: {
+      type: OperationTypes.VALUE,
+      value: {
+        type: ValueTypes.INTERNAL,
+        path: ['baz']
+      }
+    }
+  };
+
+  const instance = {
+    context: {
+      db: db(state),
+      props: {}
+    },
+    config: {
+      args,
+      fn
+    }
+  };
+
+  const producer = new Producer(instance.config, instance.context);
+  producer.mount();
+  jest.runAllTimers();
+  expect(fn).toBeCalledWith({ foo: undefined });
+});
+
+test('should update func when initial path values have changed', () => {
+  const fn = jest.fn((args: any) => {});
+
+  const state = {
+    foo: '123'
+  };
+  const args: ProducerArgs = {
+    foo: {
+      type: OperationTypes.FUNC,
+      value: {
+        params: [
+          {
+            type: OperationTypes.GET,
+            path: [
+              {
+                type: ValueTypes.CONST,
+                value: 'foo'
+              }
+            ]
+          }
+        ],
+        fn: (param: any) => param
+      }
+    }
+  };
+
+  const instance = {
+    context: {
+      db: db(state),
+      props: {}
+    },
+    config: {
+      args,
+      fn
+    }
+  };
+
+  const producer = new Producer(instance.config, instance.context);
+  producer.mount();
+  jest.runAllTimers();
+  expect(fn).toBeCalledWith({ foo: '123' });
+
+  instance.context.db.patch([
+    {
+      op: 'add',
+      path: '/foo',
+      value: '321'
+    }
+  ]);
+  jest.runAllTimers();
+  expect(fn).toBeCalledWith({ foo: '321' });
 });
