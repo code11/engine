@@ -6,6 +6,7 @@ export const getExternalNodes = (external: any) => {
     const node: GraphExternalNode = {
       id,
       nesting: x,
+      nestingPath: [x],
       type: GraphNodeType.EXTERNAL,
       value: external[x],
       isDependedBy: []

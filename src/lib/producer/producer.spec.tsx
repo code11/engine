@@ -788,12 +788,20 @@ test('Should react accordingly to func declarations against external patches', (
   });
 
   const state = {
+    id: 'first',
     first: 1,
     second: 1,
-    third: 1
+    dynamic: {
+      first: 1,
+      second: 2
+    }
   };
 
   const args: ProducerArgs = {
+    id: {
+      type: OperationTypes.GET,
+      path: [{ type: ValueTypes.CONST, value: 'id' }]
+    },
     first: {
       type: OperationTypes.GET,
       path: [{ type: ValueTypes.CONST, value: 'first' }]
@@ -822,7 +830,10 @@ test('Should react accordingly to func declarations against external patches', (
           },
           {
             type: OperationTypes.GET,
-            path: [{ type: ValueTypes.CONST, value: 'third' }]
+            path: [
+              { type: ValueTypes.CONST, value: 'dynamic' },
+              { type: ValueTypes.INTERNAL, path: ['id'] }
+            ]
           }
         ],
         fn: (arg1, arg2, arg3) => arg1 + arg2 + arg3
@@ -868,13 +879,11 @@ test('Should react accordingly to func declarations against external patches', (
       sum: 4
     })
   );
-  return;
-
   instance.context.db.patch([
     {
       op: 'add',
-      path: '/third',
-      value: 2
+      path: '/id',
+      value: 'second'
     }
   ]);
   jest.runAllTimers();
@@ -885,10 +894,19 @@ test('Should react accordingly to func declarations against external patches', (
       sum: 5
     })
   );
-  // expect(fn).toHaveBeenLastCalledWith(
-  //   expect.objectContaining({
-  //     id: '123',
-  //     value: 'bap'
-  //   })
-  // );
+  instance.context.db.patch([
+    {
+      op: 'add',
+      path: '/dynamic/second',
+      value: 3
+    }
+  ]);
+  jest.runAllTimers();
+  expect(fn).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      first: 2,
+      second: 1,
+      sum: 6
+    })
+  );
 });

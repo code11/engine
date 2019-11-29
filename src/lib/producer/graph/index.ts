@@ -11,6 +11,7 @@ export enum GraphNodeType {
 export interface GraphNode {
   id: string;
   nesting: string;
+  nestingPath: string[];
   type: GraphNodeType;
   value: any;
   isDependedBy: string[];
@@ -27,6 +28,9 @@ export interface GraphInternalNode extends GraphNode {
   dependsOn: string[];
   invokableWith: string[];
   removeListener: RemoveListener | undefined;
+  removeFuncListeners: {
+    [key: number]: RemoveListener;
+  };
 }
 
 export interface GraphStructure {

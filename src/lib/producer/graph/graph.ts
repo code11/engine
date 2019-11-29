@@ -11,6 +11,7 @@ import { DB } from 'jsonmvc-datastore';
 import { getOperation } from './getOperation';
 import { ComputeType, computeOperation } from './computeOperation';
 import { pathListener } from './pathListener';
+import { funcOperation } from './funcOperation';
 
 export class Graph {
   private structure: GraphStructure;
@@ -50,6 +51,8 @@ export class Graph {
     this.data = this.compute();
     this.cb(cloneDeep(this.data));
 
+    // console.log(JSON.stringify(this.structure, null, ' '));
+
     this.order.forEach(x => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
@@ -65,7 +68,25 @@ export class Graph {
             );
           }
         } else if (node.op.type === OperationTypes.FUNC) {
-          node.op.value.params.forEach(op => {});
+          node.op.value.params.forEach((op, i) => {
+            if (op.type === OperationTypes.GET) {
+              const path = getOperation(this.structure, op);
+              if (node.removeFuncListeners[i]) {
+                node.removeFuncListeners[i]();
+              }
+              if (path) {
+                node.removeFuncListeners[i] = this.db.on(path, val => {
+                  if (node.op.type === OperationTypes.FUNC) {
+                    const result = funcOperation(
+                      this.db,
+                      this.structure,
+                      node.op
+                    );
+                  }
+                });
+              }
+            }
+          });
         }
       }
     });
