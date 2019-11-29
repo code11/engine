@@ -9,3 +9,6 @@ element.
 Also having a single graph for the entire producer and views tree then redundant property listeners and calls can be eliminated.
 
 TODO: Create virtual producers (FUNC)
+
+TODO: Add onDemand flag in ProducerConfig
+This will make the producer to act as the model used to do
