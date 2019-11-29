@@ -32,3 +32,7 @@ export interface GraphInternalNode extends GraphNode {
 export interface GraphStructure {
   [key: string]: GraphExternalNode | GraphInternalNode;
 }
+
+export interface GraphData {
+  [key: string]: any;
+}

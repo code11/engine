@@ -36,17 +36,13 @@ export class Producer implements ProducerInstance {
     };
     this.fn = config.fn;
     this.external = context.props || {};
-    this.graph = new Graph(this.db, this.external, this.args);
+    this.graph = new Graph(this.db, this.external, this.args, this.fn);
   }
   mount() {
     if (this.state === ProducerStates.MOUNTED) {
       return this;
     }
-    const data = this.graph.compute();
-    this.fn(data);
-    // this.graph.listen((data: any) => {
-    //   this.fn(data);
-    // });
+    this.graph.listen();
     return this;
   }
   unmount() {

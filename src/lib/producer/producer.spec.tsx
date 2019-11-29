@@ -5,7 +5,8 @@ import {
   OperationTypes,
   ValueTypes,
   ProducerArgs,
-  ExternalProps
+  ExternalProps,
+  Operation
 } from './';
 
 interface TestBody {
@@ -73,7 +74,9 @@ const createTest = (config: TestBody) => () => {
   jest.runAllTimers();
   if (config.expect.calls) {
     expect(fn).toBeCalledTimes(config.expect.calls.length);
-    expect(fn).toBeCalledWith.apply(null, config.expect.calls);
+    config.expect.calls.forEach((x, i) => {
+      expect(fn).toHaveBeenNthCalledWith(i + 1, expect.objectContaining(x));
+    });
   }
   if (config.expect.state) {
     const value = instance.context.db.get('/');
@@ -565,14 +568,27 @@ test(
   })
 );
 
-/*
 test(
-  'Should react to changing state changes',
+  'Should react to changing state changes with INTERNAL deps',
   createTest({
     args: {
       foo: {
         type: OperationTypes.GET,
         path: [{ type: ValueTypes.CONST, value: 'foo' }]
+      },
+      bar: {
+        type: OperationTypes.VALUE,
+        value: {
+          type: ValueTypes.INTERNAL,
+          path: ['foo']
+        }
+      },
+      baz: {
+        type: OperationTypes.VALUE,
+        value: {
+          type: ValueTypes.INTERNAL,
+          path: ['bar']
+        }
       }
     },
     state: {
@@ -583,11 +599,296 @@ test(
         op: 'add',
         path: '/foo',
         value: 'second'
+      },
+      {
+        op: 'add',
+        path: '/bam',
+        value: '123'
       }
     ],
     expect: {
-      calls: [{ foo: 'first' }, { foo: 'second' }]
+      calls: [
+        { foo: 'first', bar: 'first', baz: 'first' },
+        { foo: 'second', bar: 'second', baz: 'second' }
+      ]
     }
   })
 );
-*/
+
+test(
+  'Should react to changing state changes complex args',
+  createTest({
+    args: {
+      selectedId: {
+        type: OperationTypes.GET,
+        path: [{ type: ValueTypes.CONST, value: 'selectedId' }]
+      },
+      article: {
+        type: OperationTypes.STRUCT,
+        value: {
+          ref: {
+            type: OperationTypes.REF,
+            path: [
+              {
+                type: ValueTypes.CONST,
+                value: 'articles'
+              },
+              {
+                type: ValueTypes.CONST,
+                value: 'list'
+              },
+              {
+                type: ValueTypes.INTERNAL,
+                path: ['selectedId']
+              },
+              {
+                type: ValueTypes.INVOKE,
+                name: 'prop'
+              }
+            ]
+          },
+          name: {
+            type: OperationTypes.GET,
+            path: [
+              {
+                type: ValueTypes.CONST,
+                value: 'articles'
+              },
+              {
+                type: ValueTypes.CONST,
+                value: 'list'
+              },
+              {
+                type: ValueTypes.INTERNAL,
+                path: ['selectedId']
+              },
+              {
+                type: ValueTypes.CONST,
+                value: 'name'
+              }
+            ]
+          }
+        }
+      },
+      name: {
+        type: OperationTypes.VALUE,
+        value: {
+          type: ValueTypes.INTERNAL,
+          path: ['article', 'name']
+        }
+      }
+    },
+    state: {
+      selectedId: '123',
+      articles: {
+        list: {
+          '123': {
+            name: 'first'
+          },
+          '321': {
+            name: 'second'
+          }
+        }
+      }
+    },
+    invoke: {
+      'article.ref.set': ['second', { prop: 'name' }]
+    },
+    expect: {
+      calls: [{ name: 'first' }, { name: 'second' }]
+    }
+  })
+);
+
+test('Should react accordingly to state changes from patches', () => {
+  const fn = jest.fn((args: any) => {});
+
+  const state = {
+    id: '123',
+    list: {
+      '123': 'foo',
+      '321': 'bar'
+    }
+  };
+
+  const args: ProducerArgs = {
+    id: {
+      type: OperationTypes.GET,
+      path: [{ type: ValueTypes.CONST, value: 'id' }]
+    },
+    value: {
+      type: OperationTypes.GET,
+      path: [
+        {
+          type: ValueTypes.CONST,
+          value: 'list'
+        },
+        {
+          type: ValueTypes.INTERNAL,
+          path: ['id']
+        }
+      ]
+    }
+  };
+  const instance = {
+    context: {
+      db: db(state),
+      props: {}
+    },
+    config: {
+      args,
+      fn
+    }
+  };
+
+  const producer = new Producer(instance.config, instance.context);
+  producer.mount();
+  instance.context.db.patch([
+    {
+      op: 'add',
+      path: '/id',
+      value: '321'
+    }
+  ]);
+
+  jest.runAllTimers();
+  instance.context.db.patch([
+    {
+      op: 'add',
+      path: '/list/321',
+      value: 'baz'
+    }
+  ]);
+
+  jest.runAllTimers();
+  instance.context.db.patch([
+    {
+      op: 'add',
+      path: '/id',
+      value: '123'
+    },
+    {
+      op: 'add',
+      path: '/list/123',
+      value: 'bap'
+    }
+  ]);
+  jest.runAllTimers();
+  expect(fn).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      id: '123',
+      value: 'bap'
+    })
+  );
+});
+
+test('Should react accordingly to func declarations against external patches', () => {
+  const fn = jest.fn((args: any) => {
+    // console.log(args);
+  });
+
+  const state = {
+    first: 1,
+    second: 1,
+    third: 1
+  };
+
+  const args: ProducerArgs = {
+    first: {
+      type: OperationTypes.GET,
+      path: [{ type: ValueTypes.CONST, value: 'first' }]
+    },
+    second: {
+      type: OperationTypes.GET,
+      path: [{ type: ValueTypes.CONST, value: 'second' }]
+    },
+    sum: {
+      type: OperationTypes.FUNC,
+      value: {
+        params: [
+          {
+            type: OperationTypes.VALUE,
+            value: {
+              type: ValueTypes.INTERNAL,
+              path: ['first']
+            }
+          },
+          {
+            type: OperationTypes.VALUE,
+            value: {
+              type: ValueTypes.INTERNAL,
+              path: ['second']
+            }
+          },
+          {
+            type: OperationTypes.GET,
+            path: [{ type: ValueTypes.CONST, value: 'third' }]
+          }
+        ],
+        fn: (arg1, arg2, arg3) => arg1 + arg2 + arg3
+      }
+    }
+  };
+
+  const instance = {
+    context: {
+      db: db(state),
+      props: {}
+    },
+    config: {
+      args,
+      fn
+    }
+  };
+
+  const producer = new Producer(instance.config, instance.context);
+  producer.mount();
+
+  jest.runAllTimers();
+  expect(fn).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      first: 1,
+      second: 1,
+      sum: 3
+    })
+  );
+
+  instance.context.db.patch([
+    {
+      op: 'add',
+      path: '/first',
+      value: 2
+    }
+  ]);
+  jest.runAllTimers();
+  expect(fn).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      first: 2,
+      second: 1,
+      sum: 4
+    })
+  );
+  return;
+
+  instance.context.db.patch([
+    {
+      op: 'add',
+      path: '/third',
+      value: 2
+    }
+  ]);
+  jest.runAllTimers();
+  expect(fn).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      first: 2,
+      second: 1,
+      sum: 5
+    })
+  );
+  // expect(fn).toHaveBeenLastCalledWith(
+  //   expect.objectContaining({
+  //     id: '123',
+  //     value: 'bap'
+  //   })
+  // );
+});
