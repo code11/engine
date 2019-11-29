@@ -16,6 +16,7 @@ export const getInternalNodes = (op: Operation, ns: string = 'internal') => {
     const node: GraphInternalNode = {
       id: ns,
       nesting,
+      nestingPath: nesting.split('.'),
       path: undefined,
       op,
       type: GraphNodeType.INTERNAL,
@@ -23,6 +24,7 @@ export const getInternalNodes = (op: Operation, ns: string = 'internal') => {
       dependsOn: getDeps(op),
       isDependedBy: [],
       removeListener: undefined,
+      removeFuncListeners: {},
       invokableWith: getInvoke(op)
     };
     graph[ns] = node;
