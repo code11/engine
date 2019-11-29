@@ -32,11 +32,9 @@ export const getDeps = (op: Operation) => {
   }
 
   if (op.type === OperationTypes.FUNC) {
-    let localDeps = {};
     op.value.params.forEach((op: Operation) => {
-      localDeps = merge(localDeps, getDeps(op));
+      deps = deps.concat(getDeps(op));
     });
-    deps = merge(deps, localDeps);
   }
   return deps;
 };
