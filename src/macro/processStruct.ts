@@ -1,21 +1,20 @@
-import { ObjectPattern, ObjectProperty } from '@babel/types';
-import * as Babel from '@babel/core';
+import { ObjectPattern, ObjectProperty, isObjectProperty } from '@babel/types';
 import { OperationTypes, StructOperation } from '../lib/producer/types';
 import { processValue } from './processValue';
 
-export const processStruct = (
-  t: typeof Babel.types,
-  obj: ObjectPattern
-): StructOperation => {
+export const processStruct = (obj: ObjectPattern): StructOperation => {
+  console.log(obj);
   const result = obj.properties.reduce(
     (acc, x) => {
-      if (t.isObjectProperty(x)) {
+      if (isObjectProperty(x)) {
         const node = x as ObjectProperty;
         const propName = node.key.name;
-        const propValue = processValue(t, node);
+        const propValue = processValue(node);
         if (propValue) {
           acc.value[propName] = propValue;
         }
+      } else {
+        console.log('Not object property', x);
       }
       return acc;
     },

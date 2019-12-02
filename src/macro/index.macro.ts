@@ -2,29 +2,6 @@ import { createMacro } from 'babel-plugin-macros';
 import * as Babel from '@babel/core';
 import { processReference } from './processReference';
 
-enum PathSymbols {
-  EXTERNAL = '@',
-  INTERNAL = '$',
-  INVOKABLE = ':'
-}
-
-enum PathTypes {
-  GET = 'Get',
-  SET = 'Set',
-  MERGE = 'Merge',
-  REF = 'Ref'
-}
-
-enum AssignmentType {
-  PATHTYPE = 'PATHTYPE',
-  COMPOSITION = 'COMPOSITION',
-  STRUCTURE = 'STRUCTURE'
-}
-
-const getAssignmentType = (): AssignmentType => {
-  return AssignmentType.PATHTYPE;
-};
-
 // export as engine.macro
 
 // Func, struct and value are implicit

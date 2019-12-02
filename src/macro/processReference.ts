@@ -2,8 +2,15 @@ import * as Babel from '@babel/core';
 import {
   CallExpression,
   ArrowFunctionExpression,
-  ObjectPattern
+  ObjectPattern,
+  objectExpression,
+  objectProperty,
+  identifier
 } from '@babel/types';
+import { compileStruct } from './compileStruct';
+import { compileParams } from './compileParams';
+import { validateRef } from './validateRef';
+import { processStruct } from './processStruct';
 
 type ProcessReference = (
   babel: typeof Babel,
@@ -11,15 +18,8 @@ type ProcessReference = (
   ref: Babel.NodePath
 ) => void;
 
-import { validateRef } from './validateRef';
-import { processStruct } from './processStruct';
-
-export const processReference: ProcessReference = (
-  { types: t },
-  state,
-  ref
-) => {
-  const result = validateRef(t, ref);
+export const processReference: ProcessReference = (babel, state, ref) => {
+  const result = validateRef(ref);
   if (result.error) {
     throw new Error(result.errorMessage);
   }
@@ -28,7 +28,14 @@ export const processReference: ProcessReference = (
   const rawArgs = fn.params[0] as ObjectPattern;
   const body = fn.body;
 
-  const struct = processStruct(t, rawArgs);
+  const struct = processStruct(rawArgs);
+  const args = compileStruct(struct);
 
-  console.log('result', struct);
+  fn.params = [compileParams(struct)];
+  node.arguments[0] = objectExpression([
+    objectProperty(identifier('args'), args),
+    objectProperty(identifier('fn'), fn)
+  ]);
+
+  console.log('result', JSON.stringify(struct, null, ' '));
 };
