@@ -37,3 +37,8 @@ declare module 'kebab-case' {
   function fn(str: string): string;
   export default fn;
 }
+
+declare module 'babel-plugin-tester' {
+  function fn(args: any): any;
+  export default fn;
+}

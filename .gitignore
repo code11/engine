@@ -11,3 +11,5 @@ package-lock.json
 build
 .vscode
 *.tgz
+src/specs/macro
+src/specs/__snapshots__
