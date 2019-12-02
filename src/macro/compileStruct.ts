@@ -1,4 +1,8 @@
-import { StructOperation, OperationTypes } from '../lib/producer/types';
+import {
+  StructOperation,
+  OperationTypes,
+  ValueTypes
+} from '../lib/producer/types';
 import {
   ObjectPattern,
   objectPattern,
@@ -6,7 +10,9 @@ import {
   identifier,
   ObjectProperty,
   objectExpression,
-  stringLiteral
+  stringLiteral,
+  numericLiteral,
+  booleanLiteral
 } from '@babel/types';
 import { compilePath } from './compilePath';
 
@@ -16,7 +22,9 @@ export const compileStruct = (struct: StructOperation): ObjectPattern => {
     let result;
     if (op.type === OperationTypes.STRUCT) {
       console.log('should compile struct');
-      result = compileStruct(op);
+      const type = objectProperty(identifier('type'), stringLiteral(op.type));
+      const value = objectProperty(identifier('value'), compileStruct(op));
+      result = objectExpression([type, value]);
     } else {
       const type = objectProperty(identifier('type'), stringLiteral(op.type));
       let value = objectProperty(identifier('path'), stringLiteral('nothing'));
@@ -29,7 +37,32 @@ export const compileStruct = (struct: StructOperation): ObjectPattern => {
         value = objectProperty(identifier('path'), compilePath(op.path));
       } else if (op.type === OperationTypes.FUNC) {
       } else if (op.type === OperationTypes.VALUE) {
-        value = objectProperty(identifier('path'), stringLiteral('value'));
+        if (op.value.type === ValueTypes.CONST) {
+          const val = op.value.value;
+
+          let valType;
+          // TODO: This should be copied directly from the AST
+          // instead of trying to reproduce the value here
+          if (val && val.__node__) {
+            valType = val.__node__;
+          } else if (typeof val === 'string') {
+            valType = stringLiteral(val);
+          } else if (typeof val === 'number') {
+            valType = numericLiteral(val);
+          } else if (typeof val === 'boolean') {
+            valType = booleanLiteral(val);
+          } else {
+            throw new Error('Value type not supported yet: ' + typeof val);
+          }
+
+          value = objectProperty(
+            identifier('value'),
+            objectExpression([
+              objectProperty(identifier('type'), identifier(ValueTypes.CONST)),
+              objectProperty(identifier('value'), valType)
+            ])
+          );
+        }
       } else {
       }
       result = objectExpression([type, value]);

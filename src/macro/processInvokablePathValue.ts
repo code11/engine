@@ -4,11 +4,12 @@ import {
   InternalValue,
   ExternalValue,
   InvokeValue,
-  ConstValue
+  ConstValue,
+  StaticValue
 } from '../lib/producer/types';
 import { PathSymbol } from './types';
 
-export const processPathValue = (path: string[]): InvokableValue[] => {
+export const processInvokablePathValue = (path: string[]): InvokableValue[] => {
   const result = path.map(x => {
     const symbol = x[0];
     if (symbol === PathSymbol.INTERNAL) {

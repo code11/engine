@@ -49,13 +49,11 @@ pluginTester({
       `,
       error: true
     },
-    'should test a producer': {
+    'should support nested properties': {
       code: `
         import { producer } from ${macroFile}
         producer(({
-          foo = {
-            title: Get.foo['@bar']['$foo'][':baz'],
-          }
+          foo= Prop['@bar.baz'].bam
         }) => { return foo + 1})
       `,
       snapshot: true,
