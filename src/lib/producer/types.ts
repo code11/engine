@@ -50,6 +50,9 @@ export interface InvokeValue {
 export type StaticValue = ConstValue | ExternalValue | InternalValue;
 export type InvokableValue = StaticValue | InvokeValue;
 
+export type StaticPath = StaticValue[];
+export type InvokablePath = InvokableValue[];
+
 export interface GetOperation {
   type: OperationTypes.GET;
   path: StaticValue[];

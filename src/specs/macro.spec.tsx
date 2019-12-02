@@ -1,4 +1,5 @@
 import pluginTester from 'babel-plugin-tester';
+import prettier from 'prettier';
 import plugin from 'babel-plugin-macros';
 
 const macroFile = "'./macro/macro/index.macro'";
@@ -6,6 +7,11 @@ const macroFile = "'./macro/macro/index.macro'";
 pluginTester({
   plugin,
   babelOptions: { filename: __filename },
+  formatResult: (result: any) => {
+    return prettier.format(result, {
+      parser: 'babel'
+    });
+  },
   tests: {
     'should throw an error if it is not invoked': {
       code: `
@@ -47,8 +53,10 @@ pluginTester({
       code: `
         import { producer } from ${macroFile}
         producer(({
-          foo
-        }) => {})
+          foo = {
+            title: Get.foo['@bar']['$foo'][':baz'],
+          }
+        }) => { return foo + 1})
       `,
       snapshot: true,
       only: true
