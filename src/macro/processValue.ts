@@ -1,10 +1,4 @@
-import {
-  ObjectProperty,
-  isAssignmentPattern,
-  isIdentifier,
-  AssignmentPattern,
-  isNumericLiteral
-} from '@babel/types';
+import { ObjectProperty, isAssignmentPattern } from '@babel/types';
 import {
   Operation,
   OperationTypes,
@@ -15,14 +9,17 @@ import {
   SetOperation,
   MergeOperation,
   RefOperation,
-  StructOperation
+  StructOperation,
+  StaticValue
 } from '../lib/producer/types';
 import { getMemberExpressionParams } from './getMemberExpressionParams';
 import { PathType } from './types';
-import { processPathValue } from './processPathValue';
+import { processInvokablePathValue } from './processInvokablePathValue';
 import { processStruct } from './processStruct';
+import { processPropPathValue } from './processPropPathValue';
 
 const constValue = (value: any): ValueOperation => {
+  console.log('Assigning constant value', value);
   return {
     type: OperationTypes.VALUE,
     value: {
@@ -37,16 +34,18 @@ interface Values {
 }
 
 const Values: Values = {
-  StringLiteral: node => constValue(node.value),
-  NumberLiteral: node => constValue(node.value),
-  BooleanLiteral: node => constValue(node.value),
+  StringLiteral: node => constValue({ __node__: node }),
+  NumberLiteral: node => constValue({ __node__: node }),
+  BooleanLiteral: node => constValue({ __node__: node }),
+  NumericLiteral: node => constValue({ __node__: node }),
+  ArrowFunctionExpression: node => constValue({ __node__: node }),
   // ObjectExpression: node => constValue(node.value)
   // foo = Get.foo.bar
   MemberExpression: node => {
     const params = getMemberExpressionParams(node);
     const op = params[0] as PathType;
     const rawPath = params.slice(1);
-    const path: InvokableValue[] = processPathValue(rawPath);
+    const path: InvokableValue[] = processInvokablePathValue(rawPath);
 
     // TODO: Is path valid? e.g. get operations with invoke
 
@@ -70,6 +69,11 @@ const Values: Values = {
         type: OperationTypes.REF,
         path
       } as RefOperation;
+    } else if (op === PathType.PROP) {
+      return {
+        type: OperationTypes.VALUE,
+        value: processPropPathValue(rawPath)
+      } as ValueOperation;
     } else {
       return undefined;
     }
@@ -88,15 +92,6 @@ const Values: Values = {
   ObjectExpression: node => {
     const value = processStruct(node);
     return value as StructOperation;
-  },
-  Identifier: node => {
-    return {
-      type: OperationTypes.VALUE,
-      value: {
-        type: ValueTypes.EXTERNAL,
-        path: [node.key.name]
-      }
-    };
   }
 };
 

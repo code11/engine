@@ -3,7 +3,6 @@ import { OperationTypes, StructOperation } from '../lib/producer/types';
 import { processValue } from './processValue';
 
 export const processStruct = (obj: ObjectPattern): StructOperation => {
-  console.log(obj);
   const result = obj.properties.reduce(
     (acc, x) => {
       if (isObjectProperty(x)) {
