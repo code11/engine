@@ -14,6 +14,11 @@ interface MacroParams {
   babel: typeof Babel;
 }
 
+/**
+ * TODO: Verify which args are used by the function and eliminate
+ * unnecessary ones
+ */
+
 function myMacro({ references, state, babel }: MacroParams) {
   const { view = [], producer = [] } = references;
   view.forEach(x => processReference(babel, state, x));

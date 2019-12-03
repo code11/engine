@@ -1,4 +1,4 @@
-import { StructOperation } from '../lib/producer/types';
+import { StructOperation } from '../../lib/producer/types';
 import {
   ObjectPattern,
   objectPattern,
@@ -6,7 +6,7 @@ import {
   identifier
 } from '@babel/types';
 
-export const compileParams = (struct: StructOperation): ObjectPattern => {
+export const paramsCompiler = (struct: StructOperation): ObjectPattern => {
   const value = struct.value;
   const keys = Object.keys(value).map(x => {
     return objectProperty(identifier(x), identifier(x), false, true);
