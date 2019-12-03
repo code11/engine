@@ -1,4 +1,11 @@
-import { ObjectProperty, isAssignmentPattern } from '@babel/types';
+import {
+  ObjectProperty,
+  isAssignmentPattern,
+  isLogicalExpression,
+  isConditionalExpression,
+  LogicalExpression,
+  isMemberExpression
+} from '@babel/types';
 import {
   Operation,
   OperationTypes,
@@ -10,7 +17,9 @@ import {
   MergeOperation,
   RefOperation,
   StructOperation,
-  StaticValue
+  StaticValue,
+  FuncOperation,
+  StaticOperation
 } from '../lib/producer/types';
 import { getMemberExpressionParams } from './getMemberExpressionParams';
 import { PathType } from './types';
@@ -19,7 +28,6 @@ import { processStruct } from './processStruct';
 import { processPropPathValue } from './processPropPathValue';
 
 const constValue = (value: any): ValueOperation => {
-  console.log('Assigning constant value', value);
   return {
     type: OperationTypes.VALUE,
     value: {
@@ -29,17 +37,57 @@ const constValue = (value: any): ValueOperation => {
   };
 };
 
+const funcValue = (node: Node): FuncOperation => {
+  return {
+    type: OperationTypes.FUNC,
+    value: {
+      params: [],
+      fn: () => {}
+    }
+  };
+};
+
+const logicalExpression = (node: LogicalExpression): FuncOperation => {
+  const params: StaticOperation[] = [];
+  let temp: any = node;
+  while (temp.left) {
+    temp = temp.left;
+
+    if (!temp) {
+      temp = false;
+    } else {
+      if (isMemberExpression(temp)) {
+        const result = Values.MemberExpression(temp) as StaticOperation;
+        if (result) {
+          params.push(result);
+        }
+      } else {
+        params.push({
+          type: OperationTypes.VALUE,
+          value: {
+            type: ValueTypes.CONST,
+            value: { __node__: temp }
+          }
+        });
+      }
+    }
+  }
+  // do right
+
+  return {
+    type: OperationTypes.FUNC,
+    value: {
+      params,
+      fn: () => {}
+    }
+  };
+};
+
 interface Values {
   [key: string]: (node: any) => Operation | undefined;
 }
 
 const Values: Values = {
-  StringLiteral: node => constValue({ __node__: node }),
-  NumberLiteral: node => constValue({ __node__: node }),
-  BooleanLiteral: node => constValue({ __node__: node }),
-  NumericLiteral: node => constValue({ __node__: node }),
-  ArrowFunctionExpression: node => constValue({ __node__: node }),
-  // ObjectExpression: node => constValue(node.value)
   // foo = Get.foo.bar
   MemberExpression: node => {
     const params = getMemberExpressionParams(node);
@@ -80,14 +128,14 @@ const Values: Values = {
   },
   // foo = Get.foo || Get.bar
   LogicalExpression: node => {
-    return constValue('123');
+    return logicalExpression(node);
   },
   // foo = Get.foo ? true : false
   ConditionalExpression: node => {
-    return constValue('123');
+    return funcValue(node);
   },
   BinaryExpression: node => {
-    return constValue('123');
+    return funcValue(node);
   },
   ObjectExpression: node => {
     const value = processStruct(node);
@@ -106,6 +154,6 @@ export const processValue = (node: ObjectProperty): Operation | void => {
   if (valueNode && Values[valueNode.type]) {
     return Values[valueNode.type](valueNode);
   } else {
-    throw new Error(`${valueNode && valueNode.type} not supported as a value`);
+    return constValue({ __node__: valueNode });
   }
 };

@@ -7,8 +7,7 @@ import {
   objectProperty,
   identifier
 } from '@babel/types';
-import { compileStruct } from './compileStruct';
-import { compileParams } from './compileParams';
+import { paramsCompiler, structOperationCompiler } from './compile';
 import { validateRef } from './validateRef';
 import { processStruct } from './processStruct';
 
@@ -29,9 +28,9 @@ export const processReference: ProcessReference = (babel, state, ref) => {
   const body = fn.body;
 
   const struct = processStruct(rawArgs);
-  const args = compileStruct(struct);
+  const args = structOperationCompiler(struct);
 
-  fn.params = [compileParams(struct)];
+  fn.params = [paramsCompiler(struct)];
   node.arguments[0] = objectExpression([
     objectProperty(identifier('args'), args),
     objectProperty(identifier('fn'), fn)

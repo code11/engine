@@ -1,4 +1,4 @@
-import { InvokablePath, ValueTypes } from '../lib/producer/types';
+import { InvokablePath, ValueTypes } from '../../lib/producer/types';
 import {
   ArrayExpression,
   arrayExpression,
@@ -9,7 +9,7 @@ import {
   nullLiteral
 } from '@babel/types';
 
-export const compilePath = (path: InvokablePath): ArrayExpression => {
+export const pathCompiler = (path: InvokablePath): ArrayExpression => {
   const parts = path.map(x => {
     let type = objectProperty(identifier('type'), stringLiteral(x.type));
     let value = objectProperty(identifier('ignored'), nullLiteral());
