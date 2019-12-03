@@ -1,6 +1,7 @@
 import { createMacro } from 'babel-plugin-macros';
 import * as Babel from '@babel/core';
-import { processReference } from './processReference';
+import { referenceParser } from './parsers';
+import { prepareForEngine } from './prepareForEngine';
 
 type References = Babel.NodePath[];
 
@@ -21,8 +22,8 @@ interface MacroParams {
 
 function myMacro({ references, state, babel }: MacroParams) {
   const { view = [], producer = [] } = references;
-  view.forEach(x => processReference(babel, state, x));
-  producer.forEach(x => processReference(babel, state, x));
+  view.forEach(x => prepareForEngine(babel, state, x));
+  producer.forEach(x => prepareForEngine(babel, state, x));
 }
 
 export default createMacro(myMacro);

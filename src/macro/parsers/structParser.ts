@@ -1,8 +1,8 @@
 import { ObjectPattern, ObjectProperty, isObjectProperty } from '@babel/types';
-import { OperationTypes, StructOperation } from '../lib/producer/types';
-import { processValue } from './processValue';
+import { OperationTypes, StructOperation } from '../../lib/producer/types';
+import { processValue } from './valueParser';
 
-export const processStruct = (obj: ObjectPattern): StructOperation => {
+export const structParser = (obj: ObjectPattern): StructOperation => {
   const result = obj.properties.reduce(
     (acc, x) => {
       if (isObjectProperty(x)) {

@@ -1,16 +1,13 @@
 import { flatten } from 'lodash';
 import {
   ValueTypes,
-  InvokableValue,
   InternalValue,
   ExternalValue,
-  InvokeValue,
-  ConstValue,
   StaticValue
-} from '../lib/producer/types';
-import { PathSymbol } from './types';
+} from '../../lib/producer/types';
+import { PathSymbol } from '../types';
 
-export const processPropPathValue = (path: string[]): StaticValue => {
+export const propPathValueParser = (path: string[]): StaticValue => {
   const first = path[0];
   const symbol = first[0];
   let path2 = path.slice();
