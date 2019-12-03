@@ -1,8 +1,6 @@
 import {
   ObjectProperty,
   isAssignmentPattern,
-  isLogicalExpression,
-  isConditionalExpression,
   LogicalExpression,
   isMemberExpression
 } from '@babel/types';
@@ -17,15 +15,14 @@ import {
   MergeOperation,
   RefOperation,
   StructOperation,
-  StaticValue,
   FuncOperation,
   StaticOperation
-} from '../lib/producer/types';
-import { getMemberExpressionParams } from './getMemberExpressionParams';
-import { PathType } from './types';
-import { processInvokablePathValue } from './processInvokablePathValue';
-import { processStruct } from './processStruct';
-import { processPropPathValue } from './processPropPathValue';
+} from '../../lib/producer/types';
+import { getMemberExpressionParams } from '../getMemberExpressionParams';
+import { PathType } from '../types';
+import { invokablePathValueParser } from './invokablePathValueParser';
+import { structParser } from './structParser';
+import { propPathValueParser } from './propPathValueParser';
 
 const constValue = (value: any): ValueOperation => {
   return {
@@ -93,7 +90,7 @@ const Values: Values = {
     const params = getMemberExpressionParams(node);
     const op = params[0] as PathType;
     const rawPath = params.slice(1);
-    const path: InvokableValue[] = processInvokablePathValue(rawPath);
+    const path: InvokableValue[] = invokablePathValueParser(rawPath);
 
     // TODO: Is path valid? e.g. get operations with invoke
 
@@ -120,7 +117,7 @@ const Values: Values = {
     } else if (op === PathType.PROP) {
       return {
         type: OperationTypes.VALUE,
-        value: processPropPathValue(rawPath)
+        value: propPathValueParser(rawPath)
       } as ValueOperation;
     } else {
       return undefined;
@@ -138,7 +135,7 @@ const Values: Values = {
     return funcValue(node);
   },
   ObjectExpression: node => {
-    const value = processStruct(node);
+    const value = structParser(node);
     return value as StructOperation;
   }
 };

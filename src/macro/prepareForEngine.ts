@@ -1,36 +1,32 @@
 import * as Babel from '@babel/core';
+import { referenceParser } from './parsers';
+import { structOperationCompiler, paramsCompiler } from './compilers';
 import {
   CallExpression,
   ArrowFunctionExpression,
-  ObjectPattern,
   objectExpression,
   objectProperty,
   identifier
 } from '@babel/types';
-import { paramsCompiler, structOperationCompiler } from './compile';
 import { validateRef } from './validateRef';
-import { processStruct } from './processStruct';
 
-type ProcessReference = (
+type PrepareForEngine = (
   babel: typeof Babel,
   state: any,
   ref: Babel.NodePath
 ) => void;
 
-export const processReference: ProcessReference = (babel, state, ref) => {
-  const result = validateRef(ref);
-  if (result.error) {
-    throw new Error(result.errorMessage);
+export const prepareForEngine: PrepareForEngine = (babel, state, ref) => {
+  const validation = validateRef(ref);
+  if (validation.error) {
+    throw new Error(validation.errorMessage);
   }
+  const op = referenceParser(babel, state, ref);
+  const args = structOperationCompiler(op);
   const node = ref.parentPath.node as CallExpression;
   const fn = node.arguments[0] as ArrowFunctionExpression;
-  const rawArgs = fn.params[0] as ObjectPattern;
-  const body = fn.body;
 
-  const struct = processStruct(rawArgs);
-  const args = structOperationCompiler(struct);
-
-  fn.params = [paramsCompiler(struct)];
+  fn.params = [paramsCompiler(op)];
   node.arguments[0] = objectExpression([
     objectProperty(identifier('args'), args),
     objectProperty(identifier('fn'), fn)
