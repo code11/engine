@@ -36,6 +36,4 @@ export const processReference: ProcessReference = (babel, state, ref) => {
     objectProperty(identifier('args'), args),
     objectProperty(identifier('fn'), fn)
   ]);
-
-  console.log('result', JSON.stringify(struct, null, ' '));
 };
