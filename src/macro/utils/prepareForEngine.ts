@@ -6,7 +6,10 @@ import {
   ArrowFunctionExpression,
   objectExpression,
   objectProperty,
-  identifier
+  identifier,
+  importDeclaration,
+  importSpecifier,
+  stringLiteral
 } from '@babel/types';
 import { validateRef } from './validateRef';
 
@@ -31,4 +34,25 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref) => {
     objectProperty(identifier('args'), args),
     objectProperty(identifier('fn'), fn)
   ]);
+
+  const engineImport = importDeclaration(
+    [importSpecifier(identifier('producer'), identifier('producer'))],
+    stringLiteral('@c11/engine')
+  );
+
+  const macroImport = ref
+    .findParent(p => p.isProgram())
+    .get('body')
+    .find(p => {
+      const result =
+        p.isImportDeclaration() &&
+        p.node.source.value.indexOf('@c11/engine.macro') !== -1;
+      return result;
+    });
+
+  if (macroImport) {
+    macroImport.insertAfter(engineImport);
+  } else {
+    throw new Error('Could not find macro import');
+  }
 };
