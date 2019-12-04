@@ -28,18 +28,19 @@ export class Engine {
   }
 
   private init() {
-    const { view, producers } = this.config;
-    if (producers) {
-      this.producers = producers.list.map(config => {
+    if (this.config.producers) {
+      this.producers = this.config.producers.list.map(config => {
         const producer = new Producer(config, this.context);
         producer.mount();
         return producer;
       });
     }
-    if (view) {
-      this.render = new Render(this.context, view.element, view.root);
+
+    if (this.config.view) {
+      this.render = new Render(this.context, this.config.view);
       this.render.mount();
     }
+
     this.state = EngineState.RUNNING;
   }
 
