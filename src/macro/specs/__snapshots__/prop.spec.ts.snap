@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support Prop: should support Prop 1`] = `
+
+import { producer } from './build/macro/index.macro'
+producer(({
+  foo = Prop['@foo'],
+  bar = Prop['@foo.bar'],
+  baz = Prop['@foo.bar'].baz
+}) => { })
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+producer({
+  args: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "VALUE",
+        value: {
+          type: EXTERNAL,
+          path: ["foo"]
+        }
+      },
+      bar: {
+        type: "VALUE",
+        value: {
+          type: EXTERNAL,
+          path: ["foo", "bar"]
+        }
+      },
+      baz: {
+        type: "VALUE",
+        value: {
+          type: EXTERNAL,
+          path: ["foo", "bar", "baz"]
+        }
+      }
+    }
+  },
+  fn: ({ foo, bar, baz }) => {}
+});
+
+
+`;

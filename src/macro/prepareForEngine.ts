@@ -1,5 +1,5 @@
 import * as Babel from '@babel/core';
-import { referenceParser } from './parsers';
+import { parseRef } from './parseRef';
 import { structOperationCompiler, paramsCompiler } from './compilers';
 import {
   CallExpression,
@@ -21,7 +21,7 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref) => {
   if (validation.error) {
     throw new Error(validation.errorMessage);
   }
-  const op = referenceParser(babel, state, ref);
+  const op = parseRef(babel, state, ref);
   const args = structOperationCompiler(op);
   const node = ref.parentPath.node as CallExpression;
   const fn = node.arguments[0] as ArrowFunctionExpression;

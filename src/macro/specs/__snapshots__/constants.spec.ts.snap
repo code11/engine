@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should keep Constants: should keep Constants 1`] = `
+
+import { producer } from './build/macro/index.macro'
+producer(({
+  a1 = '123',
+  a2 = {
+    foo: 123
+  },
+  a3 = function () { return false },
+  a4 = () => {},
+  a5 = /123/,
+  a6 = null,
+  a7 = undefined,
+}) => { })
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+producer({
+  args: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: CONST,
+          value: "123"
+        }
+      },
+      a2: {
+        type: "STRUCT",
+        value: {
+          foo: {
+            type: "VALUE",
+            value: {
+              type: CONST,
+              value: 123
+            }
+          }
+        }
+      },
+      a3: {
+        type: "VALUE",
+        value: {
+          type: CONST,
+          value: function() {
+            return false;
+          }
+        }
+      },
+      a4: {
+        type: "VALUE",
+        value: {
+          type: CONST,
+          value: () => {}
+        }
+      },
+      a5: {
+        type: "VALUE",
+        value: {
+          type: CONST,
+          value: /123/
+        }
+      },
+      a6: {
+        type: "VALUE",
+        value: {
+          type: CONST,
+          value: null
+        }
+      },
+      a7: {
+        type: "VALUE",
+        value: {
+          type: CONST,
+          value: undefined
+        }
+      }
+    }
+  },
+  fn: ({ a1, a2, a3, a4, a5, a6, a7 }) => {}
+});
+
+
+`;
