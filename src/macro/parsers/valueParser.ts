@@ -18,7 +18,7 @@ import {
   FuncOperation,
   StaticOperation
 } from '../../lib/producer/types';
-import { getMemberExpressionParams } from '../getMemberExpressionParams';
+import { getMemberExpressionParams } from '../utils/getMemberExpressionParams';
 import { PathType } from '../types';
 import { invokablePathValueParser } from './invokablePathValueParser';
 import { structParser } from './structParser';
