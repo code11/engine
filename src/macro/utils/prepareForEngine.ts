@@ -1,6 +1,6 @@
 import * as Babel from '@babel/core';
 import { parseRef } from './parseRef';
-import { structOperationCompiler, paramsCompiler } from './compilers';
+import { structOperationCompiler, paramsCompiler } from '../compilers';
 import {
   CallExpression,
   ArrowFunctionExpression,

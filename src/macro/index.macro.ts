@@ -1,6 +1,6 @@
 import { createMacro } from 'babel-plugin-macros';
 import * as Babel from '@babel/core';
-import { prepareForEngine } from './prepareForEngine';
+import { prepareForEngine } from './utils/prepareForEngine';
 
 type References = Babel.NodePath[];
 

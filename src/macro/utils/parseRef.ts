@@ -4,8 +4,8 @@ import {
   ArrowFunctionExpression,
   ObjectPattern
 } from '@babel/types';
-import { structParser } from './parsers/structParser';
-import { StructOperation } from '../lib/producer/types';
+import { structParser } from '../parsers/structParser';
+import { StructOperation } from '../../lib/producer/types';
 
 type ParseRef = (
   babel: typeof Babel,
