@@ -39,7 +39,7 @@ export const structOperationCompiler = (
       }
       return objectProperty(identifier(x), result, false, true);
     })
-    .filter(x => !x);
+    .filter(x => !!x);
   const value = objectProperty(identifier('value'), objectPattern(keys));
   return objectExpression([type, value]);
 };

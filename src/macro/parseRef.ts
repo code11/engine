@@ -4,16 +4,16 @@ import {
   ArrowFunctionExpression,
   ObjectPattern
 } from '@babel/types';
-import { structParser } from './structParser';
-import { StructOperation } from '../../lib/producer/types';
+import { structParser } from './parsers/structParser';
+import { StructOperation } from '../lib/producer/types';
 
-type ReferenceParser = (
+type ParseRef = (
   babel: typeof Babel,
   state: any,
   ref: Babel.NodePath
 ) => StructOperation;
 
-export const referenceParser: ReferenceParser = (babel, state, ref) => {
+export const parseRef: ParseRef = (babel, state, ref) => {
   const node = ref.parentPath.node as CallExpression;
   const fn = node.arguments[0] as ArrowFunctionExpression;
   const rawArgs = fn.params[0] as ObjectPattern;
