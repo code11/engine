@@ -2,7 +2,8 @@ import pluginTester from 'babel-plugin-tester';
 import prettier from 'prettier';
 import plugin from 'babel-plugin-macros';
 
-const macroFile = "'./build/macro/index.macro'";
+// const macroFile = "'./build/macro/index.macro'";
+const macroFile = "'@c11/engine.macro'";
 
 pluginTester({
   plugin,
