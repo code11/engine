@@ -13,6 +13,10 @@ TODO: Create virtual producers (FUNC)
 TODO: Add onDemand flag in ProducerConfig
 This will make the producer to act as the model used to do
 
-TODO: Make certain args meaningful - e.g. shouldMount would make sure the view will be shown based on the truthyness of the value
+TODO: Make certain args meaningful - e.g.:
+- shouldMount would make sure the view will be shown based on the truthyness of the value
+- lifecycle hooks for example : isInViewport: Set.something.something('123')
+- these could sit under a namespace e.g. self: { shouldMount: ..., isInViewport: ... }
 
 TODO: Add Toggle action alongside Set, Merge, etc...
+
