@@ -14,3 +14,5 @@ TODO: Add onDemand flag in ProducerConfig
 This will make the producer to act as the model used to do
 
 TODO: Make certain args meaningful - e.g. shouldMount would make sure the view will be shown based on the truthyness of the value
+
+TODO: Add Toggle action alongside Set, Merge, etc...
