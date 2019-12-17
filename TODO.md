@@ -39,6 +39,9 @@ TODO: Create a self storage location
 - and a way to customize where the self will be: e.g. for self: "sections/byId/SECTION_NAME"
 - adding a `self` on the args object will overwrite a unique - generated self by the framework
 
+TODO: Triggers should always clear themselves e.g. /documents/triggers/selectDocument needs to be removed
+after it has been interacted with so that even if the same trigger is made in the future the producers
+listening to this value will be notified
 
 
 
