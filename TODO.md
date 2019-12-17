@@ -31,6 +31,20 @@ TODO: Make some defensive guidelines that throw warnings in development:
 
 TODO: Handle animations (such as transitions to/from views/modals/sidebars) entirely at the stylesheets level
 
+TODO: Add support for states and state transitions.
+
+TODO: Create a self storage location
+
+- should be available using Get['@self'].data.foo
+- and a way to customize where the self will be: e.g. for self: "sections/byId/SECTION_NAME"
+- adding a `self` on the args object will overwrite a unique - generated self by the framework
+
+
+
+
+
+
+
 
 
 
