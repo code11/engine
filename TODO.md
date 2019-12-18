@@ -58,6 +58,21 @@ TODO: Show a list of active views and a way to interogate them:
 - view.lastArgs() -> {...}
 - ...etc
 
+TODO: For producers, figure out how to handle non-valid calls - e.g. argument is expected to be X but came as Y.
+This could flag an error or a warning in development in order to make it visible to the developer
+that the process/flow is broken.
+
+Warning: Broken flow.
+
+This means producer args can have 3 states:
+
+- Non-values (when one or more triggering args are undefined)
+- Invalid values (args have been populated but are not compatible - Why did the producer be linked to incompatible paths?)
+- Valid values (the args pass the guards)
+
+
+
+
 
 
 
