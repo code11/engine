@@ -43,6 +43,21 @@ TODO: Triggers should always clear themselves e.g. /documents/triggers/selectDoc
 after it has been interacted with so that even if the same trigger is made in the future the producers
 listening to this value will be notified
 
+TODO: Show a list of active producers and a way to interogate them:
+
+- engine.getActiveProducers() -> [producer]
+- producer.stats()
+- producer.lastTriggeredBy() -> [path]
+- producer.lastArgs() -> {...}
+- producer.lastExecutionTime() -> ms
+- producer.totalExecutionTime() -> ms
+
+TODO: Show a list of active views and a way to interogate them:
+
+- engine.getActiveViews() -> [view]
+- view.lastArgs() -> {...}
+- ...etc
+
 
 
 
