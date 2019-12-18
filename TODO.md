@@ -72,6 +72,8 @@ This means producer args can have 3 states:
 
 TODO: Make a link with the data-key or styles used for a component
 
+TODO: Add responsive flags on the state in order to ensure the layout orchestration is kept
+in the application code and not in CSS.
 
 
 
