@@ -29,7 +29,8 @@ TODO: Make some defensive guidelines that throw warnings in development:
 
 - /foo/triggers/bar -> should be only one listener on this path
 
-TODO: Handle animations (such as transitions to/from views/modals/sidebars) entirely at the stylesheets level
+TODO: Handle animations (such as transitions to/from views/modals/sidebars) from the framework + stylesheet
+using addEventListener('transitionend') etc
 
 TODO: Add support for states and state transitions.
 
