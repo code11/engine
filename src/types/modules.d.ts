@@ -42,3 +42,10 @@ declare module 'babel-plugin-tester' {
   function fn(args: any): any;
   export default fn;
 }
+
+declare module '@c11/engine.macro' {
+  function fn(args: any): any;
+  type producer = (args: any) => any;
+  export { producer };
+  export default fn;
+}
