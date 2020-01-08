@@ -12,4 +12,5 @@ build
 .vscode
 *.tgz
 src/specs/macro
-src/specs/__snapshots__
+__snapshots__
+*.bkp
