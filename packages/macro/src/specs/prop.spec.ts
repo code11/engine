@@ -1,19 +1,19 @@
-import pluginTester from 'babel-plugin-tester';
-import prettier from 'prettier';
-import plugin from 'babel-plugin-macros';
+import pluginTester from "babel-plugin-tester";
+import prettier from "prettier";
+import plugin from "babel-plugin-macros";
 
-const macroFile = "'./build/macro/index.macro'";
+const macroFile = "'@c11/engine.macro'";
 
 pluginTester({
   plugin,
   babelOptions: { filename: __filename },
   formatResult: (result: any) => {
     return prettier.format(result, {
-      parser: 'babel'
+      parser: "babel",
     });
   },
   tests: {
-    'should support Prop': {
+    "should support Prop": {
       code: `
         import { producer } from ${macroFile}
         producer(({
@@ -22,7 +22,7 @@ pluginTester({
           baz = Prop['@foo.bar'].baz
         }) => { })
       `,
-      snapshot: true
-    }
-  }
+      snapshot: true,
+    },
+  },
 });

@@ -16,13 +16,19 @@
     }
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest --config ../../jest.config.js --runTestsByPath ./src/**/*"
   },
   "peerDependencies": {
     "react": "^16"
   },
+  "dependencies": {
+    "@c11/engine-producer": "^1.0.0"
+  },
   "devDependencies": {
     "@c11/engine-types": "^1.0.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "react": "^16.12.0",
