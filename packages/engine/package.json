@@ -5,12 +5,16 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
   "author": {
     "name": "Constantin Dumitrescu",
     "email": "constantin.dumitrescu@code11.com"
   },
   "dependencies": {
     "@c11/engine-producer": "^1.0.0",
+    "@c11/engine-types": "^1.0.0",
     "jsonmvc-datastore": "^0.3.35"
   },
   "devDependencies": {
