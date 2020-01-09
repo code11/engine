@@ -4,13 +4,16 @@
   "license": "MIT",
   "private": true,
   "keywords": [],
+  "workspaces": [
+    "packages/*"
+  ],
   "author": {
     "name": "Constantin Dumitrescu",
     "email": "constantin.dumitrescu@code11.com"
   },
   "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
   "scripts": {
-    "cleanup": "./cleanup.sh",
+    "clean": "lerna clean --yes && rm -rf packages/*/dist",
     "build:engine": "lerna run --scope=@c11/engine* build",
     "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
     "build:all": "lerna exec yarn build",

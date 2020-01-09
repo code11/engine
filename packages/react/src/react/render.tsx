@@ -1,7 +1,6 @@
 import React from 'react';
 import { ViewProvider } from './context';
-import { ProducerContext } from '@c11/engine-producer';
-import { RenderInstance, RenderConfig } from '..';
+import { ProducerContext, RenderInstance, RenderConfig  } from '@c11/engine-types';
 
 export class Render implements RenderInstance {
   private context: ProducerContext;

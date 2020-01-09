@@ -1,9 +1,9 @@
-import React from 'react';
-import ViewContext from './context';
-import { BaseProps, BaseState } from './types';
-import { ViewConfig } from '../types';
-import { Producer } from '@c11/engine-producer';
-import { RenderComponent } from './renderComponent';
+import React from "react";
+import ViewContext from "./context";
+import { BaseProps, BaseState } from "./types";
+import { ViewConfig } from "@c11/engine-types";
+import { Producer } from "@c11/engine-producer";
+import { RenderComponent } from "./renderComponent";
 
 // TopLevel{
 //   ErrorManagement,
@@ -41,16 +41,16 @@ export function view({ args, fn }: ViewConfig) {
     producer: Producer;
     constructor(props: BaseProps, context: any) {
       super(props, context);
-      console.log('Registered producer');
+      console.log("Registered producer");
       this.producer = new Producer(
         {
           args,
-          fn: this.updateData.bind(this)
+          fn: this.updateData.bind(this),
         },
         context
       );
       this.state = {
-        foo: null
+        foo: null,
       };
     }
     componentDidMount() {
@@ -60,7 +60,7 @@ export function view({ args, fn }: ViewConfig) {
       this.setState(data);
     }
     render() {
-      console.log('rendered with', this.state);
+      console.log("rendered with", this.state);
       return <RenderComponent state={this.state} fn={fn} />;
     }
   };
