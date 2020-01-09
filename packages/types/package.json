@@ -1,0 +1,17 @@
+{
+  "name": "@c11/engine-types",
+  "version": "1.0.0",
+  "description": "Typescript types for everything engine related",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Constantin Dumitrescu",
+    "email": "constantin.dumitrescu@code11.com"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}

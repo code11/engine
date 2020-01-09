@@ -1,0 +1,28 @@
+{
+  "name": "@c11/engine-react",
+  "version": "1.0.0",
+  "description": "React support for the engine",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Constantin Dumitrescu",
+    "email": "constantin.dumitrescu@code11.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Oprisean",
+      "email": "alexandru.oprisean@code11.com"
+    }
+  ],
+  "dependencies": {
+    "@c11/engine-producer": "^1.0.0",
+    "@c11/engine-types": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16"
+  },
+  "devDependencies": {
+    "@c11/engine-types": "^1.0.0"
+  }
+}
