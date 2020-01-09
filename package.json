@@ -4,9 +4,15 @@
   "license": "MIT",
   "private": true,
   "keywords": [],
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/types",
+      "**/producer"
+    ]
+  },
   "author": {
     "name": "Constantin Dumitrescu",
     "email": "constantin.dumitrescu@code11.com"
@@ -16,10 +22,10 @@
     "clean": "lerna clean --yes && rm -rf packages/*/dist",
     "build:engine": "lerna run --scope=@c11/engine* build",
     "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
-    "build:all": "lerna exec yarn build",
+    "build": "lerna run build",
+    "test": "lerna run test",
     "describe": "npm-scripts-info",
-    "commit": "git-cz",
-    "clean": "lerna clean --yes"
+    "commit": "git-cz"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -38,6 +44,16 @@
     "node": ">=9"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.7",
+    "@babel/types": "^7.7.4",
+    "@types/jest": "^24.0.25",
+    "@types/lodash": "^4.14.149",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-macros": "^2.8.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "jest": "^24.9.0",

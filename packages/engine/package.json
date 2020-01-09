@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@c11/engine-producer": "^1.0.0",
+    "@c11/engine-react": "^1.0.0",
     "@c11/engine-types": "^1.0.0",
     "jsonmvc-datastore": "^0.3.35"
   },

@@ -1,14 +1,14 @@
-import { createMacro } from 'babel-plugin-macros';
-import * as Babel from '@babel/core';
-import { prepareForEngine } from './utils/prepareForEngine';
+import { createMacro } from "babel-plugin-macros";
+import * as Babel from "@babel/core";
+import { prepareForEngine } from "./utils/prepareForEngine";
 
 type References = Babel.NodePath[];
 
 interface MacroParams {
   references: {
-    view?: References;
-    producer?: References;
-    default: References;
+    view?: References,
+    producer?: References,
+    default: References,
   };
   state: any;
   babel: typeof Babel;
@@ -25,4 +25,11 @@ function myMacro({ references, state, babel }: MacroParams) {
   producer.forEach(x => prepareForEngine(babel, state, x));
 }
 
-export default createMacro(myMacro);
+interface Macro {
+  producer: () => void;
+  view: () => void;
+}
+
+const macro: Macro = createMacro(myMacro);
+
+export default macro;

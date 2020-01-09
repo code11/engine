@@ -9,8 +9,15 @@
     "name": "Constantin Dumitrescu",
     "email": "constantin.dumitrescu@code11.com"
   },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config ../../jest.config.js --runTestsByPath ./src/**/*"
+  },
   "devDependencies": {
-    "@c11/engine-types": "^1.0.0"
+    "@babel/types": "^7.7.4",
+    "@c11/engine-types": "^1.0.0",
+    "@types/babel-plugin-macros": "^2.6.0",
+    "babel-plugin-tester": "^8.0.1"
   },
   "dependencies": {
     "@c11/engine-producer": "^1.0.0",
