@@ -1,0 +1,28 @@
+{
+  "name": "@c11/engine-producer",
+  "version": "1.0.0",
+  "description": "A programming engine",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Constantin Dumitrescu",
+    "email": "constantin.dumitrescu@code11.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build:declaration": "tsc --project tsconfig.build.json",
+    "build:es": "BABEL_ENV=build babel src --root-mode upward --out-dir dist --source-maps --extensions .ts,.tsx --delete-dir-on-start --no-comments"
+  },
+  "devDependencies": {
+    "@c11/engine-types": "^1.0.0",
+    "@types/lodash": "^4.14.149"
+  },
+  "dependencies": {
+    "@c11/engine-types": "^1.0.0",
+    "jsonmvc-datastore": "^0.3.35",
+    "lodash": "^4.17.15"
+  }
+}

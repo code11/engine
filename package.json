@@ -1,48 +1,22 @@
 {
-  "name": "@c11/engine",
   "version": "1.6.2",
-  "description": "An UI Engine for Code11 projects",
-  "main": "build/main/index.js",
-  "typings": "build/main/index.d.ts",
-  "module": "build/module/index.js",
-  "license": "UNLICENSED",
+  "description": "A programming engine",
+  "license": "MIT",
+  "private": true,
   "keywords": [],
   "author": {
     "name": "Constantin Dumitrescu",
     "email": "constantin.dumitrescu@code11.com"
   },
-  "contributors": [
-    {
-      "name": "Alexandru Oprisean",
-      "email": "alexandru.oprisean@code11.com"
-    }
-  ],
   "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
   "scripts": {
+    "cleanup": "./cleanup.sh",
+    "build:engine": "lerna run --scope=@c11/engine* build",
+    "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
+    "build:all": "lerna exec yarn build",
     "describe": "npm-scripts-info",
-    "build": "run-s clean && run-p build:*",
-    "build:main": "tsc -p tsconfig.json",
-    "build:module": "tsc -p tsconfig.module.json",
-    "build:macro": "tsc -p tsconfig.macro.json",
-    "build:macro:module": "tsc src/macro/index.macro.ts --outDir node_modules/macrotest",
-    "fix": "run-s fix:*",
-    "fix:prettier": "prettier \"src/**/*.ts\" --write",
-    "fix:tslint": "tslint --fix --project .",
-    "test": "jest",
-    "test:cov": "jest --coverage",
-    "test:macro": "tsc src/macro/index.macro.ts --outDir src/macro/specs/build && jest src/macro/specs/*.spec.ts",
-    "test:macro:update": "tsc src/macro/index.macro.ts --outDir node_modules/@c11/engine.macro && jest src/macro/specs/*.spec.ts --updateSnapshot",
-    "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
-    "doc": "run-s doc:html && open-cli build/docs/index.html",
-    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs --jsx react",
-    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc.json",
-    "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
-    "version": "standard-version",
-    "version:major": "standard-version -- --release-as major",
-    "reset": "echo \"should clone into a repo and do things from scratch\"",
-    "clean": "trash build test",
-    "prepare-release": "run-s reset test version",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "clean": "lerna clean --yes"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -60,83 +34,17 @@
   "engines": {
     "node": ">=9"
   },
-  "dependencies": {
-    "jsonmvc-datastore": "^0.3.35",
-    "kebab-case": "^1.0.0",
-    "react-html-attributes": "^1.4.6"
-  },
-  "peerDependencies": {
-    "react": "^16.12.0"
-  },
   "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-transform-react-jsx": "^7.7.4",
-    "@babel/plugin-transform-typescript": "^7.7.4",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.4",
-    "@babel/preset-typescript": "^7.7.4",
-    "@bitjson/npm-scripts-info": "^1.0.0",
-    "@bitjson/typedoc": "^0.15.0-0",
-    "@testing-library/dom": "^6.10.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@types/babel-plugin-macros": "^2.6.0",
-    "@types/babel-types": "^7.0.7",
-    "@types/enzyme": "^3.10.3",
-    "@types/jest": "^24.0.23",
-    "@types/lodash": "^4.14.149",
-    "@types/lodash-es": "^4.17.3",
-    "@types/node": "^12.12.11",
-    "@types/prettier": "^1.19.0",
-    "@types/react": "^16.9.11",
-    "@types/react-dom": "^16.9.4",
-    "ava": "2.4.0",
-    "babel-jest": "^24.9.0",
-    "babel-plugin-macros": "^2.7.0",
-    "babel-plugin-module-resolver": "^3.2.0",
-    "babel-plugin-root-import": "^6.4.1",
-    "babel-plugin-tester": "^8.0.1",
-    "browser-env": "^3.3.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "gh-pages": "^2.1.1",
     "jest": "^24.9.0",
-    "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15",
-    "ms.macro": "^2.0.0",
-    "npm-run-all": "^4.1.5",
-    "open-cli": "^5.0.0",
+    "lerna": "^3.20.2",
     "prettier": "^1.19.1",
-    "react": "^16.12.0",
-    "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.12.0",
-    "standard-version": "^7.0.1",
-    "trash-cli": "^3.0.0",
-    "ts-jest": "^24.1.0",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-immutable": "^6.0.1",
-    "ttypescript": "^1.5.8",
-    "typescript": "^3.7.2"
-  },
-  "ava": {
-    "failFast": true,
-    "files": [
-      "build/main/**/*.spec.js"
-    ],
-    "sources": [
-      "build/main/**/*.js"
-    ]
+    "standard-version": "^7.0.1"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "prettier": {
-    "singleQuote": true
   }
 }
