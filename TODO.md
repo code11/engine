@@ -32,6 +32,8 @@ TODO: Make some defensive guidelines that throw warnings in development:
 TODO: Handle animations (such as transitions to/from views/modals/sidebars) from the framework + stylesheet
 using addEventListener('transitionend') etc
 
+TODO: How to make producers libs be findable by developers? E.g. ctrl+click on a lib will it take it to the source code?
+
 TODO: Add support for states and state transitions.
 
 TODO: Create a self storage location
