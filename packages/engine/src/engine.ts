@@ -1,12 +1,16 @@
 import db from 'jsonmvc-datastore';
 import { Producer } from '@c11/engine-producer';
-import { Render } from '@c11/engine-react'
+import { Render, view } from '@c11/engine-react'
 import { EngineConfig, ProducerInstance, ProducerContext, RenderInstance } from '@c11/engine-types';
 
 enum EngineState {
   NOT_INITIALIZED,
   RUNNING,
   STOPPED
+}
+
+export {
+  view
 }
 
 export class Engine {
