@@ -32,6 +32,24 @@ TODO: Make some defensive guidelines that throw warnings in development:
 TODO: Handle animations (such as transitions to/from views/modals/sidebars) from the framework + stylesheet
 using addEventListener('transitionend') etc
 
+TODO: Instead of making the engine customizable it might be simpler to create different types of engines:
+- @c11/engine-react
+
+- @c11/engine-vue
+
+- @c11/engine will have only producers without a view
+
+Macros will need to use the same engine:
+@c11/engine-react.macro
+@c11/engine-vue.macro
+etc..
+
+This is reaquired
+
+
+
+
+
 TODO: How to make producers libs be findable by developers? E.g. ctrl+click on a lib will it take it to the source code?
 
 TODO: Add support for states and state transitions.
