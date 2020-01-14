@@ -23,5 +23,6 @@
   "dependencies": {
     "jsonmvc-datastore": "^0.3.35",
     "lodash": "^4.17.15"
-  }
+  },
+  "gitHead": "a2dff2eb95627444c65febd2b94c0861460d8428"
 }
