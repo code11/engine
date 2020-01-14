@@ -28,10 +28,11 @@ export class Producer implements ProducerInstance {
   graph: Graph;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
-    this.args = {
-      type: OperationTypes.STRUCT,
-      value: config.args
-    };
+    // this.args = {
+    //   type: OperationTypes.STRUCT,
+    //   value: config.args
+    // };
+    this.args = config.args
     this.fn = config.fn;
     this.external = context.props || {};
     this.graph = new Graph(this.db, this.external, this.args, this.fn);
