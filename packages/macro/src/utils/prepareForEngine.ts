@@ -13,13 +13,19 @@ import {
 } from '@babel/types';
 import { validateRef } from './validateRef';
 
+export enum TransformType {
+  PRODUCER = "PRODUCER",
+  VIEW = "VIEW"
+}
 type PrepareForEngine = (
   babel: typeof Babel,
   state: any,
-  ref: Babel.NodePath
+  ref: Babel.NodePath,
+  type: TransformType
 ) => void;
 
-export const prepareForEngine: PrepareForEngine = (babel, state, ref) => {
+
+export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
   const validation = validateRef(ref);
   if (validation.error) {
     throw new Error(validation.errorMessage);
@@ -30,29 +36,34 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref) => {
   const fn = node.arguments[0] as ArrowFunctionExpression;
 
   fn.params = [paramsCompiler(op)];
-  node.arguments[0] = objectExpression([
+  const result = objectExpression([
     objectProperty(identifier('args'), args),
     objectProperty(identifier('fn'), fn)
   ]);
 
-  const engineImport = importDeclaration(
-    [importSpecifier(identifier('producer'), identifier('producer'))],
-    stringLiteral('@c11/engine')
-  );
+  if (type === TransformType.PRODUCER) {
+    ref.parentPath.replaceWith(result)
+  } else if (type === TransformType.VIEW) {
+    node.arguments[0] = result
+    const engineImport = importDeclaration(
+      [importSpecifier(identifier('view'), identifier('view'))],
+      stringLiteral('@c11/engine-react')
+    );
 
-  const macroImport = ref
-    .findParent(p => p.isProgram())
-    .get('body')
-    .find(p => {
-      const result =
-        p.isImportDeclaration() &&
-        p.node.source.value.indexOf('@c11/engine.macro') !== -1;
-      return result;
-    });
+    const macroImport = ref
+      .findParent(p => p.isProgram())
+      .get('body')
+      .find(p => {
+        const result =
+          p.isImportDeclaration() &&
+          p.node.source.value.indexOf('@c11/engine.macro') !== -1;
+        return result;
+      });
 
-  if (macroImport) {
-    macroImport.insertAfter(engineImport);
-  } else {
-    throw new Error('Could not find macro import');
+    if (macroImport) {
+      macroImport.insertAfter(engineImport);
+    } else {
+      throw new Error('Could not find macro import');
+    }
   }
 };
