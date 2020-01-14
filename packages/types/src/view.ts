@@ -1,4 +1,4 @@
-import { ProducerData, ProducerArgs } from './producer';
+import { ProducerData, StructOperation } from "./producer";
 
 export type ViewFn = (data: ProducerData) => JSX.Element;
 
@@ -9,7 +9,7 @@ export interface RenderConfig {
 }
 
 export interface ViewConfig {
-  args: ProducerArgs;
+  args: StructOperation;
   fn: ViewFn;
 }
 

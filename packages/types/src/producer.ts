@@ -113,7 +113,7 @@ export interface ProducerData {
 export type ProducerFn = (data: ProducerData) => void;
 
 export interface ProducerConfig {
-  args: ProducerArgs;
+  args: StructOperation;
   fn: ProducerFn;
 }
 
