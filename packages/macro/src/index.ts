@@ -28,23 +28,21 @@ function myMacro({ references, state, babel }: MacroParams) {
   );
 }
 
-interface GenericMacroArgs {
-  args: any
-  fn: () => any
-}
+type GenericMacro = (args: any) => any;
 
-type producer = (config: GenericMacroArgs) => any;
-type view = (config: GenericMacroArgs) => React.ComponentClass;
+type producer = (config: GenericMacro) => any;
+type view = (config: GenericMacro) => React.ComponentClass;
 
-export const producer: producer = args => null
-export const view: view = args => class View extends React.Component {
-  constructor(props: any, context: any) {
-    super(props, context)
-  }
-  render() {
-    return null
-  }
-}
+export const producer: producer = args => null;
+export const view: view = args =>
+  class View extends React.Component {
+    constructor(props: any, context: any) {
+      super(props, context);
+    }
+    render() {
+      return null;
+    }
+  };
 
 const macro = createMacro(myMacro);
 export default macro;
