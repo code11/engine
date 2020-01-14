@@ -34,7 +34,7 @@ export const valueOperationCompiler = (
     value = objectProperty(
       identifier("value"),
       objectExpression([
-        objectProperty(identifier("type"), identifier(ValueTypes.CONST)),
+        objectProperty(identifier("type"), stringLiteral(ValueTypes.CONST)),
         objectProperty(identifier("value"), valType),
       ])
     );
