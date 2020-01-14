@@ -27,11 +27,9 @@ function myMacro({ references, state, babel }: MacroParams) {
   );
 }
 
-interface Macro {
-  producer: () => void;
-  view: () => void;
-}
+export const producer = () => {};
+export const view = () => {};
 
-const macro: Macro = createMacro(myMacro);
+const macro = createMacro(myMacro);
 
 export default macro;
