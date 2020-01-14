@@ -1,7 +1,7 @@
 import { createMacro } from "babel-plugin-macros";
 import * as Babel from "@babel/core";
 import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
-import { ViewConfig } from "@c11/engine-types";
+import React from "react";
 
 type References = Babel.NodePath[];
 
@@ -33,8 +33,18 @@ interface GenericMacroArgs {
   fn: () => any
 }
 
-export declare type producer = (config: GenericMacroArgs) => any;
-export declare type view = (config: GenericMacroArgs) => React.ComponentClass;
+type producer = (config: GenericMacroArgs) => any;
+type view = (config: GenericMacroArgs) => React.ComponentClass;
+
+export const producer: producer = args => null
+export const view: view = args => class View extends React.Component {
+  constructor(props: any, context: any) {
+    super(props, context)
+  }
+  render() {
+    return null
+  }
+}
 
 const macro = createMacro(myMacro);
 export default macro;
