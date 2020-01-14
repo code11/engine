@@ -82,3 +82,14 @@ TODO: Update to lerna!
 
 import { producer, view, graph, engine } from '@c11/engine
 import { producer, view } from '@c11/engine.macro
+
+
+TODO: Add triggers listening - if the patterns are so that every ui trigger will sit in a standard
+location then things like listening to any action taken in the ui to trigger something will be possible:
+e.g. closing a dropdown when clicking outside (although there could be no actions taken there...)
+
+
+TODO: Add support for arrays:
+producer({
+Foo = [Get.foo.bar1, Get.foo.bar2]
+} => {})
