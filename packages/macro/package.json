@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.macro",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Babel macros that define the Engine API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -20,8 +20,8 @@
     "babel-plugin-tester": "^8.0.1"
   },
   "dependencies": {
-    "@c11/engine-producer": "^2.0.0",
-    "@c11/engine-types": "^2.0.0",
+    "@c11/engine-producer": "^2.0.1",
+    "@c11/engine-types": "^2.0.1",
     "lodash": "^4.17.15"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
