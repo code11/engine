@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine-react",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "React support for the engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -23,10 +23,10 @@
     "react": "^16"
   },
   "dependencies": {
-    "@c11/engine-producer": "^2.0.0"
+    "@c11/engine-producer": "^2.0.1"
   },
   "devDependencies": {
-    "@c11/engine-types": "^2.0.0",
+    "@c11/engine-types": "^2.0.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@types/react": "^16.9.17",
