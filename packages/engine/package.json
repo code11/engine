@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "A programming engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -13,9 +13,9 @@
     "email": "constantin.dumitrescu@code11.com"
   },
   "dependencies": {
-    "@c11/engine-producer": "^2.0.1",
-    "@c11/engine-react": "^2.0.1",
-    "@c11/engine-types": "^2.0.1",
+    "@c11/engine-producer": "^2.0.3",
+    "@c11/engine-react": "^2.0.3",
+    "@c11/engine-types": "^2.0.3",
     "jsonmvc-datastore": "^0.3.35"
   },
   "devDependencies": {
