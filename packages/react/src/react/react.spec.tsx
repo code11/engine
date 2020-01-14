@@ -29,7 +29,7 @@ beforeEach(() => {});
 
 test("Should mount an empty component", () => {
   const state = {
-    foo: "123",
+    foo: "123321",
   };
 
   const context = {
@@ -38,11 +38,16 @@ test("Should mount an empty component", () => {
 
   const component: ViewConfig = {
     args: {
-      foo: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.CONST,
-          value: "123",
+      type: OperationTypes.STRUCT,
+      value: {
+        foo: {
+          type: OperationTypes.GET,
+          path: [
+            {
+              type: ValueTypes.CONST,
+              value: "foo",
+            },
+          ],
         },
       },
     },
@@ -56,7 +61,7 @@ test("Should mount an empty component", () => {
     root: document.createElement("div"),
     render: (Component, root) => {
       api = render(Component);
-      expect(api.getByTestId("foo")).toHaveTextContent("123");
+      expect(api.getByTestId("foo")).toHaveTextContent(state.foo);
     },
   };
 
