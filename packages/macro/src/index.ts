@@ -20,6 +20,8 @@ interface MacroParams {
  * unnecessary ones
  */
 
+// TODO: Figure out which view engine is used from the project's package.json
+
 function myMacro({ references, state, babel }: MacroParams) {
   const { view = [], producer = [] } = references;
   view.forEach(x => prepareForEngine(babel, state, x, TransformType.VIEW));
@@ -30,19 +32,11 @@ function myMacro({ references, state, babel }: MacroParams) {
 
 type GenericMacro = (args: any) => any;
 
-type producer = (config: GenericMacro) => any;
-type view = (config: GenericMacro) => React.ComponentClass;
+export declare type producer = (config: GenericMacro) => any;
+export declare type view = (config: GenericMacro) => JSX.Element;
 
-export const producer: producer = args => null;
-export const view: view = args =>
-  class View extends React.Component {
-    constructor(props: any, context: any) {
-      super(props, context);
-    }
-    render() {
-      return null;
-    }
-  };
+// export const producer: producer = args => null;
+// export const view: view = args => 
 
 const macro = createMacro(myMacro);
 export default macro;
