@@ -1,7 +1,6 @@
 import { createMacro } from "babel-plugin-macros";
 import * as Babel from "@babel/core";
 import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
-import React from "react";
 
 type References = Babel.NodePath[];
 
@@ -20,8 +19,6 @@ interface MacroParams {
  * unnecessary ones
  */
 
-// TODO: Figure out which view engine is used from the project's package.json
-
 function myMacro({ references, state, babel }: MacroParams) {
   const { view = [], producer = [] } = references;
   view.forEach(x => prepareForEngine(babel, state, x, TransformType.VIEW));
@@ -30,13 +27,16 @@ function myMacro({ references, state, babel }: MacroParams) {
   );
 }
 
-type GenericMacro = (args: any) => any;
+type ProducerConfig = (args: Map<String, any>) => any;
+type ViewConfig = (args: Map<string, any>) => JSX.Element;
 
-export declare type producer = (config: GenericMacro) => any;
-export declare type view = (config: GenericMacro) => JSX.Element;
+type producer = (config: ProducerConfig) => any;
+type view = (config: ViewConfig) => JSX.Element;
 
-// export const producer: producer = args => null;
-// export const view: view = args => 
+export const producer: producer = config => null;
+export const view: view = config => {
+  return {} as JSX.Element
+}
 
 const macro = createMacro(myMacro);
 export default macro;
