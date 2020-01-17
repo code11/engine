@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.3](https://bitbucket.org/code11-com/engine/compare/v2.0.11...v1.6.3) (2020-01-17)
+
+
+### Others
+
+* **npm:** add .npmignore to every package ([a2b59dc](https://bitbucket.org/code11-com/engine/commit/a2b59dc667b9fc47b6c5f448aa8020b9c6b4f4ee))
+
+
+### Docs
+
+* **macro:** add a todo regarding package.json engine selection ([91a0304](https://bitbucket.org/code11-com/engine/commit/91a0304e11eb9416c876143a8ed92a0f8e858fc6))
+
+
+### Styling
+
+* format every file with prettier ([39d9c6a](https://bitbucket.org/code11-com/engine/commit/39d9c6ae19cd687152588b86e1a1d8789a3e4cc8))
+
+
+### Code Refactoring
+
+* **engine:** move engines to their respective types engine-react, engine-node ([3686b9d](https://bitbucket.org/code11-com/engine/commit/3686b9d833265b1af377ce1b5255f4db571b21a4))
+
+
+### Feature Improvements
+
+* **macro:** remove {} from producer or view definitions ([6b530be](https://bitbucket.org/code11-com/engine/commit/6b530be8dc9388cad9f36c9234353ce47cb8fde7))
+
 ### [1.6.2](https://bitbucket.org/code11-com/engine/compare/v1.6.1...v1.6.2) (2019-11-27)
 
 
