@@ -32,16 +32,16 @@ import { RenderComponent } from "./renderComponent";
  * and handles them accordingly
  */
 
-interface SampleState {
-  foo: any;
-}
+interface SampleState {}
 export function view({ args, fn }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
     producer: Producer;
     constructor(props: BaseProps, context: any) {
       super(props, context);
-      console.log("Registered producer");
+      console.log("Registered view");
+      console.log(props, context);
+      context.props = props;
       this.producer = new Producer(
         {
           args,
@@ -49,9 +49,7 @@ export function view({ args, fn }: ViewConfig) {
         },
         context
       );
-      this.state = {
-        foo: null,
-      };
+      this.state = {};
     }
     componentDidMount() {
       this.producer.mount();

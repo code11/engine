@@ -46,7 +46,7 @@ export const valueOperationCompiler = (
     value = objectProperty(
       identifier("value"),
       objectExpression([
-        objectProperty(identifier("type"), identifier(op.value.type)),
+        objectProperty(identifier("type"), stringLiteral(op.value.type)),
         objectProperty(identifier("path"), path),
       ])
     );
