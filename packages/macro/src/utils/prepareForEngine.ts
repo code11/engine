@@ -44,6 +44,7 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
     ref.parentPath.replaceWith(result);
   } else if (type === TransformType.VIEW) {
     node.arguments[0] = result;
+    // TODO: Get the engine used from the package.json file
     const engineImport = importDeclaration(
       [importSpecifier(identifier("view"), identifier("view"))],
       stringLiteral("@c11/engine-react")
