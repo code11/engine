@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://bitbucket.org/code11-com/engine/compare/v1.6.4...v2.0.1) (2020-01-17)
+
+
+### Others
+
+* **package:** change version to 2 ([689adbe](https://bitbucket.org/code11-com/engine/commit/689adbed9bb8082296486378eb630a52c5cd24f6))
+
 ### [1.6.4](https://bitbucket.org/code11-com/engine/compare/v1.6.3...v1.6.4) (2020-01-17)
 
 
