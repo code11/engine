@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.3](https://bitbucket.org/code11-com/engine/compare/v3.0.2...v3.0.3) (2020-01-17)
+
 ### [3.0.2](https://bitbucket.org/code11-com/engine/compare/v3.0.1...v3.0.2) (2020-01-17)
 
 
