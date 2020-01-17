@@ -13,12 +13,12 @@
     "email": "constantin.dumitrescu@code11.com"
   },
   "dependencies": {
-    "@c11/engine-producer": "^2.0.3",
-    "@c11/engine-types": "^2.0.3",
+    "@c11/engine-producer": "^3.1.0",
+    "@c11/engine-types": "^3.1.0",
     "jsonmvc-datastore": "^0.3.35"
   },
   "devDependencies": {
-    "@c11/engine-types": "^1.0.0"
+    "@c11/engine-types": "^3.1.0"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }
