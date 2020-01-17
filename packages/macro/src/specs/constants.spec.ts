@@ -1,6 +1,6 @@
-import pluginTester from 'babel-plugin-tester';
-import prettier from 'prettier';
-import plugin from 'babel-plugin-macros';
+import pluginTester from "babel-plugin-tester";
+import prettier from "prettier";
+import plugin from "babel-plugin-macros";
 
 // const macroFile = "'./build/macro/index.macro'";
 const macroFile = "'@c11/engine.macro'";
@@ -10,15 +10,15 @@ pluginTester({
   babelOptions: { filename: __filename },
   formatResult: (result: any) => {
     return prettier.format(result, {
-      parser: 'babel'
+      parser: "babel",
     });
   },
   tests: {
-    'should keep Constants': {
+    "should keep Constants": {
       only: true,
       code: `
         import { producer } from ${macroFile}
-        producer(({
+        const result = producer((
           a1 = '123',
           a2 = {
             foo: 123
@@ -28,9 +28,9 @@ pluginTester({
           a5 = /123/,
           a6 = null,
           a7 = undefined,
-        }) => { })
+        ) => { })
       `,
-      snapshot: true
-    }
-  }
+      snapshot: true,
+    },
+  },
 });

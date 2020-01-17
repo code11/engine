@@ -18,7 +18,7 @@ pluginTester({
       only: true,
       code: `
         import { view } from ${macroFile}
-        const a = view(({
+        const a = view((
           a1 = '123',
           a2 = {
             foo: 123
@@ -28,7 +28,7 @@ pluginTester({
           a5 = /123/,
           a6 = null,
           a7 = undefined,
-        }) => {  })
+        ) => {  })
       `,
       snapshot: true,
     },

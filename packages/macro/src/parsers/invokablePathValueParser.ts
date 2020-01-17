@@ -5,8 +5,8 @@ import {
   ExternalValue,
   InvokeValue,
   ConstValue,
-  PathSymbol
-} from '@c11/engine-types';
+  PathSymbol,
+} from "@c11/engine-types";
 
 export const invokablePathValueParser = (path: string[]): InvokableValue[] => {
   const result = path.map(x => {
@@ -14,22 +14,22 @@ export const invokablePathValueParser = (path: string[]): InvokableValue[] => {
     if (symbol === PathSymbol.INTERNAL) {
       return {
         type: ValueTypes.INTERNAL,
-        path: x.slice(1).split('.')
+        path: x.slice(1).split("."),
       } as InternalValue;
     } else if (symbol === PathSymbol.EXTERNAL) {
       return {
         type: ValueTypes.EXTERNAL,
-        path: x.slice(1).split('.')
+        path: x.slice(1).split("."),
       } as ExternalValue;
     } else if (symbol === PathSymbol.INVOKABLE) {
       return {
         type: ValueTypes.INVOKE,
-        name: x.slice(1)
+        name: x.slice(1),
       } as InvokeValue;
     } else {
       return {
         type: ValueTypes.CONST,
-        value: x
+        value: x,
       } as ConstValue;
     }
   });

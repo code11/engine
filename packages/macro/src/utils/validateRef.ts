@@ -1,9 +1,10 @@
-import * as Babel from '@babel/core';
+import * as Babel from "@babel/core";
 import {
   isCallExpression,
   isArrowFunctionExpression,
-  isObjectPattern
-} from '@babel/types';
+  isObjectPattern,
+  isAssignmentPattern,
+} from "@babel/types";
 
 interface Result {
   success?: boolean;
@@ -13,7 +14,7 @@ interface Result {
 
 export const validateRef = (ref: Babel.NodePath): Result => {
   const result: Result = {
-    error: true
+    error: true,
   };
   const node = ref.parentPath.node;
   if (!isCallExpression(node)) {
@@ -24,10 +25,6 @@ export const validateRef = (ref: Babel.NodePath): Result => {
     const instance = node.arguments[0];
     if (!isArrowFunctionExpression(instance)) {
       result.errorMessage = `\`${name}\` supports only arrow functions`;
-    } else if (instance.params.length > 1) {
-      result.errorMessage = `\`${name}\` the arrow function should have only one parameter`;
-    } else if (!isObjectPattern(instance.params[0])) {
-      result.errorMessage = `\`${name}\` the parameter should be an object pattern`;
     } else {
       result.error = false;
       result.success = true;

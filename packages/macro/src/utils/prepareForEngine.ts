@@ -47,7 +47,7 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
     node.arguments[0] = result
     const engineImport = importDeclaration(
       [importSpecifier(identifier('view'), identifier('view'))],
-      stringLiteral('@c11/engine')
+      stringLiteral('@c11/engine-react')
     );
 
     const macroImport = ref
