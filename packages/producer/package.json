@@ -18,7 +18,7 @@
     "test": "jest --config ../../jest.config.js --runTestsByPath ./src/*"
   },
   "devDependencies": {
-    "@c11/engine-types": "^2.0.3"
+    "@c11/engine-types": "^3.1.0"
   },
   "dependencies": {
     "jsonmvc-datastore": "^0.3.35",
