@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine-react",
-  "version": "2.0.4",
+  "version": "3.0.4",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
