@@ -18,3 +18,8 @@ export interface EngineApi {
   start: () => void;
   stop: () => void;
 }
+
+
+export abstract class Engine {
+
+}

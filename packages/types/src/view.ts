@@ -4,7 +4,7 @@ export type ViewFn = (data: ProducerData) => JSX.Element;
 
 export interface RenderConfig {
   element: JSX.Element;
-  root: Element | HTMLDivElement;
+  root: string;
   render: (comp: JSX.Element, root: Element | HTMLDivElement) => any;
 }
 
