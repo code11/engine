@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.7.4",
-    "@c11/engine-types": "^2.0.1",
+    "@c11/engine-types": "^2.0.3",
     "@types/babel-plugin-macros": "^2.6.0",
     "babel-plugin-tester": "^8.0.1"
   },

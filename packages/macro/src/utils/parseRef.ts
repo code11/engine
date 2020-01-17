@@ -1,11 +1,12 @@
-import * as Babel from '@babel/core';
+import * as Babel from "@babel/core";
 import {
   CallExpression,
   ArrowFunctionExpression,
-  ObjectPattern
-} from '@babel/types';
-import { structParser } from '../parsers/structParser';
-import { StructOperation } from '@c11/engine-types';
+  ObjectPattern,
+  AssignmentPattern,
+} from "@babel/types";
+import { StructOperation } from "@c11/engine-types";
+import { paramsParser } from "../parsers";
 
 type ParseRef = (
   babel: typeof Babel,
@@ -16,8 +17,7 @@ type ParseRef = (
 export const parseRef: ParseRef = (babel, state, ref) => {
   const node = ref.parentPath.node as CallExpression;
   const fn = node.arguments[0] as ArrowFunctionExpression;
-  const rawArgs = fn.params[0] as ObjectPattern;
-
-  const result = structParser(rawArgs);
+  const params = fn.params as AssignmentPattern[];
+  const result = paramsParser(params);
   return result;
 };

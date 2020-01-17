@@ -16,7 +16,7 @@ pluginTester({
     "should support Ref": {
       code: `
         import { producer } from ${macroFile}
-        producer(({
+        const result = producer((
           a1 = Ref.foo,
           a2 = Ref['@foo'],
           a3 = Ref['$a2'],
@@ -29,7 +29,7 @@ pluginTester({
           a8 = Ref.foo[':prop'],
           a9 = Ref.foo[':prop'].baz,
           a10 = Ref.foo[':prop'].baz['@a2']
-        }) => { })
+        ) => { })
       `,
       snapshot: true,
     },

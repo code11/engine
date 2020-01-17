@@ -16,36 +16,25 @@ pluginTester({
     "should throw an error if it is not invoked": {
       code: `
         import { producer } from ${macroFile}
-        const a = producer 
+        const result = producer 
       `,
       error: true,
     },
     "should throw an error if it is not invoked with an arrow function": {
       code: `
         import { producer } from ${macroFile}
-        producer(({
-          foo= '123'
+        const result = producer(({
+          foo = '123'
         }))
       `,
       error: true,
     },
-    "should throw an error if the arrow function is invoked with multiple params": {
+    "should throw an error if the parameter is not an function pattern": {
       code: `
         import { producer } from ${macroFile}
-        producer(({
+        const result = producer(({
           foo = '123'
-        }, {
-          bar = '123'
-        }) => foo)
-      `,
-      error: true,
-    },
-    "should throw an error if the parameter is not an object pattern": {
-      code: `
-        import { producer } from ${macroFile}
-        producer((
-          foo = '123'
-        )) => foo)
+        })) => foo)
       `,
       error: true,
     },

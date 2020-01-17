@@ -16,7 +16,7 @@ pluginTester({
     "should support Merge": {
       code: `
         import { producer } from ${macroFile}
-        producer(({
+        const result = producer((
           a1 = Merge.foo,
           a2 = Merge['@foo'],
           a3 = Merge['$a2'],
@@ -29,7 +29,7 @@ pluginTester({
           a8 = Merge.foo[':prop'],
           a9 = Merge.foo[':prop'].baz,
           a10 = Merge.foo[':prop'].baz['@a2']
-        }) => { })
+        ) => { })
       `,
       snapshot: true,
     },

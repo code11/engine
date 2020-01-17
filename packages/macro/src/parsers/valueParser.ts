@@ -2,7 +2,8 @@ import {
   ObjectProperty,
   isAssignmentPattern,
   LogicalExpression,
-  isMemberExpression
+  isMemberExpression,
+  AssignmentPattern
 } from '@babel/types';
 import {
   Operation,
@@ -154,3 +155,20 @@ export const processValue = (node: ObjectProperty): Operation | void => {
     return constValue({ __node__: valueNode });
   }
 };
+
+export const processParamValue = (node: AssignmentPattern): Operation | void => {
+  let valueNode;
+  if (isAssignmentPattern(node)) {
+    valueNode = node.right;
+  } else {
+    valueNode = node
+  }
+
+  if (valueNode && Values[valueNode.type]) {
+    return Values[valueNode.type](valueNode);
+  } else {
+    return constValue({ __node__: valueNode });
+  }
+};
+
+

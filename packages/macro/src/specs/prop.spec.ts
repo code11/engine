@@ -16,11 +16,11 @@ pluginTester({
     "should support Prop": {
       code: `
         import { producer } from ${macroFile}
-        producer(({
+        const result = producer((
           foo = Prop['@foo'],
           bar = Prop['@foo.bar'],
           baz = Prop['@foo.bar'].baz
-        }) => { })
+        ) => { })
       `,
       snapshot: true,
     },

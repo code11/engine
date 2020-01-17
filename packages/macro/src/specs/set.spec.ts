@@ -16,7 +16,7 @@ pluginTester({
     "should support Set": {
       code: `
         import { producer } from ${macroFile}
-        producer(({
+        const result = producer((
           a1 = Set.foo,
           a2 = Set['@foo'],
           a3 = Set['$a2'],
@@ -29,7 +29,7 @@ pluginTester({
           a8 = Set.foo[':prop'],
           a9 = Set.foo[':prop'].baz,
           a10 = Set.foo[':prop'].baz['@a2']
-        }) => { })
+        ) => { })
       `,
       snapshot: true,
     },

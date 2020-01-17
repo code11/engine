@@ -16,7 +16,7 @@ pluginTester({
     "should support Get": {
       code: `
         import { producer } from ${macroFile}
-        producer(({
+        const result = producer((
           a1 = Get.foo,
           a2 = Get['@foo'],
           a3 = Get['$a2'],
@@ -26,7 +26,7 @@ pluginTester({
             baz: Get.foo['$a4'].baz,
           },
           a7 = Get.foo['$a5.baz']
-        }) => { })
+        ) => { })
       `,
       snapshot: true,
     },
