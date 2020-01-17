@@ -1,6 +1,6 @@
-import * as Babel from '@babel/core';
-import { parseRef } from './parseRef';
-import { structOperationCompiler, paramsCompiler } from '../compilers';
+import * as Babel from "@babel/core";
+import { parseRef } from "./parseRef";
+import { structOperationCompiler, paramsCompiler } from "../compilers";
 import {
   CallExpression,
   ArrowFunctionExpression,
@@ -9,13 +9,13 @@ import {
   identifier,
   importDeclaration,
   importSpecifier,
-  stringLiteral
-} from '@babel/types';
-import { validateRef } from './validateRef';
+  stringLiteral,
+} from "@babel/types";
+import { validateRef } from "./validateRef";
 
 export enum TransformType {
   PRODUCER = "PRODUCER",
-  VIEW = "VIEW"
+  VIEW = "VIEW",
 }
 type PrepareForEngine = (
   babel: typeof Babel,
@@ -23,7 +23,6 @@ type PrepareForEngine = (
   ref: Babel.NodePath,
   type: TransformType
 ) => void;
-
 
 export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
   const validation = validateRef(ref);
@@ -37,33 +36,33 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
 
   fn.params = [paramsCompiler(op)];
   const result = objectExpression([
-    objectProperty(identifier('args'), args),
-    objectProperty(identifier('fn'), fn)
+    objectProperty(identifier("args"), args),
+    objectProperty(identifier("fn"), fn),
   ]);
 
   if (type === TransformType.PRODUCER) {
-    ref.parentPath.replaceWith(result)
+    ref.parentPath.replaceWith(result);
   } else if (type === TransformType.VIEW) {
-    node.arguments[0] = result
+    node.arguments[0] = result;
     const engineImport = importDeclaration(
-      [importSpecifier(identifier('view'), identifier('view'))],
-      stringLiteral('@c11/engine-react')
+      [importSpecifier(identifier("view"), identifier("view"))],
+      stringLiteral("@c11/engine-react")
     );
 
     const macroImport = ref
       .findParent(p => p.isProgram())
-      .get('body')
+      .get("body")
       .find(p => {
         const result =
           p.isImportDeclaration() &&
-          p.node.source.value.indexOf('@c11/engine.macro') !== -1;
+          p.node.source.value.indexOf("@c11/engine.macro") !== -1;
         return result;
       });
 
     if (macroImport) {
       macroImport.insertAfter(engineImport);
     } else {
-      throw new Error('Could not find macro import');
+      throw new Error("Could not find macro import");
     }
   }
 };

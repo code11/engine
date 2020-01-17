@@ -1,15 +1,19 @@
-import { DB } from 'jsonmvc-datastore';
-import { OperationTypes, GraphStructure, GraphInternalNode } from '@c11/engine-types';
-import { getOperation } from './getOperation';
-import { isValidPath } from './isValidPath';
-import { valueOperation } from './valueOperation';
-import { updateOperation } from './updateOperation';
-import { refOperation } from './refOperation';
-import { funcOperation } from './funcOperation';
+import { DB } from "jsonmvc-datastore";
+import {
+  OperationTypes,
+  GraphStructure,
+  GraphInternalNode,
+} from "@c11/engine-types";
+import { getOperation } from "./getOperation";
+import { isValidPath } from "./isValidPath";
+import { valueOperation } from "./valueOperation";
+import { updateOperation } from "./updateOperation";
+import { refOperation } from "./refOperation";
+import { funcOperation } from "./funcOperation";
 
 export enum ComputeType {
-  PATH = 'PATH',
-  VALUE = 'VALUE'
+  PATH = "PATH",
+  VALUE = "VALUE",
 }
 export interface ComputeResult {
   type: ComputeType;
@@ -25,7 +29,7 @@ export const computeOperation = (
       node.op.type === OperationTypes.GET
         ? ComputeType.PATH
         : ComputeType.VALUE,
-    value: undefined
+    value: undefined,
   };
   if (node.op.type === OperationTypes.GET) {
     const path = getOperation(structure, node.op);

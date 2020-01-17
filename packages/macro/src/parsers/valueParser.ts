@@ -3,8 +3,8 @@ import {
   isAssignmentPattern,
   LogicalExpression,
   isMemberExpression,
-  AssignmentPattern
-} from '@babel/types';
+  AssignmentPattern,
+} from "@babel/types";
 import {
   Operation,
   OperationTypes,
@@ -18,20 +18,20 @@ import {
   StructOperation,
   FuncOperation,
   StaticOperation,
-  PathType
-} from '@c11/engine-types';
-import { getMemberExpressionParams } from '../utils/getMemberExpressionParams';
-import { invokablePathValueParser } from './invokablePathValueParser';
-import { structParser } from './structParser';
-import { propPathValueParser } from './propPathValueParser';
+  PathType,
+} from "@c11/engine-types";
+import { getMemberExpressionParams } from "../utils/getMemberExpressionParams";
+import { invokablePathValueParser } from "./invokablePathValueParser";
+import { structParser } from "./structParser";
+import { propPathValueParser } from "./propPathValueParser";
 
 const constValue = (value: any): ValueOperation => {
   return {
     type: OperationTypes.VALUE,
     value: {
       type: ValueTypes.CONST,
-      value: value
-    }
+      value: value,
+    },
   };
 };
 
@@ -40,8 +40,8 @@ const funcValue = (node: Node): FuncOperation => {
     type: OperationTypes.FUNC,
     value: {
       params: [],
-      fn: () => {}
-    }
+      fn: () => {},
+    },
   };
 };
 
@@ -64,8 +64,8 @@ const logicalExpression = (node: LogicalExpression): FuncOperation => {
           type: OperationTypes.VALUE,
           value: {
             type: ValueTypes.CONST,
-            value: { __node__: temp }
-          }
+            value: { __node__: temp },
+          },
         });
       }
     }
@@ -76,8 +76,8 @@ const logicalExpression = (node: LogicalExpression): FuncOperation => {
     type: OperationTypes.FUNC,
     value: {
       params,
-      fn: () => {}
-    }
+      fn: () => {},
+    },
   };
 };
 
@@ -98,27 +98,27 @@ const Values: Values = {
     if (op === PathType.GET) {
       return {
         type: OperationTypes.GET,
-        path
+        path,
       } as GetOperation;
     } else if (op === PathType.SET) {
       return {
         type: OperationTypes.SET,
-        path
+        path,
       } as SetOperation;
     } else if (op === PathType.MERGE) {
       return {
         type: OperationTypes.MERGE,
-        path
+        path,
       } as MergeOperation;
     } else if (op === PathType.REF) {
       return {
         type: OperationTypes.REF,
-        path
+        path,
       } as RefOperation;
     } else if (op === PathType.PROP) {
       return {
         type: OperationTypes.VALUE,
-        value: propPathValueParser(rawPath)
+        value: propPathValueParser(rawPath),
       } as ValueOperation;
     } else {
       return undefined;
@@ -138,7 +138,7 @@ const Values: Values = {
   ObjectExpression: node => {
     const value = structParser(node);
     return value as StructOperation;
-  }
+  },
 };
 
 export const processValue = (node: ObjectProperty): Operation | void => {
@@ -156,12 +156,14 @@ export const processValue = (node: ObjectProperty): Operation | void => {
   }
 };
 
-export const processParamValue = (node: AssignmentPattern): Operation | void => {
+export const processParamValue = (
+  node: AssignmentPattern
+): Operation | void => {
   let valueNode;
   if (isAssignmentPattern(node)) {
     valueNode = node.right;
   } else {
-    valueNode = node
+    valueNode = node;
   }
 
   if (valueNode && Values[valueNode.type]) {
@@ -170,5 +172,3 @@ export const processParamValue = (node: AssignmentPattern): Operation | void => 
     return constValue({ __node__: valueNode });
   }
 };
-
-

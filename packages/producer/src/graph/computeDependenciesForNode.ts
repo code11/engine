@@ -18,7 +18,7 @@ export const computeDependenciesForNode = (
   node: GraphNode
 ) => {
   let listeners: string[] = [];
-  let funcListeners: { id: string, param: number }[] = [];
+  let funcListeners: { id: string; param: number }[] = [];
   node.isDependedBy.forEach(x => {
     const dep = structure[x];
     if (dep.type === GraphNodeType.INTERNAL) {

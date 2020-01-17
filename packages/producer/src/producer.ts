@@ -1,4 +1,4 @@
-import { DB } from 'jsonmvc-datastore';
+import { DB } from "jsonmvc-datastore";
 import {
   ProducerContext,
   ProducerConfig,
@@ -6,14 +6,14 @@ import {
   ProducerInstance,
   OperationTypes,
   ExternalProps,
-  StructOperation
-} from '@c11/engine-types';
+  StructOperation,
+} from "@c11/engine-types";
 
-import { Graph } from './graph';
+import { Graph } from "./graph";
 
 enum ProducerStates {
   MOUNTED,
-  UNMOUNTED
+  UNMOUNTED,
 }
 
 // TODO: Add Ref.isValid() which can test if data at that location
@@ -32,7 +32,7 @@ export class Producer implements ProducerInstance {
     //   type: OperationTypes.STRUCT,
     //   value: config.args
     // };
-    this.args = config.args
+    this.args = config.args;
     this.fn = config.fn;
     this.external = context.props || {};
     this.graph = new Graph(this.db, this.external, this.args, this.fn);

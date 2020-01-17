@@ -1,20 +1,20 @@
-import { DB } from 'jsonmvc-datastore';
+import { DB } from "jsonmvc-datastore";
 
 export enum OperationTypes {
-  GET = 'GET',
-  SET = 'SET',
-  MERGE = 'MERGE',
-  REF = 'REF',
-  FUNC = 'FUNC',
-  STRUCT = 'STRUCT',
-  VALUE = 'VALUE'
+  GET = "GET",
+  SET = "SET",
+  MERGE = "MERGE",
+  REF = "REF",
+  FUNC = "FUNC",
+  STRUCT = "STRUCT",
+  VALUE = "VALUE",
 }
 
 export enum ValueTypes {
-  CONST = 'CONST',
-  EXTERNAL = 'EXTERNAL',
-  INTERNAL = 'INTERNAL',
-  INVOKE = 'INVOKE'
+  CONST = "CONST",
+  EXTERNAL = "EXTERNAL",
+  INTERNAL = "INTERNAL",
+  INVOKE = "INVOKE",
 }
 
 interface Params {

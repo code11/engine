@@ -1,9 +1,9 @@
-import { RemoveListener } from 'jsonmvc-datastore';
-import { Operation } from './producer';
+import { RemoveListener } from "jsonmvc-datastore";
+import { Operation } from "./producer";
 
 export enum GraphNodeType {
-  INTERNAL = 'INTERNAL',
-  EXTERNAL = 'EXTERNAL'
+  INTERNAL = "INTERNAL",
+  EXTERNAL = "EXTERNAL",
 }
 
 export interface GraphNode {
