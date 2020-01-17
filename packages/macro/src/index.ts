@@ -27,8 +27,8 @@ function myMacro({ references, state, babel }: MacroParams) {
   );
 }
 
-type ProducerConfig = (args: Map<String, any>) => any;
-type ViewConfig = (args: Map<string, any>) => JSX.Element;
+type ProducerConfig = (...args: any[]) => any;
+type ViewConfig = (...args: any[]) => JSX.Element;
 
 type producer = (config: ProducerConfig) => any;
 type view = (config: ViewConfig) => JSX.Element;
