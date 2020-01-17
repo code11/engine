@@ -26,7 +26,8 @@
     "test": "lerna run test",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
-    "version": "standard-version"
+    "version": "standard-version",
+    "version:major": "standard-version -- --release-as major"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
