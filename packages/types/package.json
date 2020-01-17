@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine-types",
-  "version": "3.1.0",
+  "version": "3.1.2",
   "description": "Typescript types for everything engine related",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
