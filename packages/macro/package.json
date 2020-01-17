@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.macro",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Babel macros that define the Engine API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
