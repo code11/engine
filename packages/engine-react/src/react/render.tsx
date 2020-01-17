@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import { ViewProvider } from './context';
 import { ProducerContext, RenderInstance, RenderConfig  } from '@c11/engine-types';
 
@@ -13,9 +14,10 @@ export class Render implements RenderInstance {
     return this;
   }
   mount() {
-    this.config.render(
+    const rootEl = document.querySelector(this.config.root)
+    ReactDOM.render(
       <ViewProvider value={this.context}>{this.config.element}</ViewProvider>,
-      this.config.root
+      rootEl
     );
     return this;
   }

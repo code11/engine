@@ -1,7 +1,7 @@
 {
-  "name": "@c11/engine",
+  "name": "@c11/engine-node",
   "version": "2.0.5",
-  "description": "A programming engine",
+  "description": "A programming engine for the node environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@c11/engine-producer": "^2.0.3",
-    "@c11/engine-react": "^2.0.4",
     "@c11/engine-types": "^2.0.3",
     "jsonmvc-datastore": "^0.3.35"
   },
