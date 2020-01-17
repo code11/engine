@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.2](https://bitbucket.org/code11-com/engine/compare/v3.0.1...v3.0.2) (2020-01-17)
+
+
+### Others
+
+* **release:** change lerna version to 3 ([7ff5414](https://bitbucket.org/code11-com/engine/commit/7ff541430171a971eeb7b7ab77c3208eac71bcf4))
+* **version:** change package versions to 3.0.1 ([f0d3981](https://bitbucket.org/code11-com/engine/commit/f0d3981e1b8b714defbce317bf8d0865d9f08fd6))
+
 ### [3.0.1](https://bitbucket.org/code11-com/engine/compare/v1.6.4...v3.0.1) (2020-01-17)
 
 
