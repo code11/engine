@@ -11,22 +11,22 @@ import {
 interface TestBody {
   args: ProducerArgs;
   expect: {
-    state?: any,
-    calls?: any[],
+    state?: any;
+    calls?: any[];
     ref?: {
       [key: string]: {
         get: {
           params: {
-            [key: string]: any,
-          },
-          expectedValue: any,
-        },
-      },
-    },
+            [key: string]: any;
+          };
+          expectedValue: any;
+        };
+      };
+    };
   };
   patches?: Patch[];
   invoke?: {
-    [key: string]: any[],
+    [key: string]: any[];
   };
   state?: any;
   props?: ExternalProps;

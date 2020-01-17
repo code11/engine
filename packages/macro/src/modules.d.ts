@@ -1,16 +1,16 @@
-declare module 'react-html-attributes' {
+declare module "react-html-attributes" {
   interface Elements {
     [key: string]: any;
   }
   interface Attr {
-    '*': string[];
+    "*": string[];
     elements: Elements;
   }
   const attr: Attr;
   export default attr;
 }
 
-declare module 'jsonmvc-datastore' {
+declare module "jsonmvc-datastore" {
   export interface Patch {
     op: string;
     path: string;
@@ -33,12 +33,12 @@ declare module 'jsonmvc-datastore' {
   export default dbFn;
 }
 
-declare module 'kebab-case' {
+declare module "kebab-case" {
   function fn(str: string): string;
   export default fn;
 }
 
-declare module 'babel-plugin-tester' {
+declare module "babel-plugin-tester" {
   function fn(args: any): any;
   export default fn;
 }

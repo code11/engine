@@ -1,11 +1,15 @@
-import db from 'jsonmvc-datastore';
-import { Producer } from '@c11/engine-producer';
-import { EngineConfig, ProducerInstance, ProducerContext } from '@c11/engine-types';
+import db from "jsonmvc-datastore";
+import { Producer } from "@c11/engine-producer";
+import {
+  EngineConfig,
+  ProducerInstance,
+  ProducerContext,
+} from "@c11/engine-types";
 
 enum EngineState {
   NOT_INITIALIZED,
   RUNNING,
-  STOPPED
+  STOPPED,
 }
 
 export class Engine {
@@ -16,7 +20,7 @@ export class Engine {
   constructor(config: EngineConfig) {
     this.config = config;
     this.context = {
-      db: db(config.state.default)
+      db: db(config.state.default),
     };
   }
 

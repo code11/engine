@@ -6,9 +6,9 @@ type References = Babel.NodePath[];
 
 interface MacroParams {
   references: {
-    view?: References,
-    producer?: References,
-    default: References,
+    view?: References;
+    producer?: References;
+    default: References;
   };
   state: any;
   babel: typeof Babel;
@@ -35,8 +35,8 @@ type view = (config: ViewConfig) => JSX.Element;
 
 export const producer: producer = config => null;
 export const view: view = config => {
-  return {} as JSX.Element
-}
+  return {} as JSX.Element;
+};
 
 const macro = createMacro(myMacro);
 export default macro;

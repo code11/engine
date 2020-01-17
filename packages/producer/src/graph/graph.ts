@@ -1,16 +1,22 @@
-import merge from 'lodash/merge';
-import set from 'lodash/set';
-import cloneDeep from 'lodash/cloneDeep';
-import { StructOperation, OperationTypes, GraphData, GraphStructure, GraphNodeType } from '@c11/engine-types';
-import { resolveDependencies } from './resolveDependencies';
-import { getExternalNodes } from './getExternalNodes';
-import { getInternalNodes } from './getInternalNodes';
-import { resolveOrder } from './resolveOrder';
-import { DB } from 'jsonmvc-datastore';
-import { getOperation } from './getOperation';
-import { ComputeType, computeOperation } from './computeOperation';
-import { pathListener } from './pathListener';
-import { funcOperation } from './funcOperation';
+import merge from "lodash/merge";
+import set from "lodash/set";
+import cloneDeep from "lodash/cloneDeep";
+import {
+  StructOperation,
+  OperationTypes,
+  GraphData,
+  GraphStructure,
+  GraphNodeType,
+} from "@c11/engine-types";
+import { resolveDependencies } from "./resolveDependencies";
+import { getExternalNodes } from "./getExternalNodes";
+import { getInternalNodes } from "./getInternalNodes";
+import { resolveOrder } from "./resolveOrder";
+import { DB } from "jsonmvc-datastore";
+import { getOperation } from "./getOperation";
+import { ComputeType, computeOperation } from "./computeOperation";
+import { pathListener } from "./pathListener";
+import { funcOperation } from "./funcOperation";
 
 export class Graph {
   private structure: GraphStructure;

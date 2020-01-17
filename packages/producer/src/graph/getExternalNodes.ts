@@ -1,4 +1,8 @@
-import { GraphStructure, GraphExternalNode, GraphNodeType } from '@c11/engine-types';
+import {
+  GraphStructure,
+  GraphExternalNode,
+  GraphNodeType,
+} from "@c11/engine-types";
 
 export const getExternalNodes = (external: any) => {
   const graph: GraphStructure = Object.keys(external).reduce((acc, x) => {
@@ -9,7 +13,7 @@ export const getExternalNodes = (external: any) => {
       nestingPath: [x],
       type: GraphNodeType.EXTERNAL,
       value: external[x],
-      isDependedBy: []
+      isDependedBy: [],
     };
     acc[id] = node;
     return acc;
