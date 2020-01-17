@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.4](https://bitbucket.org/code11-com/engine/compare/v3.1.0...v3.0.4) (2020-01-17)
+
+
+### Others
+
+* fix package version dependencies ([7733f0f](https://bitbucket.org/code11-com/engine/commit/7733f0f0641eded8c2e7d177b3ea2e94bf444c39))
+
 ### [3.0.3](https://bitbucket.org/code11-com/engine/compare/v3.0.2...v3.0.3) (2020-01-17)
 
 ### [3.0.2](https://bitbucket.org/code11-com/engine/compare/v3.0.1...v3.0.2) (2020-01-17)
