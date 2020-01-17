@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.5](https://bitbucket.org/code11-com/engine/compare/v3.1.1...v3.0.5) (2020-01-17)
+
+
+### Bug Fixes
+
+* **types:** remove render from RenderConfig ([079e4e3](https://bitbucket.org/code11-com/engine/commit/079e4e39ccb76b72288165bb6d332b1faad8c3b9))
+
 ### [3.0.4](https://bitbucket.org/code11-com/engine/compare/v3.1.0...v3.0.4) (2020-01-17)
 
 
