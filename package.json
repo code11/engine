@@ -1,5 +1,5 @@
 {
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "A programming engine",
   "license": "MIT",
   "private": true,
@@ -25,7 +25,8 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "describe": "npm-scripts-info",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "version": "standard-version"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
