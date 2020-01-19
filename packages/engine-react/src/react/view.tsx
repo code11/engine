@@ -39,8 +39,6 @@ export function view({ args, fn }: ViewConfig) {
     producer: Producer;
     constructor(props: BaseProps, context: any) {
       super(props, context);
-      console.log("Registered view");
-      console.log(props, context);
       context.props = props;
       this.producer = new Producer(
         {
@@ -58,7 +56,6 @@ export function view({ args, fn }: ViewConfig) {
       this.setState(data);
     }
     render() {
-      console.log("rendered with", this.state);
       return <RenderComponent state={this.state} fn={fn} />;
     }
   };

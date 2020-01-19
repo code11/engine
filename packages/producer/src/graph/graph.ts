@@ -56,8 +56,6 @@ export class Graph {
     this.data = this.compute();
     this.cb(cloneDeep(this.data));
 
-    // console.log(JSON.stringify(this.structure, null, ' '));
-
     this.order.forEach(x => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
