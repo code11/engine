@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest --config ../../jest.config.js --runTestsByPath ./src/**/*"
+    "test": "jest --config ../../jest.config.js --runTestsByPath ./src/*"
   },
   "peerDependencies": {
     "react": "^16"
@@ -34,6 +34,11 @@
     "@types/react-dom": "^16.9.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
+  },
+  "engineConfig": {
+    "view": {
+      "importFrom": "./index"
+    }
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }

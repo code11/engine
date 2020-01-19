@@ -32,5 +32,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engineConfig": {
+    "view": {
+      "importFrom": "@c11/engine-react"
+    }
   }
 }

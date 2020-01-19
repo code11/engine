@@ -10,6 +10,10 @@ declare module "react-html-attributes" {
   export default attr;
 }
 
+declare module "flatted/esm" {
+  type stringify = (a: any, b: any, c: any) => string;
+  export const stringify: stringify;
+}
 declare module "jsonmvc-datastore" {
   export interface Patch {
     op: string;
