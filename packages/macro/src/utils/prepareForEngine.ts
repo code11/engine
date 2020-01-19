@@ -1,5 +1,6 @@
 import * as Babel from "@babel/core";
 import { parseRef } from "./parseRef";
+import { getConfig } from "./getConfig";
 import { structOperationCompiler, paramsCompiler } from "../compilers";
 import {
   CallExpression,
@@ -29,6 +30,9 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
   if (validation.error) {
     throw new Error(validation.errorMessage);
   }
+
+  const config = getConfig(state);
+
   const op = parseRef(babel, state, ref);
   const args = structOperationCompiler(op);
   const node = ref.parentPath.node as CallExpression;
@@ -44,10 +48,10 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
     ref.parentPath.replaceWith(result);
   } else if (type === TransformType.VIEW) {
     node.arguments[0] = result;
-    // TODO: Get the engine used from the package.json file
+    const viewImport = config.view.importFrom;
     const engineImport = importDeclaration(
       [importSpecifier(identifier("view"), identifier("view"))],
-      stringLiteral("@c11/engine-react")
+      stringLiteral(viewImport)
     );
 
     const macroImport = ref

@@ -21,9 +21,13 @@
   },
   "dependencies": {
     "@c11/engine-producer": "^3.1.2",
-    "@c11/engine-react": "^3.1.2",
     "@c11/engine-types": "^3.1.2",
     "lodash": "^4.17.15"
+  },
+  "engineConfig": {
+    "view": {
+      "importFrom": "@c11/engine-view"
+    }
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }

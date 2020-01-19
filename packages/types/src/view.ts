@@ -3,8 +3,8 @@ import { ProducerData, StructOperation } from "./producer";
 export type ViewFn = (data: ProducerData) => JSX.Element;
 
 export interface RenderConfig {
-  element: JSX.Element;
-  root: string;
+  element: any;
+  root: any;
 }
 
 export interface ViewConfig {
