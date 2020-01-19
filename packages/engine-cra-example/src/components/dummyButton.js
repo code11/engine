@@ -1,6 +1,6 @@
 import React from "react";
-import { view, producer } from "@c11/engine.macro";
-import { Get, Set, Prop } from "../state";
+import { view } from "@c11/engine.macro";
+import { Set, Prop } from "../state";
 
 export const DummyButton = view(
   (

@@ -2,9 +2,13 @@ import React from "react";
 import { Engine } from "@c11/engine-react";
 import "./index.css";
 import { App } from "./App";
+import { foo } from "./producers/foo";
 import * as serviceWorker from "./serviceWorker";
 
 const engine = new Engine({
+  producers: {
+    list: [foo],
+  },
   state: {
     default: {
       foo: "abc",

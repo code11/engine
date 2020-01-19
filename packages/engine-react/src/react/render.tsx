@@ -24,7 +24,6 @@ export class Render implements RenderInstance {
     } else {
       rootEl = this.config.root;
     }
-    console.log(rootEl);
     ReactDOM.render(
       <ViewProvider value={this.context}>{this.config.element}</ViewProvider>,
       rootEl
