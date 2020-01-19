@@ -114,5 +114,18 @@ Foo = [Get.foo.bar1, Get.foo.bar2]
 
 TODO: Add events to the engine: engine.on('error', fn), engine.on('update', fn), etc...
 
+TODO: Add producer gathering util from the macro with config:
+import { getProducers } from '@c11/engine.macro'
+
+const producers = getProducers({
+  path: __dirname + './sections',
+  exlude: ...,
+  include: ....,
+})
+
+
+
+
+
 
 
