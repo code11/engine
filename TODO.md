@@ -111,3 +111,8 @@ TODO: Add support for arrays:
 producer({
 Foo = [Get.foo.bar1, Get.foo.bar2]
 } => {})
+
+TODO: Add events to the engine: engine.on('error', fn), engine.on('update', fn), etc...
+
+
+
