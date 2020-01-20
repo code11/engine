@@ -11,6 +11,7 @@ import {
 import { pathOperationCompiler } from "./pathOperationCompiler";
 import { funcOperationCompiler } from "./funcOperationCompiler";
 import { valueOperationCompiler } from "./valueOperationCompiler";
+import { rawObjectCompiler } from "./rawObjectCompiler";
 
 export const structOperationCompiler = (
   opOrig: StructOperation
@@ -41,5 +42,13 @@ export const structOperationCompiler = (
     })
     .filter(x => !!x);
   const value = objectProperty(identifier("value"), objectPattern(keys));
-  return objectExpression([type, value]);
+  if (opOrig.meta) {
+    const meta = objectProperty(
+      identifier("meta"),
+      rawObjectCompiler(opOrig.meta)
+    );
+    return objectExpression([type, value, meta]);
+  } else {
+    return objectExpression([type, value]);
+  }
 };
