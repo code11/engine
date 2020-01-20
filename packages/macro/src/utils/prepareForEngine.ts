@@ -38,7 +38,7 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
   const node = ref.parentPath.node as CallExpression;
   const fn = node.arguments[0] as ArrowFunctionExpression;
 
-  fn.params = [paramsCompiler(op)];
+  fn.params = paramsCompiler(op);
   const result = objectExpression([
     objectProperty(identifier("args"), args),
     objectProperty(identifier("fn"), fn),

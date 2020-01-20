@@ -1,15 +1,17 @@
 import db, { Patch } from "jsonmvc-datastore";
 import get from "lodash/get";
 import { Producer } from "./";
+import { producer } from "@c11/engine.macro";
 import {
   OperationTypes,
   ValueTypes,
   ProducerArgs,
   ExternalProps,
+  StructOperation,
 } from "@c11/engine-types";
 
 interface TestBody {
-  args: ProducerArgs;
+  args: StructOperation;
   expect: {
     state?: any;
     calls?: any[];
@@ -34,6 +36,7 @@ interface TestBody {
 
 const createTest = (config: TestBody) => () => {
   const fn = jest.fn((args: any) => {
+    console.log(args);
     if (config.invoke) {
       Object.keys(config.invoke).forEach(x => {
         const fn = get(args, x);
@@ -85,15 +88,31 @@ const createTest = (config: TestBody) => () => {
 };
 
 jest.useFakeTimers();
+
+let Get = {
+  color: "a",
+};
+
+test.only("test", () => {
+  const p = producer((color = Get.color) => {
+    console.log(color);
+  });
+
+  console.log(p);
+});
+
 test(
   "should support Value operations with CONST values",
   createTest({
     args: {
-      color: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.CONST,
-          value: "red",
+      type: OperationTypes.STRUCT,
+      value: {
+        color: {
+          type: OperationTypes.VALUE,
+          value: {
+            type: ValueTypes.CONST,
+            value: "red",
+          },
         },
       },
     },
@@ -107,18 +126,21 @@ test(
   "should support Value operations with INTERNAL values",
   createTest({
     args: {
-      color: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.CONST,
-          value: "red",
+      type: OperationTypes.STRUCT,
+      value: {
+        color: {
+          type: OperationTypes.VALUE,
+          value: {
+            type: ValueTypes.CONST,
+            value: "red",
+          },
         },
-      },
-      colorCopy: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.INTERNAL,
-          path: ["color"],
+        colorCopy: {
+          type: OperationTypes.VALUE,
+          value: {
+            type: ValueTypes.INTERNAL,
+            path: ["color"],
+          },
         },
       },
     },
@@ -132,11 +154,14 @@ test(
   "Shouls support Value operations with EXTERNAL values",
   createTest({
     args: {
-      color: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.EXTERNAL,
-          path: ["color"],
+      type: OperationTypes.STRUCT,
+      value: {
+        color: {
+          type: OperationTypes.VALUE,
+          value: {
+            type: ValueTypes.EXTERNAL,
+            path: ["color"],
+          },
         },
       },
     },
@@ -153,12 +178,15 @@ test(
   "should support path operations with CONST values",
   createTest({
     args: {
-      color: {
-        type: OperationTypes.GET,
-        path: [
-          { type: ValueTypes.CONST, value: "color" },
-          { type: ValueTypes.CONST, value: "sample" },
-        ],
+      type: OperationTypes.STRUCT,
+      value: {
+        color: {
+          type: OperationTypes.GET,
+          path: [
+            { type: ValueTypes.CONST, value: "color" },
+            { type: ValueTypes.CONST, value: "sample" },
+          ],
+        },
       },
     },
     state: {
@@ -176,13 +204,16 @@ test(
   "should support path operations with EXTERNAL values",
   createTest({
     args: {
-      isAvailable: {
-        type: OperationTypes.GET,
-        path: [
-          { type: ValueTypes.CONST, value: "colors" },
-          { type: ValueTypes.EXTERNAL, path: ["color"] },
-          { type: ValueTypes.CONST, value: "available" },
-        ],
+      type: OperationTypes.STRUCT,
+      value: {
+        isAvailable: {
+          type: OperationTypes.GET,
+          path: [
+            { type: ValueTypes.CONST, value: "colors" },
+            { type: ValueTypes.EXTERNAL, path: ["color"] },
+            { type: ValueTypes.CONST, value: "available" },
+          ],
+        },
       },
     },
     state: {
@@ -205,20 +236,23 @@ test(
   "should support path operations with INTERNAL values",
   createTest({
     args: {
-      color: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.CONST,
-          value: "red",
+      type: OperationTypes.STRUCT,
+      value: {
+        color: {
+          type: OperationTypes.VALUE,
+          value: {
+            type: ValueTypes.CONST,
+            value: "red",
+          },
         },
-      },
-      isAvailable: {
-        type: OperationTypes.GET,
-        path: [
-          { type: ValueTypes.CONST, value: "colors" },
-          { type: ValueTypes.INTERNAL, path: ["color"] },
-          { type: ValueTypes.CONST, value: "available" },
-        ],
+        isAvailable: {
+          type: OperationTypes.GET,
+          path: [
+            { type: ValueTypes.CONST, value: "colors" },
+            { type: ValueTypes.INTERNAL, path: ["color"] },
+            { type: ValueTypes.CONST, value: "available" },
+          ],
+        },
       },
     },
     state: {
@@ -241,47 +275,50 @@ test(
   "should support a structured operation",
   createTest({
     args: {
-      color: {
-        type: OperationTypes.STRUCT,
-        value: {
-          id: {
-            type: OperationTypes.GET,
-            path: [{ type: ValueTypes.CONST, value: ["selectedColor"] }],
-          },
-          name: {
-            type: OperationTypes.GET,
-            path: [
-              { type: ValueTypes.CONST, value: "colors" },
-              { type: ValueTypes.INTERNAL, path: ["color", "id"] },
-              { type: ValueTypes.CONST, value: "name" },
-            ],
-          },
-          thing: {
-            type: OperationTypes.STRUCT,
-            value: {
-              name: {
-                type: OperationTypes.GET,
-                path: [
-                  { type: ValueTypes.CONST, value: "thing" },
-                  { type: ValueTypes.INTERNAL, path: ["color", "id"] },
-                ],
-              },
-              contains: {
-                type: OperationTypes.GET,
-                path: [
-                  {
-                    type: ValueTypes.CONST,
-                    value: "contains",
-                  },
-                  {
-                    type: ValueTypes.INTERNAL,
-                    path: ["color", "id"],
-                  },
-                  {
-                    type: ValueTypes.INTERNAL,
-                    path: ["color", "thing", "name"],
-                  },
-                ],
+      type: OperationTypes.STRUCT,
+      value: {
+        color: {
+          type: OperationTypes.STRUCT,
+          value: {
+            id: {
+              type: OperationTypes.GET,
+              path: [{ type: ValueTypes.CONST, value: ["selectedColor"] }],
+            },
+            name: {
+              type: OperationTypes.GET,
+              path: [
+                { type: ValueTypes.CONST, value: "colors" },
+                { type: ValueTypes.INTERNAL, path: ["color", "id"] },
+                { type: ValueTypes.CONST, value: "name" },
+              ],
+            },
+            thing: {
+              type: OperationTypes.STRUCT,
+              value: {
+                name: {
+                  type: OperationTypes.GET,
+                  path: [
+                    { type: ValueTypes.CONST, value: "thing" },
+                    { type: ValueTypes.INTERNAL, path: ["color", "id"] },
+                  ],
+                },
+                contains: {
+                  type: OperationTypes.GET,
+                  path: [
+                    {
+                      type: ValueTypes.CONST,
+                      value: "contains",
+                    },
+                    {
+                      type: ValueTypes.INTERNAL,
+                      path: ["color", "id"],
+                    },
+                    {
+                      type: ValueTypes.INTERNAL,
+                      path: ["color", "thing", "name"],
+                    },
+                  ],
+                },
               },
             },
           },
@@ -322,22 +359,25 @@ test(
   "should support Set operations",
   createTest({
     args: {
-      setProp: {
-        type: OperationTypes.SET,
-        path: [
-          {
-            type: ValueTypes.CONST,
-            value: "items",
-          },
-          {
-            type: ValueTypes.INVOKE,
-            name: "id",
-          },
-          {
-            type: ValueTypes.CONST,
-            value: "value",
-          },
-        ],
+      type: OperationTypes.STRUCT,
+      value: {
+        setProp: {
+          type: OperationTypes.SET,
+          path: [
+            {
+              type: ValueTypes.CONST,
+              value: "items",
+            },
+            {
+              type: ValueTypes.INVOKE,
+              name: "id",
+            },
+            {
+              type: ValueTypes.CONST,
+              value: "value",
+            },
+          ],
+        },
       },
     },
     state: {
@@ -366,18 +406,21 @@ test(
   "should support Merge operations",
   createTest({
     args: {
-      mergeProp: {
-        type: OperationTypes.MERGE,
-        path: [
-          {
-            type: ValueTypes.CONST,
-            value: "items",
-          },
-          {
-            type: ValueTypes.INVOKE,
-            name: "id",
-          },
-        ],
+      type: OperationTypes.STRUCT,
+      value: {
+        mergeProp: {
+          type: OperationTypes.MERGE,
+          path: [
+            {
+              type: ValueTypes.CONST,
+              value: "items",
+            },
+            {
+              type: ValueTypes.INVOKE,
+              name: "id",
+            },
+          ],
+        },
       },
     },
     state: {
@@ -403,6 +446,7 @@ test(
   })
 );
 
+/*
 test(
   "should support Ref operations with get",
   createTest({
@@ -1123,3 +1167,5 @@ test("should update func when initial path values have changed", () => {
   jest.runAllTimers();
   expect(fn).toBeCalledWith({ foo: "321" });
 });
+
+*/
