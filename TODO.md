@@ -131,6 +131,12 @@ TODO: Add an engine-express with support for working with express (or export as 
 TODO: Add in engine-node the capability to use chrome's debugger
 
 
+TODO: Add Require keyword to avoid using import/require statements
+
+TODO: Remove object structure from fn compilation
+
+TODO: Add hardcore more, linter style modes, allowGlobal: false, etc in order to configure what level
+of strictness the macro or engine will operate on or tolerate
 
 
 
