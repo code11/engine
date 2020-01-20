@@ -28,6 +28,7 @@ export class Graph {
     const struct = merge(getInternalNodes(op), getExternalNodes(props));
     resolveDependencies(struct);
     this.structure = struct;
+    console.log(op);
     this.db = db;
     this.order = resolveOrder(struct);
     this.cb = cb;

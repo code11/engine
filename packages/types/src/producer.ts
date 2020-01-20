@@ -53,27 +53,32 @@ export type InvokableValue = StaticValue | InvokeValue;
 export type StaticPath = StaticValue[];
 export type InvokablePath = InvokableValue[];
 
-export interface GetOperation {
+// TODO: Define what the base operation can hold
+export interface BaseOperation {
+  meta?: any;
+}
+
+export interface GetOperation extends BaseOperation {
   type: OperationTypes.GET;
   path: StaticValue[];
 }
-export interface MergeOperation {
+export interface MergeOperation extends BaseOperation {
   type: OperationTypes.MERGE;
   path: InvokableValue[];
 }
-export interface SetOperation {
+export interface SetOperation extends BaseOperation {
   type: OperationTypes.SET;
   path: InvokableValue[];
 }
 
-export interface RefOperation {
+export interface RefOperation extends BaseOperation {
   type: OperationTypes.REF;
   path: InvokableValue[];
 }
 
 export type StaticOperation = GetOperation | ValueOperation;
 
-export interface FuncOperation {
+export interface FuncOperation extends BaseOperation {
   type: OperationTypes.FUNC;
   value: {
     params: StaticOperation[];
@@ -81,14 +86,14 @@ export interface FuncOperation {
   };
 }
 
-export interface StructOperation {
+export interface StructOperation extends BaseOperation {
   type: OperationTypes.STRUCT;
   value: {
     [key: string]: Operation;
   };
 }
 
-export interface ValueOperation {
+export interface ValueOperation extends BaseOperation {
   type: OperationTypes.VALUE;
   value: ExternalValue | InternalValue | ConstValue;
 }
