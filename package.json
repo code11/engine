@@ -1,5 +1,5 @@
 {
-  "version": "3.2.0",
+  "version": "3.1.4",
   "description": "A programming engine",
   "license": "MIT",
   "private": true,
@@ -25,9 +25,7 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "describe": "npm-scripts-info",
-    "commit": "git-cz",
-    "version": "standard-version",
-    "version:major": "standard-version -- --release-as major"
+    "commit": "git-cz"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -60,8 +58,7 @@
     "cz-conventional-changelog": "^3.0.2",
     "jest": "^24.9.0",
     "lerna": "^3.20.2",
-    "prettier": "^1.19.1",
-    "standard-version": "^7.0.1"
+    "prettier": "^1.19.1"
   },
   "config": {
     "commitizen": {
