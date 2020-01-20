@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://bitbucket.org/code11-com/engine/compare/v3.1.3...v3.2.0) (2020-01-20)
+
+
+### Features
+
+* add engine-cra-example ([7679276](https://bitbucket.org/code11-com/engine/commit/7679276a51f1d1fc052ddb45552a027ba45438c4))
+* add engineConfig to packagejson. add engine-react test" ([921c929](https://bitbucket.org/code11-com/engine/commit/921c9291ca7c93acf0a0e23f592cab03c9fed1db))
+* **express-example:** add express example for engine-node ([fe8050d](https://bitbucket.org/code11-com/engine/commit/fe8050df470791916413eb2e2cdb122d5bdb62dc))
+
+
+### Build System
+
+* change package.json version to current v3.1.3 ([ff9b60d](https://bitbucket.org/code11-com/engine/commit/ff9b60d8775614b7dc626e234a6eb17572960e47))
+
+
+### Others
+
+* remove unnecessary dependencies between packages ([f7d2017](https://bitbucket.org/code11-com/engine/commit/f7d20173634358ecf5a681e1431cb572e3a9d333))
+* **release:** 3.1.0 ([8987f6e](https://bitbucket.org/code11-com/engine/commit/8987f6efacd92546d28871b08a898b54cbe67fd8))
+
+
+### Docs
+
+* **todo:** add ideas ([829d96e](https://bitbucket.org/code11-com/engine/commit/829d96ed3640f0b7568fcfe971e2d5628036da93))
+* add in TODO.md ideas on how to improve strictness ([8b360fc](https://bitbucket.org/code11-com/engine/commit/8b360fc0d2778eda3c82682b3d2ad5accb720479))
+
+
+### Code Refactoring
+
+* remove console.log from packages. add producer example in engine-cra-example ([f9a0607](https://bitbucket.org/code11-com/engine/commit/f9a0607660bb6559d31a70bf9cef4e5b45c4bddb))
+
 ## [3.1.0](https://bitbucket.org/code11-com/engine/compare/v3.1.3...v3.1.0) (2020-01-20)
 
 
