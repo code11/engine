@@ -14,7 +14,6 @@ export const getInvokablePath = (
   const path = op.path.map((x: any) => {
     return resolveValue(structure, x, params);
   });
-  console.log("path is", path);
   if (path.includes(undefined) || path.includes(null)) {
     return;
   } else {
