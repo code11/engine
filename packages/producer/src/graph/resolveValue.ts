@@ -7,7 +7,6 @@ export const resolveValue = (
   value: InvokableValue,
   invokable?: any
 ) => {
-  console.log("Resolving value for", value, invokable);
   if (value.type === ValueTypes.CONST) {
     return value.value;
   } else if (value.type === ValueTypes.EXTERNAL) {

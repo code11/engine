@@ -14,9 +14,7 @@ export const updateOperation = (
 ) => {
   const opType = op.type === OperationTypes.MERGE ? "merge" : "add";
   const fn = (value: any, params: any) => {
-    console.log("called with", value, params);
     const path = getInvokablePath(structure, op, params);
-    console.log("resulted paht is", path);
     if (path) {
       const patch = {
         op: opType,

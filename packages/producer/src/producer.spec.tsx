@@ -228,7 +228,7 @@ test("should support a structured operation", () => {
   });
 });
 
-test.only("should support Set operations", () => {
+test("should support Set operations", () => {
   const state = {
     items: {
       foo: {
@@ -236,61 +236,20 @@ test.only("should support Set operations", () => {
       },
     },
   };
-  const struct = producer((setProp = Set.items[Param.id.prop].value) => {
-    console.log("calling setProp");
-    setProp("second", { id: "foo" });
+  const struct = producer((setProp = Set.items[Param.id.bar].value) => {
+    setProp("second", {
+      id: {
+        bar: "foo",
+      },
+    });
   });
   const result = run(struct, state);
   jest.runAllTimers();
   expect(result.db.get("/items/foo/value")).toEqual("second");
 });
 
-test(
-  "should support Set operations",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        setProp: {
-          type: OperationTypes.SET,
-          path: [
-            {
-              type: ValueTypes.CONST,
-              value: "items",
-            },
-            {
-              type: ValueTypes.INVOKE,
-              name: "id",
-            },
-            {
-              type: ValueTypes.CONST,
-              value: "value",
-            },
-          ],
-        },
-      },
-    },
-    state: {
-      items: {
-        foo: {
-          value: "first",
-        },
-      },
-    },
-    invoke: {
-      setProp: ["second", { id: "foo" }],
-    },
-    expect: {
-      state: {
-        items: {
-          foo: {
-            value: "second",
-          },
-        },
-      },
-    },
-  })
-);
+/*
+
 
 test(
   "should support Merge operations",
