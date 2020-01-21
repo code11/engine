@@ -7,7 +7,6 @@ import {
   GraphNodeType,
 } from "@c11/engine-types";
 import { getDeps } from "./getDeps";
-import { getInvoke } from "./getInvoke";
 
 export const getInternalNodes = (op: Operation, ns: string = "internal") => {
   let graph: GraphStructure = {};
@@ -30,7 +29,6 @@ export const getInternalNodes = (op: Operation, ns: string = "internal") => {
       isDependedBy: [],
       removeListener: undefined,
       removeFuncListeners: {},
-      invokableWith: getInvoke(op),
     };
     graph[ns] = node;
   }

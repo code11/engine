@@ -89,271 +89,161 @@ const createTest = (config: TestBody) => () => {
 
 jest.useFakeTimers();
 
-let Get = {
-  color: "a",
-};
+let Get: any = {};
+let Prop: any = {};
+let Arg: any = {};
+let Param: any = {};
+let Set: any = {};
 
-test.only("test", () => {
-  const p = producer((color = Get.color) => {
-    console.log(color);
+function run(producer, state = {}, props = {}) {
+  const DB = db(state);
+  const ctx = {
+    db: DB,
+    props,
+  };
+  const inst = new Producer(producer, ctx);
+  inst.mount();
+  return {
+    producer: inst,
+    db: DB,
+  };
+}
+
+test("should support Value operations with CONST values", () => {
+  const val = "red";
+  const struct = producer((color = val) => {
+    expect(color).toBe(val);
   });
-
-  console.log(p);
+  run(struct);
 });
 
-test(
-  "should support Value operations with CONST values",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        color: {
-          type: OperationTypes.VALUE,
-          value: {
-            type: ValueTypes.CONST,
-            value: "red",
-          },
-        },
-      },
-    },
-    expect: {
-      calls: [{ color: "red" }],
-    },
-  })
-);
+test("should support Value operations with INTERNAL values", () => {
+  const val = "red";
+  const struct = producer((color = val, colorCopy = Arg.color) => {
+    expect(colorCopy).toBe(val);
+  });
+  run(struct);
+});
 
-test(
-  "should support Value operations with INTERNAL values",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        color: {
-          type: OperationTypes.VALUE,
-          value: {
-            type: ValueTypes.CONST,
-            value: "red",
-          },
-        },
-        colorCopy: {
-          type: OperationTypes.VALUE,
-          value: {
-            type: ValueTypes.INTERNAL,
-            path: ["color"],
-          },
-        },
-      },
-    },
-    expect: {
-      calls: [{ color: "red", colorCopy: "red" }],
-    },
-  })
-);
+test("should support Value operations with EXTERNAL values", () => {
+  const val = "red";
+  const struct = producer((color = Prop.color) => {
+    expect(color).toBe(val);
+  });
+  run(
+    struct,
+    {},
+    {
+      color: val,
+    }
+  );
+});
 
-test(
-  "Shouls support Value operations with EXTERNAL values",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        color: {
-          type: OperationTypes.VALUE,
-          value: {
-            type: ValueTypes.EXTERNAL,
-            path: ["color"],
-          },
-        },
-      },
+test("should support path operations with CONST values", () => {
+  const state = {
+    color: {
+      sample: "red",
     },
-    props: {
-      color: "red",
-    },
-    expect: {
-      calls: [{ color: "red" }],
-    },
-  })
-);
+  };
+  const struct = producer((color = Get.color.sample) => {
+    expect(color).toBe(state.color.sample);
+  });
+  run(struct, state);
+});
 
-test(
-  "should support path operations with CONST values",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        color: {
-          type: OperationTypes.GET,
-          path: [
-            { type: ValueTypes.CONST, value: "color" },
-            { type: ValueTypes.CONST, value: "sample" },
-          ],
-        },
+test("should support path operations with EXTERNAL values", () => {
+  const state = {
+    colors: {
+      red: {
+        isAvailable: true,
       },
     },
-    state: {
-      color: {
-        sample: "red",
-      },
-    },
-    expect: {
-      calls: [{ color: "red" }],
-    },
-  })
-);
+  };
+  const struct = producer(
+    (isAvailable = Get.colors[Prop.selectedColor].isAvailable) => {
+      expect(isAvailable).toBe(state.colors.red.isAvailable);
+    }
+  );
+  run(struct, state, {
+    selectedColor: "red",
+  });
+});
 
-test(
-  "should support path operations with EXTERNAL values",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        isAvailable: {
-          type: OperationTypes.GET,
-          path: [
-            { type: ValueTypes.CONST, value: "colors" },
-            { type: ValueTypes.EXTERNAL, path: ["color"] },
-            { type: ValueTypes.CONST, value: "available" },
-          ],
-        },
+test("should support path operations with INTERNAL values", () => {
+  const state = {
+    colors: {
+      red: {
+        isAvailable: true,
       },
     },
-    state: {
-      colors: {
-        red: {
-          available: true,
-        },
-      },
-    },
-    props: {
-      color: "red",
-    },
-    expect: {
-      calls: [{ isAvailable: true }],
-    },
-  })
-);
+  };
+  const struct = producer(
+    (color = "red", isAvailable = Get.colors[Arg.color].isAvailable) => {
+      expect(isAvailable).toBe(state.colors.red.isAvailable);
+    }
+  );
+  run(struct, state);
+});
 
-test(
-  "should support path operations with INTERNAL values",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        color: {
-          type: OperationTypes.VALUE,
-          value: {
-            type: ValueTypes.CONST,
-            value: "red",
-          },
-        },
-        isAvailable: {
-          type: OperationTypes.GET,
-          path: [
-            { type: ValueTypes.CONST, value: "colors" },
-            { type: ValueTypes.INTERNAL, path: ["color"] },
-            { type: ValueTypes.CONST, value: "available" },
-          ],
+test("should support a structured operation", () => {
+  const state = {
+    selectedColor: "blue",
+    contains: {
+      blue: {
+        water: {
+          fish: true,
         },
       },
     },
-    state: {
-      colors: {
-        red: {
-          available: true,
-        },
+    thing: {
+      blue: "water",
+    },
+    colors: {
+      blue: {
+        name: "Blue",
       },
     },
-    props: {
-      color: "red",
-    },
-    expect: {
-      calls: [{ isAvailable: true, color: "red" }],
-    },
-  })
-);
+  };
+  const struct = producer(
+    (
+      color = {
+        id: Get.selectedColor,
+        name: Get.colors[Arg.color.id].name,
+        thing: {
+          name: Get.thing[Arg.color.id],
+          hasFish:
+            Get.contains[Arg.color.id][Arg.color.thing.name][Prop.animal],
+        },
+      }
+    ) => {
+      expect(color).toEqual({
+        id: "blue",
+        name: "Blue",
+        thing: { name: "water", hasFish: true },
+      });
+    }
+  );
+  run(struct, state, {
+    animal: "fish",
+  });
+});
 
-test(
-  "should support a structured operation",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        color: {
-          type: OperationTypes.STRUCT,
-          value: {
-            id: {
-              type: OperationTypes.GET,
-              path: [{ type: ValueTypes.CONST, value: ["selectedColor"] }],
-            },
-            name: {
-              type: OperationTypes.GET,
-              path: [
-                { type: ValueTypes.CONST, value: "colors" },
-                { type: ValueTypes.INTERNAL, path: ["color", "id"] },
-                { type: ValueTypes.CONST, value: "name" },
-              ],
-            },
-            thing: {
-              type: OperationTypes.STRUCT,
-              value: {
-                name: {
-                  type: OperationTypes.GET,
-                  path: [
-                    { type: ValueTypes.CONST, value: "thing" },
-                    { type: ValueTypes.INTERNAL, path: ["color", "id"] },
-                  ],
-                },
-                contains: {
-                  type: OperationTypes.GET,
-                  path: [
-                    {
-                      type: ValueTypes.CONST,
-                      value: "contains",
-                    },
-                    {
-                      type: ValueTypes.INTERNAL,
-                      path: ["color", "id"],
-                    },
-                    {
-                      type: ValueTypes.INTERNAL,
-                      path: ["color", "thing", "name"],
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        },
+test.only("should support Set operations", () => {
+  const state = {
+    items: {
+      foo: {
+        value: "first",
       },
     },
-    state: {
-      selectedColor: "blue",
-      contains: {
-        blue: {
-          water: "fish",
-        },
-      },
-      thing: {
-        blue: "water",
-      },
-      colors: {
-        blue: {
-          name: "Blue",
-        },
-      },
-    },
-    expect: {
-      calls: [
-        {
-          color: {
-            id: "blue",
-            name: "Blue",
-            thing: { name: "water", contains: "fish" },
-          },
-        },
-      ],
-    },
-  })
-);
+  };
+  const struct = producer((setProp = Set.items[Param.id.prop].value) => {
+    console.log("calling setProp");
+    setProp("second", { id: "foo" });
+  });
+  const result = run(struct, state);
+  jest.runAllTimers();
+  expect(result.db.get("/items/foo/value")).toEqual("second");
+});
 
 test(
   "should support Set operations",
