@@ -28,7 +28,7 @@ pluginTester({
           a7 = Set.foo[Arg.a5.baz],
           a8 = Set.foo[Param.prop],
           a9 = Set.foo[Param.prop].baz,
-          a10 = Set.foo[Param.prop].baz[Prop.a2]
+          a10 = Set.foo[Param.prop.a].baz[Prop.a2]
         ) => { })
       `,
       snapshot: true,
