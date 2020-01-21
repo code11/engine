@@ -138,6 +138,8 @@ TODO: Remove object structure from fn compilation
 TODO: Add hardcore more, linter style modes, allowGlobal: false, etc in order to configure what level
 of strictness the macro or engine will operate on or tolerate
 
+TODO: Add error codes and add to docs each possible error (and throw)
 
-
-
+TODO: [Macro] add support for identifier instead of arrow function expression
+const fn = (foo = Get.foo, setBar = Set.bar) => setBar(foo)
+const p = producer(fn)
