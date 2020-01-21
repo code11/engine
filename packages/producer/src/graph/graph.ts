@@ -17,24 +17,29 @@ import { getOperation } from "./getOperation";
 import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { funcOperation } from "./funcOperation";
+import { getOrderedParams } from "./getOrderedParams";
 
 export class Graph {
   private structure: GraphStructure;
-  private order: string[];
+  private computeOrder: string[];
+  private paramsOrder: string[];
   db: DB;
   data: GraphData = {};
   cb: Function;
   constructor(db: DB, props: any, op: StructOperation, cb: Function) {
+    if (!op.meta || !op.meta.order) {
+      throw new Error("Missing order for arguments list");
+    }
     const struct = merge(getInternalNodes(op), getExternalNodes(props));
     resolveDependencies(struct);
     this.structure = struct;
-    console.log(op);
     this.db = db;
-    this.order = resolveOrder(struct);
+    this.computeOrder = resolveOrder(struct);
+    this.paramsOrder = op.meta.order;
     this.cb = cb;
   }
   compute() {
-    const data = this.order.reduce((acc, x) => {
+    const data = this.computeOrder.reduce((acc, x) => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
         const result = computeOperation(this.db, this.structure, node);
@@ -53,11 +58,16 @@ export class Graph {
     return data;
   }
 
+  update() {
+    const params = getOrderedParams(cloneDeep(this.data), this.paramsOrder);
+    this.cb.apply(null, params);
+  }
+
   listen() {
     this.data = this.compute();
-    this.cb(cloneDeep(this.data));
+    this.update();
 
-    this.order.forEach(x => {
+    this.computeOrder.forEach(x => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
         if (node.op.type === OperationTypes.GET) {
@@ -85,7 +95,7 @@ export class Graph {
                     }
                     node.value = result;
                     set(this.data, node.nestingPath, result);
-                    this.cb(cloneDeep(this.data));
+                    this.update();
                   }
                 });
               }
