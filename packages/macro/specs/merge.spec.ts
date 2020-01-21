@@ -13,19 +13,22 @@ pluginTester({
     });
   },
   tests: {
-    "should support Get": {
+    "should support Merge": {
       code: `
         import { producer } from ${macroFile}
         const result = producer((
-          a1 = Get.foo,
-          a2 = Get['@foo'],
-          a3 = Get['$a2'],
-          a4 = Get.foo['@bar.baz'],
-          a5 = Get.foo.bar['$a2'],
+          a1 = Merge.foo,
+          a2 = Merge[Prop.foo],
+          a3 = Merge[Arg.a2],
+          a4 = Merge.foo[Prop.bar.baz],
+          a5 = Merge.foo.bar[Arg.a2],
           a6 = {
-            baz: Get.foo['$a4'].baz,
+            baz: Merge.foo[Arg.a4].baz,
           },
-          a7 = Get.foo['$a5.baz']
+          a7 = Merge.foo[Prop.a5.baz],
+          a8 = Merge.foo[Param.prop],
+          a9 = Merge.foo[Param.prop].baz,
+          a10 = Merge.foo[Param.prop].baz[Prop.a2]
         ) => { })
       `,
       snapshot: true,

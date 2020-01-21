@@ -13,22 +13,14 @@ pluginTester({
     });
   },
   tests: {
-    "should support Merge": {
+    "should support Arg": {
       code: `
         import { producer } from ${macroFile}
         const result = producer((
-          a1 = Merge.foo,
-          a2 = Merge['@foo'],
-          a3 = Merge['$a2'],
-          a4 = Merge.foo['@bar.baz'],
-          a5 = Merge.foo.bar['$a2'],
-          a6 = {
-            baz: Merge.foo['$a4'].baz,
-          },
-          a7 = Merge.foo['$a5.baz'],
-          a8 = Merge.foo[':prop'],
-          a9 = Merge.foo[':prop'].baz,
-          a10 = Merge.foo[':prop'].baz['@a2']
+          a1 = '123',
+          a2 = Arg.a1,
+          a3 = Arg.a2[Arg.a1],
+          a4 = Arg.a3[Prop.foo],
         ) => { })
       `,
       snapshot: true,

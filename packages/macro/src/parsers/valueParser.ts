@@ -23,7 +23,6 @@ import {
 import { getMemberExpressionParams } from "../utils/getMemberExpressionParams";
 import { invokablePathValueParser } from "./invokablePathValueParser";
 import { structParser } from "./structParser";
-import { propPathValueParser } from "./propPathValueParser";
 
 const constValue = (value: any): ValueOperation => {
   return {
@@ -118,7 +117,18 @@ const Values: Values = {
     } else if (op === PathType.PROP) {
       return {
         type: OperationTypes.VALUE,
-        value: propPathValueParser(rawPath),
+        value: {
+          type: ValueTypes.EXTERNAL,
+          path: rawPath,
+        },
+      } as ValueOperation;
+    } else if (op === PathType.ARG) {
+      return {
+        type: OperationTypes.VALUE,
+        value: {
+          type: ValueTypes.INTERNAL,
+          path: rawPath,
+        },
       } as ValueOperation;
     } else {
       return undefined;

@@ -5,15 +5,18 @@ module.exports = {
   },
   rootDir: "./",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  testRegex: "(/src/.*(\\.|/)(test|spec))\\.(ts|js)x?$",
+  testRegex: "(/src|specs/.*(\\.|/)(test|spec))\\.(ts|js)x?$",
   coverageDirectory: "coverage",
-  collectCoverageFrom: ["src/lib/**/*.{ts,tsx,js,jsx}", "!src/**/*.d.ts"],
+  collectCoverageFrom: [
+    "packages/producer/src/**/*.{ts,tsx,js,jsx}",
+    "!packages/**/src/*.d.ts",
+  ],
   coverageThreshold: {
     global: {
-      lines: 100,
-      statements: 100,
-      functions: 100,
-      branches: 90,
+      lines: 0,
+      statements: 0,
+      functions: 0,
+      branches: 0,
     },
   },
 };
