@@ -5,7 +5,7 @@ module.exports = {
   },
   rootDir: "./",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  testRegex: "(/src|specs/.*(\\.|/)(test|spec))\\.(ts|js)x?$",
+  testRegex: "(/(src|specs)/.*(\\.|/)(test|spec))\\.(ts|js)x?$",
   coverageDirectory: "coverage",
   collectCoverageFrom: [
     "packages/producer/src/**/*.{ts,tsx,js,jsx}",
