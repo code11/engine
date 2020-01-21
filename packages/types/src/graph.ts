@@ -24,7 +24,6 @@ export interface GraphInternalNode extends GraphNode {
   type: GraphNodeType.INTERNAL;
   path: string | undefined;
   dependsOn: string[];
-  invokableWith: string[];
   removeListener: RemoveListener | undefined;
   removeFuncListeners: {
     [key: number]: RemoveListener;
