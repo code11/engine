@@ -24,7 +24,7 @@ export const invokablePathValueParser = (path: string[]): InvokableValue[] => {
     } else if (symbol === PathSymbol.INVOKABLE) {
       return {
         type: ValueTypes.INVOKE,
-        name: x.slice(1),
+        path: x.slice(1).split("."),
       } as InvokeValue;
     } else {
       return {

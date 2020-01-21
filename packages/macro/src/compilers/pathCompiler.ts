@@ -22,7 +22,8 @@ export const pathCompiler = (path: InvokablePath): ArrayExpression => {
       const path = x.path.map((y: string) => stringLiteral(y));
       value = objectProperty(identifier("path"), arrayExpression(path));
     } else if (x.type === ValueTypes.INVOKE) {
-      value = objectProperty(identifier("path"), stringLiteral(x.name));
+      const path = x.path.map((y: string) => stringLiteral(y));
+      value = objectProperty(identifier("path"), arrayExpression(path));
     }
     return objectExpression([type, value]);
   });
