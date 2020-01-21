@@ -44,7 +44,7 @@ export interface InternalValue {
 
 export interface InvokeValue {
   type: ValueTypes.INVOKE;
-  name: string;
+  path: string[];
 }
 
 export type StaticValue = ConstValue | ExternalValue | InternalValue;

@@ -125,7 +125,7 @@ const result = {
           },
           {
             type: "INVOKE",
-            path: "prop"
+            path: ["prop"]
           }
         ]
       },
@@ -138,7 +138,7 @@ const result = {
           },
           {
             type: "INVOKE",
-            path: "prop"
+            path: ["prop"]
           },
           {
             type: "CONST",
@@ -155,7 +155,7 @@ const result = {
           },
           {
             type: "INVOKE",
-            path: "prop"
+            path: ["prop"]
           },
           {
             type: "CONST",
