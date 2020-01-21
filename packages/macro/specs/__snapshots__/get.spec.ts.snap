@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support Get: should support Get 1`] = `
+
+import { producer } from '@c11/engine.macro'
+const result = producer((
+  a1 = Get.foo,
+  a2 = Get[Prop.foo],
+  a3 = Get[Arg.a2],
+  a4 = Get.foo[Prop.bar.baz],
+  a5 = Get.foo.bar[Arg.a2],
+  a6 = {
+    baz: Get.foo[Arg.a4].baz,
+  },
+  a7 = Get.foo[Arg.a5.baz]
+) => { })
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const result = {
+  args: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo"
+          }
+        ]
+      },
+      a2: {
+        type: "GET",
+        path: [
+          {
+            type: "EXTERNAL",
+            path: ["foo"]
+          }
+        ]
+      },
+      a3: {
+        type: "GET",
+        path: [
+          {
+            type: "INTERNAL",
+            path: ["a2"]
+          }
+        ]
+      },
+      a4: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo"
+          },
+          {
+            type: "EXTERNAL",
+            path: ["bar", "baz"]
+          }
+        ]
+      },
+      a5: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo"
+          },
+          {
+            type: "CONST",
+            value: "bar"
+          },
+          {
+            type: "INTERNAL",
+            path: ["a2"]
+          }
+        ]
+      },
+      a6: {
+        type: "STRUCT",
+        value: {
+          baz: {
+            type: "GET",
+            path: [
+              {
+                type: "CONST",
+                value: "foo"
+              },
+              {
+                type: "INTERNAL",
+                path: ["a4"]
+              },
+              {
+                type: "CONST",
+                value: "baz"
+              }
+            ]
+          }
+        }
+      },
+      a7: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo"
+          },
+          {
+            type: "INTERNAL",
+            path: ["a5", "baz"]
+          }
+        ]
+      }
+    },
+    meta: {
+      order: ["a1", "a2", "a3", "a4", "a5", "a6", "a7"]
+    }
+  },
+  fn: (a1, a2, a3, a4, a5, a6, a7) => {}
+};
+
+
+`;

@@ -4,6 +4,13 @@ export enum PathType {
   MERGE = "Merge",
   REF = "Ref",
   PROP = "Prop",
+  ARG = "Arg",
+}
+
+export enum PathArgs {
+  EXTERNAL = "Prop",
+  INTERNAL = "Arg",
+  PARAM = "Param",
 }
 
 export enum PathSymbol {

@@ -13,22 +13,22 @@ pluginTester({
     });
   },
   tests: {
-    "should support Ref": {
+    "should support Set": {
       code: `
         import { producer } from ${macroFile}
         const result = producer((
-          a1 = Ref.foo,
-          a2 = Ref['@foo'],
-          a3 = Ref['$a2'],
-          a4 = Ref.foo['@bar.baz'],
-          a5 = Ref.foo.bar['$a2'],
+          a1 = Set.foo,
+          a2 = Set[Prop.foo],
+          a3 = Set[Arg.a2],
+          a4 = Set.foo[Arg.bar.baz],
+          a5 = Set.foo.bar[Arg.a2],
           a6 = {
-            baz: Ref.foo['$a4'].baz,
+            baz: Set.foo[Arg.a4].baz,
           },
-          a7 = Ref.foo['$a5.baz'],
-          a8 = Ref.foo[':prop'],
-          a9 = Ref.foo[':prop'].baz,
-          a10 = Ref.foo[':prop'].baz['@a2']
+          a7 = Set.foo[Arg.a5.baz],
+          a8 = Set.foo[Param.prop],
+          a9 = Set.foo[Param.prop].baz,
+          a10 = Set.foo[Param.prop].baz[Prop.a2]
         ) => { })
       `,
       snapshot: true,

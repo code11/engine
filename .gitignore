@@ -11,7 +11,5 @@ package-lock.json
 build
 .vscode
 *.tgz
-src/specs/macro
-__snapshots__
 *.bkp
 dist
