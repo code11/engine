@@ -143,3 +143,6 @@ TODO: Add error codes and add to docs each possible error (and throw)
 TODO: [Macro] add support for identifier instead of arrow function expression
 const fn = (foo = Get.foo, setBar = Set.bar) => setBar(foo)
 const p = producer(fn)
+
+TODO: [Macro] add suport for nested get operations:
+foo = Get.list[Get.selectedId].data[Get.selected.prop]
