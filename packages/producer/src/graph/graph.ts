@@ -75,7 +75,13 @@ export class Graph {
           if (path) {
             node.removeListener = this.db.on(
               path,
-              pathListener(this.cb, this.db, this.data, this.structure, node)
+              pathListener(
+                this.update.bind(this),
+                this.db,
+                this.data,
+                this.structure,
+                node
+              )
             );
           }
         } else if (node.op.type === OperationTypes.FUNC) {

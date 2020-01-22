@@ -13,7 +13,7 @@ import { getOperation } from "./getOperation";
 import { funcOperation } from "./funcOperation";
 
 export const pathListener = (
-  cb: Function,
+  update: Function,
   db: DB,
   data: GraphData,
   structure: GraphStructure,
@@ -26,7 +26,7 @@ export const pathListener = (
     node.value = newValue;
     set(data, node.nesting, node.value);
     const updateListeners = computeDependenciesForNode(
-      cb,
+      update,
       db,
       data,
       structure,
@@ -41,7 +41,7 @@ export const pathListener = (
         if (node.path) {
           node.removeListener = db.on(
             node.path,
-            pathListener(cb, db, data, structure, node)
+            pathListener(update, db, data, structure, node)
           );
         }
       }
@@ -66,7 +66,7 @@ export const pathListener = (
                   const result = funcOperation(db, structure, node.op);
                   node.value = result;
                   set(data, node.nesting, node.value);
-                  cb(cloneDeep(data));
+                  update();
                 }
               });
             }
@@ -75,6 +75,6 @@ export const pathListener = (
       }
     });
 
-    cb(cloneDeep(data));
+    update();
   };
 };
