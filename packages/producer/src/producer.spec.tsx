@@ -94,9 +94,10 @@ let Prop: any = {};
 let Arg: any = {};
 let Param: any = {};
 let Set: any = {};
+let Merge: any = {};
+let Ref: any = {};
 
-function run(producer, state = {}, props = {}) {
-  const DB = db(state);
+function run(producer, state = {}, props = {}, DB = db(state)) {
   const ctx = {
     db: DB,
     props,
@@ -230,449 +231,145 @@ test("should support a structured operation", () => {
 
 test("should support Set operations", () => {
   const state = {
-    items: {
-      foo: {
-        value: "first",
+    foo: {
+      value: "first",
+    },
+  };
+  const struct = producer((setProp = Set.foo.value) => {
+    setProp("second");
+  });
+  const result = run(struct, state);
+  jest.runAllTimers();
+  expect(result.db.get("/foo/value")).toEqual("second");
+});
+
+test("should support Merge operations", () => {
+  const state = {
+    foo: {
+      value: {
+        bar: 123,
       },
     },
   };
-  const struct = producer((setProp = Set.items[Param.id.bar].value) => {
-    setProp("second", {
-      id: {
-        bar: "foo",
-      },
+  const struct = producer((mergeProp = Merge.foo.value) => {
+    mergeProp({
+      baz: 321,
     });
   });
   const result = run(struct, state);
   jest.runAllTimers();
-  expect(result.db.get("/items/foo/value")).toEqual("second");
+  expect(result.db.get("/foo/value")).toEqual({
+    baz: 321,
+    bar: 123,
+  });
 });
 
-/*
-
-
-test(
-  "should support Merge operations",
-  createTest({
-    args: {
-      type: OperationTypes.STRUCT,
-      value: {
-        mergeProp: {
-          type: OperationTypes.MERGE,
-          path: [
-            {
-              type: ValueTypes.CONST,
-              value: "items",
-            },
-            {
-              type: ValueTypes.INVOKE,
-              name: "id",
-            },
-          ],
-        },
-      },
-    },
-    state: {
-      items: {
-        foo: {
-          first: true,
-        },
-      },
-    },
-    invoke: {
-      mergeProp: [{ second: true }, { id: "foo" }],
-    },
-    expect: {
-      state: {
-        items: {
-          foo: {
-            first: true,
-            second: true,
-          },
-        },
-      },
-    },
-  })
-);
-
-/*
-test(
-  "should support Ref operations with get",
-  createTest({
-    args: {
-      propRef: {
-        type: OperationTypes.REF,
-        path: [
-          {
-            type: ValueTypes.CONST,
-            value: "items",
-          },
-          {
-            type: ValueTypes.INVOKE,
-            name: "id",
-          },
-          {
-            type: ValueTypes.CONST,
-            value: "value",
-          },
-        ],
-      },
-    },
-    state: {
-      items: {
-        foo: {
-          value: "first",
-        },
-      },
-    },
-    expect: {
-      ref: {
-        propRef: {
-          get: {
-            params: {
-              id: "foo",
-            },
-            expectedValue: "first",
-          },
-        },
-      },
-    },
-  })
-);
-
-test(
-  "should support Ref operations with set",
-  createTest({
-    args: {
-      propRef: {
-        type: OperationTypes.REF,
-        path: [
-          {
-            type: ValueTypes.CONST,
-            value: "items",
-          },
-          {
-            type: ValueTypes.INVOKE,
-            name: "id",
-          },
-          {
-            type: ValueTypes.CONST,
-            value: "value",
-          },
-        ],
-      },
-    },
-    state: {
-      items: {
-        foo: {
-          value: "first",
-        },
-      },
-    },
-    invoke: {
-      "propRef.set": ["second", { id: "foo" }],
-    },
-    expect: {
-      state: {
-        items: {
-          foo: {
-            value: "second",
-          },
-        },
-      },
-    },
-  })
-);
-
-test(
-  "should support Ref operations with merge",
-  createTest({
-    args: {
-      propRef: {
-        type: OperationTypes.REF,
-        path: [
-          {
-            type: ValueTypes.CONST,
-            value: "items",
-          },
-          {
-            type: ValueTypes.INVOKE,
-            name: "id",
-          },
-        ],
-      },
-    },
-    state: {
-      items: {
-        foo: {
-          first: true,
-        },
-      },
-    },
-    invoke: {
-      "propRef.merge": [{ second: true }, { id: "foo" }],
-    },
-    expect: {
-      state: {
-        items: {
-          foo: {
-            first: true,
-            second: true,
-          },
-        },
-      },
-    },
-  })
-);
-
-test(
-  "should support Func operations",
-  createTest({
-    args: {
-      a: {
-        type: OperationTypes.GET,
-        path: [{ type: ValueTypes.CONST, value: "a" }],
-      },
-      result: {
-        type: OperationTypes.FUNC,
-        value: {
-          params: [
-            {
-              type: OperationTypes.VALUE,
-              value: { type: ValueTypes.INTERNAL, path: ["a"] },
-            },
-            {
-              type: OperationTypes.GET,
-              path: [{ type: ValueTypes.CONST, value: "b" }],
-            },
-          ],
-          fn: (arg0, arg1) => arg0 + arg1,
-        },
-      },
-    },
-    state: {
-      a: 1,
-      b: 2,
-    },
-    expect: {
-      calls: [{ a: 1, result: 3 }],
-    },
-  })
-);
-
-test(
-  "should react to changing state changes with INTERNAL deps",
-  createTest({
-    args: {
-      foo: {
-        type: OperationTypes.GET,
-        path: [{ type: ValueTypes.CONST, value: "foo" }],
-      },
-      bar: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.INTERNAL,
-          path: ["foo"],
-        },
-      },
-      baz: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.INTERNAL,
-          path: ["bar"],
-        },
-      },
-    },
-    state: {
-      foo: "first",
-    },
-    patches: [
-      {
-        op: "add",
-        path: "/foo",
-        value: "second",
-      },
-      {
-        op: "add",
-        path: "/bam",
-        value: "123",
-      },
-    ],
-    expect: {
-      calls: [
-        { foo: "first", bar: "first", baz: "first" },
-        { foo: "second", bar: "second", baz: "second" },
-      ],
-    },
-  })
-);
-
-test(
-  "should react to changing state changes complex args",
-  createTest({
-    args: {
-      selectedId: {
-        type: OperationTypes.GET,
-        path: [{ type: ValueTypes.CONST, value: "selectedId" }],
-      },
-      article: {
-        type: OperationTypes.STRUCT,
-        value: {
-          ref: {
-            type: OperationTypes.REF,
-            path: [
-              {
-                type: ValueTypes.CONST,
-                value: "articles",
-              },
-              {
-                type: ValueTypes.CONST,
-                value: "list",
-              },
-              {
-                type: ValueTypes.INTERNAL,
-                path: ["selectedId"],
-              },
-              {
-                type: ValueTypes.INVOKE,
-                name: "prop",
-              },
-            ],
-          },
-          name: {
-            type: OperationTypes.GET,
-            path: [
-              {
-                type: ValueTypes.CONST,
-                value: "articles",
-              },
-              {
-                type: ValueTypes.CONST,
-                value: "list",
-              },
-              {
-                type: ValueTypes.INTERNAL,
-                path: ["selectedId"],
-              },
-              {
-                type: ValueTypes.CONST,
-                value: "name",
-              },
-            ],
-          },
-        },
-      },
-      name: {
-        type: OperationTypes.VALUE,
-        value: {
-          type: ValueTypes.INTERNAL,
-          path: ["article", "name"],
-        },
-      },
-    },
-    state: {
-      selectedId: "123",
-      articles: {
-        list: {
-          "123": {
-            name: "first",
-          },
-          "321": {
-            name: "second",
-          },
-        },
-      },
-    },
-    invoke: {
-      "article.ref.set": ["second", { prop: "name" }],
-    },
-    expect: {
-      calls: [{ name: "first" }, { name: "second" }],
-    },
-  })
-);
-
-test("should react accordingly to state changes from patches", () => {
-  const fn = jest.fn((args: any) => {});
-
+test("should support Ref operations with get, set and merge", () => {
   const state = {
-    id: "123",
-    list: {
-      "123": "foo",
-      "321": "bar",
-    },
-  };
-
-  const args: ProducerArgs = {
-    id: {
-      type: OperationTypes.GET,
-      path: [{ type: ValueTypes.CONST, value: "id" }],
-    },
-    value: {
-      type: OperationTypes.GET,
-      path: [
-        {
-          type: ValueTypes.CONST,
-          value: "list",
+    items: {
+      foo: {
+        value: {
+          bar: 123,
         },
-        {
-          type: ValueTypes.INTERNAL,
-          path: ["id"],
+      },
+    },
+  };
+  const struct = producer((refProp = Ref.items[Param.id.bar].value) => {
+    expect(
+      refProp.get({
+        id: {
+          bar: "foo",
         },
-      ],
-    },
-  };
-  const instance = {
-    context: {
-      db: db(state),
-      props: {},
-    },
-    config: {
-      args,
-      fn,
-    },
-  };
-
-  const producer = new Producer(instance.config, instance.context);
-  producer.mount();
-  instance.context.db.patch([
-    {
-      op: "add",
-      path: "/id",
-      value: "321",
-    },
-  ]);
-
+      })
+    ).toEqual({ bar: 123 });
+    refProp.set(
+      {
+        baz: 321,
+      },
+      {
+        id: {
+          bar: "foo",
+        },
+      }
+    );
+    refProp.merge(
+      {
+        bam: 333,
+      },
+      {
+        id: {
+          bar: "foo",
+        },
+      }
+    );
+  });
+  const result = run(struct, state);
   jest.runAllTimers();
-  instance.context.db.patch([
-    {
-      op: "add",
-      path: "/list/321",
-      value: "baz",
-    },
-  ]);
-
-  jest.runAllTimers();
-  instance.context.db.patch([
-    {
-      op: "add",
-      path: "/id",
-      value: "123",
-    },
-    {
-      op: "add",
-      path: "/list/123",
-      value: "bap",
-    },
-  ]);
-  jest.runAllTimers();
-  expect(fn).toHaveBeenLastCalledWith(
-    expect.objectContaining({
-      id: "123",
-      value: "bap",
-    })
-  );
+  expect(result.db.get("/items/foo/value")).toEqual({
+    baz: 321,
+    bam: 333,
+  });
 });
+
+test("should react to state changes", () => {
+  const state = {
+    foo: "value",
+  };
+  const val = "secondValue";
+  const struct = producer((foo = Get.foo, setBar = Set.bar) => {
+    setBar(val);
+  });
+  const result = run(struct, state);
+  const struct2 = producer((bar = Get.bar, setBaz = Set.baz) => {
+    setBaz(bar);
+  });
+  run(struct2, {}, {}, result.db);
+  jest.runAllTimers();
+  expect(result.db.get("/baz")).toEqual(val);
+});
+
+test("should react to state changes with complex args", () => {
+  const mock = jest.fn(x => x);
+  const state = {
+    selectedId: "123",
+    articles: {
+      list: {
+        "123": {
+          name: "first",
+        },
+        "321": {
+          name: "second",
+        },
+      },
+    },
+  };
+  const struct = producer(
+    (
+      selectedId = Get.selectedId,
+      article = {
+        ref: Ref.articles.list[Arg.selectedId][Param.prop],
+        name: Get.articles.list[Arg.selectedId].name,
+      },
+      name = Arg.article.name
+    ) => {
+      mock(name);
+      article.ref.set("321", { prop: "nextId" });
+    }
+  );
+  const result = run(struct, state);
+  const struct2 = producer(
+    (id = Get.articles.list["123"].nextId, setId = Set.selectedId) => {
+      setId(id);
+    }
+  );
+  run(struct2, {}, {}, result.db);
+  jest.runAllTimers();
+  expect(mock.mock.calls.length).toBe(2);
+  expect(mock.mock.calls[0][0]).toBe("first");
+  expect(mock.mock.calls[1][0]).toBe("second");
+});
+
+/*
 
 test("should react accordingly to func declarations against external patches", () => {
   const fn = jest.fn((args: any) => {
@@ -748,7 +445,7 @@ test("should react accordingly to func declarations against external patches", (
   producer.mount();
 
   jest.runAllTimers();
-  expect(fn).toHaveBeenLastCalledWith(
+  expect(fn).toH)aveBeenLastCalledWith(
     expect.objectContaining({
       first: 1,
       second: 1,
@@ -867,7 +564,7 @@ test("should invoke a function even if some args could not be computed", () => {
         fn: params => {
           return true;
         },
-      },
+      })
     },
   };
   const instance = {
@@ -883,7 +580,7 @@ test("should invoke a function even if some args could not be computed", () => {
 
   const producer = new Producer(instance.config, instance.context);
   producer.mount();
-  jest.runAllTimers();
+  jest.runAllTim)ers();
   expect(fn).toBeCalledWith({ foo: true });
 });
 

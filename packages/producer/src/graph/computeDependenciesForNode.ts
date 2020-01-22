@@ -11,7 +11,7 @@ import {
 import { computeOperation, ComputeType } from "./computeOperation";
 
 export const computeDependenciesForNode = (
-  cb: Function,
+  update: Function,
   db: DB,
   data: any,
   structure: GraphStructure,
@@ -39,7 +39,7 @@ export const computeDependenciesForNode = (
       }
       set(data, dep.nesting, dep.value);
       const newListeners = computeDependenciesForNode(
-        cb,
+        update,
         db,
         data,
         structure,
