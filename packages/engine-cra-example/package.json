@@ -1,9 +1,9 @@
 {
   "name": "engine-cra-example",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "private": true,
   "dependencies": {
-    "@c11/engine-react": "^3.1.5",
+    "@c11/engine-react": "^3.1.6",
     "@c11/engine.macro": "^3.1.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
