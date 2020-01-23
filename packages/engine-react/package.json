@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest --config ../../jest.config.js --runTestsByPath ./src/*"
+    "test": "jest --config ../../jest.config.js --runTestsByPath ./src/*",
+    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --runTestsByPath   ./src/**"
   },
   "peerDependencies": {
     "react": "^16"
