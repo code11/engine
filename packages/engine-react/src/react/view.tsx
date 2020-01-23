@@ -54,12 +54,10 @@ export function view({ args, fn }: ViewConfig) {
     componentDidMount() {
       this.producer.mount();
     }
-    updateData(newData: any) {
-      const data = this.args.meta.order.reduce((acc: any, x: any) => {
-        acc[x] = newData[x];
-        return acc;
-      }, {});
-      this.setState(data);
+    updateData(...data: any[]) {
+      this.setState({
+        data,
+      });
     }
     render() {
       return <RenderComponent state={this.state} fn={fn} />;
