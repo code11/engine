@@ -25,7 +25,9 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "describe": "npm-scripts-info",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "yarn clean && lerna run build && lerna run test",
+    "version": "lerna version --conventional-commits"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
