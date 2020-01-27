@@ -19,11 +19,15 @@ export const getConfig = (state: any) => {
     loc.pop();
   }
 
-  if (!packageJson.engineConfig) {
-    throw new Error(
-      "Could not find engineConfig. Please add engineConfig to your package.json"
-    );
+  let config = packageJson.engineConfig;
+  if (!config) {
+    console.warn("You should add engineConfig to your package.json");
+    config = {
+      view: {
+        importFrom: "@c11/engine-react",
+      },
+    };
   }
 
-  return packageJson.engineConfig;
+  return config;
 };
