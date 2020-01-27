@@ -19,9 +19,16 @@ export class Engine {
   private context: ProducerContext;
   constructor(config: EngineConfig) {
     this.config = config;
+    let initialState = {};
+    if (config.state && config.state.initial) {
+      initialState = config.state.initial;
+    }
     this.context = {
-      db: db(config.state.default),
+      db: db(initialState),
     };
+    if (config.autostart || config.autostart === undefined) {
+      this.start();
+    }
   }
 
   private init() {
