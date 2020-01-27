@@ -1,0 +1,26 @@
+{
+  "name": "cra-template-engine",
+  "version": "3.3.1",
+  "keywords": [
+    "react",
+    "create-react-app",
+    "template",
+    "code11",
+    "c11"
+  ],
+  "description": "A Create React App template for @c11/engine-react",
+  "main": "template.json",
+  "engineConfig": {
+    "view": {
+      "importFrom": "@c11/engine-react"
+    }
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ]
+}
