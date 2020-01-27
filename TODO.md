@@ -146,3 +146,14 @@ const p = producer(fn)
 
 TODO: [Macro] add suport for nested get operations:
 foo = Get.list[Get.selectedId].data[Get.selected.prop]
+
+TODO: Add Remove operation
+
+TODO: Make Prop as default for functions args:
+const a = view((foo) => <div>{foo}</div>)
+is equivalent to:
+const b = view((foo = Prop.foo) => <div>{foo}</div>)
+
+TODO: Verify if Args exist and throw a error/warning:
+const a = view((foo = Arg.bar) => <div>{foo}</div>)
+this should show a warning because there is not bar arg present
