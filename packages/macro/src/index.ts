@@ -28,10 +28,10 @@ function myMacro({ references, state, babel }: MacroParams) {
 }
 
 type ProducerConfig = (...args: any[]) => any;
-type ViewConfig = (...args: any[]) => JSX.Element;
+type ViewConfig = (...args: any[]) => any;
 
 type producer = (config: ProducerConfig) => any;
-type view = (config: ViewConfig) => JSX.Element;
+type view = (config: ViewConfig) => any;
 
 export const producer: producer = config => null;
 export const view: view = config => {
