@@ -4,7 +4,6 @@ import {
   ProducerConfig,
   ProducerFn,
   ProducerInstance,
-  OperationTypes,
   ExternalProps,
   StructOperation,
 } from "@c11/engine-types";
@@ -28,10 +27,6 @@ export class Producer implements ProducerInstance {
   graph: Graph;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
-    // this.args = {
-    //   type: OperationTypes.STRUCT,
-    //   value: config.args
-    // };
     this.args = config.args;
     this.fn = config.fn;
     this.external = context.props || {};
