@@ -1,16 +1,22 @@
-# Change Log
-
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 # [3.3.0](https://bitbucket.org/code11-com/engine/compare/v3.1.6...v3.3.0) (2020-01-27)
 
-**Note:** Version bump only for package engine-cra-example
+
+
+## [3.1.6](https://bitbucket.org/code11-com/engine/compare/v3.1.5...v3.1.6) (2020-01-23)
 
 
 
+## [3.1.5](https://bitbucket.org/code11-com/engine/compare/v3.1.4...v3.1.5) (2020-01-21)
 
 
-# [3.2.0](https://bitbucket.org/code11-com/engine/compare/v3.1.6...v3.2.0) (2020-01-27)
 
-**Note:** Version bump only for package engine-cra-example
+## [3.1.4](https://bitbucket.org/code11-com/engine/compare/v3.2.0...v3.1.4) (2020-01-20)
+
+
+### Features
+
+* add engine-cra-example ([7679276](https://bitbucket.org/code11-com/engine/commits/7679276a51f1d1fc052ddb45552a027ba45438c4))
+* add engineConfig to packagejson. add engine-react test" ([921c929](https://bitbucket.org/code11-com/engine/commits/921c9291ca7c93acf0a0e23f592cab03c9fed1db))
+
+
+

@@ -1,8 +1,139 @@
-# Change Log
-
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 # [3.3.0](https://bitbucket.org/code11-com/engine/compare/v3.1.6...v3.3.0) (2020-01-27)
 
-**Note:** Version bump only for package @c11/engine.macro
+
+
+## [3.1.5](https://bitbucket.org/code11-com/engine/compare/v3.1.4...v3.1.5) (2020-01-21)
+
+
+### Bug Fixes
+
+* **macro:** export INVOKE path as array instead of strings ([d972c77](https://bitbucket.org/code11-com/engine/commits/d972c77bb81b786d78fd4dc0e9971fcc53f04968))
+
+
+### Features
+
+* change fn invokation to ordered params and add meta.order on struct ([8b2ace8](https://bitbucket.org/code11-com/engine/commits/8b2ace88c7ac0ac2418e49ecaf48238e22c071aa))
+* **macro:** add Prop, Arg as possible values for paths and args and Param for invokable paths ([558dad8](https://bitbucket.org/code11-com/engine/commits/558dad846c40e4160c3de20b3a9b4554e0dda16c))
+
+
+
+## [3.1.4](https://bitbucket.org/code11-com/engine/compare/v3.2.0...v3.1.4) (2020-01-20)
+
+
+### Features
+
+* add engine-cra-example ([7679276](https://bitbucket.org/code11-com/engine/commits/7679276a51f1d1fc052ddb45552a027ba45438c4))
+* add engineConfig to packagejson. add engine-react test" ([921c929](https://bitbucket.org/code11-com/engine/commits/921c9291ca7c93acf0a0e23f592cab03c9fed1db))
+
+
+
+## [3.1.3](https://bitbucket.org/code11-com/engine/compare/v3.0.6...v3.1.3) (2020-01-17)
+
+
+### Bug Fixes
+
+* **macro:** change args type from Map to ...args: any[] ([89ca87e](https://bitbucket.org/code11-com/engine/commits/89ca87ef358107969c8665ad8b959cf6c72c1731))
+
+
+
+## [3.1.2](https://bitbucket.org/code11-com/engine/compare/v3.0.5...v3.1.2) (2020-01-17)
+
+
+
+## [3.1.1](https://bitbucket.org/code11-com/engine/compare/v3.0.4...v3.1.1) (2020-01-17)
+
+
+
+# [3.1.0](https://bitbucket.org/code11-com/engine/compare/v3.0.3...v3.1.0) (2020-01-17)
+
+
+
+## [2.0.11](https://bitbucket.org/code11-com/engine/compare/v2.0.10...v2.0.11) (2020-01-15)
+
+
+### Bug Fixes
+
+* change types for macro view and producer ([16b27f8](https://bitbucket.org/code11-com/engine/commits/16b27f894ff345d26ffb9bc076b5e39bd9bf0566))
+
+
+
+## [2.0.10](https://bitbucket.org/code11-com/engine/compare/v2.0.9...v2.0.10) (2020-01-15)
+
+
+### Bug Fixes
+
+* change types for macro ([227e5e5](https://bitbucket.org/code11-com/engine/commits/227e5e5fd82b9f9bb74ea7cd081d4117c4b06711))
+
+
+
+## [2.0.9](https://bitbucket.org/code11-com/engine/compare/v2.0.8...v2.0.9) (2020-01-14)
+
+
+### Bug Fixes
+
+* **macro:** add a GenericMacro type for view and producer args ([8dddcec](https://bitbucket.org/code11-com/engine/commits/8dddcec9b8b369153247d56cb73eb8014b82b659))
+
+
+
+## [2.0.8](https://bitbucket.org/code11-com/engine/compare/v2.0.7...v2.0.8) (2020-01-14)
+
+
+### Bug Fixes
+
+* **macro:** try a new declaration file build for views ([9e6ac18](https://bitbucket.org/code11-com/engine/commits/9e6ac18bf2a1e9a450c2eb7e4c73eb6d48497c63))
+
+
+
+## [2.0.7](https://bitbucket.org/code11-com/engine/compare/v2.0.6...v2.0.7) (2020-01-14)
+
+
+### Bug Fixes
+
+* **macro:** add correct producer and view declarations ([5c1bef6](https://bitbucket.org/code11-com/engine/commits/5c1bef6f895a29e3dec7e189eadf01ce74e050ce))
+
+
+
+## [2.0.6](https://bitbucket.org/code11-com/engine/compare/v2.0.5...v2.0.6) (2020-01-14)
+
+
+### Bug Fixes
+
+* **macro:** export view and producer types ([e7ba5a1](https://bitbucket.org/code11-com/engine/commits/e7ba5a1f24b6fb7691e9648afc46a6f8f0fd49fe))
+
+
+
+## [2.0.5](https://bitbucket.org/code11-com/engine/compare/v2.0.4...v2.0.5) (2020-01-14)
+
+
+### Bug Fixes
+
+* **engine:** let the engine export the view so that macros can keep ref ([824cca4](https://bitbucket.org/code11-com/engine/commits/824cca488dbec32777b75af5fe123f78e1b64688))
+
+
+
+## [2.0.3](https://bitbucket.org/code11-com/engine/compare/v2.0.2...v2.0.3) (2020-01-14)
+
+
+
+## [2.0.2](https://bitbucket.org/code11-com/engine/compare/v2.0.1...v2.0.2) (2020-01-14)
+
+
+### Bug Fixes
+
+* **macro:** remove producer from compile and add view ([ed01466](https://bitbucket.org/code11-com/engine/commits/ed01466878edea45a48db2aa58c3262f664b6ea7))
+
+
+
+## [2.0.1](https://bitbucket.org/code11-com/engine/compare/v2.0.0...v2.0.1) (2020-01-14)
+
+
+### Bug Fixes
+
+* **macro:** make top-level CONST as stringLiteral ([4cdfc7d](https://bitbucket.org/code11-com/engine/commits/4cdfc7d25e4453791e515f8402973c73458c7562))
+
+
+
+# [2.0.0](https://bitbucket.org/code11-com/engine/compare/v1.6.2...v2.0.0) (2020-01-14)
+
+
+
