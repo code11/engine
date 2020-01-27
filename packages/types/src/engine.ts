@@ -2,12 +2,13 @@ import { ProducerConfig } from "./producer";
 import { RenderConfig } from "./view";
 
 export interface EngineConfig {
+  autostart?: boolean;
   producers?: {
     list: ProducerConfig[];
   };
   view?: RenderConfig;
-  state: {
-    default: {
+  state?: {
+    initial?: {
       [key: string]: any;
     };
     schema?: any;

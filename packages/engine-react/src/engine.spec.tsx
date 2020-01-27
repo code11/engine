@@ -33,7 +33,7 @@ test("Simple load of a react component", done => {
   });
   const engine = new Engine({
     state: {
-      default: defaultState,
+      initial: defaultState,
     },
     view: {
       element: <Component />,
@@ -70,7 +70,7 @@ test("Simple load of a react component and work with producers", done => {
       list: [prod],
     },
     state: {
-      default: defaultState,
+      initial: defaultState,
     },
     view: {
       element: <Component />,
