@@ -27,6 +27,9 @@ export class Engine {
     this.context = {
       db: db(config.state.default),
     };
+    if (config.autostart || config.autostart === undefined) {
+      this.start();
+    }
   }
 
   private init() {
