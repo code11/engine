@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import App from "./App";
 import { Engine } from "@c11/engine-react";
-import { initialState } from "./initi ";
+import { initialState } from "./structure";
 import * as serviceWorker from "./serviceWorker";
 
 new Engine({
