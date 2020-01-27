@@ -6,7 +6,8 @@
   "typings": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": ""
   },
   "author": {
     "name": "Constantin Dumitrescu",
