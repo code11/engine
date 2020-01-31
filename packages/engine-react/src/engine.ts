@@ -71,6 +71,10 @@ export class Engine {
     }
     return this;
   }
+
+  getContext() {
+    return this.context;
+  }
   // stop() {}
   // update() {
   // for views ReactDOM.unmountComponentAtNode(container)
