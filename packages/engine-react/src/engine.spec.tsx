@@ -20,6 +20,10 @@ beforeEach(() => {
 });
 const Get: any = {};
 const Set: any = {};
+const Ref: any = {};
+const Merge: any = {};
+const Prop: any = {};
+const Arg: any = {};
 
 test("Simple load of a react component", done => {
   const defaultState = {
@@ -86,5 +90,33 @@ test("Simple load of a react component and work with producers", done => {
       expect(y.innerHTML).toBe(val);
       done();
     });
+  });
+});
+
+test("Expect to call using only Ref", done => {
+  const defaultState = {
+    foo: "123",
+  };
+  const rootEl = document.createElement("div");
+  rootEl.setAttribute("id", "root");
+  document.body.appendChild(rootEl);
+  const Component = view((foo = Ref.foo) => {
+    expect(foo).toBeDefined();
+    return <div data-testid="foo">{foo.get()}</div>;
+  });
+  const engine = new Engine({
+    state: {
+      initial: defaultState,
+    },
+    view: {
+      element: <Component />,
+      root: rootEl,
+    },
+  });
+  engine.start();
+  jest.runAllTimers();
+  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+    expect(x.innerHTML).toBe(defaultState.foo);
+    done();
   });
 });

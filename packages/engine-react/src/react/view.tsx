@@ -38,6 +38,7 @@ export function view({ args, fn }: ViewConfig) {
     static contextType = ViewContext;
     args: StructOperation;
     producer: Producer;
+    isStateReady = false;
     constructor(props: BaseProps, context: any) {
       super(props, context);
       context.props = props;
@@ -58,8 +59,14 @@ export function view({ args, fn }: ViewConfig) {
       this.setState({
         data,
       });
+      if (!this.isStateReady) {
+        this.isStateReady = true;
+      }
     }
     render() {
+      if (!this.isStateReady) {
+        return null;
+      }
       return <RenderComponent state={this.state} fn={fn} />;
     }
   };
