@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.1](https://bitbucket.org/code11-com/engine/compare/v3.5.0...v3.5.1) (2020-02-04)
+
+
+### Bug Fixes
+
+* **react:** ensure render is called only after the state is generated ([18a3786](https://bitbucket.org/code11-com/engine/commits/18a3786ff9f08d06e1fcdf1287bbf2b2b401fe67))
+
+
+
+
+
 # [3.5.0](https://bitbucket.org/code11-com/engine/compare/v3.4.0...v3.5.0) (2020-01-31)
 
 
