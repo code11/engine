@@ -63,9 +63,20 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
           p.node.source.value.indexOf("@c11/engine.macro") !== -1;
         return result;
       });
+    const hasEngineImport = ref
+      .findParent(p => p.isProgram())
+      .get("body")
+      .find(p => {
+        const result =
+          p.isImportDeclaration() &&
+          p.node.source.value.indexOf(viewImport) !== -1;
+        return result;
+      });
 
     if (macroImport) {
-      macroImport.insertAfter(engineImport);
+      if (!hasEngineImport) {
+        macroImport.insertAfter(engineImport);
+      }
     } else {
       throw new Error("Could not find macro import");
     }
