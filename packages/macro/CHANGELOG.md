@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.2](https://bitbucket.org/code11-com/engine/compare/v3.5.1...v3.5.2) (2020-02-05)
+
+
+### Bug Fixes
+
+* **macro:** ensure that view import doesn\'t happen multiple times ([fed1704](https://bitbucket.org/code11-com/engine/commits/fed170488fe94be0eac7290b3ec02f31805de278))
+
+
+
+
+
 ## [3.3.1](https://bitbucket.org/code11-com/engine/compare/v3.3.0...v3.3.1) (2020-01-27)
 
 **Note:** Version bump only for package @c11/engine.macro
