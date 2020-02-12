@@ -157,3 +157,9 @@ const b = view((foo = Prop.foo) => <div>{foo}</div>)
 TODO: Verify if Args exist and throw a error/warning:
 const a = view((foo = Arg.bar) => <div>{foo}</div>)
 this should show a warning because there is not bar arg present
+
+TODO: Add params property to sections structure
+
+TODO: Remove set from Ref and merge
+
+TODO: Add analysis and decision trees for states on views
