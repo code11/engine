@@ -264,7 +264,7 @@ test("should support Merge operations", () => {
   });
 });
 
-test("should support Ref operations with get, set and merge", () => {
+test("should support Ref operations with get", () => {
   const state = {
     items: {
       foo: {
@@ -282,33 +282,9 @@ test("should support Ref operations with get, set and merge", () => {
         },
       })
     ).toEqual({ bar: 123 });
-    refProp.set(
-      {
-        baz: 321,
-      },
-      {
-        id: {
-          bar: "foo",
-        },
-      }
-    );
-    refProp.merge(
-      {
-        bam: 333,
-      },
-      {
-        id: {
-          bar: "foo",
-        },
-      }
-    );
   });
-  const result = run(struct, state);
+  run(struct, state);
   jest.runAllTimers();
-  expect(result.db.get("/items/foo/value")).toEqual({
-    baz: 321,
-    bam: 333,
-  });
 });
 
 test("should react to state changes", () => {
@@ -347,13 +323,13 @@ test("should react to state changes with complex args", () => {
     (
       selectedId = Get.selectedId,
       article = {
-        ref: Ref.articles.list[Arg.selectedId][Param.prop],
+        setName: Set.articles.list[Arg.selectedId][Param.prop],
         name: Get.articles.list[Arg.selectedId].name,
       },
       name = Arg.article.name
     ) => {
       mock(name);
-      article.ref.set("321", { prop: "nextId" });
+      article.setName("321", { prop: "nextId" });
     }
   );
   const result = run(struct, state);

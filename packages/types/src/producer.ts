@@ -23,8 +23,6 @@ interface Params {
 
 export interface RefDataType {
   get: (params: Params) => any;
-  set: (value: any, params: Params) => void;
-  merge: (value: any, params: Params) => void;
 }
 
 export interface ConstValue {
