@@ -144,6 +144,27 @@ test("should support a structured operation", () => {
   });
 });
 
+test.only("should support multiple Get operations with Arg", () => {
+  const state = {
+    foo: "bar",
+    bar: "baz",
+    baz: "bam",
+    bam: 123,
+  };
+  const struct = producer(
+    (
+      bar = Get.foo,
+      baz = Get[Arg.bar],
+      bam = Get[Arg.baz],
+      result = Get[Arg.bam]
+    ) => {
+      console.log(bar, baz, bam, result);
+      expect(result).toBe(state.bam);
+    }
+  );
+  run(struct, state);
+});
+
 test("should support Set operations", () => {
   const state = {
     foo: {
