@@ -3,12 +3,13 @@ import {
   SetOperation,
   RefOperation,
   MergeOperation,
+  RemoveOperation,
 } from "@c11/engine-types";
 import { resolveValue } from "./resolveValue";
 
 export const getInvokablePath = (
   structure: GraphStructure,
-  op: MergeOperation | SetOperation | RefOperation,
+  op: MergeOperation | SetOperation | RefOperation | RemoveOperation,
   params: any
 ) => {
   const path = op.path.map((x: any) => {

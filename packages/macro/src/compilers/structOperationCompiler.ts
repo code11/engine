@@ -25,6 +25,8 @@ export const structOperationCompiler = (
         result = pathOperationCompiler(op);
       } else if (op.type === OperationTypes.SET) {
         result = pathOperationCompiler(op);
+      } else if (op.type === OperationTypes.REMOVE) {
+        result = pathOperationCompiler(op);
       } else if (op.type === OperationTypes.MERGE) {
         result = pathOperationCompiler(op);
       } else if (op.type === OperationTypes.REF) {

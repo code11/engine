@@ -19,6 +19,7 @@ import {
   FuncOperation,
   StaticOperation,
   PathType,
+  RemoveOperation,
 } from "@c11/engine-types";
 import { getMemberExpressionParams } from "../utils/getMemberExpressionParams";
 import { invokablePathValueParser } from "./invokablePathValueParser";
@@ -104,6 +105,11 @@ const Values: Values = {
         type: OperationTypes.SET,
         path,
       } as SetOperation;
+    } else if (op === PathType.REMOVE) {
+      return {
+        type: OperationTypes.REMOVE,
+        path,
+      } as RemoveOperation;
     } else if (op === PathType.MERGE) {
       return {
         type: OperationTypes.MERGE,

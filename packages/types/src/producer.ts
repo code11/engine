@@ -8,6 +8,7 @@ export enum OperationTypes {
   FUNC = "FUNC",
   STRUCT = "STRUCT",
   VALUE = "VALUE",
+  REMOVE = "REMOVE",
 }
 
 export enum ValueTypes {
@@ -64,6 +65,12 @@ export interface MergeOperation extends BaseOperation {
   type: OperationTypes.MERGE;
   path: InvokableValue[];
 }
+
+export interface RemoveOperation extends BaseOperation {
+  type: OperationTypes.REMOVE;
+  path: InvokableValue[];
+}
+
 export interface SetOperation extends BaseOperation {
   type: OperationTypes.SET;
   path: InvokableValue[];
@@ -103,6 +110,7 @@ export type Operation =
   | RefOperation
   | FuncOperation
   | StructOperation
+  | RemoveOperation
   | ValueOperation;
 
 export interface ProducerArgs {

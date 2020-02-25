@@ -11,6 +11,7 @@ let Param: any = {};
 let Set: any = {};
 let Merge: any = {};
 let Ref: any = {};
+let Remove: any = {};
 
 function run(producer, state = {}, props = {}, DB = db(state)) {
   const ctx = {
@@ -278,6 +279,46 @@ test("should react to state changes with complex args", () => {
   expect(mock.mock.calls.length).toBe(2);
   expect(mock.mock.calls[0][0]).toBe("first");
   expect(mock.mock.calls[1][0]).toBe("second");
+});
+
+test("should support Remove operation", () => {
+  const state = {
+    prop: "bam",
+    foo: "value",
+    bar: {
+      baz: {
+        bam: 123,
+      },
+    },
+    bam: {
+      baz: 123,
+    },
+    boo: {
+      bam: 123,
+    },
+  };
+  const struct = producer(
+    (
+      rmFoo = Remove.foo,
+      rmBar = Remove.bar.baz.bam,
+      prop = Get.prop,
+      rmBam = Remove[Arg.prop].baz,
+      rmBoo = Remove[Param.a][Param.b]
+    ) => {
+      rmFoo();
+      rmBar();
+      rmBam();
+      rmBoo({
+        a: "boo",
+        b: "bam",
+      });
+    }
+  );
+  const result = run(struct, state);
+  jest.runAllTimers();
+  expect(result.db.get("/foo")).toEqual(undefined);
+  expect(result.db.get("/bar/baz")).toEqual({});
+  expect(result.db.get("/bam")).toEqual({});
 });
 
 /*
