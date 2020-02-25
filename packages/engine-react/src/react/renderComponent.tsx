@@ -3,12 +3,12 @@ import { BaseState } from "./types";
 // import { calculateExtraProps } from './calculateExtraProps';
 
 export class RenderComponent extends React.Component<BaseState> {
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.log("Error error", error, info);
-  }
-  static getDerivedStateFromError(e: any) {
-    console.log("error", e);
-  }
+  // componentDidCatch(error: Error, info: React.ErrorInfo) {
+  //   console.log("Error error", error, info);
+  // }
+  // static getDerivedStateFromError(e: any) {
+  //   console.log("error", e);
+  // }
   render() {
     let el = this.props.fn.apply(null, this.props.state.data);
     if (el) {

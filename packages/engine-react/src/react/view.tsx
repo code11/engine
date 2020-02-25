@@ -39,10 +39,13 @@ export function view({ args, fn }: ViewConfig) {
     args: StructOperation;
     producer: Producer;
     isStateReady = false;
+    ref: any;
     constructor(props: BaseProps, context: any) {
       super(props, context);
       context.props = props;
+      context.keepReferences = ["external.children"];
       this.args = args;
+      this.ref = React.createRef();
       this.producer = new Producer(
         {
           args,
@@ -68,7 +71,7 @@ export function view({ args, fn }: ViewConfig) {
       if (!this.isStateReady) {
         return null;
       }
-      return <RenderComponent state={this.state} fn={fn} />;
+      return <RenderComponent ref={this.ref} state={this.state} fn={fn} />;
     }
   };
 }

@@ -1,6 +1,8 @@
 import merge from "lodash/merge";
 import set from "lodash/set";
 import cloneDeep from "lodash/cloneDeep";
+import isFunction from "lodash/isFunction";
+import isEqual from "lodash/isEqual";
 import {
   StructOperation,
   OperationTypes,
@@ -27,7 +29,14 @@ export class Graph {
   props: any;
   data: GraphData = {};
   cb: Function;
-  constructor(db: DB, props: any, op: StructOperation, cb: Function) {
+  keepReferences: string[];
+  constructor(
+    db: DB,
+    props: any,
+    op: StructOperation,
+    cb: Function,
+    keepReferences: string[]
+  ) {
     if (!op.meta || !op.meta.order) {
       throw new Error("Missing order for arguments list");
     }
@@ -36,6 +45,7 @@ export class Graph {
     this.props = props;
     this.structure = struct;
     this.db = db;
+    this.keepReferences = keepReferences;
     this.computeOrder = resolveOrder(struct);
     this.paramsOrder = op.meta.order;
     this.cb = cb;
@@ -66,7 +76,19 @@ export class Graph {
     if (!props) {
       return;
     }
-    if (JSON.stringify(props) === JSON.stringify(this.props)) {
+
+    // const propsWithoutRefs = (props: any) => {
+    //   if (!props) {
+    //     return props;
+    //   }
+    //   return Object.keys(props).reduce((acc: any, x) => {
+    //     if (!this.keepReferences.includes(`external.${x}`)) {
+    //       acc[x] = props[x];
+    //     }
+    //     return acc;
+    //   }, {});
+    // };
+    if (isEqual(props, this.props)) {
       return;
     }
     this.props = props;
@@ -84,7 +106,18 @@ export class Graph {
     });
   }
   update() {
-    const params = getOrderedParams(cloneDeep(this.data), this.paramsOrder);
+    let data = this.data;
+    if (data) {
+      data = Object.keys(data).reduce((acc: any, x) => {
+        if (this.keepReferences.includes(x) || isFunction(data[x])) {
+          acc[x] = data[x];
+        } else {
+          acc[x] = cloneDeep(data[x]);
+        }
+        return acc;
+      }, {});
+    }
+    const params = getOrderedParams(data, this.paramsOrder);
     this.cb.apply(null, params);
   }
 

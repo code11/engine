@@ -25,12 +25,20 @@ export class Producer implements ProducerInstance {
   fn: ProducerFn;
   external: ExternalProps;
   graph: Graph;
+  keepReferences: string[];
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
     this.args = config.args;
     this.fn = config.fn;
     this.external = context.props || {};
-    this.graph = new Graph(this.db, this.external, this.args, this.fn);
+    this.keepReferences = context.keepReferences || [];
+    this.graph = new Graph(
+      this.db,
+      this.external,
+      this.args,
+      this.fn,
+      this.keepReferences
+    );
   }
   mount() {
     if (this.state === ProducerStates.MOUNTED) {
