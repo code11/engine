@@ -9,7 +9,7 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import cloneDeep from "lodash/cloneDeep";
-import { Engine } from "./index";
+import { Engine } from "./engine";
 
 jest.useFakeTimers();
 
@@ -117,6 +117,47 @@ test("Expect to call using only Ref", done => {
   jest.runAllTimers();
   waitForElement(() => getByTestId(document.body, "foo")).then(x => {
     expect(x.innerHTML).toBe(defaultState.foo);
+    done();
+  });
+});
+
+test.only("Should propagate changes in props", done => {
+  const val = "321";
+  const defaultState = {
+    foo: "123",
+  };
+  const rootEl = document.createElement("div");
+  rootEl.setAttribute("id", "root");
+  document.body.appendChild(rootEl);
+  const Child = view((foo = Prop.foo, setFoo = Set.foo) => {
+    return (
+      <div>
+        <div data-testid="foo">{foo}</div>;
+        <div data-testid="set-foo" onClick={() => setFoo(val)}></div>
+      </div>
+    );
+  });
+  const Parent = view((foo = Get.foo) => {
+    return <Child foo={foo} />;
+  });
+  const engine = new Engine({
+    state: {
+      initial: defaultState,
+    },
+    view: {
+      element: <Parent />,
+      root: rootEl,
+    },
+  });
+  engine.start();
+  jest.runAllTimers();
+  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+    expect(x.innerHTML).toBe(defaultState.foo);
+    const button = getByTestId(document.body, "set-foo");
+    fireEvent.click(button);
+    jest.runAllTimers();
+    const newFoo = getByTestId(document.body, "foo");
+    expect(newFoo.innerHTML).toBe(val);
     done();
   });
 });

@@ -64,6 +64,7 @@ export function view({ args, fn }: ViewConfig) {
       }
     }
     render() {
+      this.producer.updateExternal(this.props);
       if (!this.isStateReady) {
         return null;
       }

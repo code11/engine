@@ -123,7 +123,7 @@ export interface ProducerConfig {
 export interface ProducerInstance {
   mount: () => void;
   unmount: () => void;
-  update: () => void;
+  updateExternal: (props: ProducerContext["props"]) => this;
 }
 
 export interface ExternalProps {
