@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.macro",
-  "version": "3.5.3",
+  "version": "3.5.4",
   "description": "Babel macros that define the Engine API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -20,7 +20,7 @@
     "babel-plugin-tester": "^8.0.1"
   },
   "dependencies": {
-    "@c11/engine-types": "^3.5.3",
+    "@c11/engine-types": "^3.5.4",
     "lodash": "^4.17.15"
   },
   "engineConfig": {
