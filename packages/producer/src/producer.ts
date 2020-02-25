@@ -45,8 +45,11 @@ export class Producer implements ProducerInstance {
     }
     return this;
   }
-  update() {
-    // prop: 123
+  updateExternal(props: ProducerContext["props"]) {
+    if (props) {
+      this.external = props;
+      this.graph.updateExternal(this.external);
+    }
     return this;
   }
 }

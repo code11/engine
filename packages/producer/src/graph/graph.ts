@@ -24,6 +24,7 @@ export class Graph {
   private computeOrder: string[];
   private paramsOrder: string[];
   db: DB;
+  props: any;
   data: GraphData = {};
   cb: Function;
   constructor(db: DB, props: any, op: StructOperation, cb: Function) {
@@ -32,6 +33,7 @@ export class Graph {
     }
     const struct = merge(getInternalNodes(op), getExternalNodes(props));
     resolveDependencies(struct);
+    this.props = props;
     this.structure = struct;
     this.db = db;
     this.computeOrder = resolveOrder(struct);
@@ -58,6 +60,29 @@ export class Graph {
     return data;
   }
 
+  updateExternal(props: any) {
+    // TODO: What happens when invalid props or no props are passed,
+    // how should this be propagated
+    if (!props) {
+      return;
+    }
+    if (JSON.stringify(props) === JSON.stringify(this.props)) {
+      return;
+    }
+    this.props = props;
+
+    Object.keys(props).forEach(x => {
+      const id = `external.${x}`;
+      if (this.structure[id]) {
+        this.structure[id].value = props[x];
+      }
+    });
+
+    setImmediate(() => {
+      this.data = this.compute();
+      this.update();
+    });
+  }
   update() {
     const params = getOrderedParams(cloneDeep(this.data), this.paramsOrder);
     this.cb.apply(null, params);
