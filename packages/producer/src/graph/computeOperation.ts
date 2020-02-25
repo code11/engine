@@ -10,6 +10,7 @@ import { valueOperation } from "./valueOperation";
 import { updateOperation } from "./updateOperation";
 import { refOperation } from "./refOperation";
 import { funcOperation } from "./funcOperation";
+import { removeOperation } from "./removeOperation";
 
 export enum ComputeType {
   PATH = "PATH",
@@ -43,6 +44,8 @@ export const computeOperation = (
     node.op.type === OperationTypes.SET
   ) {
     result.value = updateOperation(db, structure, node.op);
+  } else if (node.op.type === OperationTypes.REMOVE) {
+    result.value = removeOperation(db, structure, node.op);
   } else if (node.op.type === OperationTypes.REF) {
     result.value = refOperation(db, structure, node.op);
   } else if (node.op.type === OperationTypes.FUNC) {

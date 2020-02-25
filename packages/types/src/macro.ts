@@ -5,6 +5,7 @@ export enum PathType {
   REF = "Ref",
   PROP = "Prop",
   ARG = "Arg",
+  REMOVE = "Remove",
 }
 
 export enum PathArgs {

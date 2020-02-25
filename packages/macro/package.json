@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest --config ../../jest.config.js --runTestsByPath ./specs/*"
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*"
   },
   "devDependencies": {
     "@babel/types": "^7.7.4",
