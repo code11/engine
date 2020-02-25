@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine-node",
-  "version": "3.5.4",
+  "version": "3.5.5",
   "description": "A programming engine for the node environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -14,8 +14,8 @@
     "email": "constantin.dumitrescu@code11.com"
   },
   "dependencies": {
-    "@c11/engine-producer": "^3.5.4",
-    "@c11/engine-react": "^3.5.4",
+    "@c11/engine-producer": "^3.5.5",
+    "@c11/engine-react": "^3.5.5",
     "@c11/engine-types": "^3.5.4",
     "@c11/engine.macro": "^3.5.4",
     "jsonmvc-datastore": "^0.3.35"
