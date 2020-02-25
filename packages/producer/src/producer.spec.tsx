@@ -144,7 +144,7 @@ test("should support a structured operation", () => {
   });
 });
 
-test.only("should support multiple Get operations with Arg", () => {
+test("should support multiple Get operations with Arg", () => {
   const state = {
     foo: "bar",
     bar: "baz",
@@ -158,7 +158,6 @@ test.only("should support multiple Get operations with Arg", () => {
       bam = Get[Arg.baz],
       result = Get[Arg.bam]
     ) => {
-      console.log(bar, baz, bam, result);
       expect(result).toBe(state.bam);
     }
   );
