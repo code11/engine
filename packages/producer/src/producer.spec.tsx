@@ -281,6 +281,17 @@ test("should react to state changes with complex args", () => {
 });
 
 /*
+test.only("should support Value operations with CONST values", () => {
+  const val = "red";
+  const struct = producer((color = Get["foo.bar"]) => {
+    expect(color).toBe(val);
+  });
+  console.log(JSON.stringify(struct, null, ' '));
+  run(struct, { "foo.bar": val });
+});
+*/
+
+/*
 
 test("should react accordingly to func declarations against external patches", () => {
   const fn = jest.fn((args: any) => {

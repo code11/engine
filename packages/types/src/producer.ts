@@ -132,4 +132,5 @@ export interface ExternalProps {
 export interface ProducerContext {
   db: DB;
   props?: ExternalProps;
+  keepReferences?: string[];
 }
