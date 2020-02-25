@@ -163,3 +163,5 @@ TODO: Add params property to sections structure
 TODO: Remove set from Ref and merge
 
 TODO: Add analysis and decision trees for states on views
+
+TODO: Write an opposite article on: https://reactjs.org/docs/lifting-state-up.html
