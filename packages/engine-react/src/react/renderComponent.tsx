@@ -17,7 +17,6 @@ export class RenderComponent extends React.Component<BaseState> {
       // TODO: if !extraProps just return the initial el without clonning
       return React.cloneElement(el as React.ReactElement, extraProps);
     } else {
-      console.log("not showing");
       return null;
     }
   }
