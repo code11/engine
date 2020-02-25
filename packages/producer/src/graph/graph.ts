@@ -108,8 +108,14 @@ export class Graph {
   update() {
     let data = this.data;
     if (data) {
+      const refs = this.keepReferences.reduce((acc, x) => {
+        if (this.structure[x]) {
+          acc = acc.concat(this.structure[x].isDependedBy);
+        }
+        return acc;
+      }, [] as string[]);
       data = Object.keys(data).reduce((acc: any, x) => {
-        if (this.keepReferences.includes(x) || isFunction(data[x])) {
+        if (refs.includes(`internal.${x}`) || isFunction(data[x])) {
           acc[x] = data[x];
         } else {
           acc[x] = cloneDeep(data[x]);
