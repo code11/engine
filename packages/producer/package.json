@@ -15,8 +15,8 @@
   "scripts": {
     "build:declaration": "tsc --project tsconfig.build.json",
     "build": "tsc",
-    "test": "jest --config ../../jest.config.js --runTestsByPath ./src/*",
-    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./src/*"
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./src/*",
+    "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./src/*"
   },
   "devDependencies": {
     "@c11/engine-types": "^3.3.1"
