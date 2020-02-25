@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://bitbucket.org/code11-com/engine/compare/v3.5.5...v3.6.0) (2020-02-25)
+
+
+### Features
+
+* **producer:** add Remove functionality to the engine ([8b78eca](https://bitbucket.org/code11-com/engine/commits/8b78eca92b00ba037c384cd6f92db444e72171cb))
+
+
+
+
+
 ## [3.5.5](https://bitbucket.org/code11-com/engine/compare/v3.5.4...v3.5.5) (2020-02-25)
 
 
