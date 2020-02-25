@@ -1,5 +1,4 @@
 import set from "lodash/set";
-import cloneDeep from "lodash/cloneDeep";
 import {
   GraphData,
   GraphStructure,

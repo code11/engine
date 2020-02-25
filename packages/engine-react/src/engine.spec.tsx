@@ -121,7 +121,7 @@ test("Expect to call using only Ref", done => {
   });
 });
 
-test.only("Should propagate changes in props", done => {
+test("Should propagate changes in props", done => {
   const val = "321";
   const defaultState = {
     foo: "123",
@@ -162,7 +162,7 @@ test.only("Should propagate changes in props", done => {
   });
 });
 
-test("Should not clone children", done => {
+test.only("Should not clone children", done => {
   const val = "321";
   const defaultState = {
     baz: "123",
