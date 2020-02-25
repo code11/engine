@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.3](https://bitbucket.org/code11-com/engine/compare/v3.5.2...v3.5.3) (2020-02-25)
+
+
+### Bug Fixes
+
+* **engine-react:** ensure prop changes are propagated ([763433e](https://bitbucket.org/code11-com/engine/commits/763433ecc2969972d31aa8231cdb5293fcd9fa4c))
+
+
+
+
+
 ## [3.5.2](https://bitbucket.org/code11-com/engine/compare/v3.5.1...v3.5.2) (2020-02-05)
 
 
