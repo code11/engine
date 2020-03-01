@@ -165,3 +165,11 @@ TODO: Remove set from Ref and merge
 TODO: Add analysis and decision trees for states on views
 
 TODO: Write an opposite article on: https://reactjs.org/docs/lifting-state-up.html
+
+TODO: Add Path operation that gets the path of a given arg
+foo = Get.data.foo
+baz = Set[PathArg.foo].baz
+
+which is equivalent to:
+foo = Get.data.foo
+baz = Set.data.foo.baz
