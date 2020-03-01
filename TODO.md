@@ -178,3 +178,5 @@ TODO: Add arbitrary computation:
 foo = 123,
 summaryFoo = Arg.foo[x => x.substr(0, 5)]
 bam = Get.foo.bar[x => Object.keys(x)]
+id = Prop.id[x => toString(x)],
+id = (x = Arg.foo, y = Prop.bar) => x + y
