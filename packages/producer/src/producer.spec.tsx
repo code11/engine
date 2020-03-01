@@ -340,6 +340,21 @@ test("merge should set a path if the path does not exist", () => {
   });
 });
 
+test("should allow args composition", () => {
+  const state = {
+    items: {
+      abc: "123",
+    },
+  };
+  const struct = producer(
+    (foo = "abc", items = Get.items, bar = Arg.items[Arg.foo]) => {
+      expect(bar).toBe("123");
+    }
+  );
+  run(struct, state);
+  jest.runAllTimers();
+});
+
 /*
 test.only("should support Value operations with CONST values", () => {
   const val = "red";
