@@ -321,6 +321,25 @@ test("should support Remove operation", () => {
   expect(result.db.get("/bam")).toEqual({});
 });
 
+test("merge should set a path if the path does not exist", () => {
+  const state = {
+    foo: {},
+  };
+  const val = {
+    bam: "123",
+  };
+  const struct = producer((mergeFoo = Merge.foo.baz) => {
+    mergeFoo(val);
+  });
+  const result = run(struct, state);
+  jest.runAllTimers();
+  expect(result.db.get("/foo")).toEqual({
+    baz: {
+      bam: "123",
+    },
+  });
+});
+
 /*
 test.only("should support Value operations with CONST values", () => {
   const val = "red";

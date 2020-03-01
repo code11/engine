@@ -21,6 +21,18 @@ export const updateOperation = (
         path,
         value: value,
       };
+      if (op.type === OperationTypes.MERGE) {
+        const val = db.get(path);
+        if (!val) {
+          db.patch([
+            {
+              op: "add",
+              path,
+              value: {},
+            },
+          ]);
+        }
+      }
       db.patch([patch]);
     }
   };
