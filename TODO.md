@@ -173,3 +173,8 @@ baz = Set[PathArg.foo].baz
 which is equivalent to:
 foo = Get.data.foo
 baz = Set.data.foo.baz
+
+TODO: Add arbitrary computation:
+foo = 123,
+summaryFoo = Arg.foo[x => x.substr(0, 5)]
+bam = Get.foo.bar[x => Object.keys(x)]
