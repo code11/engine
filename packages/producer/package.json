@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine-producer",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "description": "A programming engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     "@c11/engine-types": "^3.6.0"
   },
   "dependencies": {
-    "@c11/engine.macro": "^3.6.0",
+    "@c11/engine.macro": "^3.7.0",
     "jsonmvc-datastore": "^0.3.35",
     "lodash": "^4.17.15"
   },

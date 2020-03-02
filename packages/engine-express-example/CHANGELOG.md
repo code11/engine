@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://bitbucket.org/code11-com/engine/compare/v3.6.0...v3.7.0) (2020-03-02)
+
+**Note:** Version bump only for package engine-express-example
+
+
+
+
+
 # [3.6.0](https://bitbucket.org/code11-com/engine/compare/v3.5.5...v3.6.0) (2020-02-25)
 
 **Note:** Version bump only for package engine-express-example
