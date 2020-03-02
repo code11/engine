@@ -2,15 +2,28 @@ import {
   AssignmentPattern,
   isAssignmentPattern,
   Identifier,
+  isIdentifier,
 } from "@babel/types";
-import { OperationTypes, StructOperation } from "@c11/engine-types";
+import { OperationTypes, StructOperation, ValueTypes, ValueOperation } from "@c11/engine-types";
 import { processParamValue } from "./valueParser";
 
 export const paramsParser = (params: AssignmentPattern[]): StructOperation => {
   const order: string[] = [];
   const result = params.reduce(
     (acc, x, idx) => {
-      if (isAssignmentPattern(x)) {
+      if (isIdentifier(x)) {
+        const node = x as Identifier
+        const propName = node.name 
+        const propValue = {
+          type: OperationTypes.VALUE,
+          value: {
+            type: ValueTypes.EXTERNAL,
+            path: [propName],
+          },
+        } as ValueOperation;
+        order.push(propName);
+        acc.value[propName] = propValue;
+      } else if (isAssignmentPattern(x)) {
         const node = x as AssignmentPattern;
         const left = node.left as Identifier;
         const propName = left.name;
