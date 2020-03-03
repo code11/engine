@@ -165,3 +165,22 @@ TODO: Remove set from Ref and merge
 TODO: Add analysis and decision trees for states on views
 
 TODO: Write an opposite article on: https://reactjs.org/docs/lifting-state-up.html
+
+TODO: Add support for dynamic paths using environment variables
+const foo = { bar: 'abc' }
+const a = view((
+  title = Get.list[foo.bar].title
+))
+
+TODO: Add wildcard for triggering execution:
+const a = producer((
+  description: Get.list[*].description,
+  setSummary: Set.list[*].summary
+) => setSummary(description.substr(0, 30)))
+
+the wildcard will be identical for both Set and Get at the moment of execution
+
+Get.list[Wildcard].foo
+Get.list[$].foo
+Get.list[Any].foo
+Get.list[_].foo
