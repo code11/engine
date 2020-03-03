@@ -38,5 +38,13 @@ export const view: view = config => {
   return {} as JSX.Element;
 };
 
+export const Get: any = {};
+export const Arg: any = {};
+export const Prop: any = {};
+export const Set: any = {};
+export const Merge: any = {};
+export const Param: any = {};
+export const Remove: any = {};
+
 const macro = createMacro(myMacro);
 export default macro;
