@@ -18,6 +18,7 @@ pluginTester({
       only: true,
       code: `
         import { producer } from ${macroFile}
+        const SectionId = {}
         const result = producer((
           a1 = '123',
           a2 = {
@@ -28,6 +29,7 @@ pluginTester({
           a5 = /123/,
           a6 = null,
           a7 = undefined,
+          a8 = SectionId.foo
         ) => { })
       `,
       snapshot: true,
