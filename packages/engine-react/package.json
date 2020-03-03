@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine-react",
-  "version": "3.7.2",
+  "version": "3.7.3",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -24,11 +24,11 @@
     "react": "^16"
   },
   "dependencies": {
-    "@c11/engine-producer": "^3.7.2"
+    "@c11/engine-producer": "^3.7.3"
   },
   "devDependencies": {
     "@c11/engine-types": "^3.6.0",
-    "@c11/engine.macro": "^3.7.1",
+    "@c11/engine.macro": "^3.7.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@types/react": "^16.9.17",

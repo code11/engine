@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.3](https://bitbucket.org/code11-com/engine/compare/v3.7.2...v3.7.3) (2020-03-03)
+
+
+### Bug Fixes
+
+* **macro:** if a MemberExpression is detected but not an operation it should be kept ([d0b84fb](https://bitbucket.org/code11-com/engine/commits/d0b84fb3a194d9c2771b8cbdc374ddb4b6212ac9))
+
+
+
+
+
 ## [3.7.2](https://bitbucket.org/code11-com/engine/compare/v3.7.1...v3.7.2) (2020-03-03)
 
 **Note:** Version bump only for package engine
