@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.4](https://bitbucket.org/code11-com/engine/compare/v3.7.3...v3.7.4) (2020-03-04)
+
+
+### Bug Fixes
+
+* **macro:** add missing Ref export for TS ([4c9f3bb](https://bitbucket.org/code11-com/engine/commits/4c9f3bb0b99aa4122f4a591d763322f7fb076a8b))
+
+
+
+
+
 ## [3.7.3](https://bitbucket.org/code11-com/engine/compare/v3.7.2...v3.7.3) (2020-03-03)
 
 
