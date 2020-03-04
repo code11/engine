@@ -41,6 +41,7 @@ export const view: view = config => {
 export const Get: any = {};
 export const Arg: any = {};
 export const Prop: any = {};
+export const Ref: any = {};
 export const Set: any = {};
 export const Merge: any = {};
 export const Param: any = {};
