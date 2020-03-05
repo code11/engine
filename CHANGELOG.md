@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.4](https://bitbucket.org/code11-com/engine/compare/v3.7.3...v3.7.4) (2020-03-04)
+
+
+### Bug Fixes
+
+* **macro:** add missing Ref export for TS ([4c9f3bb](https://bitbucket.org/code11-com/engine/commits/4c9f3bb0b99aa4122f4a591d763322f7fb076a8b))
+
+
+
+
+
+## [3.7.3](https://bitbucket.org/code11-com/engine/compare/v3.7.2...v3.7.3) (2020-03-03)
+
+
+### Bug Fixes
+
+* **macro:** if a MemberExpression is detected but not an operation it should be kept ([d0b84fb](https://bitbucket.org/code11-com/engine/commits/d0b84fb3a194d9c2771b8cbdc374ddb4b6212ac9))
+
+
+
+
+
+## [3.7.2](https://bitbucket.org/code11-com/engine/compare/v3.7.1...v3.7.2) (2020-03-03)
+
+**Note:** Version bump only for package engine
+
+
+
+
+
+## [3.7.1](https://bitbucket.org/code11-com/engine/compare/v3.7.0...v3.7.1) (2020-03-03)
+
+**Note:** Version bump only for package engine
+
+
+
+
+
+# [3.7.0](https://bitbucket.org/code11-com/engine/compare/v3.6.0...v3.7.0) (2020-03-02)
+
+
+### Features
+
+* **macro:** add support for default props ([4e88bf8](https://bitbucket.org/code11-com/engine/commits/4e88bf8e60b2468a718bdb1f942420312473ca40))
+
+
+
+
+
 # [3.6.0](https://bitbucket.org/code11-com/engine/compare/v3.5.5...v3.6.0) (2020-02-25)
 
 

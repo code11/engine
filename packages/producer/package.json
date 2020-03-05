@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine-producer",
-  "version": "3.6.0",
+  "version": "3.7.4",
   "description": "A programming engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,10 +19,10 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./src/*"
   },
   "devDependencies": {
-    "@c11/engine-types": "^3.6.0"
+    "@c11/engine-types": "^3.6.0",
+    "@c11/engine.macro": "^3.7.4"
   },
   "dependencies": {
-    "@c11/engine.macro": "^3.6.0",
     "jsonmvc-datastore": "^0.3.35",
     "lodash": "^4.17.15"
   },

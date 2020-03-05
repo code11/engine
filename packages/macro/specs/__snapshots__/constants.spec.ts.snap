@@ -3,6 +3,7 @@
 exports[`macros should keep Constants: should keep Constants 1`] = `
 
 import { producer } from '@c11/engine.macro'
+const SectionId = {}
 const result = producer((
   a1 = '123',
   a2 = {
@@ -13,10 +14,12 @@ const result = producer((
   a5 = /123/,
   a6 = null,
   a7 = undefined,
+  a8 = SectionId.foo
 ) => { })
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+const SectionId = {};
 const result = {
   args: {
     type: "STRUCT",
@@ -76,13 +79,20 @@ const result = {
           type: "CONST",
           value: undefined
         }
+      },
+      a8: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: SectionId.foo
+        }
       }
     },
     meta: {
-      order: ["a1", "a2", "a3", "a4", "a5", "a6", "a7"]
+      order: ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8"]
     }
   },
-  fn: (a1, a2, a3, a4, a5, a6, a7) => {}
+  fn: (a1, a2, a3, a4, a5, a6, a7, a8) => {}
 };
 
 
