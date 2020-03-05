@@ -184,3 +184,42 @@ Get.list[Wildcard].foo
 Get.list[$].foo
 Get.list[Any].foo
 Get.list[_].foo
+
+TODO: Generate ID for unique elements that need to be managed during their lifetime:
+forms, dropdowns, etc
+
+form = Get.form.byId[Unique.id]
+data = Arg.form.data
+triggers = Arg.form.triggers
+fieldA = Arg.data.fieldA
+fieldB = Arg.data.fieldB
+submit = Arg.triggers.submit
+---
+
+Although this unique id should be given by the parent - we can't know when this needs to be re-rendered
+or hidden, or even taken out from the DOM and then added again.
+
+As such there needs to be a mechanism to generate unique ids inside producers:
+id = Random.id
+but if we need to generate multiple ids then we need a function
+getId = Utils.random.id
+getId() - by not using an external library but something from the arguments we can keep the functions pure
+and easy to control and test
+
+TODO: Create reusable components and producers for mananging applications:
+<Form>
+<Router>
+
+producers would need an instantiation phase in order to be reusable (just like view does)
+producers = [Ajax({
+  location: Path.foo.bar.baz
+})]
+
+actually this way the problem of passing props to producers is solved, giving the context
+before giving the producers to the Engine.
+
+Ajax.props = {
+  id: '123',
+  foo: 'bar'
+}
+producers = [Ajax]
