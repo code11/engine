@@ -137,7 +137,7 @@ const Values: Values = {
         },
       } as ValueOperation;
     } else {
-      return undefined;
+      return constValue({ __node__: node });
     }
   },
   // foo = Get.foo || Get.bar
