@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.5](https://bitbucket.org/code11-com/engine/compare/v3.7.4...v3.7.5) (2020-03-06)
+
+
+### Bug Fixes
+
+* **producer:** merge should set a path if the path does not exists ([4eb2841](https://bitbucket.org/code11-com/engine/commits/4eb2841a3ae91966aae5fd531997a40f399fb495))
+
+
+
+
+
 ## [3.7.4](https://bitbucket.org/code11-com/engine/compare/v3.7.3...v3.7.4) (2020-03-04)
 
 
