@@ -238,3 +238,36 @@ Ajax.props = {
   foo: 'bar'
 }
 producers = [Ajax]
+
+TODO: Create a one page documentation with the syntax:
+engine
+producer
+view
+Arg
+Prop
+Get
+Set
+Merge
+Remove
+Param
+Ref
+Path
+
+TODO: Currently each Get listener will call the producer. This can lead to situations where a remove is made on a state, but there are multiple listeners on the nested props of that state. The producer will be called multiple times for each undefined Get - this might be a problem:
+
+producerA
+---
+bar = Get.foo.bar
+baz = Get.foo.baz
+bam = Get.foo.bam
+
+producerC
+---
+rm = Remove.foo
+rm()
+
+ProducerA will be called 3 times, each time with more values as undefined.
+
+
+
+
