@@ -1,6 +1,6 @@
 import db from "jsonmvc-datastore";
 import { Producer } from "./";
-import { producer } from "@c11/engine.macro";
+import { Path, producer } from "@c11/engine.macro";
 
 jest.useFakeTimers();
 
@@ -340,6 +340,25 @@ test("merge should set a path if the path does not exist", () => {
   });
 });
 
+test.only("show allow dynamic get and sets using paths", () => {
+  const state = {
+    items: {
+      foo: "123",
+    },
+  };
+  let val;
+  const struct = producer((foo = Get[Prop.foo]) => {
+    val = foo;
+  });
+  const props = {
+    foo: Path.items.foo,
+  };
+  const result = run(struct, state, props);
+  jest.runAllTimers();
+  expect(val).toBe("123");
+});
+
+/*
 test("should allow args composition", () => {
   const state = {
     items: {
@@ -354,6 +373,7 @@ test("should allow args composition", () => {
   run(struct, state);
   jest.runAllTimers();
 });
+*/
 
 /*
 test.only("should support Value operations with CONST values", () => {
