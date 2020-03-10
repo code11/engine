@@ -45,12 +45,15 @@ export class Producer implements ProducerInstance {
       return this;
     }
     this.graph.listen();
+    this.state = ProducerStates.MOUNTED;
     return this;
   }
   unmount() {
     if (this.state === ProducerStates.UNMOUNTED) {
       return this;
     }
+    this.graph.destroy();
+    this.state = ProducerStates.UNMOUNTED;
     return this;
   }
   updateExternal(props: ProducerContext["props"]) {
