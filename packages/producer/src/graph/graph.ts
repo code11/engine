@@ -25,7 +25,6 @@ export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
   private paramsOrder: string[];
-  private listeners: any[];
   db: DB;
   props: any;
   data: GraphData = {};
@@ -72,23 +71,9 @@ export class Graph {
   }
 
   updateExternal(props: any) {
-    // TODO: What happens when invalid props or no props are passed,
-    // how should this be propagated
     if (!props) {
       return;
     }
-
-    // const propsWithoutRefs = (props: any) => {
-    //   if (!props) {
-    //     return props;
-    //   }
-    //   return Object.keys(props).reduce((acc: any, x) => {
-    //     if (!this.keepReferences.includes(`external.${x}`)) {
-    //       acc[x] = props[x];
-    //     }
-    //     return acc;
-    //   }, {});
-    // };
     if (isEqual(props, this.props)) {
       return;
     }
@@ -100,7 +85,6 @@ export class Graph {
         this.structure[id].value = props[x];
       }
     });
-
     setImmediate(() => {
       this.data = this.compute();
       this.update();
