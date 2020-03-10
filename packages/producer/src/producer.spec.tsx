@@ -340,7 +340,7 @@ test("merge should set a path if the path does not exist", () => {
   });
 });
 
-test.only("show allow dynamic get and sets using paths", () => {
+test.skip("show allow dynamic get and sets using paths", () => {
   const state = {
     items: {
       foo: "123",
@@ -356,6 +356,21 @@ test.only("show allow dynamic get and sets using paths", () => {
   const result = run(struct, state, props);
   jest.runAllTimers();
   expect(val).toBe("123");
+});
+
+test("should unmount producers no longer in use", () => {
+  const val = "red";
+  const struct = producer((foo = Get.foo, setBar = Set.bar) => {
+    setBar(foo);
+  });
+  const result = run(struct, {
+    foo: "123",
+  });
+  jest.runAllTimers();
+  result.producer.unmount();
+  result.db.patch([{ op: "add", path: "/foo", value: "321" }]);
+  jest.runAllTimers();
+  expect(result.db.get("/bar")).toBe("123");
 });
 
 /*

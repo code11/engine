@@ -25,6 +25,7 @@ export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
   private paramsOrder: string[];
+  private listeners: any[];
   db: DB;
   props: any;
   data: GraphData = {};
@@ -127,6 +128,16 @@ export class Graph {
     this.cb.apply(null, params);
   }
 
+  destroy() {
+    this.computeOrder.forEach(x => {
+      const node = this.structure[x];
+      if (node.type === GraphNodeType.INTERNAL) {
+        if (node.removeListener) {
+          node.removeListener();
+        }
+      }
+    });
+  }
   listen() {
     this.data = this.compute();
     this.update();
@@ -153,6 +164,9 @@ export class Graph {
             if (op.type === OperationTypes.GET) {
               const path = getOperation(this.structure, op);
               if (path) {
+                if (node.removeFuncListeners[i]) {
+                  node.removeFuncListeners[i]();
+                }
                 node.removeFuncListeners[i] = this.db.on(path, val => {
                   if (node.op.type === OperationTypes.FUNC) {
                     const result = funcOperation(
