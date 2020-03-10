@@ -6,6 +6,6 @@
    "types": ["react"]
  },
  "include": [
-   "./src"
+   "./src", "specs"
  ]
 }

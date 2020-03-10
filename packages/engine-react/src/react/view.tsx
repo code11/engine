@@ -37,7 +37,7 @@ export function view({ args, fn }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
     args: StructOperation;
-    producer: Producer;
+    producers: Producer[];
     isStateReady = false;
     ref: any;
     constructor(props: BaseProps, context: any) {
@@ -46,17 +46,34 @@ export function view({ args, fn }: ViewConfig) {
       context.keepReferences = ["external.children"];
       this.args = args;
       this.ref = React.createRef();
-      this.producer = new Producer(
-        {
-          args,
-          fn: this.updateData.bind(this),
-        },
-        context
-      );
+      this.producers = [
+        new Producer(
+          {
+            args,
+            fn: this.updateData.bind(this),
+          },
+          context
+        ),
+      ];
+      const producers = (this.constructor as any).producers || [];
+      producers.map((x: any) => {
+        this.producers.push(
+          new Producer(
+            {
+              args: x.args,
+              fn: x.fn,
+            },
+            context
+          )
+        );
+      });
       this.state = {};
     }
     componentDidMount() {
-      this.producer.mount();
+      this.producers.forEach(x => x.mount());
+    }
+    componentWillUnmount() {
+      this.producers.forEach(x => x.unmount());
     }
     updateData(...data: any[]) {
       this.setState({
@@ -67,7 +84,7 @@ export function view({ args, fn }: ViewConfig) {
       }
     }
     render() {
-      this.producer.updateExternal(this.props);
+      this.producers.forEach(x => x.updateExternal(this.props));
       if (!this.isStateReady) {
         return null;
       }

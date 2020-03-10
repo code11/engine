@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./src/*",
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --runTestsByPath   ./src/**"
   },
   "peerDependencies": {
@@ -38,7 +38,7 @@
   },
   "engineConfig": {
     "view": {
-      "importFrom": "./index"
+      "importFrom": "../src/index"
     }
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
