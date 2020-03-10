@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.6](https://bitbucket.org/code11-com/engine/compare/v3.7.5...v3.7.6) (2020-03-10)
+
+
+### Bug Fixes
+
+* **engine-react:** ensure producers are mounted and unmounted ([02dc055](https://bitbucket.org/code11-com/engine/commits/02dc055f5d16fe7acfe130cea888e0a86e729b3a))
+
+
+
+
+
 ## [3.7.5](https://bitbucket.org/code11-com/engine/compare/v3.7.4...v3.7.5) (2020-03-06)
 
 **Note:** Version bump only for package @c11/engine-react

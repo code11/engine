@@ -1,10 +1,10 @@
 {
   "name": "engine-cra-example",
-  "version": "3.7.5",
+  "version": "3.7.6",
   "private": true,
   "dependencies": {
-    "@c11/engine-react": "^3.7.5",
-    "@c11/engine.macro": "^3.7.5",
+    "@c11/engine-react": "^3.7.6",
+    "@c11/engine.macro": "^3.7.6",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
