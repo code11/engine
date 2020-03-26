@@ -268,6 +268,11 @@ rm()
 
 ProducerA will be called 3 times, each time with more values as undefined.
 
+Todo: Make object destructring using producer:
+const producer = producer((
+  { foo, bar } = Get.items
+  )=> {})
+
 
 
 
