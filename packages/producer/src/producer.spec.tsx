@@ -373,6 +373,28 @@ test("should unmount producers no longer in use", () => {
   expect(result.db.get("/bar")).toBe("123");
 });
 
+test("should always call with the lasted data from the datastore", () => {
+  const val = {
+    a: "123",
+    b: "321",
+  };
+  const fn = jest.fn();
+  const struct = producer((a = Get.foo.a, b = Get.foo.b) => {
+    fn(a, b);
+  });
+  const result = run(struct, {
+    foo: val,
+  });
+  jest.runAllTimers();
+  result.db.patch([{ op: "remove", path: "/foo" }]);
+  jest.runAllTimers();
+  expect(fn.mock.calls.length).toBe(2);
+  expect(fn.mock.calls[0][0]).toBe(val.a);
+  expect(fn.mock.calls[0][1]).toBe(val.b);
+  expect(fn.mock.calls[1][0]).toBe(undefined);
+  expect(fn.mock.calls[1][1]).toBe(undefined);
+});
+
 /*
 test("should allow args composition", () => {
   const state = {

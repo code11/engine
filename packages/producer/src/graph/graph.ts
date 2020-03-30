@@ -130,16 +130,15 @@ export class Graph {
         if (node.op.type === OperationTypes.GET) {
           const path = getOperation(this.structure, node.op);
           if (path) {
-            node.removeListener = this.db.on(
-              path,
-              pathListener(
-                this.update.bind(this),
-                this.db,
-                this.data,
-                this.structure,
-                node
-              )
+            const listener = pathListener(
+              this.update.bind(this),
+              this.db,
+              this.data,
+              this.structure,
+              node
             );
+            node.listener = listener;
+            node.removeListener = this.db.on(path, listener);
           }
         } else if (node.op.type === OperationTypes.FUNC) {
           node.op.value.params.forEach((op, i) => {

@@ -28,14 +28,12 @@ export const computeDependenciesForNode = (
         listeners.push(x);
       }
 
-      if (result.value) {
-        if (result.type === ComputeType.PATH) {
-          dep.path = result.value;
-          dep.value = db.get(result.value);
-          // dep.removeListener =
-        } else if (result.type === ComputeType.VALUE) {
-          dep.value = result.value;
-        }
+      if (result.type === ComputeType.PATH && result.value) {
+        dep.path = result.value;
+        dep.value = db.get(result.value);
+        // dep.removeListener =
+      } else if (result.type === ComputeType.VALUE) {
+        dep.value = result.value;
       }
       set(data, dep.nesting, dep.value);
       const newListeners = computeDependenciesForNode(
