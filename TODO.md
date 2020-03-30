@@ -201,6 +201,8 @@ Get.list[Any].foo
 Get.list[_].foo
 
 TODO: Generate ID for unique elements that need to be managed during their lifetime:
+
+Matter.producers = [enableSection, i
 forms, dropdowns, etc
 
 form = Get.form.byId[Unique.id]
@@ -272,6 +274,15 @@ Todo: Make object destructring using producer:
 const producer = producer((
   { foo, bar } = Get.items
   )=> {})
+
+TODO: Add an extend for producers/views in order to augment their structure:
+const a = producer((a = Get.foo.bar))
+const b = extend(a, { a: 'static value'})
+
+
+
+
+
 
 
 
