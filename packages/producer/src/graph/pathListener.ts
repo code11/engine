@@ -5,12 +5,20 @@ import {
   GraphNode,
   GraphNodeType,
   OperationTypes,
+  GraphInternalNode,
 } from "@c11/engine-types";
 import { DB } from "jsonmvc-datastore";
 import { computeDependenciesForNode } from "./computeDependenciesForNode";
 import { getOperation } from "./getOperation";
 import { funcOperation } from "./funcOperation";
+import { computeOperation, ComputeType } from "./computeOperation";
 
+// TODO: This needs to be rethought around the Get operation
+// that is the only one that responds to updates to the state
+// and creates a dependency chain between args + once one arg
+// is updated the rest need to be updated to the latest version
+// from the state which could trigger the evaluation for other
+// statements as well
 export const pathListener = (
   update: Function,
   db: DB,
@@ -18,12 +26,16 @@ export const pathListener = (
   structure: GraphStructure,
   node: GraphNode
 ) => {
-  return (newValue: any) => {
+  // Don't trigger is for updates that occur during anoter Get
+  // operation that would otherwise call the update multiple
+  // times for the same value
+  return (newValue: any, shouldUpdate?: boolean) => {
     if (newValue === node.value) {
       return;
     }
     node.value = newValue;
     set(data, node.nesting, node.value);
+
     const updateListeners = computeDependenciesForNode(
       update,
       db,
@@ -31,6 +43,21 @@ export const pathListener = (
       structure,
       node
     );
+
+    Object.values(structure).forEach(x => {
+      let node = x as GraphInternalNode;
+      if (node.op && node.op.type === OperationTypes.GET) {
+        const result = computeOperation(db, structure, node);
+        if (result.type === ComputeType.PATH && result.value) {
+          node.path = result.value;
+          const newValue = db.get(result.value);
+          if (node.listener) {
+            node.listener(newValue, true);
+          }
+        }
+      }
+    });
+
     updateListeners.listeners.forEach(x => {
       const node = structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
@@ -42,6 +69,8 @@ export const pathListener = (
             node.path,
             pathListener(update, db, data, structure, node)
           );
+          node.value = db.get(node.path);
+          set(data, node.nesting, node.value);
         }
       }
     });
@@ -74,6 +103,8 @@ export const pathListener = (
       }
     });
 
-    update();
+    if (!shouldUpdate) {
+      update();
+    }
   };
 };
