@@ -55,13 +55,11 @@ export class Graph {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
         const result = computeOperation(this.db, this.structure, node);
-        if (result.value) {
-          if (result.type === ComputeType.PATH) {
-            node.path = result.value;
-            node.value = this.db.get(result.value);
-          } else if (result.type === ComputeType.VALUE) {
-            node.value = result.value;
-          }
+        if (result.type === ComputeType.PATH && result.value) {
+          node.path = result.value;
+          node.value = this.db.get(result.value);
+        } else if (result.type === ComputeType.VALUE) {
+          node.value = result.value;
         }
         set(acc, node.nesting, node.value);
       }
