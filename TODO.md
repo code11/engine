@@ -279,6 +279,11 @@ TODO: Add an extend for producers/views in order to augment their structure:
 const a = producer((a = Get.foo.bar))
 const b = extend(a, { a: 'static value'})
 
+TODO: Is Arg. really needed?
+const a = view(( id = 'foo', bar = Get.foo[Arg.id]) => {})
+is equivalent to:
+const a = view(( id = 'foo', bar = Get.foo[id]) => {})
+
 
 
 
