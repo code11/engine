@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.7](https://bitbucket.org/code11-com/engine/compare/v3.7.6...v3.7.7) (2020-03-30)
+
+
+### Bug Fixes
+
+* **producer:** fix calling producers with expired data ([d3e4383](https://bitbucket.org/code11-com/engine/commits/d3e4383c42959e7b5378026e39d3c1ffbe4d8b15))
+
+
+
+
+
 # [3.6.0](https://bitbucket.org/code11-com/engine/compare/v3.5.5...v3.6.0) (2020-02-25)
 
 
