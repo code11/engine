@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.8.0 (2020-04-24)
+
+
+### Bug Fixes
+
+* **engine-react:** ensure prop changes are propagated ([d0005df](https://github.com/code11/engine/commit/d0005dfe001083c74cac4efbe34feda5a4e90d90))
+* **producer:** enable unmounting for producers ([d0d3d3c](https://github.com/code11/engine/commit/d0d3d3c2b2d90edded91a13eb1dc48c14df6c348))
+* **producer:** ensure invokable paths are computed properly ([3ab73ff](https://github.com/code11/engine/commit/3ab73ffa9aa8102b850f9101a622902ea529aa03))
+* **producer:** fix calling producers with expired data ([85c38c1](https://github.com/code11/engine/commit/85c38c1832ab0322aca1003c76317e6b06e49d07))
+* **producer:** fix cloning of references ([c130491](https://github.com/code11/engine/commit/c1304917a0e7df22d7cfc181d24815c28626d0e5))
+* **producer:** fix falsy values not being transfered to producer/view ([d25b836](https://github.com/code11/engine/commit/d25b836a4b64672ccb99a60a6650cdda6282dbed))
+* **producer:** merge should set a path if the path does not exists ([263fb71](https://github.com/code11/engine/commit/263fb71c3bd6325434765b39ff4117b8ef63e800))
+* **producer:** redo paths and keep data reference if external props change ([742fb2f](https://github.com/code11/engine/commit/742fb2f57578bb7bfe33e50503c03380b6e52c52))
+* **react:** ensure refs are not cloned but kept as is ([79f028e](https://github.com/code11/engine/commit/79f028eab4db4e173083c441233834b628a96b51))
+* **types:** make producers accept a StructOperation as args ([bc03f11](https://github.com/code11/engine/commit/bc03f119fe196e0894895b730c8c83163999dc04))
+
+
+### Features
+
+* add engine-cra-example ([6b40388](https://github.com/code11/engine/commit/6b40388a609f2ed73c92f7c67d522dbc1961888f))
+* **producer:** add Remove functionality to the engine ([3d8a1c3](https://github.com/code11/engine/commit/3d8a1c3d92bb0bbfc7a31017eb237ce952ef93a8))
+
+
+
+
+
 ## [3.7.7](https://bitbucket.org/code11-com/engine/compare/v3.7.6...v3.7.7) (2020-03-30)
 
 

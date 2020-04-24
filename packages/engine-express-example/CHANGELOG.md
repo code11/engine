@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.8.0 (2020-04-24)
+
+
+### Features
+
+* **express-example:** add express example for engine-node ([df5baee](https://github.com/code11/engine/commit/df5baee4bbc9d29c38cb1b0bb2a2e39b1553fa99))
+
+
+
+
+
 ## [3.7.7](https://bitbucket.org/code11-com/engine/compare/v3.7.6...v3.7.7) (2020-03-30)
 
 **Note:** Version bump only for package engine-express-example

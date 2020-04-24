@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.8.0 (2020-04-24)
+
+
+### Bug Fixes
+
+* **engine:** let the engine export the view so that macros can keep ref ([7073b2a](https://github.com/code11/engine/commit/7073b2a64ab9646962fa38cdc15810fa90f44bb8))
+* **macro:** add a GenericMacro type for view and producer args ([b10d05b](https://github.com/code11/engine/commit/b10d05bc16c3975729cedf06909a12ed99b83cae))
+* **macro:** add correct producer and view declarations ([03d1295](https://github.com/code11/engine/commit/03d129506e2897f274447652ca923f1c90901bab))
+* **macro:** add missing Ref export for TS ([68e7129](https://github.com/code11/engine/commit/68e7129f92cf827cd70ed2f42a8e34d8f7ba562b))
+* change types for macro ([af30083](https://github.com/code11/engine/commit/af30083e3a5f89a8334d72de38f7ba6ecf4e5279))
+* change types for macro view and producer ([55d87de](https://github.com/code11/engine/commit/55d87de16a1f3c87e9074f49f9d95d0bfebfb1ef))
+* **macro:** change args type from Map to ...args: any[] ([3a183ce](https://github.com/code11/engine/commit/3a183ce67c2b98c11507bd7ea315a45c1528586f))
+* **macro:** ensure that view import doesn\'t happen multiple times ([4848cee](https://github.com/code11/engine/commit/4848ceed6fd8a6ac56676b8aef20eec74bf89f62))
+* **macro:** export INVOKE path as array instead of strings ([c706037](https://github.com/code11/engine/commit/c70603742c021f0d7a4d4cb8605b1e7781c8649f))
+* **macro:** export view and producer types ([d2e8c46](https://github.com/code11/engine/commit/d2e8c46fcb88a384b266de575f2d27ef8fcf02f8))
+* **macro:** if a MemberExpression is detected but not an operation it should be kept ([f4397a4](https://github.com/code11/engine/commit/f4397a439d4fca2d19fb19be5d90160c5cec77fe))
+* **macro:** make top-level CONST as stringLiteral ([b95102a](https://github.com/code11/engine/commit/b95102a8201762918c3bdd33e5faedee5ce04252))
+* **macro:** remove producer from compile and add view ([20bc5b3](https://github.com/code11/engine/commit/20bc5b39171449b83aa9438322f2730db1123cbf))
+* **macro:** try a new declaration file build for views ([1fa6e7b](https://github.com/code11/engine/commit/1fa6e7b1f1faf73a1c990bd849eac95b33f6e92d))
+
+
+### Features
+
+* add engine-cra-example ([6b40388](https://github.com/code11/engine/commit/6b40388a609f2ed73c92f7c67d522dbc1961888f))
+* add engineConfig to packagejson. add engine-react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
+* change fn invokation to ordered params and add meta.order on struct ([5fcb9f6](https://github.com/code11/engine/commit/5fcb9f64ae374081a6b00de48e4a6b7d151c89fc))
+* **macro:** add Prop, Arg as possible values for paths and args and Param for invokable paths ([fc66604](https://github.com/code11/engine/commit/fc66604a1da7393f0117099619a72375010d9bc4))
+* **macro:** add support for default props ([e3cb4e7](https://github.com/code11/engine/commit/e3cb4e7601e53e343154de608fdaf072da836c6d))
+* **producer:** add Remove functionality to the engine ([3d8a1c3](https://github.com/code11/engine/commit/3d8a1c3d92bb0bbfc7a31017eb237ce952ef93a8))
+
+
+
+
+
 ## [3.7.7](https://bitbucket.org/code11-com/engine/compare/v3.7.6...v3.7.7) (2020-03-30)
 
 **Note:** Version bump only for package @c11/engine.macro

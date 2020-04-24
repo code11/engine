@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.8.0 (2020-04-24)
+
+
+### Bug Fixes
+
+* **engine-react:** ensure prop changes are propagated ([d0005df](https://github.com/code11/engine/commit/d0005dfe001083c74cac4efbe34feda5a4e90d90))
+* **macro:** export INVOKE path as array instead of strings ([c706037](https://github.com/code11/engine/commit/c70603742c021f0d7a4d4cb8605b1e7781c8649f))
+* **producer:** fix calling producers with expired data ([85c38c1](https://github.com/code11/engine/commit/85c38c1832ab0322aca1003c76317e6b06e49d07))
+* **producer:** remove invokableWith from the GraphInternalNode interface ([8bb4284](https://github.com/code11/engine/commit/8bb428425e4537ef52dfd03fbf535abdbbc40866))
+* **react:** ensure refs are not cloned but kept as is ([79f028e](https://github.com/code11/engine/commit/79f028eab4db4e173083c441233834b628a96b51))
+* **types:** make producers accept a StructOperation as args ([bc03f11](https://github.com/code11/engine/commit/bc03f119fe196e0894895b730c8c83163999dc04))
+* **types:** remove render from RenderConfig ([44d0f99](https://github.com/code11/engine/commit/44d0f99c9496e70ede281ec6f9072108a69f6678))
+
+
+### Features
+
+* add engine-cra-example ([6b40388](https://github.com/code11/engine/commit/6b40388a609f2ed73c92f7c67d522dbc1961888f))
+* add engineConfig to packagejson. add engine-react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
+* **macro:** add Prop, Arg as possible values for paths and args and Param for invokable paths ([fc66604](https://github.com/code11/engine/commit/fc66604a1da7393f0117099619a72375010d9bc4))
+* **producer:** add Remove functionality to the engine ([3d8a1c3](https://github.com/code11/engine/commit/3d8a1c3d92bb0bbfc7a31017eb237ce952ef93a8))
+
+
+
+
+
 ## [3.7.7](https://bitbucket.org/code11-com/engine/compare/v3.7.6...v3.7.7) (2020-03-30)
 
 
