@@ -3,15 +3,11 @@ import {
   GraphData,
   GraphStructure,
   GraphNode,
-  GraphNodeType,
-  OperationTypes,
-  GraphInternalNode,
 } from "@c11/engine-types";
 import { DB } from "jsonmvc-datastore";
-import { computeDependenciesForNode } from "./computeDependenciesForNode";
-import { getOperation } from "./getOperation";
-import { funcOperation } from "./funcOperation";
-import { computeOperation, ComputeType } from "./computeOperation";
+
+import {updateListeners } from './updateListeners'
+import { Graph } from "./graph";
 
 // TODO: This needs to be rethought around the Get operation
 // that is the only one that responds to updates to the state
@@ -20,6 +16,7 @@ import { computeOperation, ComputeType } from "./computeOperation";
 // from the state which could trigger the evaluation for other
 // statements as well
 export const pathListener = (
+  _this: Graph,
   update: Function,
   db: DB,
   data: GraphData,
@@ -34,74 +31,9 @@ export const pathListener = (
       return;
     }
     node.value = newValue;
-    set(data, node.nesting, node.value);
+    set(_this.data, node.nesting, node.value);
 
-    const updateListeners = computeDependenciesForNode(
-      update,
-      db,
-      data,
-      structure,
-      node
-    );
-
-    Object.values(structure).forEach(x => {
-      let node = x as GraphInternalNode;
-      if (node.op && node.op.type === OperationTypes.GET) {
-        const result = computeOperation(db, structure, node);
-        if (result.type === ComputeType.PATH && result.value) {
-          node.path = result.value;
-          const newValue = db.get(result.value);
-          if (node.listener) {
-            node.listener(newValue, true);
-          }
-        }
-      }
-    });
-
-    updateListeners.listeners.forEach(x => {
-      const node = structure[x];
-      if (node.type === GraphNodeType.INTERNAL) {
-        if (node.removeListener) {
-          node.removeListener();
-        }
-        if (node.path) {
-          node.removeListener = db.on(
-            node.path,
-            pathListener(update, db, data, structure, node)
-          );
-          node.value = db.get(node.path);
-          set(data, node.nesting, node.value);
-        }
-      }
-    });
-    updateListeners.funcListeners.forEach(x => {
-      const node = structure[x.id];
-      if (
-        node.type === GraphNodeType.INTERNAL &&
-        node.op.type === OperationTypes.FUNC
-      ) {
-        if (node.removeFuncListeners[x.param]) {
-          node.removeFuncListeners[x.param]();
-        }
-        if (node.op.value.params[x.param]) {
-          const op = node.op.value.params[x.param];
-
-          if (op.type === OperationTypes.GET) {
-            const path = getOperation(structure, op);
-            if (path) {
-              node.removeFuncListeners[x.param] = db.on(path, val => {
-                if (node.op.type === OperationTypes.FUNC) {
-                  const result = funcOperation(db, structure, node.op);
-                  node.value = result;
-                  set(data, node.nesting, node.value);
-                  update();
-                }
-              });
-            }
-          }
-        }
-      }
-    });
+    updateListeners(_this, update, db, data, structure, node)
 
     if (!shouldUpdate) {
       update();

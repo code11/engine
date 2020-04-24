@@ -395,6 +395,35 @@ test("should always call with the lasted data from the datastore", () => {
   expect(fn.mock.calls[1][1]).toBe(undefined);
 });
 
+test("should redo paths and keep reference if external props change", () => {
+  const state = {
+    foo: 123,
+    bar: 321
+  };
+  const props = {
+    id: 'foo'
+  }
+  const fn = jest.fn()
+  const struct = producer((
+    value = Get[Prop.id]
+    ) => {
+      fn(value)
+  });
+  const result = run(struct, state, props);
+  jest.runAllTimers();
+  result.producer.updateExternal({
+    id: 'bar'
+  })
+  jest.runAllTimers();
+  result.db.patch([{
+    op: 'add',
+    path: '/bar',
+    value: 333
+  }])
+  jest.runAllTimers();
+  expect(fn.mock.calls[2][0]).toBe(333)
+});
+
 /*
 test("should allow args composition", () => {
   const state = {
