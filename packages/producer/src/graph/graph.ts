@@ -20,6 +20,7 @@ import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { funcOperation } from "./funcOperation";
 import { getOrderedParams } from "./getOrderedParams";
+import { updateListeners } from "./updateListeners";
 
 export class Graph {
   private structure: GraphStructure;
@@ -81,6 +82,14 @@ export class Graph {
       const id = `external.${x}`;
       if (this.structure[id]) {
         this.structure[id].value = props[x];
+        updateListeners(
+          this,
+          this.update.bind(this),
+          this.db,
+          this.data,
+          this.structure,
+          this.structure[id]
+        );
       }
     });
     setImmediate(() => {
@@ -131,6 +140,7 @@ export class Graph {
           const path = getOperation(this.structure, node.op);
           if (path) {
             const listener = pathListener(
+              this,
               this.update.bind(this),
               this.db,
               this.data,
