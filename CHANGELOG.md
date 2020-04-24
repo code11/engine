@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.8.0 (2020-04-24)
+
+
+### Bug Fixes
+
+* **cra-template-engine:** fix filename typo for structure.js ([d4e8212](https://github.com/code11/engine/commit/d4e82129536f9670d8119861310ef39cafbcc674))
+* **engine:** let the engine export the view so that macros can keep ref ([7073b2a](https://github.com/code11/engine/commit/7073b2a64ab9646962fa38cdc15810fa90f44bb8))
+* **engine-react:** ensure producers are mounted and unmounted ([0685c0e](https://github.com/code11/engine/commit/0685c0ec73069417047020cd96ad8e9a97604dd2))
+* **engine-react:** ensure prop changes are propagated ([d0005df](https://github.com/code11/engine/commit/d0005dfe001083c74cac4efbe34feda5a4e90d90))
+* **macro:** add a GenericMacro type for view and producer args ([b10d05b](https://github.com/code11/engine/commit/b10d05bc16c3975729cedf06909a12ed99b83cae))
+* **macro:** add correct producer and view declarations ([03d1295](https://github.com/code11/engine/commit/03d129506e2897f274447652ca923f1c90901bab))
+* **macro:** add missing Ref export for TS ([68e7129](https://github.com/code11/engine/commit/68e7129f92cf827cd70ed2f42a8e34d8f7ba562b))
+* **macro:** change args type from Map to ...args: any[] ([3a183ce](https://github.com/code11/engine/commit/3a183ce67c2b98c11507bd7ea315a45c1528586f))
+* **macro:** ensure that view import doesn\'t happen multiple times ([4848cee](https://github.com/code11/engine/commit/4848ceed6fd8a6ac56676b8aef20eec74bf89f62))
+* **macro:** export INVOKE path as array instead of strings ([c706037](https://github.com/code11/engine/commit/c70603742c021f0d7a4d4cb8605b1e7781c8649f))
+* **macro:** export view and producer types ([d2e8c46](https://github.com/code11/engine/commit/d2e8c46fcb88a384b266de575f2d27ef8fcf02f8))
+* **macro:** if a MemberExpression is detected but not an operation it should be kept ([f4397a4](https://github.com/code11/engine/commit/f4397a439d4fca2d19fb19be5d90160c5cec77fe))
+* **macro:** Macro would replace variable references with array ([3fb3d66](https://github.com/code11/engine/commit/3fb3d66a8cdaccb8411d66515038a98e1d671b7a))
+* **macro:** make top-level CONST as stringLiteral ([b95102a](https://github.com/code11/engine/commit/b95102a8201762918c3bdd33e5faedee5ce04252))
+* **macro:** parse spread objects params the same way as params ([7b3c4d8](https://github.com/code11/engine/commit/7b3c4d83253be00a60f41f3b186ed8efd141ca9a))
+* **macro:** remove producer from compile and add view ([20bc5b3](https://github.com/code11/engine/commit/20bc5b39171449b83aa9438322f2730db1123cbf))
+* **macro:** try a new declaration file build for views ([1fa6e7b](https://github.com/code11/engine/commit/1fa6e7b1f1faf73a1c990bd849eac95b33f6e92d))
+* **producer:** enable unmounting for producers ([d0d3d3c](https://github.com/code11/engine/commit/d0d3d3c2b2d90edded91a13eb1dc48c14df6c348))
+* **producer:** ensure invokable paths are computed properly ([3ab73ff](https://github.com/code11/engine/commit/3ab73ffa9aa8102b850f9101a622902ea529aa03))
+* **producer:** fix calling producers with expired data ([85c38c1](https://github.com/code11/engine/commit/85c38c1832ab0322aca1003c76317e6b06e49d07))
+* **producer:** fix cloning of references ([c130491](https://github.com/code11/engine/commit/c1304917a0e7df22d7cfc181d24815c28626d0e5))
+* **producer:** fix falsy values not being transfered to producer/view ([d25b836](https://github.com/code11/engine/commit/d25b836a4b64672ccb99a60a6650cdda6282dbed))
+* **producer:** merge should set a path if the path does not exists ([263fb71](https://github.com/code11/engine/commit/263fb71c3bd6325434765b39ff4117b8ef63e800))
+* **producer:** redo paths and keep data reference if external props change ([742fb2f](https://github.com/code11/engine/commit/742fb2f57578bb7bfe33e50503c03380b6e52c52))
+* **producer:** remove invokableWith from the GraphInternalNode interface ([8bb4284](https://github.com/code11/engine/commit/8bb428425e4537ef52dfd03fbf535abdbbc40866))
+* **react:** add tests and fix a rendering issue ([def28f8](https://github.com/code11/engine/commit/def28f8b75febaa55bc5200747bcbbd1a19a83f2))
+* **react:** change the update fn to receive args as array instead of object ([95429e5](https://github.com/code11/engine/commit/95429e561668c625f46f49be6ed59ed6fa94cac6))
+* **react:** ensure refs are not cloned but kept as is ([79f028e](https://github.com/code11/engine/commit/79f028eab4db4e173083c441233834b628a96b51))
+* **react:** ensure render is called only after the state is generated ([58bf3df](https://github.com/code11/engine/commit/58bf3dfb4354bbe4a7b7137acc2b56e8fcc7450d))
+* **types:** engine had experiments ([5aa0432](https://github.com/code11/engine/commit/5aa04322dc653ef9676092b90d2f0c1a4e58cc00))
+* **types:** make producers accept a StructOperation as args ([bc03f11](https://github.com/code11/engine/commit/bc03f119fe196e0894895b730c8c83163999dc04))
+* **types:** remove render from RenderConfig ([44d0f99](https://github.com/code11/engine/commit/44d0f99c9496e70ede281ec6f9072108a69f6678))
+* **view:** add kebab case for data-props-[prop-name] ([16ddd12](https://github.com/code11/engine/commit/16ddd129eb41b2b06e8df3934c78c7eb9db6c5f2))
+* change types for macro ([af30083](https://github.com/code11/engine/commit/af30083e3a5f89a8334d72de38f7ba6ecf4e5279))
+* change types for macro view and producer ([55d87de](https://github.com/code11/engine/commit/55d87de16a1f3c87e9074f49f9d95d0bfebfb1ef))
+
+
+### Features
+
+* **cra-template-engine:** add cra-template-engine ([2fcca78](https://github.com/code11/engine/commit/2fcca78449abd32dc256b7465d3b2ae1c7dd1832))
+* **engine:** add getContext method ([38e345d](https://github.com/code11/engine/commit/38e345d7647de789f05915e869630d0122d12c03))
+* **engine-react:** add autostart ([4cdebb0](https://github.com/code11/engine/commit/4cdebb093655255612afe31a32dfad1d3f864dc5))
+* **express-example:** add express example for engine-node ([df5baee](https://github.com/code11/engine/commit/df5baee4bbc9d29c38cb1b0bb2a2e39b1553fa99))
+* **macro:** add Prop, Arg as possible values for paths and args and Param for invokable paths ([fc66604](https://github.com/code11/engine/commit/fc66604a1da7393f0117099619a72375010d9bc4))
+* add engineConfig to packagejson. add engine-react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
+* **macro:** add support for default props ([e3cb4e7](https://github.com/code11/engine/commit/e3cb4e7601e53e343154de608fdaf072da836c6d))
+* **macro:** parse static props and static values ([9f02a29](https://github.com/code11/engine/commit/9f02a292e8d400e9ae98ffbfd4ecacdbfc4c1ba0))
+* **producer:** add producers to the ui-engine ([1969433](https://github.com/code11/engine/commit/196943302098377e6e58180e3bdd6430f10ca285))
+* add engine-cra-example ([6b40388](https://github.com/code11/engine/commit/6b40388a609f2ed73c92f7c67d522dbc1961888f))
+* **producer:** add Remove functionality to the engine ([3d8a1c3](https://github.com/code11/engine/commit/3d8a1c3d92bb0bbfc7a31017eb237ce952ef93a8))
+* **provider:** Added the provider macro ([d243af9](https://github.com/code11/engine/commit/d243af9c265b2a03f9571fcecc5c8cd101685585))
+* **view:** keep and augment className for components ([4ba4a89](https://github.com/code11/engine/commit/4ba4a897bf4583e535e50e51735d55f40d991033))
+* **view:** keep data-*, aria-* and role properties ([c4c005b](https://github.com/code11/engine/commit/c4c005b7b7f086c2156fd7c7296dbdc1502a745f))
+* **view:** keep data-props and add used values on component ([996ac96](https://github.com/code11/engine/commit/996ac967942de73e275b2d837a78b7c02c859b0b))
+* change fn invokation to ordered params and add meta.order on struct ([5fcb9f6](https://github.com/code11/engine/commit/5fcb9f64ae374081a6b00de48e4a6b7d151c89fc))
+
+
+
+
+
 ## [3.7.7](https://bitbucket.org/code11-com/engine/compare/v3.7.6...v3.7.7) (2020-03-30)
 
 

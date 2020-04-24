@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.8.0 (2020-04-24)
+
+
+### Bug Fixes
+
+* **engine-react:** ensure producers are mounted and unmounted ([0685c0e](https://github.com/code11/engine/commit/0685c0ec73069417047020cd96ad8e9a97604dd2))
+* **engine-react:** ensure prop changes are propagated ([d0005df](https://github.com/code11/engine/commit/d0005dfe001083c74cac4efbe34feda5a4e90d90))
+* **producer:** fix cloning of references ([c130491](https://github.com/code11/engine/commit/c1304917a0e7df22d7cfc181d24815c28626d0e5))
+* **producer:** fix falsy values not being transfered to producer/view ([d25b836](https://github.com/code11/engine/commit/d25b836a4b64672ccb99a60a6650cdda6282dbed))
+* **react:** add tests and fix a rendering issue ([def28f8](https://github.com/code11/engine/commit/def28f8b75febaa55bc5200747bcbbd1a19a83f2))
+* **react:** change the update fn to receive args as array instead of object ([95429e5](https://github.com/code11/engine/commit/95429e561668c625f46f49be6ed59ed6fa94cac6))
+* **react:** ensure refs are not cloned but kept as is ([79f028e](https://github.com/code11/engine/commit/79f028eab4db4e173083c441233834b628a96b51))
+* **react:** ensure render is called only after the state is generated ([58bf3df](https://github.com/code11/engine/commit/58bf3dfb4354bbe4a7b7137acc2b56e8fcc7450d))
+
+
+### Features
+
+* add engine-cra-example ([6b40388](https://github.com/code11/engine/commit/6b40388a609f2ed73c92f7c67d522dbc1961888f))
+* add engineConfig to packagejson. add engine-react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
+* **engine:** add getContext method ([38e345d](https://github.com/code11/engine/commit/38e345d7647de789f05915e869630d0122d12c03))
+* **engine-react:** add autostart ([4cdebb0](https://github.com/code11/engine/commit/4cdebb093655255612afe31a32dfad1d3f864dc5))
+
+
+
+
+
 ## [3.7.7](https://bitbucket.org/code11-com/engine/compare/v3.7.6...v3.7.7) (2020-03-30)
 
 
