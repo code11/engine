@@ -233,6 +233,21 @@ const a = view(( id = 'foo', bar = Get.foo[Arg.id]) => {})
 is equivalent to:
 const a = view(( id = 'foo', bar = Get.foo[id]) => {})
 
+TODO: Add destructuring shorthand for data structure:
+```
+data = Get.items.byId[Prop.foo],
+{ title, longName } = Arg.data
+```
+instead of 
+```
+    data = Get.items.byId[Prop.foo],
+    item = {
+      title: Arg.data.title,
+      longName: Arg.data.longName
+    }
+```
+
+
 
 
 
