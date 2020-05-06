@@ -52,7 +52,6 @@ test("Should pass falsy values as well", done => {
       root: rootEl,
     },
   });
-  engine.start();
   jest.runAllTimers();
   waitForElement(() => getByTestId(document.body, "foo")).then(x => {
     expect(x.dataset.value).toBe("true");

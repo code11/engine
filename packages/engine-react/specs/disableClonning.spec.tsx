@@ -54,7 +54,6 @@ test("Should not clone children", done => {
       root: rootEl,
     },
   });
-  engine.start();
   jest.runAllTimers();
   waitForElement(() => getByTestId(document.body, "foo")).then(x => {
     const button = getByTestId(document.body, "change-baz");
