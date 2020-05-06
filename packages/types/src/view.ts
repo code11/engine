@@ -11,8 +11,10 @@ export interface ViewConfig {
   args: StructOperation;
   fn: ViewFn;
 }
+export type RootElement = HTMLElement | null
 
 export interface RenderInstance {
   unmount: () => RenderInstance;
   mount: () => RenderInstance;
+  getRoot: () => RootElement
 }
