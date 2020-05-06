@@ -1,5 +1,5 @@
 import { ProducerConfig } from "./producer";
-import { RenderConfig } from "./view";
+import { RenderConfig, RootElement } from "./view";
 
 export interface EngineConfig {
   autostart?: boolean;
@@ -18,6 +18,7 @@ export interface EngineConfig {
 export interface EngineApi {
   start: () => void;
   stop: () => void;
+  getRoot: () => RootElement
 }
 
 export abstract class Engine {}

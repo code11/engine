@@ -2,6 +2,7 @@ import db from "jsonmvc-datastore";
 import { Producer } from "@c11/engine-producer";
 import { Render, view } from "./react";
 import {
+  EngineApi,
   EngineConfig,
   ProducerInstance,
   ProducerContext,
@@ -16,7 +17,7 @@ enum EngineState {
 
 export { view };
 
-export class Engine {
+export class Engine implements EngineApi {
   state: EngineState = EngineState.NOT_INITIALIZED;
   private config: EngineConfig;
   private producers: ProducerInstance[] | null = null;
@@ -61,7 +62,7 @@ export class Engine {
    * const engine = new Engine(config).start()
    * ```
    */
-  start(): Engine {
+  start() {
     if (this.state === EngineState.NOT_INITIALIZED) {
       this.init();
     } else if (this.state === EngineState.STOPPED) {
@@ -75,7 +76,18 @@ export class Engine {
   getContext() {
     return this.context;
   }
-  // stop() {}
+
+  getRoot() {
+    if (this.render) {
+      return this.render.getRoot()
+    } else {
+      return null
+    }
+  }
+
+  stop() {
+    return this
+  }
   // update() {
   // for views ReactDOM.unmountComponentAtNode(container)
   // }
