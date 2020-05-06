@@ -41,7 +41,6 @@ test("Simple load of a react component", done => {
       root: rootEl,
     },
   });
-  engine.start();
   jest.runAllTimers();
   waitForElement(() => getByTestId(document.body, "foo")).then(x => {
     expect(x.innerHTML).toBe(defaultState.foo);

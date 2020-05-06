@@ -51,7 +51,6 @@ test("Simple load of a react component and work with producers", done => {
       root: rootEl,
     },
   });
-  engine.start();
   jest.runAllTimers();
   waitForElement(() => getByTestId(document.body, "foo")).then(x => {
     fireEvent.click(x);

@@ -50,7 +50,6 @@ test("Should mount and unmount producers attached to a component", done => {
       root: rootEl,
     },
   });
-  engine.start();
   jest.runAllTimers();
   waitForElement(() => getByTestId(document.body, "foo")).then(x => {
     const db = engine.getContext().db;

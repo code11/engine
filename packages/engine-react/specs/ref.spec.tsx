@@ -42,7 +42,6 @@ test("Expect to call using only Ref", done => {
       root: rootEl,
     },
   });
-  engine.start();
   jest.runAllTimers();
   waitForElement(() => getByTestId(document.body, "foo")).then(x => {
     expect(x.innerHTML).toBe(defaultState.foo);
