@@ -1,4 +1,4 @@
-import { ObjectPattern, ObjectProperty, isObjectProperty } from "@babel/types";
+import { Identifier, ObjectPattern, ObjectProperty, isObjectProperty } from "@babel/types";
 import { OperationTypes, StructOperation } from "@c11/engine-types";
 import { processValue } from "./valueParser";
 
@@ -7,7 +7,7 @@ export const structParser = (obj: ObjectPattern): StructOperation => {
     (acc, x) => {
       if (isObjectProperty(x)) {
         const node = x as ObjectProperty;
-        const propName = node.key.name;
+        const propName = (node.key as Identifier).name;
         const propValue = processValue(node);
         if (propValue) {
           acc.value[propName] = propValue;

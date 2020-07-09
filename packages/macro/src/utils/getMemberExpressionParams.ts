@@ -32,9 +32,10 @@ export const getMemberExpressionParams = (node: Node): any[] => {
       }
       return [...getMemberExpressionParams(node.object), pathArg];
     } else {
+      // TODO: Figure out how to access .name or .value depending on property
       return [
         ...getMemberExpressionParams(node.object),
-        node.property.name || node.property.value,
+        (node.property as any).name || (node.property as any).value,
       ];
     }
   } else if (node.hasOwnProperty("value")) {
