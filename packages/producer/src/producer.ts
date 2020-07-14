@@ -19,13 +19,16 @@ enum ProducerStates {
 // is according to the schema
 
 export class Producer implements ProducerInstance {
-  state: ProducerStates = ProducerStates.UNMOUNTED;
-  db: DB;
-  args: StructOperation;
-  fn: ProducerFn;
-  external: ExternalProps;
-  graph: Graph;
-  keepReferences: string[];
+  private state: ProducerStates = ProducerStates.UNMOUNTED;
+  private db: DB;
+  private args: StructOperation;
+  private fn: ProducerFn;
+  private external: ExternalProps;
+  private graph: Graph;
+  private keepReferences: string[];
+  private stats = {
+    executionCount: 0,
+  };
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
     this.args = config.args;
@@ -36,9 +39,13 @@ export class Producer implements ProducerInstance {
       this.db,
       this.external,
       this.args,
-      this.fn,
+      context.debug ? this.fnWrapper.bind(this) : this.fn,
       this.keepReferences
     );
+  }
+  private fnWrapper(...params: any[]) {
+    this.stats.executionCount += 1;
+    this.fn.apply(null, params);
   }
   mount() {
     if (this.state === ProducerStates.MOUNTED) {
@@ -62,5 +69,8 @@ export class Producer implements ProducerInstance {
       this.graph.updateExternal(this.external);
     }
     return this;
+  }
+  getStats() {
+    return this.stats;
   }
 }
