@@ -1,4 +1,5 @@
 import { DB } from "jsonmvc-datastore";
+import { ViewInstance } from "./view";
 
 export enum OperationTypes {
   GET = "GET",
@@ -121,7 +122,7 @@ export interface ProducerData {
   [key: string]: any;
 }
 
-export type ProducerFn = (data: ProducerData) => void;
+export type ProducerFn = (...data: any) => void;
 
 export interface ProducerConfig {
   args: StructOperation;
@@ -141,4 +142,6 @@ export interface ProducerContext {
   db: DB;
   props?: ExternalProps;
   keepReferences?: string[];
+  debug?: boolean;
+  addView?: (view: ViewInstance) => void;
 }
