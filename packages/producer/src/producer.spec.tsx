@@ -13,10 +13,11 @@ let Merge: any = {};
 let Ref: any = {};
 let Remove: any = {};
 
-function run(producer, state = {}, props = {}, DB = db(state)) {
+function run(producer, state = {}, props = {}, DB = db(state), debug = false) {
   const ctx = {
     db: DB,
     props,
+    debug,
   };
   const inst = new Producer(producer, ctx);
   inst.mount();
@@ -33,7 +34,14 @@ test("should support Value operations with CONST values", () => {
   });
   run(struct);
 });
-
+test("should support producers stats", () => {
+  const struct = producer((color = Get.foo) => {});
+  const result = run(struct, undefined, undefined, undefined, true);
+  result.db.patch([{ op: "add", path: "/foo", value: "321" }]);
+  jest.runAllTimers();
+  const stats = result.producer.getStats();
+  expect(stats).toStrictEqual({ executionCount: 2 });
+});
 test("should support Value operations with INTERNAL values", () => {
   const val = "red";
   const struct = producer((color = val, colorCopy = Arg.color) => {
@@ -241,7 +249,7 @@ test("should react to state changes", () => {
 });
 
 test("should react to state changes with complex args", () => {
-  const mock = jest.fn(x => x);
+  const mock = jest.fn((x) => x);
   const state = {
     selectedId: "123",
     articles: {
@@ -398,30 +406,30 @@ test("should always call with the lasted data from the datastore", () => {
 test("should redo paths and keep reference if external props change", () => {
   const state = {
     foo: 123,
-    bar: 321
+    bar: 321,
   };
   const props = {
-    id: 'foo'
-  }
-  const fn = jest.fn()
-  const struct = producer((
-    value = Get[Prop.id]
-    ) => {
-      fn(value)
+    id: "foo",
+  };
+  const fn = jest.fn();
+  const struct = producer((value = Get[Prop.id]) => {
+    fn(value);
   });
   const result = run(struct, state, props);
   jest.runAllTimers();
   result.producer.updateExternal({
-    id: 'bar'
-  })
+    id: "bar",
+  });
   jest.runAllTimers();
-  result.db.patch([{
-    op: 'add',
-    path: '/bar',
-    value: 333
-  }])
+  result.db.patch([
+    {
+      op: "add",
+      path: "/bar",
+      value: 333,
+    },
+  ]);
   jest.runAllTimers();
-  expect(fn.mock.calls[2][0]).toBe(333)
+  expect(fn.mock.calls[2][0]).toBe(333);
 });
 
 /*
