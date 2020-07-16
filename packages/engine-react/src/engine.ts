@@ -7,6 +7,7 @@ import {
   ProducerInstance,
   ProducerContext,
   RenderInstance,
+  ViewInstance,
 } from "@c11/engine-types";
 
 enum EngineState {
@@ -20,17 +21,22 @@ export { view };
 export class Engine implements EngineApi {
   state: EngineState = EngineState.NOT_INITIALIZED;
   private config: EngineConfig;
-  private producers: ProducerInstance[] | null = null;
+  private producers: ProducerInstance[];
   private render: RenderInstance | null = null;
   private context: ProducerContext;
+  private views: ViewInstance[];
   constructor(config: EngineConfig) {
     this.config = config;
+    this.views = [];
+    this.producers = [];
     let initialState = {};
     if (config.state && config.state.initial) {
       initialState = config.state.initial;
     }
     this.context = {
       db: db(initialState),
+      addView: this.addView.bind(this),
+      debug: config.debug,
     };
     if (config.autostart || config.autostart === undefined) {
       this.start();
@@ -39,7 +45,7 @@ export class Engine implements EngineApi {
 
   private init() {
     if (this.config.producers) {
-      this.producers = this.config.producers.list.map(config => {
+      this.producers = this.config.producers.list.map((config) => {
         const producer = new Producer(config, this.context);
         producer.mount();
         return producer;
@@ -53,7 +59,16 @@ export class Engine implements EngineApi {
 
     this.state = EngineState.RUNNING;
   }
-
+  private addView(view: ViewInstance) {
+    this.views.push(view);
+  }
+  getProducers() {
+    const viewsProducers = this.views.reduce((acc, x) => {
+      acc = acc.concat(x.producers);
+      return acc;
+    }, [] as ProducerInstance[]);
+    return [...this.producers, ...viewsProducers];
+  }
   // private resume() {}
 
   /**
@@ -79,14 +94,14 @@ export class Engine implements EngineApi {
 
   getRoot() {
     if (this.render) {
-      return this.render.getRoot()
+      return this.render.getRoot();
     } else {
-      return null
+      return null;
     }
   }
 
   stop() {
-    return this
+    return this;
   }
   // update() {
   // for views ReactDOM.unmountComponentAtNode(container)

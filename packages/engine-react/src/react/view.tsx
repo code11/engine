@@ -1,7 +1,7 @@
 import React from "react";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
-import { ViewConfig, StructOperation } from "@c11/engine-types";
+import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine-types";
 import { Producer } from "@c11/engine-producer";
 import { RenderComponent } from "./renderComponent";
 
@@ -40,6 +40,7 @@ export function view({ args, fn }: ViewConfig) {
     producers: Producer[];
     isStateReady = false;
     ref: any;
+    instance: ViewInstance;
     constructor(props: BaseProps, context: any) {
       super(props, context);
       context.props = props;
@@ -56,7 +57,7 @@ export function view({ args, fn }: ViewConfig) {
         ),
       ];
       const producers = (this.constructor as any).producers || [];
-      producers.map((x: any) => {
+      producers.forEach((x: any) => {
         this.producers.push(
           new Producer(
             {
@@ -67,13 +68,17 @@ export function view({ args, fn }: ViewConfig) {
           )
         );
       });
+      this.instance = {
+        producers: this.producers,
+      };
+      context.addView(this.instance);
       this.state = {};
     }
     componentDidMount() {
-      this.producers.forEach(x => x.mount());
+      this.producers.forEach((x) => x.mount());
     }
     componentWillUnmount() {
-      this.producers.forEach(x => x.unmount());
+      this.producers.forEach((x) => x.unmount());
     }
     updateData(...data: any[]) {
       this.setState({
@@ -84,7 +89,7 @@ export function view({ args, fn }: ViewConfig) {
       }
     }
     render() {
-      this.producers.forEach(x => x.updateExternal(this.props));
+      this.producers.forEach((x) => x.updateExternal(this.props));
       if (!this.isStateReady) {
         return null;
       }
