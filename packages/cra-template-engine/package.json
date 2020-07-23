@@ -24,7 +24,6 @@
     "template.json"
   ],
   "dependencies": {
-    "@c11/engine.db": "^3.8.1",
-    "@c11/engine.types": "^3.8.1"
+    "@c11/engine.db": "^3.8.1"
   }
 }
