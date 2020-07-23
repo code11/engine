@@ -4,7 +4,7 @@ import {
   RefOperation,
   MergeOperation,
   RemoveOperation,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import {
   objectProperty,
   identifier,

@@ -1,10 +1,10 @@
-import db from "jsonmvc-datastore";
-import { Producer } from "@c11/engine-producer";
+import db from "@c11/engine.db";
+import { Producer } from "@c11/engine.producer";
 import {
   EngineConfig,
   ProducerInstance,
   ProducerContext,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 
 enum EngineState {
   NOT_INITIALIZED,
@@ -33,7 +33,7 @@ export class Engine {
 
   private init() {
     if (this.config.producers) {
-      this.producers = this.config.producers.list.map(config => {
+      this.producers = this.config.producers.list.map((config) => {
         const producer = new Producer(config, this.context);
         producer.mount();
         return producer;

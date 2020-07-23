@@ -1,6 +1,6 @@
 {
   "short_name": "React App",
-  "name": "Create React App with @c11/engine-react Sample",
+  "name": "Create React App with @c11/engine.react Sample",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,5 +1,5 @@
 import get from "lodash/get";
-import { GraphStructure } from "@c11/engine-types";
+import { GraphStructure } from "@c11/engine.types";
 
 export const getValue = (
   type: string,

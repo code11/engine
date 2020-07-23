@@ -10,7 +10,7 @@ export const getConfig = (state: any) => {
   while (!packageJson && loc.length > 0) {
     const curPath = loc.join(path.sep);
     const files = fs.readdirSync(curPath);
-    const found = files.find(x => x === "package.json");
+    const found = files.find((x) => x === "package.json");
     if (found) {
       loc.push("package.json");
       const configPath = loc.join(path.sep);
@@ -24,7 +24,7 @@ export const getConfig = (state: any) => {
     console.warn("You should add engineConfig to your package.json");
     config = {
       view: {
-        importFrom: "@c11/engine-react",
+        importFrom: "@c11/engine.react",
       },
     };
   }

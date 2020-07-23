@@ -5,7 +5,7 @@ import {
   ObjectPattern,
   AssignmentPattern,
 } from "@babel/types";
-import { StructOperation } from "@c11/engine-types";
+import { StructOperation } from "@c11/engine.types";
 import { paramsParser } from "../parsers";
 
 type ParseRef = (

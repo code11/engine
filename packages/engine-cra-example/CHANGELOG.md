@@ -17,7 +17,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * add engine-cra-example ([6b40388](https://github.com/code11/engine/commit/6b40388a609f2ed73c92f7c67d522dbc1961888f))
-* add engineConfig to packagejson. add engine-react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
+* add engineConfig to packagejson. add engine.react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
 
 
 
@@ -169,4 +169,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * add engine-cra-example ([7679276](https://bitbucket.org/code11-com/engine/commits/7679276a51f1d1fc052ddb45552a027ba45438c4))
-* add engineConfig to packagejson. add engine-react test" ([921c929](https://bitbucket.org/code11-com/engine/commits/921c9291ca7c93acf0a0e23f592cab03c9fed1db))
+* add engineConfig to packagejson. add engine.react test" ([921c929](https://bitbucket.org/code11-com/engine/commits/921c9291ca7c93acf0a0e23f592cab03c9fed1db))

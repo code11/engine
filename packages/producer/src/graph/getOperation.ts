@@ -1,4 +1,4 @@
-import { GraphStructure, GetOperation } from "@c11/engine-types";
+import { GraphStructure, GetOperation } from "@c11/engine.types";
 import { isValidPath } from "./isValidPath";
 import { resolveValue } from "./resolveValue";
 

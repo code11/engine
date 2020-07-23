@@ -5,13 +5,13 @@ import {
   GraphStructure,
   GraphInternalNode,
   GraphNodeType,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { getDeps } from "./getDeps";
 
 export const getInternalNodes = (op: Operation, ns: string = "internal") => {
   let graph: GraphStructure = {};
   if (op.type === OperationTypes.STRUCT) {
-    Object.keys(op.value).forEach(x => {
+    Object.keys(op.value).forEach((x) => {
       let id = `${ns}.${x}`;
       graph = merge(graph, getInternalNodes(op.value[x], id));
     });

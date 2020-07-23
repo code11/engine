@@ -1,9 +1,9 @@
-import { DB } from "jsonmvc-datastore";
 import {
+  DatastoreInstance,
   OperationTypes,
   GraphStructure,
   GraphInternalNode,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { getOperation } from "./getOperation";
 import { isValidPath } from "./isValidPath";
 import { valueOperation } from "./valueOperation";
@@ -21,7 +21,7 @@ export interface ComputeResult {
   value: any;
 }
 export const computeOperation = (
-  db: DB,
+  db: DatastoreInstance,
   structure: GraphStructure,
   node: GraphInternalNode
 ): ComputeResult => {

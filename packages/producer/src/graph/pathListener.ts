@@ -1,12 +1,12 @@
 import set from "lodash/set";
 import {
+  DatastoreInstance,
   GraphData,
   GraphStructure,
   GraphNode,
-} from "@c11/engine-types";
-import { DB } from "jsonmvc-datastore";
+} from "@c11/engine.types";
 
-import {updateListeners } from './updateListeners'
+import { updateListeners } from "./updateListeners";
 import { Graph } from "./graph";
 
 // TODO: This needs to be rethought around the Get operation
@@ -18,7 +18,7 @@ import { Graph } from "./graph";
 export const pathListener = (
   _this: Graph,
   update: Function,
-  db: DB,
+  db: DatastoreInstance,
   data: GraphData,
   structure: GraphStructure,
   node: GraphNode
@@ -33,7 +33,7 @@ export const pathListener = (
     node.value = newValue;
     set(_this.data, node.nesting, node.value);
 
-    updateListeners(_this, update, db, data, structure, node)
+    updateListeners(_this, update, db, data, structure, node);
 
     if (!shouldUpdate) {
       update();

@@ -1,14 +1,14 @@
-import { DB } from "jsonmvc-datastore";
 import {
+  DatastoreInstance,
   GraphStructure,
   FuncOperation,
   OperationTypes,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { getOperation } from "./getOperation";
 import { valueOperation } from "./valueOperation";
 
 export const funcOperation = (
-  db: DB,
+  db: DatastoreInstance,
   structure: GraphStructure,
   op: FuncOperation
 ) => {

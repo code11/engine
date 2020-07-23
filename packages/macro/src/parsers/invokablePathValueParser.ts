@@ -6,10 +6,10 @@ import {
   InvokeValue,
   ConstValue,
   PathSymbol,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 
 export const invokablePathValueParser = (path: string[]): InvokableValue[] => {
-  const result = path.map(x => {
+  const result = path.map((x) => {
     const symbol = x[0];
     if (symbol === PathSymbol.INTERNAL) {
       return {

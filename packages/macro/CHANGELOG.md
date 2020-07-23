@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * add engine-cra-example ([6b40388](https://github.com/code11/engine/commit/6b40388a609f2ed73c92f7c67d522dbc1961888f))
-* add engineConfig to packagejson. add engine-react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
+* add engineConfig to packagejson. add engine.react test" ([f5818a0](https://github.com/code11/engine/commit/f5818a0ce444d2b6c0c8b6319f5b234ec2f86df4))
 * change fn invokation to ordered params and add meta.order on struct ([5fcb9f6](https://github.com/code11/engine/commit/5fcb9f64ae374081a6b00de48e4a6b7d151c89fc))
 * **macro:** add Prop, Arg as possible values for paths and args and Param for invokable paths ([fc66604](https://github.com/code11/engine/commit/fc66604a1da7393f0117099619a72375010d9bc4))
 * **macro:** add support for default props ([e3cb4e7](https://github.com/code11/engine/commit/e3cb4e7601e53e343154de608fdaf072da836c6d))
@@ -181,7 +181,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * add engine-cra-example ([7679276](https://bitbucket.org/code11-com/engine/commits/7679276a51f1d1fc052ddb45552a027ba45438c4))
-* add engineConfig to packagejson. add engine-react test" ([921c929](https://bitbucket.org/code11-com/engine/commits/921c9291ca7c93acf0a0e23f592cab03c9fed1db))
+* add engineConfig to packagejson. add engine.react test" ([921c929](https://bitbucket.org/code11-com/engine/commits/921c9291ca7c93acf0a0e23f592cab03c9fed1db))
 
 
 

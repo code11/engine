@@ -1,5 +1,5 @@
 const initialState = {
-  greeting: "Hello World from @c11/engine-react",
+  greeting: "Hello World from @c11/engine.react",
 };
 
 const structure = {

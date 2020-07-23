@@ -5,7 +5,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.8.1](https://github.com/code11/engine/compare/v3.8.0...v3.8.1) (2020-05-06)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 
@@ -16,7 +16,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **engine-react:** ensure prop changes are propagated ([d0005df](https://github.com/code11/engine/commit/d0005dfe001083c74cac4efbe34feda5a4e90d90))
+* **engine.react:** ensure prop changes are propagated ([d0005df](https://github.com/code11/engine/commit/d0005dfe001083c74cac4efbe34feda5a4e90d90))
 * **producer:** enable unmounting for producers ([d0d3d3c](https://github.com/code11/engine/commit/d0d3d3c2b2d90edded91a13eb1dc48c14df6c348))
 * **producer:** ensure invokable paths are computed properly ([3ab73ff](https://github.com/code11/engine/commit/3ab73ffa9aa8102b850f9101a622902ea529aa03))
 * **producer:** fix calling producers with expired data ([85c38c1](https://github.com/code11/engine/commit/85c38c1832ab0322aca1003c76317e6b06e49d07))
@@ -73,7 +73,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.7.4](https://bitbucket.org/code11-com/engine/compare/v3.7.3...v3.7.4) (2020-03-04)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 
@@ -81,7 +81,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.7.3](https://bitbucket.org/code11-com/engine/compare/v3.7.2...v3.7.3) (2020-03-03)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 
@@ -89,7 +89,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.7.2](https://bitbucket.org/code11-com/engine/compare/v3.7.1...v3.7.2) (2020-03-03)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 
@@ -97,7 +97,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.7.1](https://bitbucket.org/code11-com/engine/compare/v3.7.0...v3.7.1) (2020-03-03)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 
@@ -105,7 +105,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [3.7.0](https://bitbucket.org/code11-com/engine/compare/v3.6.0...v3.7.0) (2020-03-02)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 
@@ -149,7 +149,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **engine-react:** ensure prop changes are propagated ([763433e](https://bitbucket.org/code11-com/engine/commits/763433ecc2969972d31aa8231cdb5293fcd9fa4c))
+* **engine.react:** ensure prop changes are propagated ([763433e](https://bitbucket.org/code11-com/engine/commits/763433ecc2969972d31aa8231cdb5293fcd9fa4c))
 
 
 
@@ -157,7 +157,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.5.2](https://bitbucket.org/code11-com/engine/compare/v3.5.1...v3.5.2) (2020-02-05)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 
@@ -165,7 +165,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.3.1](https://bitbucket.org/code11-com/engine/compare/v3.3.0...v3.3.1) (2020-01-27)
 
-**Note:** Version bump only for package @c11/engine-producer
+**Note:** Version bump only for package @c11/engine.producer
 
 
 

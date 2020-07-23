@@ -1,10 +1,10 @@
-import { GraphNodeType, GraphStructure } from "@c11/engine-types";
+import { GraphNodeType, GraphStructure } from "@c11/engine.types";
 
 export const resolveDependencies = (graph: GraphStructure) => {
-  Object.keys(graph).forEach(x => {
+  Object.keys(graph).forEach((x) => {
     const node = graph[x];
     if (node.type === GraphNodeType.INTERNAL) {
-      node.dependsOn.forEach(y => {
+      node.dependsOn.forEach((y) => {
         const path = y.split(".");
         let found = false;
         let node;

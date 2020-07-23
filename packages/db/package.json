@@ -1,0 +1,32 @@
+{
+  "name": "@c11/engine.db",
+  "version": "3.8.1",
+  "description": "The engine db",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Constantin Dumitrescu",
+    "email": "constantin.dumitrescu@code11.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build:declaration": "tsc --project tsconfig.build.json",
+    "build": "tsc",
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/**/*",
+    "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./specs/**/*"
+  },
+  "devDependencies": {
+    "@c11/engine.types": "^3.8.1",
+    "@types/uniq": "0.0.27",
+    "yamljs": "^0.3.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.19",
+    "uniq": "^1.0.1"
+  },
+  "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521",
+  "engineConfig": {}
+}

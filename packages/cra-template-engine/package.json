@@ -8,11 +8,11 @@
     "code11",
     "c11"
   ],
-  "description": "A Create React App template for @c11/engine-react",
+  "description": "A Create React App template for @c11/engine.react",
   "main": "template.json",
   "engineConfig": {
     "view": {
-      "importFrom": "@c11/engine-react"
+      "importFrom": "@c11/engine.react"
     }
   },
   "license": "MIT",
@@ -22,5 +22,9 @@
   "files": [
     "template",
     "template.json"
-  ]
+  ],
+  "dependencies": {
+    "@c11/engine.db": "^3.8.1",
+    "@c11/engine.types": "^3.8.1"
+  }
 }

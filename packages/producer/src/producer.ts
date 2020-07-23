@@ -1,12 +1,12 @@
-import { DB } from "jsonmvc-datastore";
 import {
+  DatastoreInstance,
   ProducerContext,
   ProducerConfig,
   ProducerFn,
   ProducerInstance,
   ExternalProps,
   StructOperation,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 
 import { Graph } from "./graph";
 
@@ -20,7 +20,7 @@ enum ProducerStates {
 
 export class Producer implements ProducerInstance {
   private state: ProducerStates = ProducerStates.UNMOUNTED;
-  private db: DB;
+  private db: DatastoreInstance;
   private args: StructOperation;
   private fn: ProducerFn;
   private external: ExternalProps;

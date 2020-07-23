@@ -1642,24 +1642,24 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@c11/engine-producer@^3.7.7":
+"@c11/engine.producer@^3.7.7":
   version "3.7.7"
-  resolved "https://registry.yarnpkg.com/@c11/engine-producer/-/engine-producer-3.7.7.tgz#b61a1709cc8fd9a6919f9e005cae630bc3561249"
+  resolved "https://registry.yarnpkg.com/@c11/engine.producer/-/engine-producer-3.7.7.tgz#b61a1709cc8fd9a6919f9e005cae630bc3561249"
   integrity sha512-cuTHaaLD+H9dOHvUVlvbGTa3/HHqI8/sZV5dnJF3lw5TQLjrq8dyXgrjdhaQRJGckNLr5zmyx6saZNADrnx66g==
   dependencies:
-    jsonmvc-datastore "^0.3.35"
+    @c11/engine.db "^0.3.35"
     lodash "^4.17.15"
 
-"@c11/engine-react@^3.7.7":
+"@c11/engine.react@^3.7.7":
   version "3.7.7"
-  resolved "https://registry.yarnpkg.com/@c11/engine-react/-/engine-react-3.7.7.tgz#da1ba9019197115e81da76b51b7716d925227cf5"
+  resolved "https://registry.yarnpkg.com/@c11/engine.react/-/engine.react-3.7.7.tgz#da1ba9019197115e81da76b51b7716d925227cf5"
   integrity sha512-mXbRFk3BQLATSE/NY7l0LJ8ClLGoAFRWOKJLwcqyMcxBUVDN7nUN+KebvGIXWEno6OoORBSBDeu+1Xx7fdKyeA==
   dependencies:
-    "@c11/engine-producer" "^3.7.7"
+    "@c11/engine.producer" "^3.7.7"
 
-"@c11/engine-types@^3.7.7":
+"@c11/engine.types@^3.7.7":
   version "3.7.7"
-  resolved "https://registry.yarnpkg.com/@c11/engine-types/-/engine-types-3.7.7.tgz#1a23b8acb62db4adb24e44316c7441cec6825df2"
+  resolved "https://registry.yarnpkg.com/@c11/engine.types/-/engine-types-3.7.7.tgz#1a23b8acb62db4adb24e44316c7441cec6825df2"
   integrity sha512-tL0yVMt4uPfm6753s1zGcxZkvAXtxbloFZeesEy85Ks4hFL6/dv9UvssLfVTzpLaN5KO4tUGTZgLtHPzZJdn9w==
 
 "@c11/engine.macro@^3.7.7":
@@ -1667,7 +1667,7 @@
   resolved "https://registry.yarnpkg.com/@c11/engine.macro/-/engine.macro-3.7.7.tgz#057d2a9d4f6976c1d7cb9e750a4f3891c14c2bc9"
   integrity sha512-FiaLdsXFKY7xVg0x9t5j6tEDhl4pL+KQfboxWRE+AtfC++Nm5SCb72Vy1IZ2tuOIB89m57X8ZAt86BB8LbnWcQ==
   dependencies:
-    "@c11/engine-types" "^3.7.7"
+    "@c11/engine.types" "^3.7.7"
     lodash "^4.17.15"
 
 "@cnakazawa/watch@^1.0.3":
@@ -6946,9 +6946,9 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
-jsonmvc-datastore@^0.3.35:
+@c11/engine.db@^0.3.35:
   version "0.3.35"
-  resolved "https://registry.yarnpkg.com/jsonmvc-datastore/-/jsonmvc-datastore-0.3.35.tgz#31032135619d596b6a2acc36072f019ddedbd0e6"
+  resolved "https://registry.yarnpkg.com/@c11/engine.db/-/@c11/engine.db-0.3.35.tgz#31032135619d596b6a2acc36072f019ddedbd0e6"
   integrity sha512-toGF3ZGHAy+p4cLoHTEl+wloG0jUiJ4c4Ow2Qslgb8n6/ns9kXON8wDM/BIfsg8y4serufSYTp4Z12lgKfnXLw==
   dependencies:
     lodash-es "^4.17.4"

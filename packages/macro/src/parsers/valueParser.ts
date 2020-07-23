@@ -20,7 +20,7 @@ import {
   StaticOperation,
   PathType,
   RemoveOperation,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { getMemberExpressionParams } from "../utils/getMemberExpressionParams";
 import { invokablePathValueParser } from "./invokablePathValueParser";
 import { structParser } from "./structParser";
@@ -87,7 +87,7 @@ interface Values {
 
 const Values: Values = {
   // foo = Get.foo.bar
-  MemberExpression: node => {
+  MemberExpression: (node) => {
     const params = getMemberExpressionParams(node);
     const op = params[0] as PathType;
     const rawPath = params.slice(1);
@@ -141,17 +141,17 @@ const Values: Values = {
     }
   },
   // foo = Get.foo || Get.bar
-  LogicalExpression: node => {
+  LogicalExpression: (node) => {
     return logicalExpression(node);
   },
   // foo = Get.foo ? true : false
-  ConditionalExpression: node => {
+  ConditionalExpression: (node) => {
     return funcValue(node);
   },
-  BinaryExpression: node => {
+  BinaryExpression: (node) => {
     return funcValue(node);
   },
-  ObjectExpression: node => {
+  ObjectExpression: (node) => {
     const value = structParser(node);
     return value as StructOperation;
   },

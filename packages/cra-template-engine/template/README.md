@@ -1,2 +1,2 @@
-# Create React App with @c11/engine-react
+# Create React App with @c11/engine.react
 

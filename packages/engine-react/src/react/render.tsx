@@ -5,8 +5,8 @@ import {
   ProducerContext,
   RenderInstance,
   RenderConfig,
-  RootElement
-} from "@c11/engine-types";
+  RootElement,
+} from "@c11/engine.types";
 
 export class Render implements RenderInstance {
   private context: ProducerContext;
@@ -17,14 +17,14 @@ export class Render implements RenderInstance {
     this.context = context;
   }
   private render(rootEl: HTMLElement) {
-    this.root = rootEl
+    this.root = rootEl;
     ReactDOM.render(
       <ViewProvider value={this.context}>{this.config.element}</ViewProvider>,
       rootEl
     );
   }
   getRoot() {
-    return this.root
+    return this.root;
   }
   unmount() {
     return this;
@@ -34,17 +34,17 @@ export class Render implements RenderInstance {
     if (typeof this.config.root === "string") {
       rootEl = document.querySelector(this.config.root);
     } else if (this.config.root instanceof Function) {
-      rootEl = this.config.root()
+      rootEl = this.config.root();
     } else {
       rootEl = this.config.root;
     }
 
     if (rootEl instanceof Promise) {
-      rootEl.then(x => {
-        this.render(x)
-      })
+      rootEl.then((x) => {
+        this.render(x);
+      });
     } else {
-      this.render(rootEl)
+      this.render(rootEl);
     }
     return this;
   }

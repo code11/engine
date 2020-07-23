@@ -1,14 +1,14 @@
-import { DB } from "jsonmvc-datastore";
 import {
+  DatastoreInstance,
   GraphStructure,
   OperationTypes,
   MergeOperation,
   SetOperation,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { getInvokablePath } from "./getInvokablePath";
 
 export const updateOperation = (
-  db: DB,
+  db: DatastoreInstance,
   structure: GraphStructure,
   op: MergeOperation | SetOperation
 ) => {

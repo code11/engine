@@ -3,7 +3,9 @@
   "version": "3.8.1",
   "private": true,
   "dependencies": {
-    "@c11/engine-react": "^3.8.1",
+    "@c11/engine.db": "^3.8.1",
+    "@c11/engine.react": "^3.8.1",
+    "@c11/engine.types": "^3.8.1",
     "@c11/engine.macro": "^3.8.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -35,7 +37,7 @@
   },
   "engineConfig": {
     "view": {
-      "importFrom": "@c11/engine-react"
+      "importFrom": "@c11/engine.react"
     }
   }
 }

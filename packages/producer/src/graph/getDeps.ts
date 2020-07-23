@@ -1,4 +1,4 @@
-import { Operation, OperationTypes, ValueTypes } from "@c11/engine-types";
+import { Operation, OperationTypes, ValueTypes } from "@c11/engine.types";
 
 export const getDeps = (op: Operation) => {
   let deps: string[] = [];
@@ -21,7 +21,7 @@ export const getDeps = (op: Operation) => {
     op.type === OperationTypes.MERGE ||
     op.type === OperationTypes.SET
   ) {
-    op.path.forEach(y => {
+    op.path.forEach((y) => {
       if (y.type === ValueTypes.INTERNAL) {
         deps.push("internal." + y.path.join("."));
       } else if (y.type === ValueTypes.EXTERNAL) {
