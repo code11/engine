@@ -22,7 +22,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Simple load of a react component", done => {
+test("Simple load of a react component", (done) => {
   const defaultState = {
     foo: "123",
   };
@@ -42,7 +42,7 @@ test("Simple load of a react component", done => {
     },
   });
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     done();
   });

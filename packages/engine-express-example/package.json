@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "engine-express-example",
+  "name": "engine.express-example",
   "version": "3.8.1",
   "description": "An example for engine-node used with express",
   "main": "src/index.js",
@@ -10,6 +10,8 @@
     "test": ""
   },
   "dependencies": {
-    "@c11/engine-node": "^3.8.1"
+    "@c11/engine.db": "^3.8.1",
+    "@c11/engine-node": "^3.8.1",
+    "@c11/engine.types": "^3.8.1"
   }
 }

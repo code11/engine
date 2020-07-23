@@ -1,5 +1,8 @@
-import { DB } from "jsonmvc-datastore";
-import { GraphStructure, RefOperation } from "@c11/engine-types";
+import {
+  DatastoreInstance,
+  GraphStructure,
+  RefOperation,
+} from "@c11/engine.types";
 import { getInvokablePath } from "./getInvokablePath";
 
 // TODO: add a isValid method to be able to check
@@ -8,7 +11,7 @@ import { getInvokablePath } from "./getInvokablePath";
 // TODO: Return a false or error if the path was not generated
 
 export const refOperation = (
-  db: DB,
+  db: DatastoreInstance,
   structure: GraphStructure,
   op: RefOperation
 ) => {

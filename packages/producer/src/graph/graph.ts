@@ -9,12 +9,12 @@ import {
   GraphData,
   GraphStructure,
   GraphNodeType,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { resolveDependencies } from "./resolveDependencies";
 import { getExternalNodes } from "./getExternalNodes";
 import { getInternalNodes } from "./getInternalNodes";
 import { resolveOrder } from "./resolveOrder";
-import { DB } from "jsonmvc-datastore";
+import { DatastoreInstance } from "@c11/engine.types";
 import { getOperation } from "./getOperation";
 import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
@@ -26,13 +26,13 @@ export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
   private paramsOrder: string[];
-  db: DB;
+  db: DatastoreInstance;
   props: any;
   data: GraphData = {};
   cb: Function;
   keepReferences: string[];
   constructor(
-    db: DB,
+    db: DatastoreInstance,
     props: any,
     op: StructOperation,
     cb: Function,
@@ -78,7 +78,7 @@ export class Graph {
     }
     this.props = props;
 
-    Object.keys(props).forEach(x => {
+    Object.keys(props).forEach((x) => {
       const id = `external.${x}`;
       if (this.structure[id]) {
         this.structure[id].value = props[x];
@@ -120,7 +120,7 @@ export class Graph {
   }
 
   destroy() {
-    this.computeOrder.forEach(x => {
+    this.computeOrder.forEach((x) => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
         if (node.removeListener) {
@@ -133,7 +133,7 @@ export class Graph {
     this.data = this.compute();
     this.update();
 
-    this.computeOrder.forEach(x => {
+    this.computeOrder.forEach((x) => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
         if (node.op.type === OperationTypes.GET) {
@@ -158,7 +158,7 @@ export class Graph {
                 if (node.removeFuncListeners[i]) {
                   node.removeFuncListeners[i]();
                 }
-                node.removeFuncListeners[i] = this.db.on(path, val => {
+                node.removeFuncListeners[i] = this.db.on(path, (val) => {
                   if (node.op.type === OperationTypes.FUNC) {
                     const result = funcOperation(
                       this.db,

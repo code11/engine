@@ -1,4 +1,4 @@
-import { RemoveListener } from "jsonmvc-datastore";
+import { RemoveListener } from "./db";
 import { Operation } from "./producer";
 
 export enum GraphNodeType {

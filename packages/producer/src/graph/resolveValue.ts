@@ -1,4 +1,4 @@
-import { GraphStructure, ValueTypes, InvokableValue } from "@c11/engine-types";
+import { GraphStructure, ValueTypes, InvokableValue } from "@c11/engine.types";
 import { getValue } from "./getValue";
 import get from "lodash/get";
 

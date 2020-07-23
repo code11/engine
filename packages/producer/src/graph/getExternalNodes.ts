@@ -2,7 +2,7 @@ import {
   GraphStructure,
   GraphExternalNode,
   GraphNodeType,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 
 export const getExternalNodes = (external: any) => {
   const graph: GraphStructure = Object.keys(external).reduce((acc, x) => {

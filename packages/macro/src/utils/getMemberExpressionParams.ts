@@ -5,7 +5,7 @@ import {
   NumberLiteral,
   BooleanLiteral,
 } from "@babel/types";
-import { PathArgs } from "@c11/engine-types";
+import { PathArgs } from "@c11/engine.types";
 
 type ValueNodes = StringLiteral | NumberLiteral | BooleanLiteral;
 

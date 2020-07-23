@@ -1,8 +1,8 @@
-import { GraphStructure, GraphNodeType } from "@c11/engine-types";
+import { GraphStructure, GraphNodeType } from "@c11/engine.types";
 
 export const resolveOrder = (graph: GraphStructure): string[] => {
   const order: string[] = Object.keys(graph)
-    .filter(x => {
+    .filter((x) => {
       return graph[x].type === GraphNodeType.INTERNAL;
     })
     .sort((a, b) => {

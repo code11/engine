@@ -1,8 +1,8 @@
 import React from "react";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
-import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine-types";
-import { Producer } from "@c11/engine-producer";
+import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine.types";
+import { Producer } from "@c11/engine.producer";
 import { RenderComponent } from "./renderComponent";
 
 // TopLevel{

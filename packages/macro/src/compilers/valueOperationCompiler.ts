@@ -1,4 +1,4 @@
-import { ValueTypes, ValueOperation } from "@c11/engine-types";
+import { ValueTypes, ValueOperation } from "@c11/engine.types";
 import {
   objectProperty,
   identifier,
@@ -42,7 +42,7 @@ export const valueOperationCompiler = (
     op.value.type === ValueTypes.EXTERNAL ||
     op.value.type === ValueTypes.INTERNAL
   ) {
-    const path = arrayExpression(op.value.path.map(x => stringLiteral(x)));
+    const path = arrayExpression(op.value.path.map((x) => stringLiteral(x)));
     value = objectProperty(
       identifier("value"),
       objectExpression([

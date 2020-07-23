@@ -1,25 +1,25 @@
-import { DB } from "jsonmvc-datastore";
 import set from "lodash/set";
 import isEqual from "lodash/isEqual";
 import {
+  DatastoreInstance,
   OperationTypes,
   ValueTypes,
   GraphStructure,
   GraphNodeType,
   GraphNode,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { computeOperation, ComputeType } from "./computeOperation";
 
 export const computeDependenciesForNode = (
   update: Function,
-  db: DB,
+  db: DatastoreInstance,
   data: any,
   structure: GraphStructure,
   node: GraphNode
 ) => {
   let listeners: string[] = [];
   let funcListeners: { id: string; param: number }[] = [];
-  node.isDependedBy.forEach(x => {
+  node.isDependedBy.forEach((x) => {
     const dep = structure[x];
     if (dep.type === GraphNodeType.INTERNAL) {
       const result = computeOperation(db, structure, dep);
@@ -49,7 +49,7 @@ export const computeDependenciesForNode = (
       if (dep.op.type === OperationTypes.FUNC) {
         dep.op.value.params.forEach((op, i) => {
           if (op.type === OperationTypes.GET) {
-            op.path.forEach(z => {
+            op.path.forEach((z) => {
               if (z.type === ValueTypes.INTERNAL) {
                 if (isEqual(z.path, node.nestingPath)) {
                   funcListeners.push({

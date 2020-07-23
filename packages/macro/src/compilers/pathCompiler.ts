@@ -1,4 +1,4 @@
-import { InvokablePath, ValueTypes } from "@c11/engine-types";
+import { InvokablePath, ValueTypes } from "@c11/engine.types";
 import {
   ArrayExpression,
   arrayExpression,
@@ -10,7 +10,7 @@ import {
 } from "@babel/types";
 
 export const pathCompiler = (path: InvokablePath): ArrayExpression => {
-  const parts = path.map(x => {
+  const parts = path.map((x) => {
     let type = objectProperty(identifier("type"), stringLiteral(x.type));
     let value = objectProperty(identifier("ignored"), nullLiteral());
     if (x.type === ValueTypes.CONST) {

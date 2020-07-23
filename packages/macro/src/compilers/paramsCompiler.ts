@@ -1,4 +1,4 @@
-import { StructOperation } from "@c11/engine-types";
+import { StructOperation } from "@c11/engine.types";
 import { Identifier, identifier } from "@babel/types";
 
 export const paramsCompiler = (struct: StructOperation): Identifier[] => {

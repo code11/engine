@@ -1,4 +1,4 @@
-import { DB } from "jsonmvc-datastore";
+import { DatastoreInstance, Datastore } from "./db";
 import { ViewInstance } from "./view";
 
 export enum OperationTypes {
@@ -139,7 +139,7 @@ export interface ExternalProps {
   [key: string]: any;
 }
 export interface ProducerContext {
-  db: DB;
+  db: DatastoreInstance;
   props?: ExternalProps;
   keepReferences?: string[];
   debug?: boolean;

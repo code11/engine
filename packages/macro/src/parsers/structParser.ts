@@ -1,5 +1,10 @@
-import { Identifier, ObjectPattern, ObjectProperty, isObjectProperty } from "@babel/types";
-import { OperationTypes, StructOperation } from "@c11/engine-types";
+import {
+  Identifier,
+  ObjectPattern,
+  ObjectProperty,
+  isObjectProperty,
+} from "@babel/types";
+import { OperationTypes, StructOperation } from "@c11/engine.types";
 import { processValue } from "./valueParser";
 
 export const structParser = (obj: ObjectPattern): StructOperation => {

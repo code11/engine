@@ -1,4 +1,4 @@
-import { StructOperation, OperationTypes } from "@c11/engine-types";
+import { StructOperation, OperationTypes } from "@c11/engine.types";
 import {
   objectPattern,
   objectProperty,
@@ -18,7 +18,7 @@ export const structOperationCompiler = (
 ): ObjectExpression => {
   const type = objectProperty(identifier("type"), stringLiteral(opOrig.type));
   const keys: ObjectProperty[] = Object.keys(opOrig.value)
-    .map(x => {
+    .map((x) => {
       const op = opOrig.value[x];
       let result;
       if (op.type === OperationTypes.GET) {
@@ -42,7 +42,7 @@ export const structOperationCompiler = (
       }
       return objectProperty(identifier(x), result, false, true);
     })
-    .filter(x => !!x);
+    .filter((x) => !!x);
   const value = objectProperty(identifier("value"), objectPattern(keys));
   if (opOrig.meta) {
     const meta = objectProperty(

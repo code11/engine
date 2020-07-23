@@ -1,15 +1,15 @@
-import { DB } from "jsonmvc-datastore";
 import {
+  DatastoreInstance,
   GraphStructure,
   OperationTypes,
   MergeOperation,
   SetOperation,
   RemoveOperation,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 import { getInvokablePath } from "./getInvokablePath";
 
 export const removeOperation = (
-  db: DB,
+  db: DatastoreInstance,
   structure: GraphStructure,
   op: RemoveOperation
 ) => {

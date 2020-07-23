@@ -1,5 +1,5 @@
-import db from "jsonmvc-datastore";
-import { Producer } from "@c11/engine-producer";
+import db from "@c11/engine.db";
+import { Producer } from "@c11/engine.producer";
 import { Render, view } from "./react";
 import {
   EngineApi,
@@ -8,7 +8,7 @@ import {
   ProducerContext,
   RenderInstance,
   ViewInstance,
-} from "@c11/engine-types";
+} from "@c11/engine.types";
 
 enum EngineState {
   NOT_INITIALIZED,

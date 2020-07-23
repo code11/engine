@@ -1,0 +1,10 @@
+{
+ "extends": "../../tsconfig.json",
+ "compilerOptions": {
+   "outDir": "./dist",
+    "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
+ },
+ "include": [
+   "./src"
+ ]
+}
