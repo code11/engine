@@ -22,7 +22,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Simple load of a react component and work with producers", done => {
+test("Simple load of a react component and work with producers", (done) => {
   const defaultState = {};
   const val = "321";
   const rootEl = document.createElement("div");
@@ -52,10 +52,10 @@ test("Simple load of a react component and work with producers", done => {
     },
   });
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     fireEvent.click(x);
     jest.runAllTimers();
-    waitForElement(() => getByTestId(document.body, "bam")).then(y => {
+    waitForElement(() => getByTestId(document.body, "bam")).then((y) => {
       expect(y.innerHTML).toBe(val);
       done();
     });

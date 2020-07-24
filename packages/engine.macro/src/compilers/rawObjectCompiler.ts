@@ -22,7 +22,7 @@ export const rawObjectCompiler = (obj: any): ObjectExpression => {
     } else if (typeof val === "number") {
       result = numericLiteral(toNumber(val));
     } else if (isArray(val)) {
-      let list = val.map(x => stringLiteral(x));
+      let list = val.map((x) => stringLiteral(x));
       result = arrayExpression(list);
     } else if (isPlainObject(val)) {
       result = rawObjectCompiler(val);

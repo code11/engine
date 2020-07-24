@@ -22,7 +22,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should mount and unmount producers attached to a component", done => {
+test("Should mount and unmount producers attached to a component", (done) => {
   const defaultState = {
     foo: "123",
     shouldMountChild: true,
@@ -51,7 +51,7 @@ test("Should mount and unmount producers attached to a component", done => {
     },
   });
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     const db = engine.getContext().db;
     expect(db.get("/bar")).toBe("123");
     db.patch([{ op: "add", path: "/shouldMountChild", value: false }]);

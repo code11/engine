@@ -3,12 +3,8 @@ import applyPatch from "./applyPatch";
 
 function randomId() {
   return (
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15)
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
   );
 }
 
@@ -27,8 +23,8 @@ function errPatch(db, path, obj) {
       {
         op: "add",
         path: `/err/${err.name}/-`,
-        value: err
-      }
+        value: err,
+      },
     ],
     true
   );

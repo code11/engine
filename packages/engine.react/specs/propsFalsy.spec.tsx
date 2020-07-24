@@ -22,7 +22,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should pass falsy values as well", done => {
+test("Should pass falsy values as well", (done) => {
   const val = "321";
   const defaultState = {
     foo: true,
@@ -53,7 +53,7 @@ test("Should pass falsy values as well", done => {
     },
   });
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.dataset.value).toBe("true");
     const button = getByTestId(document.body, "button");
     fireEvent.click(button);

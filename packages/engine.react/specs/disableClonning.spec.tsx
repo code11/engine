@@ -22,7 +22,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should not clone children", done => {
+test("Should not clone children", (done) => {
   const val = "321";
   const defaultState = {
     baz: "123",
@@ -55,7 +55,7 @@ test("Should not clone children", done => {
     },
   });
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     const button = getByTestId(document.body, "change-baz");
     fireEvent.click(button);
     jest.runAllTimers();

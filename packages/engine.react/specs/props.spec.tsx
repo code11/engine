@@ -22,7 +22,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should propagate changes in props", done => {
+test("Should propagate changes in props", (done) => {
   const val = "321";
   const defaultState = {
     foo: "123",
@@ -51,7 +51,7 @@ test("Should propagate changes in props", done => {
     },
   });
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     const button = getByTestId(document.body, "set-foo");
     fireEvent.click(button);
