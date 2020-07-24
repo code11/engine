@@ -29,7 +29,7 @@
     "release": "yarn clean && lerna run build && lerna run test",
     "version:lerna": "lerna version --conventional-commits",
     "publish": "lerna publish from-package",
-    "code:format": "prettier --write ."
+    "code:format": "prettier --write \"packages/**/*.(js|jsx|ts|tsx)\""
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
