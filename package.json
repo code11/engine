@@ -5,13 +5,8 @@
   "private": true,
   "keywords": [],
   "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": [
-      "**/types",
-      "**/producer"
-    ]
+    "packages": ["packages/*"],
+    "nohoist": ["**/types", "**/producer"]
   },
   "author": {
     "name": "Constantin Dumitrescu",
@@ -29,7 +24,7 @@
     "release": "yarn clean && lerna run build && lerna run test",
     "version:lerna": "lerna version --conventional-commits",
     "publish": "lerna publish from-package",
-    "code:format": "prettier --write \"packages/**/*.(js|jsx|ts|tsx)\""
+    "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\""
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
