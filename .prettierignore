@@ -1,12 +1,4 @@
+package.json
 packages/**/dist/
 packages/**/build/
-.github
-.vscode
-.babelrc
-.editorconfig
-.prettierrc
-*.md
-*.yml
-*.css
-*.json
-*.html
+.*
