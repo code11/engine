@@ -28,7 +28,8 @@
     "commit": "git-cz",
     "release": "yarn clean && lerna run build && lerna run test",
     "version:lerna": "lerna version --conventional-commits",
-    "publish": "lerna publish from-package"
+    "publish": "lerna publish from-package",
+    "code:format": "prettier --write ."
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
