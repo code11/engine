@@ -22,7 +22,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Expect to call using only Ref", done => {
+test("Expect to call using only Ref", (done) => {
   const defaultState = {
     foo: "123",
   };
@@ -43,7 +43,7 @@ test("Expect to call using only Ref", done => {
     },
   });
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then(x => {
+  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     done();
   });

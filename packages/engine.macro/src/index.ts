@@ -23,11 +23,11 @@ interface MacroParams {
 
 function myMacro({ references, state, babel }: MacroParams) {
   const { Path = [], view = [], producer = [] } = references;
-  view.forEach(x => prepareForEngine(babel, state, x, TransformType.VIEW));
-  producer.forEach(x =>
+  view.forEach((x) => prepareForEngine(babel, state, x, TransformType.VIEW));
+  producer.forEach((x) =>
     prepareForEngine(babel, state, x, TransformType.PRODUCER)
   );
-  Path.forEach(x => {
+  Path.forEach((x) => {
     replacePath(babel, state, x);
   });
 }
@@ -38,8 +38,8 @@ type ViewConfig = (...args: any[]) => any;
 type producer = (config: ProducerConfig) => any;
 type view = (config: ViewConfig) => any;
 
-export const producer: producer = config => null;
-export const view: view = config => {
+export const producer: producer = (config) => null;
+export const view: view = (config) => {
   return {} as JSX.Element;
 };
 

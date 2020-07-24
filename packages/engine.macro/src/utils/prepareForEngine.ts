@@ -55,18 +55,18 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
     );
 
     const macroImport = ref
-      .findParent(p => p.isProgram())
+      .findParent((p) => p.isProgram())
       .get("body")
-      .find(p => {
+      .find((p) => {
         const result =
           p.isImportDeclaration() &&
           p.node.source.value.indexOf("@c11/engine.macro") !== -1;
         return result;
       });
     const hasEngineImport = ref
-      .findParent(p => p.isProgram())
+      .findParent((p) => p.isProgram())
       .get("body")
-      .find(p => {
+      .find((p) => {
         const result =
           p.isImportDeclaration() &&
           p.node.source.value.indexOf(viewImport) !== -1;

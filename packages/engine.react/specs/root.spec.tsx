@@ -13,7 +13,7 @@ import {
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
-global.Promise = require('promise');
+global.Promise = require("promise");
 
 jest.useFakeTimers();
 
@@ -43,9 +43,8 @@ test("Calling engine.getRoot() should return the root element in which the appli
     },
   });
   jest.runAllTimers();
-  expect(engine.getRoot()).toBe(rootEl)
+  expect(engine.getRoot()).toBe(rootEl);
 });
-
 
 test("Should support root as a function", () => {
   const defaultState = {
@@ -68,7 +67,7 @@ test("Should support root as a function", () => {
   });
   engine.start();
   jest.runAllTimers();
-  expect(engine.getRoot()).toBe(rootEl)
+  expect(engine.getRoot()).toBe(rootEl);
 });
 
 test("Should support root as a function that returns a promise", () => {
@@ -91,7 +90,7 @@ test("Should support root as a function that returns a promise", () => {
     },
   });
   jest.runAllTimers();
-  expect(engine.getRoot()).toBe(rootEl)
+  expect(engine.getRoot()).toBe(rootEl);
 });
 
 test("Should support root as a promise", () => {
@@ -114,8 +113,5 @@ test("Should support root as a promise", () => {
     },
   });
   jest.runAllTimers();
-  expect(engine.getRoot()).toBe(rootEl)
+  expect(engine.getRoot()).toBe(rootEl);
 });
-
-
-
