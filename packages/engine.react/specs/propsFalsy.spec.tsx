@@ -1,15 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import {
-  Get,
-  Set,
-  Ref,
-  Merge,
-  Prop,
-  Arg,
-  view,
-  producer,
-} from "@c11/engine.macro";
+import { Observe, Update, view } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -30,17 +21,17 @@ test("Should pass falsy values as well", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Child: view = ({ foo, toggle = Set.foo }) => {
+  const Child: view = ({ foo, toggle = Update.foo }) => {
     return (
       <div>
         <div data-testid="foo" data-value={foo}>
           test
         </div>
-        <button data-testid="button" onClick={() => toggle(!foo)}></button>
+        <button data-testid="button" onClick={() => toggle.set(!foo)}></button>
       </div>
     );
   };
-  const Parent: view = ({ foo = Get.foo }) => {
+  const Parent: view = ({ foo = Observe.foo }) => {
     return <Child foo={foo} />;
   };
   const engine = new Engine({

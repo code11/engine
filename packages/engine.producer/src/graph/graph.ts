@@ -15,7 +15,7 @@ import { getExternalNodes } from "./getExternalNodes";
 import { getInternalNodes } from "./getInternalNodes";
 import { resolveOrder } from "./resolveOrder";
 import { DatastoreInstance } from "@c11/engine.types";
-import { getOperation } from "./getOperation";
+import { observeOperation } from "./observeOperation";
 import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { funcOperation } from "./funcOperation";
@@ -129,8 +129,8 @@ export class Graph {
     this.computeOrder.forEach((x) => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
-        if (node.op.type === OperationTypes.GET) {
-          const path = getOperation(this.structure, node.op);
+        if (node.op.type === OperationTypes.OBSERVE) {
+          const path = observeOperation(this.structure, node.op);
           if (path) {
             const listener = pathListener(
               this,
@@ -145,8 +145,8 @@ export class Graph {
           }
         } else if (node.op.type === OperationTypes.FUNC) {
           node.op.value.params.forEach((op, i) => {
-            if (op.type === OperationTypes.GET) {
-              const path = getOperation(this.structure, op);
+            if (op.type === OperationTypes.OBSERVE) {
+              const path = observeOperation(this.structure, op);
               if (path) {
                 if (node.removeFuncListeners[i]) {
                   node.removeFuncListeners[i]();

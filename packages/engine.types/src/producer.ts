@@ -3,13 +3,12 @@ import { ViewInstance } from "./view";
 
 export enum OperationTypes {
   GET = "GET",
-  SET = "SET",
-  MERGE = "MERGE",
+  OBSERVE = "OBSERVE",
+  UPDATE = "UPDATE",
   REF = "REF",
   FUNC = "FUNC",
   STRUCT = "STRUCT",
   VALUE = "VALUE",
-  REMOVE = "REMOVE",
 }
 
 export enum ValueTypes {
@@ -17,14 +16,6 @@ export enum ValueTypes {
   EXTERNAL = "EXTERNAL",
   INTERNAL = "INTERNAL",
   INVOKE = "INVOKE",
-}
-
-interface Params {
-  [key: string]: any;
-}
-
-export interface RefDataType {
-  get: (params: Params) => any;
 }
 
 export interface ConstValue {
@@ -60,29 +51,20 @@ export interface BaseOperation {
 
 export interface GetOperation extends BaseOperation {
   type: OperationTypes.GET;
+  path: InvokableValue[];
+}
+
+export interface UpdateOperation extends BaseOperation {
+  type: OperationTypes.UPDATE;
+  path: InvokableValue[];
+}
+
+export interface ObserveOperation extends BaseOperation {
+  type: OperationTypes.OBSERVE;
   path: StaticValue[];
 }
-export interface MergeOperation extends BaseOperation {
-  type: OperationTypes.MERGE;
-  path: InvokableValue[];
-}
 
-export interface RemoveOperation extends BaseOperation {
-  type: OperationTypes.REMOVE;
-  path: InvokableValue[];
-}
-
-export interface SetOperation extends BaseOperation {
-  type: OperationTypes.SET;
-  path: InvokableValue[];
-}
-
-export interface RefOperation extends BaseOperation {
-  type: OperationTypes.REF;
-  path: InvokableValue[];
-}
-
-export type StaticOperation = GetOperation | ValueOperation;
+export type StaticOperation = ObserveOperation | ValueOperation;
 
 export interface FuncOperation extends BaseOperation {
   type: OperationTypes.FUNC;
@@ -106,12 +88,10 @@ export interface ValueOperation extends BaseOperation {
 
 export type Operation =
   | GetOperation
-  | MergeOperation
-  | SetOperation
-  | RefOperation
+  | ObserveOperation
+  | UpdateOperation
   | FuncOperation
   | StructOperation
-  | RemoveOperation
   | ValueOperation;
 
 export interface ProducerArgs {

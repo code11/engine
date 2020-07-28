@@ -1,15 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import {
-  Get,
-  Set,
-  Ref,
-  Merge,
-  Prop,
-  Arg,
-  view,
-  producer,
-} from "@c11/engine.macro";
+import { Observe, Update, Prop, Arg, view, producer } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -30,15 +21,15 @@ test("Should propagate changes in props", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Child: view = ({ foo = Prop.foo, setFoo = Set.foo }) => {
+  const Child: view = ({ foo = Prop.foo, setFoo = Update.foo }) => {
     return (
       <div>
         <div data-testid="foo">{foo}</div>;
-        <div data-testid="set-foo" onClick={() => setFoo(val)}></div>
+        <div data-testid="set-foo" onClick={() => setFoo.set(val)}></div>
       </div>
     );
   };
-  const Parent: view = ({ foo = Get.foo }) => {
+  const Parent: view = ({ foo = Observe.foo }) => {
     return <Child foo={foo} />;
   };
 

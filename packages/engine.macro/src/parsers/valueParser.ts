@@ -12,14 +12,12 @@ import {
   ValueOperation,
   InvokableValue,
   GetOperation,
-  SetOperation,
-  MergeOperation,
-  RefOperation,
+  UpdateOperation,
+  ObserveOperation,
   StructOperation,
   FuncOperation,
   StaticOperation,
   PathType,
-  RemoveOperation,
 } from "@c11/engine.types";
 import { getMemberExpressionParams } from "../utils/getMemberExpressionParams";
 import { invokablePathValueParser } from "./invokablePathValueParser";
@@ -100,26 +98,16 @@ const Values: Values = {
         type: OperationTypes.GET,
         path,
       } as GetOperation;
-    } else if (op === PathType.SET) {
+    } else if (op === PathType.OBSERVE) {
       return {
-        type: OperationTypes.SET,
+        type: OperationTypes.OBSERVE,
         path,
-      } as SetOperation;
-    } else if (op === PathType.REMOVE) {
+      } as ObserveOperation;
+    } else if (op === PathType.UPDATE) {
       return {
-        type: OperationTypes.REMOVE,
+        type: OperationTypes.UPDATE,
         path,
-      } as RemoveOperation;
-    } else if (op === PathType.MERGE) {
-      return {
-        type: OperationTypes.MERGE,
-        path,
-      } as MergeOperation;
-    } else if (op === PathType.REF) {
-      return {
-        type: OperationTypes.REF,
-        path,
-      } as RefOperation;
+      } as UpdateOperation;
     } else if (op === PathType.PROP) {
       return {
         type: OperationTypes.VALUE,

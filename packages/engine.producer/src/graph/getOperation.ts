@@ -1,15 +1,25 @@
-import { GraphStructure, GetOperation } from "@c11/engine.types";
-import { isValidPath } from "./isValidPath";
-import { resolveValue } from "./resolveValue";
+import {
+  DatastoreInstance,
+  GraphStructure,
+  GetOperation,
+} from "@c11/engine.types";
+import { getInvokablePath } from "./getInvokablePath";
 
-export const getOperation = (structure: GraphStructure, op: GetOperation) => {
-  const path = op.path.map((x: any) => {
-    return resolveValue(structure, x);
-  });
-  if (isValidPath(path)) {
-    const finalPath = "/" + path.join("/");
-    return finalPath;
-  } else {
-    return;
-  }
+// TODO: add a isValid method to be able to check
+// if the ref path is properly generated
+
+// TODO: Return a false or error if the path was not generated
+
+export const getOperation = (
+  db: DatastoreInstance,
+  structure: GraphStructure,
+  op: GetOperation
+) => {
+  const get = (params: any) => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      return db.get(path);
+    }
+  };
+  return get;
 };

@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Ref, view } from "@c11/engine.macro";
+import { Get, view } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -13,16 +13,16 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Expect to call using only Ref", (done) => {
+test("Expect to call using only Get", (done) => {
   const defaultState = {
     foo: "123",
   };
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Ref.foo }) => {
+  const Component: view = ({ foo = Get.foo }) => {
     expect(foo).toBeDefined();
-    return <div data-testid="foo">{foo.get()}</div>;
+    return <div data-testid="foo">{foo()}</div>;
   };
   const engine = new Engine({
     state: {

@@ -5,13 +5,11 @@ import { Path, producer } from "@c11/engine.macro";
 jest.useFakeTimers();
 
 let Get: any = {};
+let Observe: any = {};
+let Update: any = {};
 let Prop: any = {};
 let Arg: any = {};
 let Param: any = {};
-let Set: any = {};
-let Merge: any = {};
-let Ref: any = {};
-let Remove: any = {};
 
 function run(producer, state = {}, props = {}, DB = db(state), debug = false) {
   const ctx = {
@@ -50,9 +48,9 @@ test("should support paths with identifiers", () => {
     },
   };
   const struct: producer = ({
-    val0 = Get.foo[`${val}bam`],
-    val1 = Get.foo[val],
-    val2 = Get.foo[obj.nest.value],
+    val0 = Observe.foo[`${val}bam`],
+    val1 = Observe.foo[val],
+    val2 = Observe.foo[obj.nest.value],
   }) => {
     expect(val0).toBe(state.foo.namebam);
     expect(val1).toBe(state.foo.name);
@@ -62,7 +60,7 @@ test("should support paths with identifiers", () => {
 });
 
 test("should support producers stats", () => {
-  const struct: producer = ({ color = Get.foo }) => {};
+  const struct: producer = ({ color = Observe.foo }) => {};
   const result = run(struct, undefined, undefined, undefined, true);
   result.db.patch([{ op: "add", path: "/foo", value: "321" }]);
   jest.runAllTimers();
@@ -99,7 +97,7 @@ test("should support path operations with CONST values", () => {
       sample: "red",
     },
   };
-  const struct: producer = ({ color = Get.color.sample }) => {
+  const struct: producer = ({ color = Observe.color.sample }) => {
     expect(color).toBe(state.color.sample);
   };
   run(struct, state);
@@ -114,7 +112,7 @@ test("should support path operations with EXTERNAL values", () => {
     },
   };
   const struct: producer = ({
-    isAvailable = Get.colors[Prop.selectedColor].isAvailable,
+    isAvailable = Observe.colors[Prop.selectedColor].isAvailable,
   }) => {
     expect(isAvailable).toBe(state.colors.red.isAvailable);
   };
@@ -133,7 +131,7 @@ test("should support path operations with INTERNAL values", () => {
   };
   const struct: producer = ({
     color = "red",
-    isAvailable = Get.colors[Arg.color].isAvailable,
+    isAvailable = Observe.colors[Arg.color].isAvailable,
   }) => {
     expect(isAvailable).toBe(state.colors.red.isAvailable);
   };
@@ -161,11 +159,12 @@ test("should support a structured operation", () => {
   };
   const struct: producer = ({
     color = {
-      id: Get.selectedColor,
-      name: Get.colors[Arg.color.id].name,
+      id: Observe.selectedColor,
+      name: Observe.colors[Arg.color.id].name,
       thing: {
-        name: Get.thing[Arg.color.id],
-        hasFish: Get.contains[Arg.color.id][Arg.color.thing.name][Prop.animal],
+        name: Observe.thing[Arg.color.id],
+        hasFish:
+          Observe.contains[Arg.color.id][Arg.color.thing.name][Prop.animal],
       },
     },
   }) => {
@@ -180,7 +179,7 @@ test("should support a structured operation", () => {
   });
 });
 
-test("should support multiple Get operations with Arg", () => {
+test("should support multiple Observe operations with Arg", () => {
   const state = {
     foo: "bar",
     bar: "baz",
@@ -188,31 +187,31 @@ test("should support multiple Get operations with Arg", () => {
     bam: 123,
   };
   const struct: producer = ({
-    bar = Get.foo,
-    baz = Get[Arg.bar],
-    bam = Get[Arg.baz],
-    result = Get[Arg.bam],
+    bar = Observe.foo,
+    baz = Observe[Arg.bar],
+    bam = Observe[Arg.baz],
+    result = Observe[Arg.bam],
   }) => {
     expect(result).toBe(state.bam);
   };
   run(struct, state);
 });
 
-test("should support Set operations", () => {
+test("should support Update.set operations", () => {
   const state = {
     foo: {
       value: "first",
     },
   };
-  const struct: producer = ({ setProp = Set.foo.value }) => {
-    setProp("second");
+  const struct: producer = ({ prop = Update.foo.value }) => {
+    prop.set("second");
   };
   const result = run(struct, state);
   jest.runAllTimers();
   expect(result.db.get("/foo/value")).toEqual("second");
 });
 
-test("should support Merge operations", () => {
+test("should support Update.merge operations", () => {
   const state = {
     foo: {
       value: {
@@ -220,8 +219,8 @@ test("should support Merge operations", () => {
       },
     },
   };
-  const struct: producer = ({ mergeProp = Merge.foo.value }) => {
-    mergeProp({
+  const struct: producer = ({ prop = Update.foo.value }) => {
+    prop.merge({
       baz: 321,
     });
   };
@@ -233,7 +232,7 @@ test("should support Merge operations", () => {
   });
 });
 
-test("should support Ref operations with get", () => {
+test("should support Get operations", () => {
   const state = {
     items: {
       foo: {
@@ -243,14 +242,13 @@ test("should support Ref operations with get", () => {
       },
     },
   };
-  const struct: producer = ({ refProp = Ref.items[Param.id.bar].value }) => {
-    expect(
-      refProp.get({
-        id: {
-          bar: "foo",
-        },
-      })
-    ).toEqual({ bar: 123 });
+  const struct: producer = ({ refProp = Get.items[Param.id.bar].value }) => {
+    const value = refProp({
+      id: {
+        bar: "foo",
+      },
+    });
+    expect(value).toEqual({ bar: 123 });
   };
   run(struct, state);
   jest.runAllTimers();
@@ -261,12 +259,12 @@ test("should react to state changes", () => {
     foo: "value",
   };
   const val = "secondValue";
-  const struct: producer = ({ foo = Get.foo, setBar = Set.bar }) => {
-    setBar(val);
+  const struct: producer = ({ foo = Observe.foo, bar = Update.bar }) => {
+    bar.set(val);
   };
   const result = run(struct, state);
-  const struct2: producer = ({ bar = Get.bar, setBaz = Set.baz }) => {
-    setBaz(bar);
+  const struct2: producer = ({ bar = Observe.bar, baz = Update.baz }) => {
+    baz.set(bar);
   };
   run(struct2, {}, {}, result.db);
   jest.runAllTimers();
@@ -289,22 +287,22 @@ test("should react to state changes with complex args", () => {
     },
   };
   const struct: producer = ({
-    selectedId = Get.selectedId,
+    selectedId = Observe.selectedId,
     article = {
-      setName: Set.articles.list[Arg.selectedId][Param.prop],
-      name: Get.articles.list[Arg.selectedId].name,
+      setName: Update.articles.list[Arg.selectedId][Param.prop],
+      name: Observe.articles.list[Arg.selectedId].name,
     },
     name = Arg.article.name,
   }) => {
     mock(name);
-    article.setName("321", { prop: "nextId" });
+    article.setName.set("321", { prop: "nextId" });
   };
   const result = run(struct, state);
   const struct2: producer = ({
-    id = Get.articles.list["123"].nextId,
-    setId = Set.selectedId,
+    id = Observe.articles.list["123"].nextId,
+    setId = Update.selectedId,
   }) => {
-    setId(id);
+    setId.set(id);
   };
   run(struct2, {}, {}, result.db);
   jest.runAllTimers();
@@ -313,7 +311,7 @@ test("should react to state changes with complex args", () => {
   expect(mock.mock.calls[1][0]).toBe("second");
 });
 
-test("should support Remove operation", () => {
+test("should support Update.remove operation", () => {
   const state = {
     prop: "bam",
     foo: "value",
@@ -330,16 +328,16 @@ test("should support Remove operation", () => {
     },
   };
   const struct: producer = ({
-    rmFoo = Remove.foo,
-    rmBar = Remove.bar.baz.bam,
-    prop = Get.prop,
-    rmBam = Remove[Arg.prop].baz,
-    rmBoo = Remove[Param.a][Param.b],
+    rmFoo = Update.foo,
+    rmBar = Update.bar.baz.bam,
+    prop = Observe.prop,
+    rmBam = Update[Arg.prop].baz,
+    rmBoo = Update[Param.a][Param.b],
   }) => {
-    rmFoo();
-    rmBar();
-    rmBam();
-    rmBoo({
+    rmFoo.remove();
+    rmBar.remove();
+    rmBam.remove();
+    rmBoo.remove({
       a: "boo",
       b: "bam",
     });
@@ -358,8 +356,8 @@ test("merge should set a path if the path does not exist", () => {
   const val = {
     bam: "123",
   };
-  const struct: producer = ({ mergeFoo = Merge.foo.baz }) => {
-    mergeFoo(val);
+  const struct: producer = ({ foo = Update.foo.baz }) => {
+    foo.merge(val);
   };
   const result = run(struct, state);
   jest.runAllTimers();
@@ -377,7 +375,7 @@ test.skip("show allow dynamic get and sets using paths", () => {
     },
   };
   let val;
-  const struct: producer = ({ foo = Get[Prop.foo] }) => {
+  const struct: producer = ({ foo = Observe[Prop.foo] }) => {
     val = foo;
   };
   const props = {
@@ -390,8 +388,8 @@ test.skip("show allow dynamic get and sets using paths", () => {
 
 test("should unmount producers no longer in use", () => {
   const val = "red";
-  const struct: producer = ({ foo = Get.foo, setBar = Set.bar }) => {
-    setBar(foo);
+  const struct: producer = ({ foo = Observe.foo, bar = Update.bar }) => {
+    bar.set(foo);
   };
   const result = run(struct, {
     foo: "123",
@@ -409,7 +407,7 @@ test("should always call with the lasted data from the datastore", () => {
     b: "321",
   };
   const fn = jest.fn();
-  const struct: producer = ({ a = Get.foo.a, b = Get.foo.b }) => {
+  const struct: producer = ({ a = Observe.foo.a, b = Observe.foo.b }) => {
     fn(a, b);
   };
   const result = run(struct, {
@@ -434,7 +432,7 @@ test("should redo paths and keep reference if external props change", () => {
     id: "foo",
   };
   const fn = jest.fn();
-  const struct: producer = ({ value = Get[Prop.id] }) => {
+  const struct: producer = ({ value = Observe[Prop.id] }) => {
     fn(value);
   };
   const result = run(struct, state, props);
@@ -462,7 +460,7 @@ test("should allow args composition", () => {
     },
   };
   const struct = producer(
-    (foo = "abc", items = Get.items, bar = Arg.items[Arg.foo]) => {
+    (foo = "abc", items = Observe.items, bar = Arg.items[Arg.foo]) => {
       expect(bar).toBe("123");
     }
   );
@@ -474,7 +472,7 @@ test("should allow args composition", () => {
 /*
 test.only("should support Value operations with CONST values", () => {
   const val = "red";
-  const struct = producer((color = Get["foo.bar"]) => {
+  const struct = producer((color = Observe["foo.bar"]) => {
     expect(color).toBe(val);
   });
   console.log(JSON.stringify(struct, null, ' '));

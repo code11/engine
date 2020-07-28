@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Get, view } from "@c11/engine.macro";
+import { Observe, view } from "@c11/engine.macro";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
 global.Promise = require("promise");
@@ -20,7 +20,7 @@ test("Calling engine.getRoot() should return the root element in which the appli
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Get.foo }) => {
+  const Component: view = ({ foo = Observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
   const engine = new Engine({
@@ -43,7 +43,7 @@ test("Should support root as a function", () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Get.foo }) => {
+  const Component: view = ({ foo = Observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
   const engine = new Engine({
@@ -67,7 +67,7 @@ test("Should support root as a function that returns a promise", () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Get.foo }) => {
+  const Component: view = ({ foo = Observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
   const engine = new Engine({
@@ -90,7 +90,7 @@ test("Should support root as a promise", () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Get.foo }) => {
+  const Component: view = ({ foo = Observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
   const engine = new Engine({

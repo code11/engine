@@ -23,13 +23,9 @@ export const structOperationCompiler = (
       let result;
       if (op.type === OperationTypes.GET) {
         result = pathOperationCompiler(op);
-      } else if (op.type === OperationTypes.SET) {
+      } else if (op.type === OperationTypes.OBSERVE) {
         result = pathOperationCompiler(op);
-      } else if (op.type === OperationTypes.REMOVE) {
-        result = pathOperationCompiler(op);
-      } else if (op.type === OperationTypes.MERGE) {
-        result = pathOperationCompiler(op);
-      } else if (op.type === OperationTypes.REF) {
+      } else if (op.type === OperationTypes.UPDATE) {
         result = pathOperationCompiler(op);
       } else if (op.type === OperationTypes.FUNC) {
         result = funcOperationCompiler(op);
