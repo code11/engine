@@ -12,5 +12,8 @@
   "dependencies": {
     "@c11/engine.db": "^3.8.1",
     "@c11/engine.node": "^3.8.1"
+  },
+  "devDependencies": {
+    "@c11/engine.types": "^3.8.1"
   }
 }

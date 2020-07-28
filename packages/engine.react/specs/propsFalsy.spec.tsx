@@ -30,7 +30,7 @@ test("Should pass falsy values as well", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Child = view((foo, toggle = Set.foo) => {
+  const Child: view = ({ foo, toggle = Set.foo }) => {
     return (
       <div>
         <div data-testid="foo" data-value={foo}>
@@ -39,10 +39,10 @@ test("Should pass falsy values as well", (done) => {
         <button data-testid="button" onClick={() => toggle(!foo)}></button>
       </div>
     );
-  });
-  const Parent = view((foo = Get.foo) => {
+  };
+  const Parent: view = ({ foo = Get.foo }) => {
     return <Child foo={foo} />;
-  });
+  };
   const engine = new Engine({
     state: {
       initial: defaultState,

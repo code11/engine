@@ -29,9 +29,9 @@ test("Simple load of a react component", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((foo = Get.foo) => {
+  const Component: view = ({ foo = Get.foo }) => {
     return <div data-testid="foo">{foo}</div>;
-  });
+  };
   const engine = new Engine({
     state: {
       initial: defaultState,

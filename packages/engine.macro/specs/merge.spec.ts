@@ -3,10 +3,11 @@ import prettier from "prettier";
 import plugin from "babel-plugin-macros";
 
 const macroFile = "'@c11/engine.macro'";
+const config = require("./babelConfig.json");
 
 pluginTester({
   plugin,
-  babelOptions: { filename: __filename },
+  babelOptions: { filename: __filename, ...config },
   formatResult: (result: any) => {
     return prettier.format(result, {
       parser: "babel",
@@ -16,7 +17,7 @@ pluginTester({
     "should support Merge": {
       code: `
         import { producer } from ${macroFile}
-        const result = producer((
+        const result: producer = ({
           a1 = Merge.foo,
           a2 = Merge[Prop.foo],
           a3 = Merge[Arg.a2],
@@ -29,7 +30,7 @@ pluginTester({
           a8 = Merge.foo[Param.prop],
           a9 = Merge.foo[Param.prop].baz,
           a10 = Merge.foo[Param.prop].baz[Prop.a2]
-        ) => { })
+        }) => { }
       `,
       snapshot: true,
     },

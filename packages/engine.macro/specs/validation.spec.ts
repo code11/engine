@@ -3,10 +3,14 @@ import prettier from "prettier";
 import plugin from "babel-plugin-macros";
 
 const macroFile = "'@c11/engine.macro'";
+const config = require("./babelConfig.json");
 
 pluginTester({
   plugin,
-  babelOptions: { filename: __filename },
+  babelOptions: {
+    filename: __filename,
+    ...config,
+  },
   formatResult: (result: any) => {
     return prettier.format(result, {
       parser: "babel",
@@ -16,25 +20,16 @@ pluginTester({
     "should throw an error if it is not invoked": {
       code: `
         import { producer } from ${macroFile}
-        const result = producer 
+        const result = producer
       `,
       error: true,
     },
     "should throw an error if it is not invoked with an arrow function": {
       code: `
         import { producer } from ${macroFile}
-        const result = producer(({
+        const result: producer = {
           foo = '123'
-        }))
-      `,
-      error: true,
-    },
-    "should throw an error if the parameter is not an function pattern": {
-      code: `
-        import { producer } from ${macroFile}
-        const result = producer(({
-          foo = '123'
-        })) => foo)
+        }
       `,
       error: true,
     },

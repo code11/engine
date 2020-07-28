@@ -30,17 +30,18 @@ test("Should propagate changes in props", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Child = view((foo = Prop.foo, setFoo = Set.foo) => {
+  const Child: view = ({ foo = Prop.foo, setFoo = Set.foo }) => {
     return (
       <div>
         <div data-testid="foo">{foo}</div>;
         <div data-testid="set-foo" onClick={() => setFoo(val)}></div>
       </div>
     );
-  });
-  const Parent = view((foo = Get.foo) => {
+  };
+  const Parent: view = ({ foo = Get.foo }) => {
     return <Child foo={foo} />;
-  });
+  };
+
   const engine = new Engine({
     state: {
       initial: defaultState,

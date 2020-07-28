@@ -28,17 +28,17 @@ test("Simple load of a react component and work with producers", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((bam = Get.bam, setBaz = Set.baz) => {
+  const Component: view = ({ bam = Get.bam, setBaz = Set.baz }) => {
     return (
       <div>
         <div data-testid="foo" onClick={() => setBaz(val)}></div>;
         <div data-testid="bam">{bam}</div>;
       </div>
     );
-  });
-  const prod = producer((baz = Get.baz, setBam = Set.bam) => {
+  };
+  const prod: producer = ({ baz = Get.baz, setBam = Set.bam }) => {
     setBam(baz);
-  });
+  };
   const engine = new Engine({
     producers: {
       list: [prod],

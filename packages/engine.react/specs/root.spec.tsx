@@ -1,16 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import {
-  Get,
-  Set,
-  Ref,
-  Merge,
-  Prop,
-  Arg,
-  view,
-  producer,
-} from "@c11/engine.macro";
-import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
+import { Get, view } from "@c11/engine.macro";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
 global.Promise = require("promise");
@@ -30,9 +20,9 @@ test("Calling engine.getRoot() should return the root element in which the appli
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((foo = Get.foo) => {
+  const Component: view = ({ foo = Get.foo }) => {
     return <div data-testid="foo">{foo}</div>;
-  });
+  };
   const engine = new Engine({
     state: {
       initial: defaultState,
@@ -53,9 +43,9 @@ test("Should support root as a function", () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((foo = Get.foo) => {
+  const Component: view = ({ foo = Get.foo }) => {
     return <div data-testid="foo">{foo}</div>;
-  });
+  };
   const engine = new Engine({
     state: {
       initial: defaultState,
@@ -77,9 +67,9 @@ test("Should support root as a function that returns a promise", () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((foo = Get.foo) => {
+  const Component: view = ({ foo = Get.foo }) => {
     return <div data-testid="foo">{foo}</div>;
-  });
+  };
   const engine = new Engine({
     state: {
       initial: defaultState,
@@ -100,9 +90,9 @@ test("Should support root as a promise", () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((foo = Get.foo) => {
+  const Component: view = ({ foo = Get.foo }) => {
     return <div data-testid="foo">{foo}</div>;
-  });
+  };
   const engine = new Engine({
     state: {
       initial: defaultState,
