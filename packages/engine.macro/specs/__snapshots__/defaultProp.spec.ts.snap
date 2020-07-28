@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support Prop: should support Prop 1`] = `
+
+import { producer } from '@c11/engine.macro'
+const result: producer = ({
+  foo,
+  bar = Prop.bar
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var result = {
+  args: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "VALUE",
+        value: {
+          type: "EXTERNAL",
+          path: ["foo"],
+        },
+      },
+      bar: {
+        type: "VALUE",
+        value: {
+          type: "EXTERNAL",
+          path: ["bar"],
+        },
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var foo = _ref.foo,
+      bar = _ref.bar;
+  },
+};
+
+
+`;

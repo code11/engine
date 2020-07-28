@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support Merge: should support Merge 1`] = `
+
+import { producer } from '@c11/engine.macro'
+const result: producer = ({
+  a1 = Merge.foo,
+  a2 = Merge[Prop.foo],
+  a3 = Merge[Arg.a2],
+  a4 = Merge.foo[Prop.bar.baz],
+  a5 = Merge.foo.bar[Arg.a2],
+  a6 = {
+    baz: Merge.foo[Arg.a4].baz,
+  },
+  a7 = Merge.foo[Prop.a5.baz],
+  a8 = Merge.foo[Param.prop],
+  a9 = Merge.foo[Param.prop].baz,
+  a10 = Merge.foo[Param.prop].baz[Prop.a2]
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var result = {
+  args: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "MERGE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+      a2: {
+        type: "MERGE",
+        path: [
+          {
+            type: "EXTERNAL",
+            path: ["foo"],
+          },
+        ],
+      },
+      a3: {
+        type: "MERGE",
+        path: [
+          {
+            type: "INTERNAL",
+            path: ["a2"],
+          },
+        ],
+      },
+      a4: {
+        type: "MERGE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "EXTERNAL",
+            path: ["bar", "baz"],
+          },
+        ],
+      },
+      a5: {
+        type: "MERGE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "CONST",
+            value: "bar",
+          },
+          {
+            type: "INTERNAL",
+            path: ["a2"],
+          },
+        ],
+      },
+      a6: {
+        type: "STRUCT",
+        value: {
+          baz: {
+            type: "MERGE",
+            path: [
+              {
+                type: "CONST",
+                value: "foo",
+              },
+              {
+                type: "INTERNAL",
+                path: ["a4"],
+              },
+              {
+                type: "CONST",
+                value: "baz",
+              },
+            ],
+          },
+        },
+      },
+      a7: {
+        type: "MERGE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "EXTERNAL",
+            path: ["a5", "baz"],
+          },
+        ],
+      },
+      a8: {
+        type: "MERGE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INVOKE",
+            path: ["prop"],
+          },
+        ],
+      },
+      a9: {
+        type: "MERGE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INVOKE",
+            path: ["prop"],
+          },
+          {
+            type: "CONST",
+            value: "baz",
+          },
+        ],
+      },
+      a10: {
+        type: "MERGE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INVOKE",
+            path: ["prop"],
+          },
+          {
+            type: "CONST",
+            value: "baz",
+          },
+          {
+            type: "EXTERNAL",
+            path: ["a2"],
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var a1 = _ref.a1,
+      a2 = _ref.a2,
+      a3 = _ref.a3,
+      a4 = _ref.a4,
+      a5 = _ref.a5,
+      a6 = _ref.a6,
+      a7 = _ref.a7,
+      a8 = _ref.a8,
+      a9 = _ref.a9,
+      a10 = _ref.a10;
+  },
+};
+
+
+`;

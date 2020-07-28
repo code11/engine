@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should keep Constants: should keep Constants 1`] = `
+
+import { view } from '@c11/engine.macro'
+const a: view = ({
+  foo = Get.foo
+}) => {  }
+const b: view = ({
+  foo = Get.foo
+}) => {  }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var _engineView = require("@c11/engine-view");
+
+var a = (0, _engineView.view)({
+  args: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var foo = _ref.foo;
+  },
+});
+var b = (0, _engineView.view)({
+  args: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref2) {
+    var foo = _ref2.foo;
+  },
+});
+
+
+`;
