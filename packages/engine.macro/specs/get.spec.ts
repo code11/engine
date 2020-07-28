@@ -26,7 +26,10 @@ pluginTester({
           a6 = {
             baz: Get.foo[Arg.a4].baz,
           },
-          a7 = Get.foo[Arg.a5.baz]
+          a7 = Get.foo[Arg.a5.baz],
+          a8 = Get.foo[Param.prop],
+          a9 = Get.foo[Param.prop].baz,
+          a10 = Get.foo[Param.prop].baz[Prop.a2]
         }) => { }
       `,
       snapshot: true,

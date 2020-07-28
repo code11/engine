@@ -9,7 +9,7 @@ import {
   GraphNode,
 } from "@c11/engine.types";
 import { computeDependenciesForNode } from "./computeDependenciesForNode";
-import { getOperation } from "./getOperation";
+import { observeOperation } from "./observeOperation";
 import { funcOperation } from "./funcOperation";
 import { computeOperation, ComputeType } from "./computeOperation";
 import { pathListener } from "./pathListener";
@@ -27,7 +27,7 @@ export const updateListeners = (
 
   Object.values(structure).forEach((x) => {
     let node = x as GraphInternalNode;
-    if (node.op && node.op.type === OperationTypes.GET) {
+    if (node.op && node.op.type === OperationTypes.OBSERVE) {
       const result = computeOperation(db, structure, node);
       if (result.type === ComputeType.PATH && result.value) {
         node.path = result.value;
@@ -67,8 +67,8 @@ export const updateListeners = (
       if (node.op.value.params[x.param]) {
         const op = node.op.value.params[x.param];
 
-        if (op.type === OperationTypes.GET) {
-          const path = getOperation(structure, op);
+        if (op.type === OperationTypes.OBSERVE) {
+          const path = observeOperation(structure, op);
           if (path) {
             node.removeFuncListeners[x.param] = db.on(path, (val) => {
               if (node.op.type === OperationTypes.FUNC) {

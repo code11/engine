@@ -18,8 +18,8 @@ export const getDeps = (op: Operation) => {
 
   if (
     op.type === OperationTypes.GET ||
-    op.type === OperationTypes.MERGE ||
-    op.type === OperationTypes.SET
+    op.type === OperationTypes.OBSERVE ||
+    op.type === OperationTypes.UPDATE
   ) {
     op.path.forEach((y) => {
       if (y.type === ValueTypes.INTERNAL) {

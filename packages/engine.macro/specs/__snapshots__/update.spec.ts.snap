@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should support Set: should support Set 1`] = `
+exports[`macros should support Update: should support Update 1`] = `
 
 import { producer } from '@c11/engine.macro'
 const result: producer = ({
-  a1 = Set.foo,
-  a2 = Set[Prop.foo],
-  a3 = Set[Arg.a2],
-  a4 = Set.foo[Arg.bar.baz],
-  a5 = Set.foo.bar[Arg.a2],
+  a1 = Update.foo,
+  a2 = Update[Prop.foo],
+  a3 = Update[Arg.a2],
+  a4 = Update.foo[Prop.bar.baz],
+  a5 = Update.foo.bar[Arg.a2],
   a6 = {
-    baz: Set.foo[Arg.a4].baz,
+    baz: Update.foo[Arg.a4].baz,
   },
-  a7 = Set.foo[Arg.a5.baz],
-  a8 = Set.foo[Param.prop],
-  a9 = Set.foo[Param.prop].baz,
-  a10 = Set.foo[Param.prop.a].baz[Prop.a2]
+  a7 = Update.foo[Prop.a5.baz],
+  a8 = Update.foo[Param.prop],
+  a9 = Update.foo[Param.prop].baz,
+  a10 = Update.foo[Param.prop].baz[Prop.a2]
 }) => { }
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -27,7 +27,7 @@ var result = {
     type: "STRUCT",
     value: {
       a1: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "CONST",
@@ -36,7 +36,7 @@ var result = {
         ],
       },
       a2: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "EXTERNAL",
@@ -45,7 +45,7 @@ var result = {
         ],
       },
       a3: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "INTERNAL",
@@ -54,20 +54,20 @@ var result = {
         ],
       },
       a4: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "CONST",
             value: "foo",
           },
           {
-            type: "INTERNAL",
+            type: "EXTERNAL",
             path: ["bar", "baz"],
           },
         ],
       },
       a5: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "CONST",
@@ -87,7 +87,7 @@ var result = {
         type: "STRUCT",
         value: {
           baz: {
-            type: "SET",
+            type: "UPDATE",
             path: [
               {
                 type: "CONST",
@@ -106,20 +106,20 @@ var result = {
         },
       },
       a7: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "CONST",
             value: "foo",
           },
           {
-            type: "INTERNAL",
+            type: "EXTERNAL",
             path: ["a5", "baz"],
           },
         ],
       },
       a8: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "CONST",
@@ -132,7 +132,7 @@ var result = {
         ],
       },
       a9: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "CONST",
@@ -149,7 +149,7 @@ var result = {
         ],
       },
       a10: {
-        type: "SET",
+        type: "UPDATE",
         path: [
           {
             type: "CONST",
@@ -157,7 +157,7 @@ var result = {
           },
           {
             type: "INVOKE",
-            path: ["prop", "a"],
+            path: ["prop"],
           },
           {
             type: "CONST",

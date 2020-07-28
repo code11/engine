@@ -1,11 +1,9 @@
 export enum PathType {
   GET = "Get",
-  SET = "Set",
-  MERGE = "Merge",
-  REF = "Ref",
+  OBSERVE = "Observe",
+  UPDATE = "Update",
   PROP = "Prop",
   ARG = "Arg",
-  REMOVE = "Remove",
 }
 
 export enum PathArgs {

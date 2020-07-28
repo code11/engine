@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support Observe: should support Observe 1`] = `
+
+import { producer } from '@c11/engine.macro'
+const result: producer = ({
+  a1 = Observe.foo,
+  a2 = Observe[Prop.foo],
+  a3 = Observe[Arg.a2],
+  a4 = Observe.foo[Prop.bar.baz],
+  a5 = Observe.foo.bar[Arg.a2],
+  a6 = {
+    baz: Observe.foo[Arg.a4].baz,
+  }
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var result = {
+  args: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+      a2: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "EXTERNAL",
+            path: ["foo"],
+          },
+        ],
+      },
+      a3: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "INTERNAL",
+            path: ["a2"],
+          },
+        ],
+      },
+      a4: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "EXTERNAL",
+            path: ["bar", "baz"],
+          },
+        ],
+      },
+      a5: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "CONST",
+            value: "bar",
+          },
+          {
+            type: "INTERNAL",
+            path: ["a2"],
+          },
+        ],
+      },
+      a6: {
+        type: "STRUCT",
+        value: {
+          baz: {
+            type: "OBSERVE",
+            path: [
+              {
+                type: "CONST",
+                value: "foo",
+              },
+              {
+                type: "INTERNAL",
+                path: ["a4"],
+              },
+              {
+                type: "CONST",
+                value: "baz",
+              },
+            ],
+          },
+        },
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var a1 = _ref.a1,
+      a2 = _ref.a2,
+      a3 = _ref.a3,
+      a4 = _ref.a4,
+      a5 = _ref.a5,
+      a6 = _ref.a6;
+  },
+};
+
+
+`;

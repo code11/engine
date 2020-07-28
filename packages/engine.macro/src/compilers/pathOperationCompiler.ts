@@ -1,9 +1,7 @@
 import {
   GetOperation,
-  SetOperation,
-  RefOperation,
-  MergeOperation,
-  RemoveOperation,
+  UpdateOperation,
+  ObserveOperation,
 } from "@c11/engine.types";
 import {
   objectProperty,
@@ -16,12 +14,7 @@ import {
 import { pathCompiler } from "./pathCompiler";
 
 export const pathOperationCompiler = (
-  op:
-    | GetOperation
-    | SetOperation
-    | RefOperation
-    | MergeOperation
-    | RemoveOperation
+  op: GetOperation | UpdateOperation | ObserveOperation
 ): ObjectExpression => {
   const type = objectProperty(identifier("type"), stringLiteral(op.type));
   let value = objectProperty(identifier("path"), stringLiteral("___"));

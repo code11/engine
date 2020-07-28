@@ -48,7 +48,7 @@ export const computeDependenciesForNode = (
 
       if (dep.op.type === OperationTypes.FUNC) {
         dep.op.value.params.forEach((op, i) => {
-          if (op.type === OperationTypes.GET) {
+          if (op.type === OperationTypes.OBSERVE) {
             op.path.forEach((z) => {
               if (z.type === ValueTypes.INTERNAL) {
                 if (isEqual(z.path, node.nestingPath)) {

@@ -14,22 +14,22 @@ pluginTester({
     });
   },
   tests: {
-    "should support Merge": {
+    "should support Update": {
       code: `
         import { producer } from ${macroFile}
         const result: producer = ({
-          a1 = Merge.foo,
-          a2 = Merge[Prop.foo],
-          a3 = Merge[Arg.a2],
-          a4 = Merge.foo[Prop.bar.baz],
-          a5 = Merge.foo.bar[Arg.a2],
+          a1 = Update.foo,
+          a2 = Update[Prop.foo],
+          a3 = Update[Arg.a2],
+          a4 = Update.foo[Prop.bar.baz],
+          a5 = Update.foo.bar[Arg.a2],
           a6 = {
-            baz: Merge.foo[Arg.a4].baz,
+            baz: Update.foo[Arg.a4].baz,
           },
-          a7 = Merge.foo[Prop.a5.baz],
-          a8 = Merge.foo[Param.prop],
-          a9 = Merge.foo[Param.prop].baz,
-          a10 = Merge.foo[Param.prop].baz[Prop.a2]
+          a7 = Update.foo[Prop.a5.baz],
+          a8 = Update.foo[Param.prop],
+          a9 = Update.foo[Param.prop].baz,
+          a10 = Update.foo[Param.prop].baz[Prop.a2]
         }) => { }
       `,
       snapshot: true,

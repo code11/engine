@@ -12,7 +12,10 @@ const result: producer = ({
   a6 = {
     baz: Get.foo[Arg.a4].baz,
   },
-  a7 = Get.foo[Arg.a5.baz]
+  a7 = Get.foo[Arg.a5.baz],
+  a8 = Get.foo[Param.prop],
+  a9 = Get.foo[Param.prop].baz,
+  a10 = Get.foo[Param.prop].baz[Prop.a2]
 }) => { }
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -115,6 +118,57 @@ var result = {
           },
         ],
       },
+      a8: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INVOKE",
+            path: ["prop"],
+          },
+        ],
+      },
+      a9: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INVOKE",
+            path: ["prop"],
+          },
+          {
+            type: "CONST",
+            value: "baz",
+          },
+        ],
+      },
+      a10: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INVOKE",
+            path: ["prop"],
+          },
+          {
+            type: "CONST",
+            value: "baz",
+          },
+          {
+            type: "EXTERNAL",
+            path: ["a2"],
+          },
+        ],
+      },
     },
     meta: {},
   },
@@ -125,7 +179,10 @@ var result = {
       a4 = _ref.a4,
       a5 = _ref.a5,
       a6 = _ref.a6,
-      a7 = _ref.a7;
+      a7 = _ref.a7,
+      a8 = _ref.a8,
+      a9 = _ref.a9,
+      a10 = _ref.a10;
   },
 };
 

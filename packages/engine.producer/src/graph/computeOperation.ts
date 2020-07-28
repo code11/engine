@@ -4,13 +4,12 @@ import {
   GraphStructure,
   GraphInternalNode,
 } from "@c11/engine.types";
-import { getOperation } from "./getOperation";
+import { observeOperation } from "./observeOperation";
 import { isValidPath } from "./isValidPath";
 import { valueOperation } from "./valueOperation";
 import { updateOperation } from "./updateOperation";
-import { refOperation } from "./refOperation";
+import { getOperation } from "./getOperation";
 import { funcOperation } from "./funcOperation";
-import { removeOperation } from "./removeOperation";
 
 export enum ComputeType {
   PATH = "PATH",
@@ -27,27 +26,22 @@ export const computeOperation = (
 ): ComputeResult => {
   const result: ComputeResult = {
     type:
-      node.op.type === OperationTypes.GET
+      node.op.type === OperationTypes.OBSERVE
         ? ComputeType.PATH
         : ComputeType.VALUE,
     value: undefined,
   };
-  if (node.op.type === OperationTypes.GET) {
-    const path = getOperation(structure, node.op);
+  if (node.op.type === OperationTypes.OBSERVE) {
+    const path = observeOperation(structure, node.op);
     if (path && isValidPath(path)) {
       result.value = path;
     }
   } else if (node.op.type === OperationTypes.VALUE) {
     result.value = valueOperation(structure, node.op);
-  } else if (
-    node.op.type === OperationTypes.MERGE ||
-    node.op.type === OperationTypes.SET
-  ) {
+  } else if (node.op.type === OperationTypes.UPDATE) {
     result.value = updateOperation(db, structure, node.op);
-  } else if (node.op.type === OperationTypes.REMOVE) {
-    result.value = removeOperation(db, structure, node.op);
-  } else if (node.op.type === OperationTypes.REF) {
-    result.value = refOperation(db, structure, node.op);
+  } else if (node.op.type === OperationTypes.GET) {
+    result.value = getOperation(db, structure, node.op);
   } else if (node.op.type === OperationTypes.FUNC) {
     result.value = funcOperation(db, structure, node.op);
   }

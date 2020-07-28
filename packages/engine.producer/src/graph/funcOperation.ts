@@ -4,7 +4,7 @@ import {
   FuncOperation,
   OperationTypes,
 } from "@c11/engine.types";
-import { getOperation } from "./getOperation";
+import { observeOperation } from "./observeOperation";
 import { valueOperation } from "./valueOperation";
 
 export const funcOperation = (
@@ -14,8 +14,8 @@ export const funcOperation = (
 ) => {
   const getParams = (params: any) => {
     const result = params.map((x: any) => {
-      if (x.type === OperationTypes.GET) {
-        const path = getOperation(structure, x);
+      if (x.type === OperationTypes.OBSERVE) {
+        const path = observeOperation(structure, x);
         if (path) {
           return db.get(path);
         }

@@ -39,14 +39,12 @@ interface Config {
 export type producer = any;
 export type view = any;
 
+export const Observe: any = {};
+export const Update: any = {};
 export const Get: any = {};
 export const Arg: any = {};
 export const Prop: any = {};
-export const Ref: any = {};
-export const Set: any = {};
-export const Merge: any = {};
 export const Param: any = {};
-export const Remove: any = {};
 export const Path: any = {};
 
 const macro = createMacro(myMacro);

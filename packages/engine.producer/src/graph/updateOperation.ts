@@ -1,40 +1,60 @@
 import {
   DatastoreInstance,
   GraphStructure,
-  OperationTypes,
-  MergeOperation,
-  SetOperation,
+  UpdateOperation,
 } from "@c11/engine.types";
 import { getInvokablePath } from "./getInvokablePath";
 
 export const updateOperation = (
   db: DatastoreInstance,
   structure: GraphStructure,
-  op: MergeOperation | SetOperation
+  op: UpdateOperation
 ) => {
-  const opType = op.type === OperationTypes.MERGE ? "merge" : "add";
-  const fn = (value: any, params: any) => {
+  const set = (value: any, params: any) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const patch = {
-        op: opType,
+        op: "add",
         path,
         value: value,
       };
-      if (op.type === OperationTypes.MERGE) {
-        const val = db.get(path);
-        if (!val) {
-          db.patch([
-            {
-              op: "add",
-              path,
-              value: {},
-            },
-          ]);
-        }
+      db.patch([patch]);
+    }
+  };
+  const merge = (value: any, params: any) => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      const patch = {
+        op: "merge",
+        path,
+        value: value,
+      };
+      const val = db.get(path);
+      if (!val) {
+        db.patch([
+          {
+            op: "add",
+            path,
+            value: {},
+          },
+        ]);
       }
       db.patch([patch]);
     }
   };
-  return fn;
+  const remove = (params: any) => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      const patch = {
+        op: "remove",
+        path,
+      };
+      db.patch([patch]);
+    }
+  };
+  return {
+    set,
+    merge,
+    remove,
+  };
 };
