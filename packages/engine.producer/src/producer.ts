@@ -6,7 +6,9 @@ import {
   ProducerInstance,
   ExternalProps,
   StructOperation,
+  ProducerMeta,
 } from "@c11/engine.types";
+import shortid from "shortid";
 
 import { Graph } from "./graph";
 
@@ -25,21 +27,27 @@ export class Producer implements ProducerInstance {
   private fn: ProducerFn;
   private external: ExternalProps;
   private graph: Graph;
+  private debug: boolean;
   private keepReferences: string[];
+  private meta: ProducerMeta;
   private stats = {
     executionCount: 0,
   };
+  id: string;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
+    this.id = shortid.generate();
     this.args = config.args;
     this.fn = config.fn;
     this.external = context.props || {};
+    this.debug = context.debug || false;
+    this.meta = config.meta || {};
     this.keepReferences = context.keepReferences || [];
     this.graph = new Graph(
       this.db,
       this.external,
       this.args,
-      context.debug ? this.fnWrapper.bind(this) : this.fn,
+      this.debug ? this.fnWrapper.bind(this) : this.fn,
       this.keepReferences
     );
   }

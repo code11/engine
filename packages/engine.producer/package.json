@@ -19,12 +19,15 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./src/*"
   },
   "devDependencies": {
+    "@c11/engine.macro": "^3.8.1",
     "@c11/engine.types": "^3.8.1",
-    "@c11/engine.macro": "^3.8.1"
+    "@types/shortid": "^0.0.29"
   },
   "dependencies": {
     "@c11/engine.db": "^3.8.1",
-    "lodash": "^4.17.15"
+    "@c11/engine.types": "^3.8.1",
+    "lodash": "^4.17.15",
+    "shortid": "^2.2.15"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521",
   "engineConfig": {}

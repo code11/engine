@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/path*"
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/view*"
   },
   "devDependencies": {
     "@babel/types": "^7.10.4",
@@ -21,6 +21,7 @@
     "prettier": "^2.0.5"
   },
   "dependencies": {
+    "@c11/engine.types": "^3.8.1",
     "lodash": "^4.17.15"
   },
   "engineConfig": {

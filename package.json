@@ -5,8 +5,13 @@
   "private": true,
   "keywords": [],
   "workspaces": {
-    "packages": ["packages/*"],
-    "nohoist": ["**/types", "**/producer"]
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/types",
+      "**/producer"
+    ]
   },
   "author": {
     "name": "Constantin Dumitrescu",
@@ -65,5 +70,6 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  }
+  },
+  "dependencies": {}
 }

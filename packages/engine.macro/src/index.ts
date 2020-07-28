@@ -32,16 +32,12 @@ function myMacro({ references, state, babel }: MacroParams) {
   });
 }
 
-type ProducerConfig = (...args: any[]) => any;
-type ViewConfig = (...args: any[]) => any;
+interface Config {
+  [k: string]: any;
+}
 
-type producer = (config: ProducerConfig) => any;
-type view = (config: ViewConfig) => any;
-
-export const producer: producer = (config) => null;
-export const view: view = (config) => {
-  return {} as JSX.Element;
-};
+export type producer = any;
+export type view = any;
 
 export const Get: any = {};
 export const Arg: any = {};

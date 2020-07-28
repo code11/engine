@@ -1,9 +1,12 @@
 import * as Babel from "@babel/core";
 import {
-  isCallExpression,
   isArrowFunctionExpression,
+  isTSTypeReference,
+  VariableDeclaration,
+  isTypeAnnotation,
+  VariableDeclarator,
   isObjectPattern,
-  isAssignmentPattern,
+  Identifier,
 } from "@babel/types";
 
 interface Result {
@@ -17,18 +20,22 @@ export const validateRef = (ref: Babel.NodePath): Result => {
     error: true,
   };
   const node = ref.parentPath.node;
-  if (!isCallExpression(node)) {
-    result.errorMessage = `\`${name}\` should be used as a function. Please see the engine.macro documentation`;
-  } else if (node.arguments.length !== 1) {
-    result.errorMessage = `\`${name}\` should have only one argument`;
+  const refNode = ref.node as Identifier;
+  const parent = ref.findParent((p) => p.isVariableDeclarator());
+  const declaration = parent.node as VariableDeclarator;
+  if (!(isTSTypeReference(node) || isTypeAnnotation(node))) {
+    result.errorMessage = `\`${refNode.name}\` should be used as a type. Please see the engine documentation`;
+  } else if (!isArrowFunctionExpression(declaration.init)) {
+    result.errorMessage = `\`${refNode.name}\` should receive an arrow function expression. Please see the engine documentation`;
+  } else if (
+    declaration.init.params.length !== 1 ||
+    !isObjectPattern(declaration.init.params[0])
+  ) {
+    result.errorMessage = `\`${refNode.name}\` should receive a single argument which needs to be an object`;
   } else {
-    const instance = node.arguments[0];
-    if (!isArrowFunctionExpression(instance)) {
-      result.errorMessage = `\`${name}\` supports only arrow functions`;
-    } else {
-      result.error = false;
-      result.success = true;
-    }
+    result.error = false;
+    result.success = true;
   }
+
   return result;
 };

@@ -20,17 +20,20 @@ test("Simple load of a react component", () => {
   const defaultState = {
     foo: "123",
   };
-  const testProducer = producer((foo = Get.foo) => {});
+  const testProducer: producer = ({ foo = Get.foo }) => {};
 
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((foo = Get.foo) => {
+  const Component: view = ({ foo = Get.foo }) => {
     return <div data-testid="foo">{foo}</div>;
-  });
-  const prodA = producer((propValue = Get[Prop.propName], setBar = Set.bar) => {
+  };
+  const prodA: producer = ({
+    propValue = Get[Prop.propName],
+    setBar = Set.bar,
+  }) => {
     setBar(propValue);
-  });
+  };
 
   Component.producers = [prodA];
   const engine = new Engine({

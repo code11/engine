@@ -19,13 +19,11 @@ import { getOperation } from "./getOperation";
 import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { funcOperation } from "./funcOperation";
-import { getOrderedParams } from "./getOrderedParams";
 import { updateListeners } from "./updateListeners";
 
 export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
-  private paramsOrder: string[];
   db: DatastoreInstance;
   props: any;
   data: GraphData = {};
@@ -38,9 +36,6 @@ export class Graph {
     cb: Function,
     keepReferences: string[]
   ) {
-    if (!op.meta || !op.meta.order) {
-      throw new Error("Missing order for arguments list");
-    }
     const struct = merge(getInternalNodes(op), getExternalNodes(props));
     resolveDependencies(struct);
     this.props = props;
@@ -48,7 +43,6 @@ export class Graph {
     this.db = db;
     this.keepReferences = keepReferences;
     this.computeOrder = resolveOrder(struct);
-    this.paramsOrder = op.meta.order;
     this.cb = cb;
   }
   compute() {
@@ -115,8 +109,7 @@ export class Graph {
         return acc;
       }, {});
     }
-    const params = getOrderedParams(data, this.paramsOrder);
-    this.cb.apply(null, params);
+    this.cb.call(null, data);
   }
 
   destroy() {

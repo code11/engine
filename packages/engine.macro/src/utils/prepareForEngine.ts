@@ -11,6 +11,8 @@ import {
   importDeclaration,
   importSpecifier,
   stringLiteral,
+  VariableDeclarator,
+  callExpression,
 } from "@babel/types";
 import { validateRef } from "./validateRef";
 
@@ -35,8 +37,9 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
 
   const op = parseRef(babel, state, ref);
   const args = structOperationCompiler(op);
-  const node = ref.parentPath.node as CallExpression;
-  const fn = node.arguments[0] as ArrowFunctionExpression;
+  const parent = ref.findParent((p) => p.isVariableDeclarator());
+  const node = parent.node as VariableDeclarator;
+  const fn = node.init as ArrowFunctionExpression;
 
   fn.params = paramsCompiler(op);
   const result = objectExpression([
@@ -45,9 +48,10 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
   ]);
 
   if (type === TransformType.PRODUCER) {
-    ref.parentPath.replaceWith(result);
+    node.init = result;
   } else if (type === TransformType.VIEW) {
-    node.arguments[0] = result;
+    const viewCall = callExpression(identifier("view"), [result]);
+    node.init = viewCall;
     const viewImport = config.view.importFrom;
     const engineImport = importDeclaration(
       [importSpecifier(identifier("view"), identifier("view"))],

@@ -3,6 +3,10 @@ import {
   isAssignmentPattern,
   Identifier,
   isIdentifier,
+  ObjectPattern,
+  ObjectProperty,
+  isObjectProperty,
+  isRestElement,
 } from "@babel/types";
 import {
   OperationTypes,
@@ -12,35 +16,38 @@ import {
 } from "@c11/engine.types";
 import { processParamValue } from "./valueParser";
 
-export const paramsParser = (params: AssignmentPattern[]): StructOperation => {
-  const order: string[] = [];
-  const result = params.reduce(
+export const paramsParser = (params: ObjectPattern): StructOperation => {
+  const result = params.properties.reduce(
     (acc, x, idx) => {
-      if (isIdentifier(x)) {
-        const node = x as Identifier;
-        const propName = node.name;
-        const propValue = {
-          type: OperationTypes.VALUE,
-          value: {
-            type: ValueTypes.EXTERNAL,
-            path: [propName],
-          },
-        } as ValueOperation;
-        order.push(propName);
-        acc.value[propName] = propValue;
-      } else if (isAssignmentPattern(x)) {
-        const node = x as AssignmentPattern;
-        const left = node.left as Identifier;
-        const propName = left.name;
-        const propValue = processParamValue(node);
-        if (propValue) {
-          order.push(propName);
+      if (isObjectProperty(x)) {
+        if (isIdentifier(x.value)) {
+          const node = x.value as Identifier;
+          const propName = node.name;
+          const propValue = {
+            type: OperationTypes.VALUE,
+            value: {
+              type: ValueTypes.EXTERNAL,
+              path: [propName],
+            },
+          } as ValueOperation;
           acc.value[propName] = propValue;
+        } else if (isAssignmentPattern(x.value)) {
+          const node = x.value as AssignmentPattern;
+          const left = node.left as Identifier;
+          const propName = left.name;
+          const propValue = processParamValue(node);
+          if (propValue) {
+            acc.value[propName] = propValue;
+          } else {
+            throw new Error(
+              "Property " + propName + " could not be processed."
+            );
+          }
         } else {
-          throw new Error("Property " + propName + " could not be processed.");
+          console.log("Not object property", x);
         }
-      } else {
-        console.log("Not object property", x);
+      } else if (isRestElement(x)) {
+        throw new Error("Rest operator is not supported.");
       }
       return acc;
     },
@@ -50,9 +57,7 @@ export const paramsParser = (params: AssignmentPattern[]): StructOperation => {
     } as StructOperation
   );
 
-  result.meta = {
-    order,
-  };
+  result.meta = {};
 
   return result;
 };

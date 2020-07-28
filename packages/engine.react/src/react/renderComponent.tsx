@@ -10,7 +10,7 @@ export class RenderComponent extends React.Component<BaseState> {
   //   console.log("error", e);
   // }
   render() {
-    let el = this.props.fn.apply(null, this.props.state.data);
+    let el = this.props.fn.call(null, this.props.state.data);
     if (el) {
       let extraProps;
       // extraProps = calculateExtraProps(this.props, el);

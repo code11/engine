@@ -30,17 +30,21 @@ test("Should mount and unmount producers attached to a component", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component = view((foo = Get.foo) => {
+  const Component: view = ({ foo = Get.foo }) => {
     return <div data-testid="foo">{foo}</div>;
-  });
-  const prodA = producer((propValue = Get[Prop.propName], setBar = Set.bar) => {
+  };
+  const prodA: producer = ({
+    propValue = Get[Prop.propName],
+    setBar = Set.bar,
+  }) => {
     setBar(propValue);
-  });
+  };
   Component.producers = [prodA];
 
-  const Parent = view((shouldMount = Get.shouldMountChild) => (
+  const Parent: view = ({ shouldMount = Get.shouldMountChild }) => (
     <div>{shouldMount && <Component propName="foo"></Component>}</div>
-  ));
+  );
+
   const engine = new Engine({
     state: {
       initial: defaultState,
@@ -50,7 +54,9 @@ test("Should mount and unmount producers attached to a component", (done) => {
       root: rootEl,
     },
   });
+
   jest.runAllTimers();
+
   waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
     const db = engine.getContext().db;
     expect(db.get("/bar")).toBe("123");

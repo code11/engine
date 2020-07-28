@@ -1,8 +1,10 @@
 import React from "react";
+import shortid from "shortid";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
 import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine.types";
 import { Producer } from "@c11/engine.producer";
+import { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 
 // TopLevel{
@@ -33,11 +35,11 @@ import { RenderComponent } from "./renderComponent";
  */
 
 interface SampleState {}
-export function view({ args, fn }: ViewConfig) {
+export function view({ args, fn, meta }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
     args: StructOperation;
-    producers: Producer[];
+    producers: ProducerInstance[];
     isStateReady = false;
     ref: any;
     instance: ViewInstance;
@@ -52,23 +54,17 @@ export function view({ args, fn }: ViewConfig) {
           {
             args,
             fn: this.updateData.bind(this),
+            meta,
           },
           context
         ),
       ];
       const producers = (this.constructor as any).producers || [];
       producers.forEach((x: any) => {
-        this.producers.push(
-          new Producer(
-            {
-              args: x.args,
-              fn: x.fn,
-            },
-            context
-          )
-        );
+        this.producers.push(new Producer(x, context));
       });
       this.instance = {
+        id: shortid.generate(),
         producers: this.producers,
       };
       context.addView(this.instance);
@@ -80,7 +76,7 @@ export function view({ args, fn }: ViewConfig) {
     componentWillUnmount() {
       this.producers.forEach((x) => x.unmount());
     }
-    updateData(...data: any[]) {
+    updateData(data: any) {
       this.setState({
         data,
       });

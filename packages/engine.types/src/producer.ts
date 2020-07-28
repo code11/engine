@@ -1,4 +1,4 @@
-import { DatastoreInstance, Datastore } from "./db";
+import { DatastoreInstance } from "./db";
 import { ViewInstance } from "./view";
 
 export enum OperationTypes {
@@ -124,12 +124,22 @@ export interface ProducerData {
 
 export type ProducerFn = (...data: any) => void;
 
+export interface ProducerMeta {
+  name: string;
+  fileName: string;
+  lineNumber: number;
+  columnNumber: number;
+  order: string[];
+}
+
 export interface ProducerConfig {
+  meta: ProducerMeta;
   args: StructOperation;
   fn: ProducerFn;
 }
 
 export interface ProducerInstance {
+  id: string;
   mount: () => void;
   unmount: () => void;
   updateExternal: (props: ProducerContext["props"]) => this;

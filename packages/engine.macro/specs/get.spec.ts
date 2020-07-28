@@ -3,10 +3,11 @@ import prettier from "prettier";
 import plugin from "babel-plugin-macros";
 
 const macroFile = "'@c11/engine.macro'";
+const config = require("./babelConfig.json");
 
 pluginTester({
   plugin,
-  babelOptions: { filename: __filename },
+  babelOptions: { filename: __filename, ...config },
   formatResult: (result: any) => {
     return prettier.format(result, {
       parser: "babel",
@@ -16,7 +17,7 @@ pluginTester({
     "should support Get": {
       code: `
         import { producer } from ${macroFile}
-        const result = producer((
+        const result: producer = ({
           a1 = Get.foo,
           a2 = Get[Prop.foo],
           a3 = Get[Arg.a2],
@@ -26,7 +27,7 @@ pluginTester({
             baz: Get.foo[Arg.a4].baz,
           },
           a7 = Get.foo[Arg.a5.baz]
-        ) => { })
+        }) => { }
       `,
       snapshot: true,
     },
