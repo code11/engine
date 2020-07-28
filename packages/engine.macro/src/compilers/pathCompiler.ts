@@ -14,7 +14,13 @@ export const pathCompiler = (path: InvokablePath): ArrayExpression => {
     let type = objectProperty(identifier("type"), stringLiteral(x.type));
     let value = objectProperty(identifier("ignored"), nullLiteral());
     if (x.type === ValueTypes.CONST) {
-      value = objectProperty(identifier("value"), stringLiteral(x.value));
+      let paramValue;
+      if (x.value.__node__) {
+        paramValue = x.value.__node__;
+      } else {
+        paramValue = stringLiteral(x.value.toString());
+      }
+      value = objectProperty(identifier("value"), paramValue);
     } else if (
       x.type === ValueTypes.INTERNAL ||
       x.type === ValueTypes.EXTERNAL

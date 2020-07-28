@@ -4,6 +4,8 @@ import {
   Identifier,
   NumberLiteral,
   BooleanLiteral,
+  isIdentifier,
+  isTemplateLiteral,
 } from "@babel/types";
 import { PathArgs } from "@c11/engine.types";
 
@@ -28,22 +30,28 @@ export const getMemberExpressionParams = (node: Node): any[] => {
         result.shift();
         pathArg = ":" + result.join(".");
       } else {
-        throw new Error("Not support path argument" + result);
+        pathArg = {
+          __node__: node.property,
+        };
       }
       return [...getMemberExpressionParams(node.object), pathArg];
     } else {
-      // TODO: Figure out how to access .name or .value depending on property
-      return [
-        ...getMemberExpressionParams(node.object),
-        (node.property as any).name || (node.property as any).value,
-      ];
+      let value;
+      if (isIdentifier(node.property) && node.computed) {
+        value = { __node__: node.property };
+      } else if (isTemplateLiteral(node.property)) {
+        value = { __node__: node.property };
+      } else {
+        value = (node.property as any).name || (node.property as any).value;
+      }
+
+      return [...getMemberExpressionParams(node.object), value];
     }
   } else if (node.hasOwnProperty("value")) {
     return [(node as ValueNodes).value];
   } else if (node.hasOwnProperty("name")) {
     return [(node as Identifier).name];
   } else {
-    console.log("is different");
     return [];
   }
 };

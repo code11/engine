@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support Get: should support Get 1`] = `
+
+import { producer } from '@c11/engine.macro'
+const result: producer = ({
+  a1 = Remove.foo
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var result = {
+  args: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "REMOVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var a1 = _ref.a1;
+  },
+};
+
+
+`;

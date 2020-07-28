@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support Arg: should support Arg 1`] = `
+
+import { producer } from '@c11/engine.macro'
+const result: producer = ({
+  a1 = '123',
+  a2 = Arg.a1,
+  a3 = Arg.a2[Arg.a1],
+  a4 = Arg.a3[Prop.foo],
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var result = {
+  args: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+      a2: {
+        type: "VALUE",
+        value: {
+          type: "INTERNAL",
+          path: ["a1"],
+        },
+      },
+      a3: {
+        type: "VALUE",
+        value: {
+          type: "INTERNAL",
+          path: ["a2", "$a1"],
+        },
+      },
+      a4: {
+        type: "VALUE",
+        value: {
+          type: "INTERNAL",
+          path: ["a3", "@foo"],
+        },
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var a1 = _ref.a1,
+      a2 = _ref.a2,
+      a3 = _ref.a3,
+      a4 = _ref.a4;
+  },
+};
+
+
+`;

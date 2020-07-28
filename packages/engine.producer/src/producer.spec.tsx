@@ -34,6 +34,33 @@ test("should support Value operations with CONST values", () => {
   };
   run(struct);
 });
+
+test("should support paths with identifiers", () => {
+  const state = {
+    foo: {
+      name: "foo",
+      bar: "bar",
+      namebam: "bam",
+    },
+  };
+  const val = "name";
+  const obj = {
+    nest: {
+      value: "bar",
+    },
+  };
+  const struct: producer = ({
+    val0 = Get.foo[`${val}bam`],
+    val1 = Get.foo[val],
+    val2 = Get.foo[obj.nest.value],
+  }) => {
+    expect(val0).toBe(state.foo.namebam);
+    expect(val1).toBe(state.foo.name);
+    expect(val2).toBe(state.foo.bar);
+  };
+  run(struct, state);
+});
+
 test("should support producers stats", () => {
   const struct: producer = ({ color = Get.foo }) => {};
   const result = run(struct, undefined, undefined, undefined, true);
@@ -42,12 +69,14 @@ test("should support producers stats", () => {
   const stats = result.producer.getStats();
   expect(stats).toStrictEqual({ executionCount: 2 });
 });
+
 test("should support Value operations with INTERNAL values", () => {
   const val = "red";
   const struct: producer = ({ color = val, colorCopy = Arg.color }) => {
     expect(colorCopy).toBe(val);
   };
   run(struct);
+  jest.runAllTimers();
 });
 
 test("should support Value operations with EXTERNAL values", () => {

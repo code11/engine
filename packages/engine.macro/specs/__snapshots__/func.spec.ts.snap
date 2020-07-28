@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support composed types: functions: should support composed types: functions 1`] = `
+
+import { producer } from '@c11/engine.macro'
+const result: producer = ({
+  a1 = Get.foo || '123' && '123'
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var result = {
+  args: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "FUNC",
+        value: {
+          params: [
+            {
+              type: "GET",
+              value: "value",
+            },
+          ],
+          fn: "fn",
+        },
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var a1 = _ref.a1;
+  },
+};
+
+
+`;
