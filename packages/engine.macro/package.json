@@ -14,15 +14,15 @@
     "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*"
   },
   "devDependencies": {
-    "@babel/types": "^7.10.4",
+    "@babel/types": "^7.10.5",
     "@c11/engine.types": "^3.8.1",
-    "@types/babel-plugin-macros": "^2.6.0",
-    "babel-plugin-tester": "^8.0.1",
+    "@types/babel-plugin-macros": "^2.8.2",
+    "babel-plugin-tester": "^9.2.0",
     "prettier": "^2.0.5"
   },
   "dependencies": {
     "@c11/engine.types": "^3.8.1",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "engineConfig": {
     "view": {
