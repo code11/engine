@@ -1,7 +1,7 @@
 import { createMacro } from "babel-plugin-macros";
 import * as Babel from "@babel/core";
 import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
-import { replacePath } from "./utils/replacePath";
+import { addPathImport } from "./utils/addPathImport";
 
 type References = Babel.NodePath[];
 
@@ -27,9 +27,11 @@ function myMacro({ references, state, babel }: MacroParams) {
   producer.forEach((x) =>
     prepareForEngine(babel, state, x, TransformType.PRODUCER)
   );
-  Path.forEach((x) => {
-    replacePath(babel, state, x);
-  });
+  if (Path.length > 0) {
+    Path.forEach((x) => {
+      addPathImport(babel, state, x);
+    });
+  }
 }
 
 interface Config {

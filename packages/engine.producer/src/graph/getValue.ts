@@ -21,7 +21,15 @@ export const getValue = (
   }
   if (node) {
     if (parts.length > 0) {
-      return get(node.value, parts.join("."));
+      let value = parts.reduce((acc, x) => {
+        if (acc && x) {
+          acc = acc[x];
+        } else {
+          acc = void 0;
+        }
+        return acc;
+      }, node.value);
+      return value;
     } else {
       return node.value;
     }

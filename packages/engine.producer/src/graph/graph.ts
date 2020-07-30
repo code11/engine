@@ -1,6 +1,6 @@
 import merge from "lodash/merge";
 import set from "lodash/set";
-import cloneDeep from "lodash/cloneDeep";
+import cloneDeep from "clone-deep";
 import isFunction from "lodash/isFunction";
 import isEqual from "lodash/isEqual";
 import {

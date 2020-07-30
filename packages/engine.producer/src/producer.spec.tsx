@@ -370,7 +370,7 @@ test("merge should set a path if the path does not exist", () => {
   });
 });
 
-test.only("should support Path values to be used", () => {
+test("should support Path values to be used", () => {
   const state = {
     items: {
       foo: {
@@ -388,19 +388,23 @@ test.only("should support Path values to be used", () => {
   let getVal;
   let updateVal;
   const struct: producer = ({
-    path,
-    val1 = Observe[Arg.path],
-    val2 = Get[Prop.path][Param.propName],
-    val3 = Update[Prop.path].value,
+    path1,
+    path2,
+    foo = Prop.path1,
+    val1 = Observe[Arg.path1][Arg.path2].bam,
+    val2 = Get[Prop.path1][Prop.path2].bam[Param.propName],
+    val3 = Update[Prop.path1][Prop.path2.bam.value],
   }) => {
     observeVal = val1;
     getVal = val2({ propName: "value" });
     updateVal = val3;
   };
   const propName = "bar";
-  const path = Path.items.foo[propName].baz;
+  const path1 = Path.items;
+  const path2 = Path.foo[propName].baz;
   const props = {
-    path: path.bam,
+    path1,
+    path2,
   };
   const result = run(struct, state, props);
   jest.runAllTimers();
