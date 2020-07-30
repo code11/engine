@@ -1,4 +1,5 @@
 import { DatastoreInstance, Datastore } from "@c11/engine.types";
+import cloneDeep from 'lodash/cloneDeep'
 import on from "./api/on";
 import get from "./api/get";
 import has from "./api/has";
@@ -50,21 +51,15 @@ function jsonmvcdb(data: any): DatastoreInstance {
   };
 
   if (data) {
-    let datac = JSON.parse(JSON.stringify(data));
-    if (typeof datac === "string" || datac.toString() !== "[object Object]") {
-      err(db, "/err/types/db/1", datac);
-    } else if (datac.err) {
-      err(db, "/err/types/db/2", datac);
-    } else {
-      db.static = JSON.parse(JSON.stringify(data));
-      db.static.err = {
-        types: errTypes,
-        db: [],
-        patch: [],
-        node: [],
-        on: [],
-      };
-    }
+    db.static = cloneDeep(data);
+    db.static.err = {
+      types: errTypes,
+      db: [],
+      patch: [],
+      node: [],
+      on: [],
+    };
+
   }
 
   return {

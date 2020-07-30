@@ -42,13 +42,13 @@
     value: 123
   error: patch invalid
 
-- comment: should fail with a fn value
-  doc: {}
-  patch:
-  - op: add
-    path: /foo
-  valueFn: true
-  error: fn value patch
+# - comment: should fail with a fn value
+#   doc: {}
+#   patch:
+#   - op: add
+#     path: /foo
+#   valueFn: true
+#   error: fn value patch
 
 - comment: should not include circular dependencies
   doc: {}
@@ -58,13 +58,13 @@
   circular: true
   error: patch invalid
 
-- comment: should fail with a nonvalid jsondata
-  doc: {}
-  patch:
-  - op: add
-    path: /foo
-  nonValidJson: true
-  error: nonvalid jsondata
+# - comment: should fail with a nonvalid jsondata
+#   doc: {}
+#   patch:
+#   - op: add
+#     path: /foo
+#   nonValidJson: true
+#   error: nonvalid jsondata
 
 - comment: rearrangements OK?  How about one level down...
   doc:

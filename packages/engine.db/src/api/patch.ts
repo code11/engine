@@ -6,6 +6,7 @@ import isPatch from "../fn/isPatch";
 import applyPatch from "../fn/applyPatch";
 import invalidateCache from "../fn/invalidateCache";
 import err from "../fn/err";
+import clone from "../fn/clone";
 
 /**
  * patch
@@ -24,8 +25,9 @@ const patch = (db) => (patch, shouldValidate, shouldClone) => {
 
   if (shouldValidate) {
     try {
-      patch = JSON.parse(JSON.stringify(patch));
+      patch = clone(patch);
     } catch (e) {
+      console.log('e is:', e)
       err(db, "/err/types/patch/3", {});
       return;
     }

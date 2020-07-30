@@ -1,4 +1,4 @@
-# Db data tests
+Db data tests
 - comment: Should fail with non literal object data
   doc: [1, 2, 3]
   error: /err/types/db/1
