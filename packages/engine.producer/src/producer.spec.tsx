@@ -370,7 +370,7 @@ test("merge should set a path if the path does not exist", () => {
   });
 });
 
-test.only("should support Path values to be used", () => {
+test("should support Path values to be used", () => {
   const state = {
     items: {
       foo: {
