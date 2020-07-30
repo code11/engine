@@ -4,8 +4,10 @@ import setValue from "./setValue";
 import decomposePath from "./decomposePath";
 import setCache from "./setCache";
 import err from "./err";
+import { isWildcardPath } from "./isWildcardPath";
+import { getWildcardValue } from "./getWildcardValue";
 
-const getNode = (db, path) => {
+const getNode = (db, path, patch = []) => {
   let result;
   // @TODO: If there is a schema and the dynamic node
   // then return an empty value for that type:
@@ -46,7 +48,7 @@ const getNode = (db, path) => {
 
   if (isDynamic) {
     let nodes = db.dynamic.deps[dynamicParent];
-    let args = nodes.map((x) => getNode(db, x));
+    let args = nodes.map((x) => getNode(db, x, patch));
 
     // @TODO: decide how to handle case that uses only
     // existing values vs nodes that handle non existing
@@ -84,7 +86,12 @@ const getNode = (db, path) => {
       } while (dynamicChildren.length !== 0);
     }
   } else {
-    let val = getValue(db.static, path);
+    let val;
+    if (isWildcardPath(path)) {
+      val = getWildcardValue(db.static, path, patch);
+    } else {
+      val = getValue(db.static, path);
+    }
 
     if (val === undefined && db.dynamic.nesting[path]) {
       val = {};
@@ -101,7 +108,7 @@ const getNode = (db, path) => {
 
         if (nodes) {
           val = nodes.reduce((acc, x) => {
-            let node = getNode(db, x);
+            let node = getNode(db, x, patch);
             let root = x;
             if (path !== "/") {
               root = root.replace(path, "");
@@ -111,7 +118,6 @@ const getNode = (db, path) => {
           }, val);
         }
       } else {
-
         // val remains the same and does't need cloning
       }
     }

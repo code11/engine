@@ -140,7 +140,7 @@ tests.forEach((x) => {
         parents.forEach((x) => {
           let val = initial;
           let xs = splitPath(x);
-          while (xs.length > 0) {
+          while (xs.length > 0 && val) {
             val = val[xs.shift()];
           }
           expect(db.get(x)).toEqual(val);

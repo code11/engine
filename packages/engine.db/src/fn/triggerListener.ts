@@ -2,7 +2,7 @@ import "setimmediate";
 import getNode from "./getNode";
 import err from "./err";
 
-function callNode(db, path, i) {
+function callNode(db, path, i, patch = []) {
   let fns = db.updates.fns[path];
 
   if (!fns || !fns[i]) {
@@ -11,7 +11,7 @@ function callNode(db, path, i) {
 
   let fn = fns[i];
 
-  let val = getNode(db, path);
+  let val = getNode(db, path, patch);
   let cacheTest = JSON.stringify(val);
 
   if (db.updates.cache[path][i] !== cacheTest) {
@@ -30,7 +30,7 @@ function callNode(db, path, i) {
   }
 }
 
-function triggerListener(db, path) {
+function triggerListener(db, path, patch = []) {
   let fns = db.updates.fns[path];
 
   if (!fns) {
@@ -42,7 +42,7 @@ function triggerListener(db, path) {
 
   for (let i = 0; i < len; i += 1) {
     setImmediate(() => {
-      callNode(db, path, ids[i]);
+      callNode(db, path, ids[i], patch);
     });
   }
 }
