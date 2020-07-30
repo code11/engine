@@ -1,3 +1,3 @@
 import clone from "clone-deep";
 
-export default clone
+export default clone;

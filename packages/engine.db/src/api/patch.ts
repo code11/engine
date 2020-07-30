@@ -1,12 +1,8 @@
-import getValue from "../fn/getValue";
-import decomposePath from "../fn/decomposePath";
-import uniq from "uniq";
-import splitPath from "../fn/splitPath";
 import isPatch from "../fn/isPatch";
 import applyPatch from "../fn/applyPatch";
-import invalidateCache from "../fn/invalidateCache";
 import err from "../fn/err";
 import clone from "../fn/clone";
+import isCircular from "is-circular";
 
 /**
  * patch
@@ -18,19 +14,22 @@ const patch = (db) => (patch, shouldValidate, shouldClone) => {
   shouldValidate = shouldValidate !== undefined ? shouldValidate : true;
   shouldClone = shouldClone !== undefined ? shouldClone : true;
 
+  if (isCircular(patch)) {
+    err(db, "/err/types/patch/3", "circular patch");
+    return;
+  }
+
   if (shouldValidate && !isPatch(db.schema, patch)) {
     err(db, "/err/types/patch/1", patch);
     return;
   }
 
   if (shouldValidate) {
-    try {
-      patch = clone(patch);
-    } catch (e) {
-      console.log('e is:', e)
-      err(db, "/err/types/patch/3", {});
-      return;
-    }
+    // validation based on schema
+  }
+
+  if (shouldClone) {
+    patch = clone(patch);
   }
 
   // @TODO by the way object data that is passed
