@@ -16,8 +16,13 @@ pluginTester({
   tests: {
     "should support Path": {
       code: `
-        import { Path } from ${macroFile};
-        Path.foo.bar
+        import { Path, view } from ${macroFile};
+        const a = Path.foo.bar
+        const foo: view = ({
+          value = Path.bar,
+          doo = a.bam,
+          boo = Observe.foo[Arg.value][Arg.doo]
+        }) => {}
       `,
       snapshot: true,
     },

@@ -2,14 +2,67 @@
 
 exports[`macros should support Path: should support Path 1`] = `
 
-import { Path } from '@c11/engine.macro';
-Path.foo.bar
+import { Path, view } from '@c11/engine.macro';
+const a = Path.foo.bar
+const foo: view = ({
+  value = Path.bar,
+  doo = a.bam,
+  boo = Observe.foo[Arg.value][Arg.doo]
+}) => {}
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 "use strict";
 
-Path.foo.bar;
+var _engine = require("@c11/engine.producer");
+
+var _engineView = require("@c11/engine-view");
+
+var a = _engine.Path.foo.bar;
+var foo = (0, _engineView.view)({
+  args: {
+    type: "STRUCT",
+    value: {
+      value: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: _engine.Path.bar,
+        },
+      },
+      doo: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: a.bam,
+        },
+      },
+      boo: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INTERNAL",
+            path: ["value"],
+          },
+          {
+            type: "INTERNAL",
+            path: ["doo"],
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  fn: function fn(_ref) {
+    var value = _ref.value,
+      doo = _ref.doo,
+      boo = _ref.boo;
+  },
+});
 
 
 `;
