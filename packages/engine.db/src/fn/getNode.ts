@@ -111,6 +111,7 @@ const getNode = (db, path) => {
           }, val);
         }
       } else {
+
         // val remains the same and does't need cloning
       }
     }

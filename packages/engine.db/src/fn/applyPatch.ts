@@ -6,7 +6,7 @@ import isPlainObject from "lodash/isPlainObject";
 import merge from "lodash/merge";
 import splitPath from "./splitPath";
 import decomposePath from "./decomposePath";
-import clone from "lodash/cloneDeep";
+import clone from "../fn/clone";
 import triggerListener from "./triggerListener";
 import pathTriggers from "./pathTriggers";
 
@@ -100,7 +100,6 @@ function applyPatch(db, patch, shouldClone) {
     x = patch[i];
     xPath = x.path;
     xValue = x.value;
-
     // @TODO: Add test/move/copy cases for deleting cache
     delete cachePaths[xPath];
     clearCacheRecursive(

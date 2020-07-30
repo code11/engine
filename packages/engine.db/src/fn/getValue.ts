@@ -1,5 +1,5 @@
 import splitPath from "./splitPath";
-
+import clone from "../fn/clone";
 export default (obj, path) => {
   let parts = splitPath(path);
   let val = obj;
@@ -21,7 +21,7 @@ export default (obj, path) => {
     val.toString &&
     (val.toString() === "[object Object]" || val instanceof Array)
   ) {
-    val = JSON.parse(JSON.stringify(val));
+    val = clone(val);
   }
 
   return val;
