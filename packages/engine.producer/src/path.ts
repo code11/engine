@@ -7,7 +7,7 @@ function createProxy(path: any[] = [], obj = new PathObject()): any {
       if (prop === Symbol.toStringTag) {
         return true;
       } else if (prop === Symbol.toPrimitive) {
-        return path;
+        return (hint: any) => path.join(".");
       } else if (prop === "constructor") {
         return PathObject;
       } else if (prop === "__symbol__") {

@@ -14,8 +14,10 @@ export const getInvokablePath = (
   const path = op.path.reduce((acc, x: any) => {
     const value = resolveValue(structure, x, params);
     if (value && value.__symbol__ === PathSymbol) {
-      const expanded = value[Symbol.toPrimitive];
-      acc = acc.concat(expanded);
+      const expanded = value[Symbol.toPrimitive]();
+      if (expanded) {
+        acc = acc.concat(expanded.split("."));
+      }
     } else {
       acc.push(value);
     }
