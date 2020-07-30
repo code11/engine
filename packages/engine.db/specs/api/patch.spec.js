@@ -14,7 +14,7 @@ const identity = (x) => x;
 
 const additionalProps = ["err"];
 
-// tests = [tests[tests.length - 1]]
+// tests = [tests[5]];
 
 tests.forEach((x) => {
   if (x.disabled) {
