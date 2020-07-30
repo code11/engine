@@ -1,6 +1,8 @@
 import db from "@c11/engine.db";
 import { Producer } from "./";
-import { Path, producer } from "@c11/engine.macro";
+import { producer } from "@c11/engine.macro";
+import { Path } from "./path";
+import { isPlainObject } from "lodash";
 
 jest.useFakeTimers();
 
@@ -368,22 +370,46 @@ test("merge should set a path if the path does not exist", () => {
   });
 });
 
-test.skip("show allow dynamic get and sets using paths", () => {
+test.only("should support Path values to be used", () => {
   const state = {
     items: {
-      foo: "123",
+      foo: {
+        bar: {
+          baz: {
+            bam: {
+              value: "123",
+            },
+          },
+        },
+      },
     },
   };
-  let val;
-  const struct: producer = ({ foo = Observe[Prop.foo] }) => {
-    val = foo;
+  let observeVal;
+  let getVal;
+  let updateVal;
+  const struct: producer = ({
+    path,
+    val1 = Observe[Arg.path],
+    val2 = Get[Prop.path][Param.propName],
+    val3 = Update[Prop.path].value,
+  }) => {
+    observeVal = val1;
+    getVal = val2({ propName: "value" });
+    updateVal = val3;
   };
+  const propName = "bar";
+  const path = Path.items.foo[propName].baz;
   const props = {
-    foo: Path.items.foo,
+    path: path.bam,
   };
   const result = run(struct, state, props);
   jest.runAllTimers();
-  expect(val).toBe("123");
+  expect(observeVal).toEqual(state.items.foo.bar.baz.bam);
+  expect(getVal).toEqual(state.items.foo.bar.baz.bam.value);
+  updateVal.set("321");
+  jest.runAllTimers();
+  expect(observeVal).toEqual({ value: "321" });
+  expect(getVal).toEqual("321");
 });
 
 test("should unmount producers no longer in use", () => {
