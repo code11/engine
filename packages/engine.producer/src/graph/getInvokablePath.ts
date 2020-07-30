@@ -3,6 +3,7 @@ import {
   UpdateOperation,
   GetOperation,
 } from "@c11/engine.types";
+import { PathSymbol } from "../path";
 import { resolveValue } from "./resolveValue";
 
 export const getInvokablePath = (
@@ -10,9 +11,17 @@ export const getInvokablePath = (
   op: GetOperation | UpdateOperation,
   params: any
 ) => {
-  const path = op.path.map((x: any) => {
-    return resolveValue(structure, x, params);
-  });
+  const path = op.path.reduce((acc, x: any) => {
+    const value = resolveValue(structure, x, params);
+    if (value && value.__symbol__ === PathSymbol) {
+      const expanded = value[Symbol.toPrimitive];
+      acc = acc.concat(expanded);
+    } else {
+      acc.push(value);
+    }
+    return acc;
+  }, [] as any[]);
+
   if (path.includes(undefined) || path.includes(null)) {
     return;
   } else {
