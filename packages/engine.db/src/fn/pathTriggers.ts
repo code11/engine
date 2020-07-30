@@ -6,6 +6,7 @@ function pathTriggers(db: any, path: any) {
   let trigger: any[] = [];
 
   let parts = decomposePath(path);
+
   //@ts-ignore
   parts.push(path);
 

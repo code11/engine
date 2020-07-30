@@ -258,7 +258,7 @@ function applyPatch(db, patch, shouldClone) {
   trigger = flatten(trigger);
 
   trigger.map((x) => {
-    triggerListener(db, x);
+    triggerListener(db, x, patch);
   });
 
   return {

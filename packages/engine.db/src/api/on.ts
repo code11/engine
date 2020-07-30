@@ -5,6 +5,7 @@ import decomposePath from "../fn/decomposePath";
 import updateTriggers from "../fn/updateTriggers";
 import patch from "./patch";
 import err from "../fn/err";
+import { isWildcardPath } from "../fn/isWildcardPath";
 
 let listenerId = 0;
 
@@ -46,7 +47,9 @@ const on = (db) => (path, fn) => {
     db.updates.fns[path][listenerId] = fn;
   }
 
-  triggerListener(db, path);
+  if (!isWildcardPath(path)) {
+    triggerListener(db, path);
+  }
 
   let id = listenerId;
   return function unsubscribe() {

@@ -1,17 +1,18 @@
 import db from "@c11/engine.db";
 import { Producer } from "./";
-import { producer } from "@c11/engine.macro";
+import {
+  Get,
+  Observe,
+  Update,
+  Prop,
+  Arg,
+  Param,
+  producer,
+} from "@c11/engine.macro";
 import { Path } from "./path";
 import { isPlainObject } from "lodash";
 
 jest.useFakeTimers();
-
-let Get: any = {};
-let Observe: any = {};
-let Update: any = {};
-let Prop: any = {};
-let Arg: any = {};
-let Param: any = {};
 
 function run(producer, state = {}, props = {}, DB = db(state), debug = false) {
   const ctx = {
@@ -368,6 +369,31 @@ test("merge should set a path if the path does not exist", () => {
       bam: "123",
     },
   });
+});
+
+test("should support Wildcard", () => {
+  const state = {
+    items: {
+      byId: {},
+    },
+  };
+  let val1;
+  let val2;
+  const struct: producer = ({
+    value1 = Observe.items.byId["*"],
+    value2 = Observe.items.byId["*"].name,
+  }) => {
+    val1 = value1;
+    val2 = value2;
+  };
+  const result = run(struct, state);
+  jest.runAllTimers();
+  result.db.patch([
+    { op: "add", path: "/items/byId/xyz", value: { name: "123" } },
+  ]);
+  jest.runAllTimers();
+  expect(val1).toEqual({ name: "123" });
+  expect(val2).toEqual("123");
 });
 
 test("should support Path values to be used", () => {
