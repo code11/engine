@@ -15,4 +15,20 @@ const a = Observe.foo.bar.baz
 <Foo value="123">
 ```
 
-Check the value of a prop and if it's a listener treat it as if it was defined at the component level
+- Check the value of a prop and if it's a listener treat it as if it was defined at the component level
+
+- Test if identifier is in the function's arguments list and add it as Arg
+
+```
+  foo,
+  bar = Observe[foo.baz]
+```
+
+is considered to be
+
+```
+foo,
+bar = Observe[Arg.foo.baz]
+```
+
+- Test if props are cloned or are given by reference - they should be clonned
