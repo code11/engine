@@ -2,7 +2,7 @@ import isPatch from "../fn/isPatch";
 import applyPatch from "../fn/applyPatch";
 import err from "../fn/err";
 import clone from "../fn/clone";
-import isCircular from "is-circular";
+import { isCircular } from "../fn/isCircular";
 
 /**
  * patch
