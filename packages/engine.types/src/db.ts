@@ -13,7 +13,7 @@ export interface DatastoreInstance {
   ): any;
   has(path: string): boolean;
   get(path: string): any;
-  on(path: string, cb: (value: any) => void): RemoveListener;
+  on(path: string, cb: (value: any, patch: Patch[]) => void): RemoveListener;
   patch(patches: Patch[]): void;
   db: Datastore;
 }

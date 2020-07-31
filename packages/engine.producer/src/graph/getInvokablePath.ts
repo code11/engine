@@ -5,6 +5,7 @@ import {
 } from "@c11/engine.types";
 import { PathSymbol } from "../path";
 import { resolveValue } from "./resolveValue";
+import { Wildcard } from "../wildcard";
 
 export const getInvokablePath = (
   structure: GraphStructure,
@@ -19,7 +20,11 @@ export const getInvokablePath = (
         acc = acc.concat(expanded.split("."));
       }
     } else {
-      acc.push(value);
+      if (value === Wildcard) {
+        acc.push("*");
+      } else {
+        acc.push(value);
+      }
     }
     return acc;
   }, [] as any[]);

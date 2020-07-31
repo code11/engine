@@ -46,7 +46,7 @@ export const updateListeners = (
         }
         const newValue = db.get(result.value);
         if (node.listener) {
-          node.listener(newValue, true);
+          node.listener(newValue, [], true);
         }
       }
     }
