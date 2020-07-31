@@ -1,4 +1,6 @@
+const http = require("http");
 let dbFn;
+
 if (process.env.NODE_ENV === "test") {
   dbFn = require(`${__dirname}/../../dist`).default;
 } else {
@@ -40,11 +42,27 @@ test("Should clone Buffers", () => {
   expect(value).not.toBe(buffer);
 });
 
-test("Should not clone Streams", () => {
-  const readStream = fs.createReadStream(__dirname + "/on.yml");
-  const db = dbFn({});
-  db.patch([{ op: "add", path: "/foo", value: readStream }]);
-  jest.runAllTimers();
-  const value = db.get("/foo");
-  expect(value).toBe(readStream);
+test("Should not clone Streams", (done) => {
+  const server = http.createServer((req, res) => {
+    const db = dbFn({});
+    db.patch([{ op: "add", path: "/foo", value: { res, req } }]);
+    jest.runAllTimers();
+    const value = db.get("/foo");
+    expect(value.res).toBe(res);
+    expect(value.req).toBe(req);
+
+    value.res.writeHead(200, { "Content-Type": "text/plain" });
+    value.res.end("ok");
+    server.close();
+    done();
+  });
+
+  server.listen(1337, "127.0.0.1", () => {
+    const options = {
+      port: 1337,
+      host: "127.0.0.1",
+    };
+    const req = http.request(options);
+    req.end();
+  });
 });
