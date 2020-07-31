@@ -1,6 +1,7 @@
 import "setimmediate";
 import getNode from "./getNode";
 import err from "./err";
+import { isPlainObject, isArray } from "lodash";
 
 function callNode(db, path, i, patch = []) {
   let fns = db.updates.fns[path];
@@ -12,7 +13,14 @@ function callNode(db, path, i, patch = []) {
   let fn = fns[i];
 
   let val = getNode(db, path, patch);
-  let cacheTest = JSON.stringify(val);
+
+  const replacer = (key, value) => {
+    if (isPlainObject(value) || isArray(value) || value !== Object(value)) {
+      return value;
+    }
+    return undefined;
+  };
+  let cacheTest = JSON.stringify(val, replacer);
 
   if (db.updates.cache[path][i] !== cacheTest) {
     db.updates.cache[path][i] = cacheTest;

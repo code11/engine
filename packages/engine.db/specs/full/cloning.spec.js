@@ -45,11 +45,17 @@ test("Should clone Buffers", () => {
 test("Should not clone Streams", (done) => {
   const server = http.createServer((req, res) => {
     const db = dbFn({});
-    db.patch([{ op: "add", path: "/foo", value: { res, req } }]);
+    let fromListener;
+    db.on("/foo", (x) => {
+      fromListener = x;
+    });
+    db.patch([{ op: "add", path: "/foo", value: { name: "123", res, req } }]);
     jest.runAllTimers();
     const value = db.get("/foo");
     expect(value.res).toBe(res);
     expect(value.req).toBe(req);
+    expect(fromListener.res).toBe(res);
+    expect(fromListener.req).toBe(req);
 
     value.res.writeHead(200, { "Content-Type": "text/plain" });
     value.res.end("ok");
