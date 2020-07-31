@@ -9,6 +9,7 @@ import {
   GraphData,
   GraphStructure,
   GraphNodeType,
+  ValueTypes,
 } from "@c11/engine.types";
 import { resolveDependencies } from "./resolveDependencies";
 import { getExternalNodes } from "./getExternalNodes";
@@ -20,6 +21,7 @@ import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { funcOperation } from "./funcOperation";
 import { updateListeners } from "./updateListeners";
+import { Wildcard } from "../wildcard";
 
 export class Graph {
   private structure: GraphStructure;
@@ -101,11 +103,40 @@ export class Graph {
         return acc;
       }, [] as string[]);
       data = Object.keys(data).reduce((acc: any, x) => {
-        if (refs.includes(`internal.${x}`) || isFunction(data[x])) {
-          acc[x] = data[x];
+        const value = data[x];
+        if (value === Wildcard) {
+          const node = this.structure[`internal.${x}`];
+          if (node) {
+            // There should be only one dependency to a Wildcard node
+            const depId = node.isDependedBy[0];
+            const dep = this.structure[depId];
+            if (
+              dep.type === GraphNodeType.INTERNAL &&
+              dep.op &&
+              dep.op.type === OperationTypes.OBSERVE
+            ) {
+              const idx = dep.op.path.findIndex(
+                (y) => y.type === ValueTypes.INTERNAL && y.path[0] === x
+              );
+              // We assume only one operation per patch for simpicity
+              const path =
+                dep.fromPatch && dep.fromPatch[0] && dep.fromPatch[0].path;
+              if (path) {
+                const parts = path.split("/");
+                parts.shift();
+                const wildcardValue = parts[idx];
+                if (wildcardValue) {
+                  acc[x] = wildcardValue;
+                }
+              }
+            }
+          }
+        } else if (refs.includes(`internal.${x}`) || isFunction(data[x])) {
+          acc[x] = value;
         } else {
-          acc[x] = cloneDeep(data[x]);
+          acc[x] = cloneDeep(value);
         }
+
         return acc;
       }, {});
     }

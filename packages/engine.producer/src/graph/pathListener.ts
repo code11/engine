@@ -4,6 +4,7 @@ import {
   GraphData,
   GraphStructure,
   GraphNode,
+  Patch,
 } from "@c11/engine.types";
 
 import { updateListeners } from "./updateListeners";
@@ -26,11 +27,12 @@ export const pathListener = (
   // Don't trigger is for updates that occur during anoter Get
   // operation that would otherwise call the update multiple
   // times for the same value
-  return (newValue: any, shouldUpdate?: boolean) => {
+  return (newValue: any, patch?: Patch[], shouldUpdate?: boolean) => {
     if (newValue === node.value) {
       return;
     }
     node.value = newValue;
+    node.fromPatch = patch;
     set(_this.data, node.nesting, node.value);
 
     updateListeners(_this, update, db, data, structure, node);

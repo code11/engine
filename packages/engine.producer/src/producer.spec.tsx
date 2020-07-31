@@ -10,6 +10,7 @@ import {
   producer,
 } from "@c11/engine.macro";
 import { Path } from "./path";
+import { Wildcard } from "./wildcard";
 import { isPlainObject } from "lodash";
 
 jest.useFakeTimers();
@@ -379,10 +380,13 @@ test("should support Wildcard", () => {
   };
   let val1;
   let val2;
+  let id1;
   const struct: producer = ({
-    value1 = Observe.items.byId["*"],
-    value2 = Observe.items.byId["*"].name,
+    id = Wildcard,
+    value1 = Observe.items.byId[Arg.id],
+    value2 = Observe.items.byId[Wildcard].name,
   }) => {
+    id1 = id;
     val1 = value1;
     val2 = value2;
   };
@@ -392,6 +396,7 @@ test("should support Wildcard", () => {
     { op: "add", path: "/items/byId/xyz", value: { name: "123" } },
   ]);
   jest.runAllTimers();
+  expect(id1).toEqual("xyz");
   expect(val1).toEqual({ name: "123" });
   expect(val2).toEqual("123");
 });

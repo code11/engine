@@ -26,7 +26,7 @@ function callNode(db, path, i, patch = []) {
     db.updates.cache[path][i] = cacheTest;
     (function () {
       try {
-        fn.call(null, val);
+        fn.call(null, val, patch);
       } catch (e) {
         err(db, "/err/types/on/2", {
           path: path,

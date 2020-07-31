@@ -1,4 +1,4 @@
-import { RemoveListener } from "./db";
+import { RemoveListener, Patch } from "./db";
 import { Operation } from "./producer";
 
 export enum GraphNodeType {
@@ -13,6 +13,7 @@ export interface GraphNode {
   type: GraphNodeType;
   value: any;
   isDependedBy: string[];
+  fromPatch?: Patch[];
 }
 
 export interface GraphExternalNode extends GraphNode {
@@ -25,7 +26,7 @@ export interface GraphInternalNode extends GraphNode {
   path: string | undefined;
   dependsOn: string[];
   removeListener: RemoveListener | undefined;
-  listener?: (value: any, shouldUpdate?: boolean) => void;
+  listener?: (value: any, patch: Patch[], shouldUpdate?: boolean) => void;
   removeFuncListeners: {
     [key: number]: RemoveListener;
   };

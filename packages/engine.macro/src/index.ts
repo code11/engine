@@ -2,6 +2,7 @@ import { createMacro } from "babel-plugin-macros";
 import * as Babel from "@babel/core";
 import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
 import { addPathImport } from "./utils/addPathImport";
+import { addWildcardImport } from "./utils/addWildcardImport";
 
 type References = Babel.NodePath[];
 
@@ -10,6 +11,7 @@ interface MacroParams {
     view?: References;
     producer?: References;
     Path?: References;
+    Wildcard?: References;
     default: References;
   };
   state: any;
@@ -22,7 +24,7 @@ interface MacroParams {
  */
 
 function myMacro({ references, state, babel }: MacroParams) {
-  const { Path = [], view = [], producer = [] } = references;
+  const { Wildcard = [], Path = [], view = [], producer = [] } = references;
   view.forEach((x) => prepareForEngine(babel, state, x, TransformType.VIEW));
   producer.forEach((x) =>
     prepareForEngine(babel, state, x, TransformType.PRODUCER)
@@ -30,6 +32,11 @@ function myMacro({ references, state, babel }: MacroParams) {
   if (Path.length > 0) {
     Path.forEach((x) => {
       addPathImport(babel, state, x);
+    });
+  }
+  if (Wildcard.length > 0) {
+    Wildcard.forEach((x) => {
+      addWildcardImport(babel, state, x);
     });
   }
 }
@@ -48,6 +55,7 @@ export const Arg: any = {};
 export const Prop: any = {};
 export const Param: any = {};
 export const Path: any = {};
+export const Wildcard: any = {};
 
 const macro = createMacro(myMacro);
 export default macro;
