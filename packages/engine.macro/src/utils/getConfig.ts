@@ -21,7 +21,6 @@ export const getConfig = (state: any) => {
 
   let config = packageJson.engineConfig;
   if (!config) {
-    console.warn("You should add engineConfig to your package.json");
     config = {
       view: {
         importFrom: "@c11/engine.react",
