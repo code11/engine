@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`macros should support empty arguments: should support empty arguments 1`] = `
+
+import { view } from '@c11/engine.macro';
+const foo: view = () => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var _engineView = require("@c11/engine-view");
+
+function _objectDestructuringEmpty(obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+}
+
+var foo = (0, _engineView.view)({
+  args: {
+    type: "STRUCT",
+    value: {},
+  },
+  fn: function fn(_ref) {
+    _objectDestructuringEmpty(_ref);
+  },
+});
+
+
+`;

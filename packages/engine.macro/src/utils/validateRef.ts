@@ -28,7 +28,7 @@ export const validateRef = (ref: Babel.NodePath): Result => {
   } else if (!isArrowFunctionExpression(declaration.init)) {
     result.errorMessage = `\`${refNode.name}\` should receive an arrow function expression. Please see the engine documentation`;
   } else if (
-    declaration.init.params.length !== 1 ||
+    declaration.init.params.length > 0 &&
     !isObjectPattern(declaration.init.params[0])
   ) {
     result.errorMessage = `\`${refNode.name}\` should receive a single argument which needs to be an object`;
