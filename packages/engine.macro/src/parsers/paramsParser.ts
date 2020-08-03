@@ -17,6 +17,12 @@ import {
 import { processParamValue } from "./valueParser";
 
 export const paramsParser = (params: ObjectPattern): StructOperation => {
+  if (!params) {
+    return {
+      type: OperationTypes.STRUCT,
+      value: {},
+    };
+  }
   const result = params.properties.reduce(
     (acc, x, idx) => {
       if (isObjectProperty(x)) {
