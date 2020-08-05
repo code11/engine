@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.producer",
-  "version": "3.8.1",
+  "version": "4.0.0-alpha.0",
   "description": "A programming engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,14 +19,14 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./src/*"
   },
   "devDependencies": {
-    "@c11/engine.macro": "^3.8.1",
+    "@c11/engine.macro": "^4.0.0-alpha.0",
     "@c11/engine.types": "^3.8.1",
     "@types/clone-deep": "^4.0.1",
     "@types/shortid": "^0.0.29"
   },
   "dependencies": {
-    "@c11/engine.db": "^3.8.1",
-    "@c11/engine.types": "^3.8.1",
+    "@c11/engine.db": "^4.0.0-alpha.0",
+    "@c11/engine.types": "^4.0.0-alpha.0",
     "clone-deep": "^4.0.1",
     "lodash": "^4.17.19",
     "shortid": "^2.2.15"

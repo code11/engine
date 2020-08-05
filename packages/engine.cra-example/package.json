@@ -1,10 +1,10 @@
 {
   "name": "engine-cra-example",
-  "version": "3.8.1",
+  "version": "4.0.0-alpha.0",
   "private": true,
   "dependencies": {
-    "@c11/engine.db": "^3.8.1",
-    "@c11/engine.react": "^3.8.1",
+    "@c11/engine.db": "^4.0.0-alpha.0",
+    "@c11/engine.react": "^4.0.0-alpha.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -35,8 +35,8 @@
     }
   },
   "devDependencies": {
-    "@c11/engine.macro": "^3.8.1",
-    "@c11/engine.types": "^3.8.1",
+    "@c11/engine.macro": "^4.0.0-alpha.0",
+    "@c11/engine.types": "^4.0.0-alpha.0",
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",
     "@testing-library/user-event": "^12.0.17",

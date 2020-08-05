@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.db",
-  "version": "3.8.1",
+  "version": "4.0.0-alpha.0",
   "description": "The engine db",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./specs/**/*"
   },
   "devDependencies": {
-    "@c11/engine.types": "^3.8.1",
+    "@c11/engine.types": "^4.0.0-alpha.0",
     "@types/uniq": "0.0.27",
     "yamljs": "^0.3.0"
   },

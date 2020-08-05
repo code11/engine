@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "engine.express-example",
-  "version": "3.8.1",
+  "version": "4.0.0-alpha.0",
   "description": "An example for engine.node used with express",
   "main": "src/index.js",
   "license": "MIT",
@@ -10,10 +10,10 @@
     "test": ""
   },
   "dependencies": {
-    "@c11/engine.db": "^3.8.1",
-    "@c11/engine.node": "^3.8.1"
+    "@c11/engine.db": "^4.0.0-alpha.0",
+    "@c11/engine.node": "^4.0.0-alpha.0"
   },
   "devDependencies": {
-    "@c11/engine.types": "^3.8.1"
+    "@c11/engine.types": "^4.0.0-alpha.0"
   }
 }
