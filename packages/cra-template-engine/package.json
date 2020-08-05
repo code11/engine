@@ -1,6 +1,6 @@
 {
   "name": "cra-template-engine",
-  "version": "3.8.0",
+  "version": "4.0.0-alpha.0",
   "keywords": [
     "react",
     "create-react-app",
@@ -24,9 +24,9 @@
     "template.json"
   ],
   "dependencies": {
-    "@c11/engine.db": "^3.8.1"
+    "@c11/engine.db": "^4.0.0-alpha.0"
   },
   "devDependencies": {
-    "@c11/engine.types": "^3.8.1"
+    "@c11/engine.types": "^4.0.0-alpha.0"
   }
 }

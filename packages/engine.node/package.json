@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.node",
-  "version": "3.8.1",
+  "version": "4.0.0-alpha.0",
   "description": "A programming engine for the node environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -14,12 +14,12 @@
     "email": "constantin.dumitrescu@code11.com"
   },
   "dependencies": {
-    "@c11/engine.db": "^3.8.1",
-    "@c11/engine.macro": "^3.8.1",
-    "@c11/engine.producer": "^3.8.1"
+    "@c11/engine.db": "^4.0.0-alpha.0",
+    "@c11/engine.macro": "^4.0.0-alpha.0",
+    "@c11/engine.producer": "^4.0.0-alpha.0"
   },
   "devDependencies": {
-    "@c11/engine.types": "^3.1.0"
+    "@c11/engine.types": "^4.0.0-alpha.0"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }
