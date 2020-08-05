@@ -32,3 +32,5 @@ bar = Observe[Arg.foo.baz]
 ```
 
 - Test if props are cloned or are given by reference - they should be clonned
+
+- Add Array methods for modifying arrays to the Update operation
