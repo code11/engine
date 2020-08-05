@@ -1,4 +1,5 @@
 import { createMacro } from "babel-plugin-macros";
+import { ReactElement } from "react";
 import * as Babel from "@babel/core";
 import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
 import { addPathImport } from "./utils/addPathImport";
@@ -45,8 +46,8 @@ interface Config {
   [k: string]: any;
 }
 
-export type producer = any;
-export type view = any;
+export type producer<T = any> = (props: T) => void;
+export type view<T = any> = (props: T) => ReactElement<T>;
 
 export const Observe: any = {};
 export const Update: any = {};
