@@ -13,6 +13,8 @@ import {
   stringLiteral,
   VariableDeclarator,
   callExpression,
+  ImportDeclaration,
+  isImportSpecifier,
 } from "@babel/types";
 import { validateRef } from "./validateRef";
 
@@ -53,11 +55,6 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
     const viewCall = callExpression(identifier("view"), [result]);
     node.init = viewCall;
     const viewImport = config.view.importFrom;
-    const engineImport = importDeclaration(
-      [importSpecifier(identifier("view"), identifier("view"))],
-      stringLiteral(viewImport)
-    );
-
     const macroImport = ref
       .findParent((p) => p.isProgram())
       .get("body")
@@ -67,7 +64,7 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
           p.node.source.value.indexOf("@c11/engine.macro") !== -1;
         return result;
       });
-    const hasEngineImport = ref
+    const engineImport = ref
       .findParent((p) => p.isProgram())
       .get("body")
       .find((p) => {
@@ -78,8 +75,23 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
       });
 
     if (macroImport) {
-      if (!hasEngineImport) {
-        macroImport.insertAfter(engineImport);
+      if (!engineImport) {
+        macroImport.insertAfter(
+          importDeclaration(
+            [importSpecifier(identifier("view"), identifier("view"))],
+            stringLiteral(viewImport)
+          )
+        );
+      } else {
+        const node = engineImport.node as ImportDeclaration;
+        const viewNode = node.specifiers.find((node) => {
+          return isImportSpecifier(node) && node.imported.name === "view";
+        });
+        if (!viewNode) {
+          node.specifiers.push(
+            importSpecifier(identifier("view"), identifier("view"))
+          );
+        }
       }
     } else {
       throw new Error("Could not find macro import");

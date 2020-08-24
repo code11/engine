@@ -15,7 +15,6 @@
   },
   "devDependencies": {
     "@babel/types": "^7.10.5",
-    "@c11/engine.types": "^3.8.1",
     "@types/babel-plugin-macros": "^2.8.2",
     "babel-plugin-tester": "^9.2.0",
     "prettier": "^2.0.5"
