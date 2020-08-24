@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.react",
-  "version": "4.0.0-alpha.0",
+  "version": "4.0.0-alpha.1",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -25,11 +25,11 @@
   },
   "dependencies": {
     "@c11/engine.db": "^4.0.0-alpha.0",
-    "@c11/engine.producer": "^4.0.0-alpha.0",
+    "@c11/engine.producer": "^4.0.0-alpha.1",
     "@c11/engine.types": "^4.0.0-alpha.0"
   },
   "devDependencies": {
-    "@c11/engine.macro": "^4.0.0-alpha.0",
+    "@c11/engine.macro": "^4.0.0-alpha.1",
     "@c11/engine.types": "^3.8.1",
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.1](https://github.com/code11/engine/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2020-08-24)
+
+**Note:** Version bump only for package @c11/engine.node
+
+
+
+
+
 ## [3.8.1](https://github.com/code11/engine/compare/v3.8.0...v3.8.1) (2020-05-06)
 
 **Note:** Version bump only for package @c11/engine.node
