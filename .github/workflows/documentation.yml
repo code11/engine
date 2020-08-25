@@ -2,33 +2,27 @@ name: documentation
 
 on:
   pull_request:
-    branches: [documentation]
+    branches: [master]
   push:
-    branches: [documentation]
+    branches: [master]
 
 jobs:
-  checks:
-    if: github.event_name != 'push'
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-          run: |
-            yarn ci
-            npm run build
-  gh-release:
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
+
+      - name: Build
+        run: yarn && yarn build
+        working-directory: docs
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/site
+          publish_dir: ./docs/build
           publish_branch: gh-pages

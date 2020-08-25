@@ -2,8 +2,8 @@ module.exports = {
   title: "@code11/engine",
   tagline:
     "Next Generation applications powered by Reactive and Functional Programming",
-  url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  url: "https://code11.github.io",
+  baseUrl: "/engine/",
   onBrokenLinks: "throw",
   favicon: "img/favicon.ico",
   organizationName: "facebook", // Usually your GitHub org/user name.
@@ -37,7 +37,7 @@ module.exports = {
           title: "Docs",
           items: [
             {
-              label: "Style Guide",
+              label: "Introduction",
               to: "docs/",
             },
           ],
@@ -47,7 +47,7 @@ module.exports = {
           items: [
             {
               label: "Twitter",
-              href: "https://twitter.com/code11",
+              href: "https://twitter.com/code11dev",
             },
           ],
         },
