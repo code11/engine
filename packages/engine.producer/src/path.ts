@@ -23,11 +23,4 @@ function createProxy(path: any[] = [], obj = new PathObject()): any {
 
 export const PathSymbol = Symbol("path");
 
-export const Path: any = new Proxy(
-  {},
-  {
-    get(target, prop) {
-      return createProxy([prop]);
-    },
-  }
-);
+export const Path: any = createProxy()

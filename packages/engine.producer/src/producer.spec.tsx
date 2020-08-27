@@ -445,6 +445,25 @@ test("should support Path values to be used", () => {
   expect(observeVal).toEqual({ value: "321" });
   expect(getVal).toEqual("321");
 });
+test("should support Empty Path values to be used", () => {
+  const state = {
+    test: "123",
+  };
+  let observeVal;
+  let computedPath;
+  const struct: producer = ({ path, val = Observe[Prop.path].test }) => {
+    observeVal = val;
+    computedPath = path;
+  };
+  const path = Path;
+  const props = {
+    path,
+  };
+  const result = run(struct, state, props);
+
+  jest.runAllTimers();
+  expect(observeVal).toEqual(state.test);
+});
 
 test("should unmount producers no longer in use", () => {
   const val = "red";
