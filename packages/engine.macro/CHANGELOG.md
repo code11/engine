@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.2](https://github.com/code11/engine/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2020-08-28)
+
+
+### Bug Fixes
+
+* **engine.producer:** change path to support empty paths ([f6a27ff](https://github.com/code11/engine/commit/f6a27ff22c939c97f1368e1f3e5637671a946417)), closes [#52](https://github.com/code11/engine/issues/52)
+
+
+
+
+
 # [4.0.0-alpha.1](https://github.com/code11/engine/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2020-08-24)
 
 
