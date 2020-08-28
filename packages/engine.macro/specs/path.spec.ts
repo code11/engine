@@ -22,7 +22,7 @@ pluginTester({
         const foo: view = ({
           value = Path.bar,
           doo = a.bam,
-          boo = Observe.foo[Arg.value][Arg.doo]
+          boo = Observe.foo[Arg.value][Arg.doo],
           moo = Observe[b]
         }) => {}
       `,

@@ -4,10 +4,12 @@ exports[`macros should support Path: should support Path 1`] = `
 
 import { Path, view } from '@c11/engine.macro';
 const a = Path.foo.bar
+const b = Path
 const foo: view = ({
   value = Path.bar,
   doo = a.bam,
-  boo = Observe.foo[Arg.value][Arg.doo]
+  boo = Observe.foo[Arg.value][Arg.doo],
+  moo = Observe[b]
 }) => {}
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -19,6 +21,7 @@ var _engine = require("@c11/engine.producer");
 var _engineView = require("@c11/engine-view");
 
 var a = _engine.Path.foo.bar;
+var b = _engine.Path;
 var foo = (0, _engineView.view)({
   args: {
     type: "STRUCT",
@@ -54,13 +57,23 @@ var foo = (0, _engineView.view)({
           },
         ],
       },
+      moo: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: b,
+          },
+        ],
+      },
     },
     meta: {},
   },
   fn: function fn(_ref) {
     var value = _ref.value,
       doo = _ref.doo,
-      boo = _ref.boo;
+      boo = _ref.boo,
+      moo = _ref.moo;
   },
 });
 
