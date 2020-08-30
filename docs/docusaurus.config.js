@@ -1,7 +1,6 @@
 module.exports = {
-  title: "@code11/engine",
-  tagline:
-    "Next Generation applications powered by Reactive and Functional Programming",
+  title: "Code11 Engine",
+  tagline: "Next Generation applications built at lightening speed 🚀",
   url: "https://code11.github.io",
   baseUrl: "/engine/",
   onBrokenLinks: "throw",
@@ -10,7 +9,7 @@ module.exports = {
   projectName: "docusaurus", // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: "Code11",
+      title: "Engine",
       logo: {
         alt: "Code11 Logo",
         src: "img/logo.png",
@@ -61,7 +60,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Code11, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Code<sup>11</sup>, Inc. Built with Docusaurus.`,
     },
   },
   presets: [

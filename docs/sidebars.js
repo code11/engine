@@ -1,6 +1,6 @@
 module.exports = {
   someSidebar: {
-    Docusaurus: ["introduction"],
-    Features: ["introduction"],
+    "Getting Started": ["introduction", "react-quick-start"],
+    "API Documentation": ["packages"],
   },
 };

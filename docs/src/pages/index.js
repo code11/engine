@@ -12,8 +12,8 @@ const features = [
     imageUrl: "img/undraw_docusaurus_mountain.svg",
     description: (
       <>
-        Code11 Engine is designed from ground up to be easily installed and used
-        to get your applications up and running quickly.
+        Code<sup>11</sup>Engine is designed from ground up to be easily
+        installed and used to get your applications up and running quickly.
       </>
     ),
   },
@@ -22,19 +22,19 @@ const features = [
     imageUrl: "img/undraw_docusaurus_tree.svg",
     description: (
       <>
-        Code11 Engine lets you focus on your business logic, and we&apos;ll do
-        the chores. Go ahead and create some streams, compose them to create
-        your application's <code>secret sauce</code>&trade;.
+        Code<sup>11</sup>Engine lets you focus on your business logic, and we'll
+        do the chores. Go ahead and create some react-components, and let engine
+        take care of efficient state updates.
       </>
     ),
   },
   {
-    title: <>Powered by React</>,
+    title: <>Optimized for productivity</>,
     imageUrl: "img/undraw_docusaurus_react.svg",
     description: (
       <>
-        Immutable, composible, asynchronous and hell lot of fun to work with.
-        This is what all the cool kids use.
+        Code<sup>11</sup>Engine is optimized for developer productivity. Your
+        time is valuable, don't waste it away in boilerplate.
       </>
     ),
   },
