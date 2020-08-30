@@ -20,7 +20,11 @@ independently on-need basis.
 
   Typescript type-definitions for working with Engine applications???
 
-3. `@c11/engine.react`
+3. `@c11/engine.producer`
+
+  Used internally by @c11/macros
+
+4. `@c11/engine.react`
 
   Contains react bindings for Engine. Whenever we are creating a React
   application, we are going to need this one.
