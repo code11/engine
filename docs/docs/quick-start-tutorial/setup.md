@@ -1,7 +1,7 @@
 ---
-id: react-quick-start
+id: setup
 title: Quick Start
-sidebar_label: Quick Start
+sidebar_label: Setup
 ---
 
 Although Engine itself is platform neutral, Engine's reactive features really
@@ -9,9 +9,14 @@ shine in context of boilerplate laden world of React. So let's get started with:
 
 ## Building a React Engine App
 
-We are going to build a Todo&trade; app. That's why todo apps exist, to be built
-in introductory tutorials. Let's use `create-react-app` to set up a vanilla
-react app for us.
+We are going to build a Todo&trade; MVC app. That's why todo apps exist, to be
+built in introductory tutorials. You can take a look at the
+[todomvc.com](http://todomvc.com/) to get a feeling of what we are about to
+implement.
+
+## Setup
+
+Let's use `create-react-app` to set up a vanilla react app for us.
 
 ```sh
 yarn create react-app engine-todos --template typescript
@@ -36,7 +41,7 @@ yarn add @c11/engine.macro @c11/engine.react
 `@c11/engine.react` contain the React bindings. You can read more about these,
 and more engine packages on [packages](packages) page.
 
-### Create an Engine
+### Create an Engine instance
 
 First thing we need to do is create an `Engine` instance, and let it take
 control of our app. In the `src/index.tsx` file:
@@ -69,3 +74,44 @@ import App from './App';
    Engine
 
 That's it! We are running an Engine app now.
+
+Now that we have our engine app set. Let's do some chores to set the stage for
+building our glorious TodoMVC app:
+
+1. **Add styles**
+
+  We want to keep our focus on building the React side of things. Let's install
+  `todomvc-app-css` npm package provided by good behind the TodoMVC project with
+  `yarn add todomvc-app-css`, and update our `src/App.tsx` file to use it:
+
+  ```tsx
+  import React from "react";
+  import "todomvc-app-css/index.css";
+
+  function App() {
+    return (
+      <section className="todoapp">
+        <div>
+          <header className="header">
+            <h1>todos</h1>
+          </header>
+        </div>
+      </section>
+    );
+  }
+
+  export default App;
+  ```
+  Notice that we have:
+
+    1. Imported CSS from `todomvc-app-css`
+    2. Removed create-react-app's default JSX from `src/App.tsx` file, and added
+       just a "todo" heading. Since we are relying on CSS provided by
+       `todomvc-app-css`, we have to use its predefined CSS classes.
+
+2. **Remove unused code**
+
+  1. `rm src/App.css`
+  1. `rm public/logo*`
+
+Let's head over to next step and add static UI for our todos app.
