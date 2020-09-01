@@ -75,3 +75,156 @@ Now we can update our `App` component with:
           </ul>
         </section>
 ```
+
+## Updating state from components
+
+Rendering our state in components is one piece of the puzzle, another piece is
+manipulating state from components. We'll now make the big todos `<input>` work,
+so that it can add new todos to our state. We want to add a todo whenever user
+presses `Enter` key, so we'll add a `onKeyDown` event:
+
+```diff
+const App: view = ({ todos = Observe.todos }) => {
++  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
++    console.warn('Keypress', e);
++  };
+   ...
+        <input
+          className="new-todo"
+          placeholder="What needs to be done?"
+          autoFocus={true}
++         onKeyDown={handleKeyDown}
+        />
+```
+
+In a vanilla react app, we could simply use a `setState` call to add the new
+Todo. But if we want to keep a single-source-of-truth global state, we have to
+deal with a bunch of boilerplate to achieve the simple thing. That could either
+be the whole dance between actions, reducers and selectors of Redux, or passing
+the callback props down a staircase of components in vanilla react.
+
+To achieve the same with Engine, we need access to an `Update` object for
+`state.todos`. Just like `Observe.todos` gives us a reference to live `todos`
+array in our state, we have `Update.todos` to give us an update object:
+
+```diff
+- import { view, Observe } from "@c11/engine.macro";
++ import { view, Observe, Update } from "@c11/engine.macro";
+...
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
++    if (e.key === "Enter") {
++      const newTodos = [
++        ...todos,
++        { isDone: false, title: e.currentTarget.value }
++      ];
++
++      updateTodos.set(newTodos);
+    }
+  };
+```
+
+If the key user has pressed is the `Enter` key, we compute the next set of
+todos, and `Update.todos` allow us to replace existing todos in our state with
+this new array. It's as easy as using vanilla React's `setState`, but we get to
+keep our global state outside of components.
+
+But do it really solve the problem of passing callback props down multiple
+levels of components? As a matter of fact, it do. **`Update` and `Observe` can
+be used at any level in our component tree**. To demonstrate this, let's extract
+our `<input>` out to its own component `TodoForm`. In `src/App.tsx`, let's add:
+
+```tsx
+const TodoForm: view = ({
+  todos = Observe.todos,
+  updateTodos = Update.todos
+}) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const newTodos = [
+        ...todos,
+        { isDone: false, title: e.currentTarget.value }
+      ];
+
+      updateTodos.set(newTodos);
+    }
+  };
+
+  return (
+    <input
+      className="new-todo"
+      placeholder="What needs to be done?"
+      autoFocus={true}
+      onKeyDown={handleKeyDown}
+    />
+  );
+};
+```
+
+Now we can update our `App` component to use this component instead:
+
+```diff
+- const App: view = ({ todos = Observe.todos, updateTodos = Update.todos }) => {
++ const App: view = ({ todos = Observe.todos }) => {
+-   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+-     if (e.key === "Enter") {
+-       const newTodos = [
+-         ...todos,
+-         { isDone: false, title: e.currentTarget.value }
+-       ];
+-
+-       updateTodos.set(newTodos);
+-     }
+-   };
+-
+  return (
+    ...
+-        <input
+-          className="new-todo"
+-          placeholder="What needs to be done?"
+-          autoFocus={true}
+-          onKeyDown={handleKeyDown}
+-        />
++        <TodoForm />
+```
+
+## Introducing new state
+
+`Observe.<key>` and `Update.<key>` can do a lot more than that. It is possible
+to introduce completely new state to our global store. For instance, let's
+convert our `TodoForm` into a [controlled React
+component](https://reactjs.org/docs/forms.html#controlled-components) so that we
+can clear the input when user presses `Enter` or `Escape`.
+
+```diff
+const TodoForm: view = ({
+  todos = Observe.todos,
+  updateTodos = Update.todos,
++  editingTodo = Observe.editingTodo,
++  updateEditingTodo = Update.editingTodo
+}) => {
++  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
++    updateEditingTodo.set(e.currentTarget.value);
++  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      ...
++     updateEditingTodo.set("");
+    }
++
++   if (e.key === "Escape") {
++     updateEditingTodo.set("");
++   }
+  };
+
+  return (
+    <input
+       ...
++      onChange={handleOnChange}
++      value={editingTodo || ""}
+```
+
+We added observer for `state.editingTodo` without initially declaring it in our
+state we passed to `Engine` in `src/index.tsx`. We also added
+`Update.editingTodo`, which we then use on the todo `<input>`'s `onChange`.

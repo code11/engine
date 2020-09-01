@@ -16,5 +16,5 @@ To build React apps with Engine, we need to install 2 packages:
 `@c11/engine.react` is needed for building Engine React applications. We can
 read more about the Engine packages on [packages](packages) page.
 
-Header over to [React quick start](react-quick-start) page for a peek into what building a react
-application with Engine feels like.
+Header over to [React quick start](quick-start-tutorial/setup) page for a peek
+into what building a react application with Engine feels like.
