@@ -24,6 +24,7 @@
     "yamljs": "^0.3.0"
   },
   "dependencies": {
+    "clone-deep": "^4.0.1",
     "lodash": "^4.17.19",
     "uniq": "^1.0.1"
   },

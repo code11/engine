@@ -4,6 +4,7 @@ import * as Babel from "@babel/core";
 import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
 import { addPathImport } from "./utils/addPathImport";
 import { addWildcardImport } from "./utils/addWildcardImport";
+import { ProducerConfig } from "@c11/engine.types";
 
 type References = Babel.NodePath[];
 
@@ -45,9 +46,14 @@ function myMacro({ references, state, babel }: MacroParams) {
 interface Config {
   [k: string]: any;
 }
+type ViewSomething = {
+  producers: ProducerConfig[];
+};
+
+type ViewElement<T> = ReactElement<T> & ViewSomething;
 
 export type producer<T = any> = (props: T) => void;
-export type view<T = any> = (props: T) => ReactElement<T>;
+export type view<T = any> = (props: T) => ViewElement<T> | null;
 
 export const Observe: any = {};
 export const Update: any = {};
