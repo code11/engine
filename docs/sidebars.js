@@ -10,15 +10,28 @@ module.exports = {
           "quick-start-tutorial/setup",
           "quick-start-tutorial/static-ui",
           "quick-start-tutorial/state",
+          "quick-start-tutorial/mature-architecture",
         ],
       },
       "packages",
     ],
+    Guide: ["best-practices", "anti-patterns"],
     "API Documentation": [
       "api/engine",
-      "api/view",
-      "api/observe",
-      "api/update",
+      {
+        type: "category",
+        label: "Macros",
+        items: [
+          "api/view",
+          "api/observe",
+          "api/update",
+          {
+            type: "category",
+            label: "Inputs",
+            items: ["api/input-macros/prop"],
+          },
+        ],
+      },
     ],
   },
 };

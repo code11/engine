@@ -200,21 +200,21 @@ can clear the input when user presses `Enter` or `Escape`.
 const TodoForm: view = ({
   todos = Observe.todos,
   updateTodos = Update.todos,
-+  editingTodo = Observe.editingTodo,
-+  updateEditingTodo = Update.editingTodo
++  newTodoTitle = Observe.newTodoTitle,
++  updateNewTodoTitle = Update.newTodoTitle
 }) => {
 +  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-+    updateEditingTodo.set(e.currentTarget.value);
++    updateNewTodoTitle.set(e.currentTarget.value);
 +  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       ...
-+     updateEditingTodo.set("");
++     updateNewTodoTitle.set("");
     }
 +
 +   if (e.key === "Escape") {
-+     updateEditingTodo.set("");
++     updateNewTodoTitle.set("");
 +   }
   };
 
@@ -222,9 +222,24 @@ const TodoForm: view = ({
     <input
        ...
 +      onChange={handleOnChange}
-+      value={editingTodo || ""}
++      value={newTodoTitle || ""}
 ```
 
-We added observer for `state.editingTodo` without initially declaring it in our
+We added observer for `state.newTodoTitle` without initially declaring it in our
 state we passed to `Engine` in `src/index.tsx`. We also added
-`Update.editingTodo`, which we then use on the todo `<input>`'s `onChange`.
+`Update.newTodoTitle`, which we then use on the todo `<input>`'s `onChange`.
+
+Let's get rid of the todos from our initial state, and move on to the next
+step.
+
+```diff
+const engine = new Engine({
+  state: {
+    initial: {
+      todos: [
+-       { title: "Add initial state to engine", isDone: false },
+-       { title: "Use initial state in components", isDone: false }
+      ]
+    }
+  },
+```

@@ -8,7 +8,7 @@ sidebar_label: Update
 
 `Update` give us the ability to update values in our state. `Update` is the
 complement of `Observe`. [Observe](/docs/api/observe) enable us to read values
-from state, `Update` allow us to change the.
+from state, `Update` allow us to change data in state.
 
 e.g if our state looks like:
 
@@ -20,12 +20,20 @@ e.g if our state looks like:
 }
 ```
 
-We can get a function to change the value of `bar` using by assigning
-`Update.foo.bar` in destructed arguments of a [view](/docs/api/view). e.g
+We can get operations to change the value of `bar` by assigning `Update.foo.bar`
+in destructed arguments of a [view](/docs/api/view). e.g
 
 ```
-const MyComponent = ({ setBar: Update.foo.bar }) => {
-  setBar('qux');
+const MyComponent = ({ bar: Update.foo.bar }) => {
+  bar.set('qux');
   ...
 }
 ```
+
+`Update.<key>` returns an object with following properties:
+
+1. `.set(val: any)` to replace the value of `<key>` in state, or create it if it
+   doesn't exist yet.
+2. `.merge(val: any)` accepts an object, and merge it with existing object value
+   of `<key>` in state
+3. `.remove()` removes the key from state.

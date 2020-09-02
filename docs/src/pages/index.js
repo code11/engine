@@ -23,8 +23,8 @@ const features = [
     description: (
       <>
         Code<sup>11</sup>Engine lets you focus on your business logic, and we'll
-        do the chores. Go ahead and create some react-components, and let engine
-        take care of efficient state updates.
+        do the chores. Engine is designed to encourage best practices, in order
+        to make developers happy/productive, and applications fast.
       </>
     ),
   },
