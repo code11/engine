@@ -1,7 +1,7 @@
 ---
 id: mature-architecture
-title: Mature Architecture
-sidebar_label: Mature Architecture
+title: Recommended Architecture
+sidebar_label: Recommended Architecture
 ---
 
 Just the power of [view](/docs/api/view), [Observe](/docs/api/observe), and
@@ -54,8 +54,7 @@ is data that isn't essential to the problem our software is trying to solve, but
 is needed to support our UI.
 
 Let's start updating `App` component in `src/App.tsx` to make up for change in
-shape of our state. Don't skip over this part, we'll introduce more of Engine's
-magic during this transition.
+shape of our state.
 
 ```diff
 -const App: view = ({ todos = Observe.todos }) => {
@@ -155,3 +154,241 @@ This approach has some notable advantages:
 Prop is not the only macro which we can make a magical combination with
 `Observe`. We can read about more such macros in [input
 macros](/docs/api/input-macros/prop) section.
+
+### Updating the Todos
+
+Just like we saw in previous chapter, we can update any data in our state with
+[Update](/docs/api/update). For example, to mark a todo as done when Done
+checkbox is clicked, we need to just make this change:
+
+```diff
+- const Todo: view = ({ todo = Observe.todosById[Prop.id], updateTodo = Update.todosById[Prop.id]}) => {
++ const Todo: view = ({ todo = Observe.todosById[Prop.id], updateTodo = Update.todosById[Prop.id]}) => {
+  return (
+    <li>
+      <div className="view">
+        <input
+          className="toggle"
+          type="checkbox"
++           onChange={() => updateTodo.merge({ isDone: !todo.isDone })}
+        />
+```
+
+Similarly, to put the todo in "Editing" state, we can do
+
+```diff
+-        <label>{todo.title}</label>
++        <label onDoubleClick={() => updateTodo.merge({ ...todo, isEditing: true })}>{todo.title}</label>
+```
+
+### Homework
+
+Your homework for the day is:
+
+1. Make `Todo` component fully functional
+2. Make the footer working
+3. Implement "Toggle all" feature
+
+You can take a look at [React implementation of
+TodoMVC](http://todomvc.com/examples/react/#/) to figure out all the
+functionality that need to be built.
+
+<details>
+  <summary>Solution</summary>
+
+```tsx
+import React, { KeyboardEvent, ChangeEvent } from "react";
+import { view, Observe, Update, Prop } from "@c11/engine.macro";
+import "todomvc-app-css/index.css";
+
+const Todo: view = ({
+  todo = Observe.todosById[Prop.id],
+  updateTodo = Update.todosById[Prop.id]
+}) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      updateTodo.merge({
+        value: e.currentTarget.value,
+        isEditing: false
+      });
+    }
+
+    if (e.key === "Escape") {
+      updateTodo.merge({
+        value: e.currentTarget.value,
+        isEditing: false
+      });
+    }
+  };
+
+  return (
+    <li className={todo.isEditing ? "editing" : ""}>
+      <div className="view">
+        <input
+          className="toggle"
+          type="checkbox"
+          checked={todo.isDone}
+          onChange={() => updateTodo.merge({ isDone: !todo.isDone })}
+        />
+        <label onDoubleClick={() => updateTodo.merge({ isEditing: true })}>
+          {todo.title}
+        </label>
+        <button className="destroy" onClick={() => updateTodo.remove()} />
+      </div>
+      <input
+        className="edit"
+        value={todo.title}
+        onKeyDown={handleKeyDown}
+        onBlur={() => updateTodo.merge({ isEditing: false })}
+        onChange={e => updateTodo.merge({ title: e.currentTarget.value })}
+      />
+    </li>
+  );
+};
+
+const TodoForm: view = ({
+  updateTodos = Update.todosById,
+  newTodoTitle = Observe.newTodoTitle,
+  updateNewTodoTitle = Update.newTodoTitle
+}) => {
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    updateNewTodoTitle.set(e.currentTarget.value);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const id = new Date().getTime();
+
+      updateTodos.merge({
+        [id]: { id, isDone: false, title: e.currentTarget.value }
+      });
+      updateNewTodoTitle.set("");
+    }
+
+    if (e.key === "Escape") {
+      updateNewTodoTitle.set("");
+    }
+  };
+
+  return (
+    <input
+      className="new-todo"
+      placeholder="What needs to be done?"
+      autoFocus={true}
+      onKeyDown={handleKeyDown}
+      onChange={handleOnChange}
+      value={newTodoTitle || ""}
+    />
+  );
+};
+
+const App: view = ({
+  todosById = Observe.todosById,
+  updateTodosById = Update.todosById,
+  filter = Observe.filter,
+  updateFilter = Update.filter
+}) => {
+  const incompleteTodosCount = Object.values(todosById).reduce(
+    (accum: number, val) => ((val as any).isDone ? 0 : 1) + accum,
+    0
+  );
+
+  const todoIdsToDisplay = Object.entries(todosById)
+    .map(([key, value]) => {
+      switch (filter) {
+        case "completed":
+          return (value as any).isDone ? key : null;
+        case "active":
+          return (value as any).isDone ? null : key;
+        default:
+          return key;
+      }
+    })
+    .filter(Boolean) as Array<string>;
+
+  const handleToggleAll = () => {
+    const nextTodos = Object.values(todosById)
+      .map((todo: any) => {
+        return {
+          ...todo,
+          isDone: incompleteTodosCount !== 0
+        };
+      })
+      .reduce((accum, todo) => {
+        accum[todo.id] = todo;
+
+        return accum;
+      }, {});
+
+    updateTodosById.merge(nextTodos);
+  };
+
+  const todosJsx = todoIdsToDisplay.map((tid: string) => (
+    <Todo id={tid} key={tid} />
+  ));
+
+  return (
+    <section className="todoapp">
+      <div>
+        <header className="header">
+          <h1>todos</h1>
+        </header>
+
+        <TodoForm />
+
+        <section className="main">
+          <input
+            id="toggle-all"
+            className="toggle-all"
+            type="checkbox"
+            checked={incompleteTodosCount === 0}
+            onChange={handleToggleAll}
+          />
+          <label htmlFor="toggle-all">Mark all as complete</label>
+
+          <ul className="todo-list">{todosJsx}</ul>
+        </section>
+
+        <footer className="footer">
+          <span className="todo-count">
+            <strong>{incompleteTodosCount}</strong> items left
+          </span>
+          <ul className="filters">
+            <li>
+              <a
+                href="#/"
+                className={filter === "all" ? "selected" : ""}
+                onClick={() => updateFilter.set("all")}
+              >
+                All
+              </a>
+            </li>
+            <li>
+              <a
+                href="#/active"
+                className={filter === "active" ? "selected" : ""}
+                onClick={() => updateFilter.set("active")}
+              >
+                Active
+              </a>
+            </li>
+            <li>
+              <a
+                href="#/completed"
+                className={filter === "completed" ? "selected" : ""}
+                onClick={() => updateFilter.set("completed")}
+              >
+                Completed
+              </a>
+            </li>
+          </ul>
+          <button className="clear-completed">Clear completed</button>{" "}
+        </footer>
+      </div>
+    </section>
+  );
+};
+
+export default App;
+```
+</details>
