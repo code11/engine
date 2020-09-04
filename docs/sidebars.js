@@ -13,9 +13,8 @@ module.exports = {
           "quick-start-tutorial/mature-architecture",
         ],
       },
-      "packages",
     ],
-    Guide: ["best-practices", "anti-patterns"],
+    Guide: ["packages", "best-practices", "anti-patterns"],
     "API Documentation": [
       "api/engine",
       {
