@@ -10,7 +10,7 @@ declare module "react-html-attributes" {
   export default attr;
 }
 
-declare module "flatted/esm" {
+declare module "flatted" {
   type stringify = (a: any, b: any, c: any) => string;
   export const stringify: stringify;
 }

@@ -1,36 +1,22 @@
-import { createMacro } from "babel-plugin-macros";
+import { ProducerConfig } from "@c11/engine.types";
+import { createMacro, MacroHandler } from "babel-plugin-macros";
 import { ReactElement } from "react";
-import * as Babel from "@babel/core";
-import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
 import { addPathImport } from "./utils/addPathImport";
 import { addWildcardImport } from "./utils/addWildcardImport";
-import { ProducerConfig } from "@c11/engine.types";
-
-type References = Babel.NodePath[];
-
-interface MacroParams {
-  references: {
-    view?: References;
-    producer?: References;
-    Path?: References;
-    Wildcard?: References;
-    default: References;
-  };
-  state: any;
-  babel: typeof Babel;
-  config: {
-    view: {
-      importFrom: string
-    }
-  };
-}
+import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
 
 /**
  * TODO: Verify which args are used by the function and eliminate
  * unnecessary ones
  */
 
-function myMacro({ references, state, babel, config }: MacroParams) {
+const EngineMacroHandler:MacroHandler = ({ 
+  references, 
+  state, 
+  babel, 
+  // @ts-ignore
+  config 
+}) => {
   const { Wildcard = [], Path = [], view = [], producer = [] } = references;
   state.config = config
   view.forEach((x) => prepareForEngine(babel, state, x, TransformType.VIEW));
@@ -70,7 +56,7 @@ export const Param: any = {};
 export const Path: any = {};
 export const Wildcard: any = {};
 
-const macro = createMacro(myMacro, {
+const macro = createMacro(EngineMacroHandler, {
   configName: "engine",
 });
 export default macro;
