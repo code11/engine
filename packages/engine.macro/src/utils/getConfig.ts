@@ -3,6 +3,7 @@ import fs from "fs";
 
 export const getConfig = (state: any) => {
   const fileName = state.file.opts.filename;
+  const macroConfig = state.config || {};
   const loc = fileName.split(path.sep);
 
   loc.pop();
@@ -27,6 +28,8 @@ export const getConfig = (state: any) => {
       },
     };
   }
+
+  config = { ...config, ...macroConfig };
 
   return config;
 };

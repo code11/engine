@@ -18,6 +18,11 @@ interface MacroParams {
   };
   state: any;
   babel: typeof Babel;
+  config: {
+    view: {
+      importFrom: string
+    }
+  };
 }
 
 /**
@@ -25,8 +30,9 @@ interface MacroParams {
  * unnecessary ones
  */
 
-function myMacro({ references, state, babel }: MacroParams) {
+function myMacro({ references, state, babel, config }: MacroParams) {
   const { Wildcard = [], Path = [], view = [], producer = [] } = references;
+  state.config = config
   view.forEach((x) => prepareForEngine(babel, state, x, TransformType.VIEW));
   producer.forEach((x) =>
     prepareForEngine(babel, state, x, TransformType.PRODUCER)
@@ -64,5 +70,7 @@ export const Param: any = {};
 export const Path: any = {};
 export const Wildcard: any = {};
 
-const macro = createMacro(myMacro);
+const macro = createMacro(myMacro, {
+  configName: "engine",
+});
 export default macro;
