@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.node",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "description": "A programming engine for the node environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@c11/engine.db": "^4.0.0-alpha.3",
-    "@c11/engine.macro": "^4.0.0-alpha.3",
-    "@c11/engine.producer": "^4.0.0-alpha.3"
+    "@c11/engine.macro": "^4.0.0-alpha.4",
+    "@c11/engine.producer": "^4.0.0-alpha.4"
   },
   "devDependencies": {
     "@c11/engine.types": "^4.0.0-alpha.0"

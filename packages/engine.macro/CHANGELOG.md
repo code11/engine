@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.4](https://github.com/code11/engine/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2020-09-06)
+
+
+### Bug Fixes
+
+* **macro:** removed babel-macros-types casting as they are incomplete & where preventing compilation ([d3fa062](https://github.com/code11/engine/commit/d3fa062ba538759523d8d3c0e357fa47ddb5ceca))
+
+
+### Features
+
+* **macro:** use macro config to extend engine configuration ([91fe7b9](https://github.com/code11/engine/commit/91fe7b9bb53e0d0d09ea50fd59c183c582c8efc9))
+
+
+
+
+
 # [4.0.0-alpha.3](https://github.com/code11/engine/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2020-09-01)
 
 
