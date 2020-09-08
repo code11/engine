@@ -1,21 +1,90 @@
 ---
 id: state
-title: Use the State Luke!
+title: State is King!
 sidebar_label: State
 ---
 
-Engine, like Redux, recommends keeping a single source of truth for our
-application's state. Let's provide some initial todos for our app. In
-`src/index.tsx`
+Purpose of every software is to solve some real world problem. Data that we use
+to represent the objects involved in the problem and the solution, are sometimes
+called **Domain Objects**.
+
+Every UI is just a representation of some data. Its purpose is to show this
+data, and enable the user to intuitively make sense of, and change it. This data
+that UI stores, operates on and represents, is called its **State**. A part of
+the state is made up of Domain objects, and is refereed to as **essential
+state**. Rest of the state is needed by the UI itself, and is called
+**accidental state**. e.g storage of Todo items in a todo app is essential
+state; data like which filter is active makes the accidental state.
+
+Engine strongly recommends keeping a single source of truth for our
+application's state. State of the app when it has just started up (aka initial
+state) can be given to [Engine](/docs/api/engine) when it is instantiated:
 
 ```diff
 const engine = new Engine({
 + state: {
++   initial: { }
++ },
+  view: {
+    element: <App />,
+    root: "#root"
+  }
+});
+```
+
+Careful consideration must be given for what the shape of our state is going to
+be, even for smaller applications. After all, habits maketh man.
+
+Engine recommends storing our domain objects in some sort of indexed data
+structure (e.g an `Object`), so we can have instant access to any domain object
+using just its identifier. Later in this chapter we'll see that Engine has a
+unique way to very efficiently utilize such state.
+
+Domain objects often cross boundaries of different components of a software
+product. For example, going from database to a backend application, to a
+serialized form for network transfer (e.g JSON), to UIs. It is advisable to keep
+them in a consistent representation across different components of our system.
+Doing so builds intuition and confidence in the system.
+
+Usually we would have a unique `id` field in our database, which can uniquely
+identify a todo. Since we are building the UI only, we don't really have any
+identifier for our todos. We'll fake that, and add a fake `id` into every todo
+item our application creates.
+
+Types are immensely helpful in modeling our domain objects. Let's create a
+`src/types.ts` file, and add how our `TodoItem` is going to be shaped like:
+
+```ts
+export enum TodoStatuses {
+  pending = "pending",
+  done = "done"
+}
+
+export interface TodoItem {
+  id: string;
+  title: string;
+  status: TodoStatuses;
+}
+```
+
+Notice that for the status of our `TodoItem`s, we are using an enum of statuses
+instead of a boolean flag (e.g `isDone` or `isPending`). It is an [Engine best
+practice](/docs/best-practices#prefer-explicit-types-over-boolean-flags) to
+prefer explicit types over boolean flags.
+
+Now that we know how our `TodoItem`s are going to look like, let's add some
+initial todos for our app. In `src/index.tsx`
+
+```diff
+const engine = new Engine({
+  state: {
+-   initial: { }
 +   initial: {
-+     todos: [
-+       { title: 'Add initial state to engine', isDone: false },
-+       { title: 'Use initial state in components', isDone: false }
-+     ]
++     todosById: {
++       todo1: { id: 'todo1', title: 'Add initial state to engine', isDone: false },
++       todo2: { id: 'todo2', title: 'Use initial state in components', isDone: false }
++     },
++     visibleTodoIds: ['todo1', 'todo2']
 +   }
 + },
   view: {
@@ -25,221 +94,19 @@ const engine = new Engine({
 });
 ```
 
-This is equivalent to creating a store in Redux, and initializing with intial
-state. We can read more about creating the `Engine` instance in API docs for
-[Engine](/docs/api/engine). Now that we have some todo items in our state, it's time
-to show them in our component.
+We have kept our todo items in very explicitly named `todosById` key, and have
+also added a `visibleTodoIds` array. One of our app components (Todo listing)
+happen to show a list of todo items. These shown todos might (and will) end up
+being different from our `todosById`. So we are keeping them in their own path
+in state. Notice that instead of copying the entire todo item, we only keep the
+`id` in `visibileTodoIds`. It's crucial for maintainability that we always
+maintain a single source of truth for our data.
 
-## Using state in components
+`todosById` will often be referred to in our app. Let's create a type alias for
+it so we won't have to repeat it over and over again. In `src/types.ts`, add:
 
-Wanna see a magic trick? Add these 3 lines to our `src/App.tsx`:
-
-```diff
-import React from "react";
-import "todomvc-app-css/index.css";
-+ import { view, Observe } from "@c11/engine.macro";
-+
-+ const App: view = ({ todos = Observe.todos }) => {
-+   console.warn("TODOS", todos);
+```ts
+export type TodosById = { [id: string]: TodoItem };
 ```
 
-We can see todos from our state printed in console! This is all the selectors we
-have to write. Engine does its magic with babel-macros behind the scenes, and
-allow us to observe any part of our state with just few characters.
-
-Time to put these todos in jsx. In `src/App.tsx`, let's extract the `<Todo>`
-component out of `<App>` so that we can easily do `todos.map(Todo)`.
-
-```tsx
-const Todo: React.FC<{ title: string }> = ({ title }) => (
-  <li>
-    <div className="view">
-      <input className="toggle" type="checkbox" />
-      <label>{title}</label>
-      <button className="destroy" />
-    </div>
-    <input className="edit" value={title} />
-  </li>
-);
-```
-
-Now we can update our `App` component with:
-
-```diff
-        <section className="main">
-          <input id="toggle-all" className="toggle-all" type="checkbox" />
-          <label htmlFor="toggle-all">Mark all as complete</label>
-
-          <ul className="todo-list">
-+            {todos.map(Todo)}
-          </ul>
-        </section>
-```
-
-## Updating state from components
-
-Rendering our state in components is one piece of the puzzle, another piece is
-manipulating state from components. We'll now make the big todos `<input>` work,
-so that it can add new todos to our state. We want to add a todo whenever user
-presses `Enter` key, so we'll add a `onKeyDown` event:
-
-```diff
-const App: view = ({ todos = Observe.todos }) => {
-+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-+    console.warn('Keypress', e);
-+  };
-   ...
-        <input
-          className="new-todo"
-          placeholder="What needs to be done?"
-          autoFocus={true}
-+         onKeyDown={handleKeyDown}
-        />
-```
-
-In a vanilla react app, we could simply use a `setState` call to add the new
-Todo. But if we want to keep a single-source-of-truth global state, we have to
-deal with a bunch of boilerplate to achieve the simple thing. That could either
-be the whole dance between actions, reducers and selectors of Redux, or passing
-the callback props down a staircase of components in vanilla react.
-
-To achieve the same with Engine, we need access to an `Update` object for
-`state.todos`. Just like `Observe.todos` gives us a reference to live `todos`
-array in our state, we have `Update.todos` to give us an update object:
-
-```diff
-- import { view, Observe } from "@c11/engine.macro";
-+ import { view, Observe, Update } from "@c11/engine.macro";
-...
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-+    if (e.key === "Enter") {
-+      const newTodos = [
-+        ...todos,
-+        { isDone: false, title: e.currentTarget.value }
-+      ];
-+
-+      updateTodos.set(newTodos);
-    }
-  };
-```
-
-If the key user has pressed is the `Enter` key, we compute the next set of
-todos, and `Update.todos` allow us to replace existing todos in our state with
-this new array. It's as easy as using vanilla React's `setState`, but we get to
-keep our global state outside of components.
-
-But do it really solve the problem of passing callback props down multiple
-levels of components? As a matter of fact, it do. **`Update` and `Observe` can
-be used at any level in our component tree**. To demonstrate this, let's extract
-our `<input>` out to its own component `TodoForm`. In `src/App.tsx`, let's add:
-
-```tsx
-const TodoForm: view = ({
-  todos = Observe.todos,
-  updateTodos = Update.todos
-}) => {
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const newTodos = [
-        ...todos,
-        { isDone: false, title: e.currentTarget.value }
-      ];
-
-      updateTodos.set(newTodos);
-    }
-  };
-
-  return (
-    <input
-      className="new-todo"
-      placeholder="What needs to be done?"
-      autoFocus={true}
-      onKeyDown={handleKeyDown}
-    />
-  );
-};
-```
-
-Now we can update our `App` component to use this component instead:
-
-```diff
-- const App: view = ({ todos = Observe.todos, updateTodos = Update.todos }) => {
-+ const App: view = ({ todos = Observe.todos }) => {
--   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
--     if (e.key === "Enter") {
--       const newTodos = [
--         ...todos,
--         { isDone: false, title: e.currentTarget.value }
--       ];
--
--       updateTodos.set(newTodos);
--     }
--   };
--
-  return (
-    ...
--        <input
--          className="new-todo"
--          placeholder="What needs to be done?"
--          autoFocus={true}
--          onKeyDown={handleKeyDown}
--        />
-+        <TodoForm />
-```
-
-## Introducing new state
-
-`Observe.<key>` and `Update.<key>` can do a lot more than that. It is possible
-to introduce completely new state to our global store. For instance, let's
-convert our `TodoForm` into a [controlled React
-component](https://reactjs.org/docs/forms.html#controlled-components) so that we
-can clear the input when user presses `Enter` or `Escape`.
-
-```diff
-const TodoForm: view = ({
-  todos = Observe.todos,
-  updateTodos = Update.todos,
-+  newTodoTitle = Observe.newTodoTitle,
-+  updateNewTodoTitle = Update.newTodoTitle
-}) => {
-+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-+    updateNewTodoTitle.set(e.currentTarget.value);
-+  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      ...
-+     updateNewTodoTitle.set("");
-    }
-+
-+   if (e.key === "Escape") {
-+     updateNewTodoTitle.set("");
-+   }
-  };
-
-  return (
-    <input
-       ...
-+      onChange={handleOnChange}
-+      value={newTodoTitle || ""}
-```
-
-We added observer for `state.newTodoTitle` without initially declaring it in our
-state we passed to `Engine` in `src/index.tsx`. We also added
-`Update.newTodoTitle`, which we then use on the todo `<input>`'s `onChange`.
-
-Let's get rid of the todos from our initial state, and move on to the next
-step.
-
-```diff
-const engine = new Engine({
-  state: {
-    initial: {
-      todos: [
--       { title: "Add initial state to engine", isDone: false },
--       { title: "Use initial state in components", isDone: false }
-      ]
-    }
-  },
-```
+It's time to show the `TodoItem`s from state in our component.

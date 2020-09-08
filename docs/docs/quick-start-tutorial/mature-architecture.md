@@ -9,29 +9,6 @@ Just the power of [view](/docs/api/view), [Observe](/docs/api/observe), and
 React applications. But Engine has a lot more to offer. Before we dive into more
 features of Engine, let's discuss our application's architecture a bit.
 
-Every UI is a representation of some business data. We call this critical
-business data the user want to work with, **the essential state**. Careful
-consideration is needed for what the shape our state is going to be, even for
-smaller applications like our todos app. After all, habits maketh man.
-
-We have kept our `todos` as an array in the state. It's usually a bad idea to
-use arrays for storing critical business data (aka domain objects). What works
-better is to store our domain objects in some sort of indexed data structure
-(e.g `Object`), so we can have instant access to any domain object using just
-its identifier. We'll see in this chapter, Engine has a unique way to very
-efficiently utilize such state.
-
-Domain objects represent our essential business data (e.g todos for a todos
-app). They often cross boundaries of different components of a software product,
-For example, going from database to a backend application, to a serialized form
-for network transfer (e.g JSON), to UIs. It is advisable to keep a consistent
-representation of our domain objects across different components of our system.
-Doing so builds intuition and confidence in the system.
-
-Usually we would have a unique `id` field in our database, which can uniquely
-identify a todo. We don't really have any identifier for our todos yet. We'll
-fake that, and add a fake `id` into every todo item our application creates.
-
 Let's start with modifying our initial state a bit. In `src/index.tsx`
 
 ```diff

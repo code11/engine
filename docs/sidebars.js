@@ -9,8 +9,16 @@ module.exports = {
         items: [
           "quick-start-tutorial/setup",
           "quick-start-tutorial/static-ui",
-          "quick-start-tutorial/state",
-          "quick-start-tutorial/mature-architecture",
+          {
+            type: "category",
+            label: "State",
+            items: [
+              "quick-start-tutorial/state",
+              "quick-start-tutorial/accessing-state-in-components",
+              "quick-start-tutorial/updating-state-from-components",
+              "quick-start-tutorial/introducing-new-paths-in-state",
+            ],
+          },
         ],
       },
     ],
@@ -21,6 +29,7 @@ module.exports = {
         type: "category",
         label: "Macros",
         items: [
+          "api/producer",
           "api/view",
           "api/observe",
           "api/update",
