@@ -221,3 +221,7 @@ Update `src/Todo/Edit.tsx` so Todo can switch back to `viewing` mode:
 +       onBlur={() => updateTodo.merge({ mode: TodoModes.viewing })}
       />
 ```
+
+There are some rough edges we still need to polish up for `Todo` component,
+which we'll get back to once we have familiarized ourselves with Producers in
+next step.

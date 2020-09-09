@@ -18,6 +18,7 @@ module.exports = {
               "quick-start-tutorial/updating-state-from-components",
             ],
           },
+          "quick-start-tutorial/introducing-producers",
         ],
       },
     ],
