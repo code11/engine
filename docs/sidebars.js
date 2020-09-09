@@ -16,7 +16,6 @@ module.exports = {
               "quick-start-tutorial/state",
               "quick-start-tutorial/accessing-state-in-components",
               "quick-start-tutorial/updating-state-from-components",
-              "quick-start-tutorial/introducing-new-paths-in-state",
             ],
           },
         ],

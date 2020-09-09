@@ -1,7 +1,7 @@
 ---
 id: accessing-state-in-components
 title: Accessing State in Components
-sidebar_label: Accessing State in Components
+sidebar_label: Accessing State
 ---
 
 First we'll check if we can access todos from our state in `src/App.tsx`:

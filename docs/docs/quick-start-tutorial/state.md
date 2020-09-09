@@ -1,7 +1,7 @@
 ---
 id: state
 title: State is King!
-sidebar_label: State
+sidebar_label: State is King
 ---
 
 Purpose of every software is to solve some real world problem. Data that we use
