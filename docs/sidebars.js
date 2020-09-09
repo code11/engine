@@ -20,6 +20,7 @@ module.exports = {
           },
           "quick-start-tutorial/introducing-producers",
           "quick-start-tutorial/state-as-comm-mechanism",
+          "quick-start-tutorial/wrapping-up",
         ],
       },
     ],
