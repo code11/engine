@@ -4,7 +4,7 @@ title: Introducing Producers
 sidebar_label: Producers
 ---
 
-[Producer](/docs/api/producer)s are the central entity of Engine. Engine
+[Producer](/docs/api/producer)s are the central concept of Engine. Engine
 recommends that our components should only represent the view, and have as
 little logic as possible (ideally components should have no logic at all).
 Producers are where logic lives in an Engine app.
@@ -123,3 +123,6 @@ Similar to `view`s, a producer is triggered whenever anything that it `Observe`s
 changes. Our `pendingCounter` producer Observes `todosById` object, so whenever
 anything in todosById changes, our producer is executed. Whenever status of any
 todo item is updated, we see our `pendingCount` to have updated accordingly.
+
+In the next chapter, we'll take a look at how producers make it possible to a
+very create workflow for view <-> producer communication.
