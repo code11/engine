@@ -24,7 +24,7 @@ module.exports = {
         ],
       },
     ],
-    Guide: ["packages", "best-practices", "anti-patterns"],
+    Guide: ["packages", "best-practices"],
     "API Documentation": [
       "api/engine",
       {

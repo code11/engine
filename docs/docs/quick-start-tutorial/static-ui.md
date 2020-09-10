@@ -67,7 +67,7 @@ todos, and clearing them.
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      <button className="clear-completed">Clear completed</button>{" "}
+      <button className="clear-completed">Clear completed</button>
     </footer>
   </section>
 );

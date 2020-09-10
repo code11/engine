@@ -189,9 +189,9 @@ const syncVisibleTodoIds: producer = ({
     .map(([key, value]) => {
       switch (filter as TodoFilters) {
         case TodoFilters.completed:
-          return (value as any).status === TodoStatuses.pending ? key : null;
+          return value.status === TodoStatuses.done ? key : null;
         case TodoFilters.pending:
-          return (value as any).status === TodoStatuses.done ? null : key;
+          return value.status === TodoStatuses.done ? null : key;
         default:
           return key;
       }
