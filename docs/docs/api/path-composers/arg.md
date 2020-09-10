@@ -33,4 +33,4 @@ const TodoItem: view = ({
 In this example, `TodoItem` will have access to `tags = ["tag1", "tag2"]`.
 
 `Arg` is also very useful with combined with
-[Wildcard](/docs/api/path/composers/wildcard)
+[Wildcard](/docs/api/path-composers/wildcard)

@@ -27,7 +27,7 @@ closer to the view that will trigger the producer.
 In `src/Footer.tsx`, let's add a click event listener for "Clear Completed"
 todos button. Our view is going to use state as a communication channel to
 trigger the producer (as discussed in [last
-chapter](/docs/api/quick-start-tutorial/state-as-comm-mechanism)).
+chapter](/docs/quick-start-tutorial/state-as-comm-mechanism)).
 
 ```diff
 const Footer: view = ({
