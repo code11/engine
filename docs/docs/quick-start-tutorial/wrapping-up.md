@@ -156,7 +156,8 @@ Add it to `App`'s producers:
 
 ## Removing Todos
 
-Try to implement this feature in by yourself 🙂
+Check out the documentation for [Update](/docs/api/update), and try to implement
+this feature in by yourself 🙂
 
 <details>
 <summary>Solution</summary>

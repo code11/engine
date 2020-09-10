@@ -9,22 +9,14 @@ independently on-need basis.
 
 1. `@c11/engine.macro`
 
-  `@c11/engine.macro` is the core of Engine. It contains all the magic that makes
-  Engine so productive. Every engine app depends on this package.
+  `@c11/engine.macro` is the core of Engine. It contains all the magic that
+  makes Engine so productive. Every engine app depends on this package.
 
-  This package contains [Babel
-  Macros](https://github.com/kentcdodds/babel-plugin-macros). Engine makes use
-  babel-macros of to save us from a lot of boilerplate.
+  Engine uses [Babel Macros](https://github.com/kentcdodds/babel-plugin-macros)
+  defined in this package to save us from a lot of boilerplate.
 
-2. `@c11/engine.types`
-
-  Typescript type-definitions for working with Engine applications???
-
-3. `@c11/engine.producer`
-
-  Used internally by @c11/macros
-
-4. `@c11/engine.react`
+2. `@c11/engine.react`
 
   Contains react bindings for Engine. Whenever we are creating a React
-  application, we are going to need this one.
+  application, we are going to need this one. Almost always, all you need to
+  import from this package is `Engine` class.
