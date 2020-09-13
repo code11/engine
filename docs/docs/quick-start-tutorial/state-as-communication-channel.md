@@ -1,5 +1,5 @@
 ---
-id: state-as-comm-mechanism
+id: state-as-communication-channel
 title: State as Communication Channel
 sidebar_label: State as Communication Channel
 ---
@@ -111,7 +111,8 @@ const addNewTodo: producer = ({
   const newTodo: TodoItem = {
     id,
     title: getTitle(),
-    status: TodoStatuses.pending
+    status: TodoStatuses.pending,
+    mode: TodoModes.viewing
   };
 
   updateTodosById.merge({

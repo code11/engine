@@ -54,12 +54,34 @@ We have:
    conveniently work with our state. You can read [more about Update in api
    docs](/docs/api/update).
 
-## Adding new paths to State
+## Many faced component
 
 To make our `Todo`s editable, we want to toggle the component that is used to
 display our TodoItem. Instead of rendering `title` in a `<label>`, an `<input>`
 would serve our purpose of editing the title better. It's fair to say that our
 `Todo` can be one of two modes at a time: "viewing" or "editing".
+
+We'll first create an enum for all different modes a Todo can be in. In
+`src/types.tsx`:
+
+```diff
++ export enum TodoModes {
++   viewing = "viewing",
++   editing = "editing"
++ }
+```
+
+While we are at it, let's also update the type for `TodoItem` to support
+TodoMode. In `src/types.tsx`:
+
+```diff
+export interface TodoItem {
+  id: string;
+  title: string;
+  status: TodoStatuses;
++ mode: TodoModes;
+}
+```
 
 In such scenarios, Engine recommends that we split our component into different
 States. Let's go ahead and create two versions for our `Todo` component for the
@@ -129,8 +151,8 @@ const Edit: view = ({
 export default Edit;
 ```
 
-Now our `src/Todo/index.tsx` can simply be a logical component, which decides which
-of its two modes to render. In `src/Todo/index.tsx`
+Now our `src/Todo/index.tsx` can simply be a logical component which decides the
+appropriate component based on Todo's state. In `src/Todo/index.tsx`
 
  ```tsx
 import React from "react";
@@ -139,8 +161,19 @@ import View from "./View";
 import Edit from "./Edit";
 import { TodoModes } from "../types";
 
+const uiStates = {
+  [TodoModes.editing]: Edit,
+  [TodoModes.viewing]: View
+};
+
+const Fallback = ({ id }: { id: string }) => {
+  console.warn("Invalid UI State for Todo with Id", id);
+
+  return null;
+};
+
 const Todo: view = ({ id, mode = Observe.todosById[Prop.id].mode }) => {
-  const Component = mode === TodoModes.editing ? Edit : View;
+  const Component = uiStates[mode as TodoModes] || Fallback;
 
   return <Component id={id} />;
 };
@@ -148,20 +181,33 @@ const Todo: view = ({ id, mode = Observe.todosById[Prop.id].mode }) => {
 export default Todo;
 ```
 
-Did you notice we are using `Observe.todosById[Prop.id].mode` above?
-`TodoItem.mode` isn't defined in our global state yet. Engine allows (and even
-encourages) this pattern of start using state before it even exists. We'll first
-create an enum for all different modes a Todo can be in. In `src/types.tsx`:
+We have explicitly called out how different todo modes correspond to different
+components, and added a safe fallback in case our Todo is in an invalid state.
+Safest fallback is one which is least error prone, in this case, it is simply to
+render nothing.
+
+We'll have to modify our bootstrap todo items in initial state to also have a
+mode. In `src/index.tsx`
 
 ```diff
-+ export enum TodoModes {
-+   viewing = "viewing",
-+   editing = "editing"
-+ }
+      todosById: {
+        todo1: {
+          id: "todo1",
+          title: "Add initial state to engine",
+          isDone: false,
++         mode: "viewing"
+        },
+        todo2: {
+          id: "todo2",
+          title: "Use initial state in components",
+          isDone: false,
++         mode: "viewing"
+        }
+      },
 ```
 
-Let's now add `TodoItem.mode` to our todos in state whenever user double clicks
-a `Todo.View`. In `src/Todo/View.tsx`:
+Let's now change `TodoItem.mode` of our todos in state whenever user double
+clicks a `Todo.View`. In `src/Todo/View.tsx`:
 
 ```diff
 + import { TodoModes } from "../types";
