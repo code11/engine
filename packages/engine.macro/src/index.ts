@@ -38,14 +38,10 @@ const EngineMacroHandler:MacroHandler = ({
 interface Config {
   [k: string]: any;
 }
-type ViewSomething = {
-  producers: ProducerConfig[];
-};
-
-type ViewElement<T> = ReactElement<T> & ViewSomething;
 
 export type producer<T = any> = (props: T) => void;
-export type view<T = any> = (props: T) => ViewElement<T> | null;
+declare type viewFunction<T> = (props: T) => ReactElement<T> | null;
+export declare type view<T=any> = viewFunction<T> & {producers?: producer[]};
 
 export const Observe: any = {};
 export const Update: any = {};
