@@ -14,9 +14,9 @@ life in are:
 2. Toggling status of all Todos
 3. Removing a todo item when "X" button in `Todo` is clicked
 
-Both will these actions will follow the principles we have learned so far. A
-`view` will accept user's input, and store it in our state, a `producer` will
-get triggered and perform the actual task.
+All these operations will follow the principles we have learned so far. A `view`
+will accept user's input, and store it in our state, a `producer` will get
+triggered and perform the actual operation.
 
 ## Clearing completed Todos
 
@@ -34,31 +34,31 @@ const Footer: view = ({
   pendingCount = Observe.pendingCount,
   filter = Observe.filter,
   updateFilter = Update.filter,
-+ updateClearAction = Update.clearAction
++ updateClearRequest = Update.clearRequest
 }) => (
 ...
 -     <button className="clear-completed">Clear completed</button>
 +     <button
 +       className="clear-completed"
-+       onClick={() => updateClearAction.set("clearDone")}
++       onClick={() => updateClearRequest.set(new Date().getTime())}
 +     >
         Clear completed
     </button>
 ```
 
-We have introduced a new path in our state, `clearAction`, which will contain a
-value when a clear action need to be performed. In same file (i.e
+We have introduced a new path in our state, `clearRequest`, which will contain a
+value when a clear operation need to be performed. In same file (i.e
 `src/Footer.tsx`), we'll now add a new producer which performs the actual
 operation of clearing completed todos.
 
 ```tsx
-const handleClearAction: producer = ({
-  clearAction = Observe.clearAction,
-  updateClearAction = Update.clearAction,
+const handleClearRequest: producer = ({
+  clearRequest = Observe.clearRequest,
+  updateClearRequest = Update.clearRequest,
   getTodosById = Get.todosById,
   updateTodosById = Update.todosById
 }) => {
-  if (clearAction !== "clearDone") {
+  if (!clearRequest) {
     return;
   }
 
@@ -72,7 +72,7 @@ const handleClearAction: producer = ({
     }, {});
 
   updateTodosById.set(nextTodos);
-  updateClearAction.set(null);
+  updateClearRequest.set(null);
 };
 ```
 
@@ -80,10 +80,10 @@ We'll add it to `Footer`'s producers:
 
 ```tsx
 - (Footer as any).producers = [pendingCounter];
-+ (Footer as any).producers = [pendingCounter, handleClearAction];
++ (Footer as any).producers = [pendingCounter, handleClearRequest];
 ```
 
-Notice how `handleClearAction` producer is changing the value that acts as its
+Notice how `handleClearRequest` producer is changing the value that acts as its
 trigger. This is also a common pattern in Engine apps.
 
 ## Toggling status of all Todos
@@ -99,7 +99,7 @@ In `src/App.tsx`, let's create store the value in state:
 + const App: view = ({
 +   pendingCount = Observe.pendingCount,
 +   todoIds = Observe.visibleTodoIds,
-+   updateToggleAllAction = Update.toggleAllAction
++   updateToggleAllRequest = Update.toggleAllRequest
 + }) => (
 ...
 -       <input id="toggle-all" className="toggle-all" type="checkbox" />
@@ -108,21 +108,21 @@ In `src/App.tsx`, let's create store the value in state:
 +         className="toggle-all"
 +         type="checkbox"
 +         checked={pendingCount === 0}
-+         onChange={() => updateToggleAllAction.set("toggleAll")}
++         onChange={() => updateToggleAllRequest.set(new Date().getTime())}
 +       />
 ```
 
-Add a new producer `handleToggleAllAction`:
+Add a new producer `handleToggleAllRequest`:
 
 ```tsx
-const handleToggleAllAction: producer = ({
-  toggleAllAction = Observe.toggleAllAction,
-  updateToggleAllAction = Update.toggleAllAction,
+const handleToggleAllRequest: producer = ({
+  toggleAllRequest = Observe.toggleAllRequest,
+  updateToggleAllRequest = Update.toggleAllRequest,
   getTodosById = Get.todosById,
   getPendingCount = Get.pendingCount,
   updateTodosById = Update.todosById
 }) => {
-  if (toggleAllAction !== "toggleAll") {
+  if (!toggleAllRequest) {
     return;
   }
 
@@ -143,7 +143,7 @@ const handleToggleAllAction: producer = ({
     }, {} as TodosById);
 
   updateTodosById.set(nextTodos);
-  updateToggleAllAction.set(null);
+  updateToggleAllRequest.set(null);
 };
 ```
 
@@ -151,7 +151,7 @@ Add it to `App`'s producers:
 
 ```diff
 - (App as any).producers = [syncVisibleTodoIds];
-+ (App as any).producers = [syncVisibleTodoIds, handleToggleAllAction];
++ (App as any).producers = [syncVisibleTodoIds, handleToggleAllRequest];
 ```
 
 ## Removing Todos
