@@ -44,8 +44,8 @@ import React from "react";
 import { view, Observe, Update } from "@c11/engine.macro";
 
 const TodoForm: view = ({
-  updateNewTodoTitle = Update.newTodoTitle,
-  newTodoTitle = Observe.newTodoTitle
+  updateNewTodoTitle = Update.newTodo.title,
+  newTodoTitle = Observe.newTodo.title
 }) => (
     <input
       className="new-todo"
@@ -62,8 +62,8 @@ export default TodoForm;
 We have,
 1. Labeled our `TodoForm` as `view`, so that we can use
    [Observe](/docs/api/observe) and [Update](/docs/api/update) in it
-2. Introduced a new state path `.newTodoTitle`
-3. Update `newTodoTitle` whenever user enters something in the `<input>`
+2. Introduced a new state path `.newTodo.title`
+3. Update `newTodo.title` whenever user enters something in the `<input>`
 
 We want to add a new todo to our `todosById` list whenever user presses `Enter`
 key in the input. We could create an event handler in the view itself which does
@@ -76,8 +76,8 @@ key in state as `pressedTodoFormKey`. Make these changes in `src/TodoForm.tsx`:
 
 ```diff
 const TodoForm: view = ({
-  updateNewTodoTitle = Update.newTodoTitle,
-  newTodoTitle = Observe.newTodoTitle,
+  updateNewTodoTitle = Update.newTodo.title,
+  newTodoTitle = Observe.newTodo.title,
 + updatePressedKey = Update.pressedTodoFormKey
 }) => (
     <input
@@ -99,9 +99,9 @@ changes in `src/TodoForm.tsx`, we'll add a new producer:
 ```tsx
 const addNewTodo: producer = ({
   pressedKey = Observe.pressedTodoFormKey,
-  getTitle = Get.newTodoTitle,
+  getTitle = Get.newTodo.title,
   updateTodosById = Update.todosById,
-  updateNewTodoTitle = Update.newTodoTitle
+  updateNewTodoTitle = Update.newTodo.title
 }) => {
   if (pressedKey !== "Enter") {
     return;
@@ -132,13 +132,13 @@ export default TodoForm;
 
 `addNewTodo` producer is doing a couple of interesting things:
 
-1. We use `Get.newTodoTitle` instead of `Observe.newTodoTitle`.
+1. We use `Get.newTodo.title` instead of `Observe.newTodo.title`.
    [Get](/docs/api/get) is another macro, which provides a function to get live
    value from the state. It is very useful when our producer is doing something
    asynchronous and needs a value from state at a later time. Or as is the case
    now, it allow us to access a value without `Observe`ing it. A `producer` or
    `view` gets triggered every time anything it `Observe` changes. We don't want
-   `addNewTodo` producer to get called whenever `newTodoTitle` changes, we are
+   `addNewTodo` producer to get called whenever `newTodo.title` changes, we are
    only interested in changes in `pressedTodoFormKey`
 2. We added a guard in starting of the producer, which checks if state is valid
    for execution of this producer. This is a common pattern in Engine apps,
@@ -152,7 +152,7 @@ cancel adding a new todo if user presses Escape key.
 ```tsx
 const cancelAddingTodo: producer = ({
   pressedKey = Observe.pressedTodoFormKey,
-  updateNewTodoTitle = Update.newTodoTitle
+  updateNewTodoTitle = Update.newTodo.title
 }) => {
   if (pressedKey !== "Escape") {
     return;
