@@ -71,39 +71,72 @@ this work, but Engine recommends we rather not. Only logic that should go into a
 view is converting event payloads into value they contain, and store them at
 some path in state.
 
-We'll now add event listener for `onKeyDown` in the input, and store the pressed
-key in state as `pressedTodoFormKey`. Make these changes in `src/TodoForm.tsx`:
+We'll now
+1. Add event listener for `onKeyDown` in the input
+2. Convert the pressed key to the intent TodoForm want to express, and store it
+   in our state
+3. Create producers for committing and discarding the new todo
+
+In `src/TodoForm.tsx`:
 
 ```diff
+import React, { KeyboardEvent } from "react";
+import { view, Observe, Update, producer, Get } from "@c11/engine.macro";
+import { TodoItem, TodoStatuses, TodoModes } from "./types";
+
 const TodoForm: view = ({
   updateNewTodoTitle = Update.newTodo.title,
   newTodoTitle = Observe.newTodo.title,
-+ updatePressedKey = Update.pressedTodoFormKey
-}) => (
+  updateNewTodoIntent = Update.newTodo.intent
+}) => {
+  const keyDownToIntent = (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      updateNewTodoIntent.set("commit");
+    }
+
+    if (e.key === "Escape") {
+      updateNewTodoIntent.set("discard");
+    }
+  };
+
+  return (
     <input
       className="new-todo"
       placeholder="What needs to be done?"
       autoFocus={true}
       value={newTodoTitle || ""}
       onChange={e => updateNewTodoTitle.set(e.currentTarget.value)}
-+     onKeyDown={e => updatePressedKey.set(e.key)}
+      onKeyDown={keyDownToIntent}
     />
   );
+};
 ```
 
-Using state as a communication mechanism between components and states allow us
-to keep our views free of all logic. We get to create small producers which do
-one thing well. `addNewTodo` is going to be one such producer for us. Make these
-changes in `src/TodoForm.tsx`, we'll add a new producer:
+Remember we said our views are dumb as bricks? Well they are, but they can also
+contain as much logic as required to provide a clean API. A component's API
+constitutes two things:
+1. Input: props and global state
+2. Outputs: JSX and global state
+
+A good API do not reveal its implementation details. Our state shouldn't need to
+know which key is getting pressed, but only what is the objective that our
+component want to accomplish. To provide a clean API, we've added an event
+handler in the view itself, which stores the intent of the TodoForm component in
+state in `.newTodo.intent`.
+
+Using state as a communication mechanism between components and producers allow
+us to keep our views free of all business logic. We get to create small
+producers which do one thing well. `addNewTodo` is going to be one such producer
+for us. Make these changes in `src/TodoForm.tsx`, we'll add a new producer:
 
 ```tsx
 const addNewTodo: producer = ({
-  pressedKey = Observe.pressedTodoFormKey,
+  newTodoIntent = Observe.newTodo.intent,
   getTitle = Get.newTodo.title,
   updateTodosById = Update.todosById,
   updateNewTodoTitle = Update.newTodo.title
 }) => {
-  if (pressedKey !== "Enter") {
+  if (newTodoIntent !== "commit") {
     return;
   }
 
@@ -151,10 +184,10 @@ cancel adding a new todo if user presses Escape key.
 
 ```tsx
 const cancelAddingTodo: producer = ({
-  pressedKey = Observe.pressedTodoFormKey,
+  newTodoIntent = Observe.newTodo.intent,
   updateNewTodoTitle = Update.newTodo.title
 }) => {
-  if (pressedKey !== "Escape") {
+  if (newTodoIntent !== "discard") {
     return;
   }
 
