@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.5](https://github.com/code11/engine/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2020-09-16)
+
+
+### Bug Fixes
+
+* **macro:** change types of view ([f65a501](https://github.com/code11/engine/commit/f65a50146347bb2de6535ac2479944307767ba55))
+
+
+
+
+
 # [4.0.0-alpha.4](https://github.com/code11/engine/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2020-09-06)
 
 
