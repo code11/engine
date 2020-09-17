@@ -4,27 +4,27 @@ title: view
 sidebar_label: view
 ---
 
-`view` is for labeling React components. It allows us to use Engine features to
-interact with our state using [Observe](/docs/api/observe),
-[Get](/docs/api/get), and [Update](/docs/api/update).
+`view` creates Engine views, which render HTML in browser. `view` can use Engine
+operators [Observe](/docs/api/observe), [Get](/docs/api/get), and
+[Update](/docs/api/update) to interact with global state.
 
 `Observe`, `Get` and `Update` are used in the first object argument of a
-function. We sometimes refer to this first object argument as the "header" of a
-function. e.g if we have a react component that looks like:
+function, also called "header" of the function. For example, a react component
+that looks like:
 
 ```tsx
 const Button = ({ title }) => (<button>{title}</button>);
 ```
 
-we can convert it to an Engine view by labeling it with `view`:
+can be converted to an Engine view by labeling it with `view`:
 
 ```tsx
 const Button: view = ({ title }) => (<button>{title}</button>);
 ```
 
 No other change is required. Except the header part of the function, rest of it
-is a normal React component. In the header, we can use Engine utilities to
-interact with state. e.g
+is a normal React component. In the header, Engine operators can be used to
+interact with state. For example:
 
 ```tsx
 const Button: view = ({
@@ -41,23 +41,24 @@ const Button: view = ({
 
 ## `view.producers`
 
-A `view` can have one or more producers assigned to it as an array. e.g if we
-have a `myProducer` [producer](/docs/api/producer), we can add it to our
+A `view` can have one or more producers assigned to it as an array. e.g a
+producer named `myProducer` [producer](/docs/api/producer) can be added to
 `Button` view with:
 
 ```tsx
 Button.producers = [myProducer];
 ```
 
-PS `view`s are just specialized [producer](/docs/api/producer)s. Only difference
+`view`s are just specialized [producer](/docs/api/producer)s. Only difference
 between a view and a producer is that a view can:
-1. Return JSX and act as a React component
+1. Return JSX which gets rendered as HTML in browser
 2. Have `.producers` property
 
 ## Best practices
 
-Engine recommends that our `view`s should contain as little logic as possible.
-Ideally, a view should be completely free from all forms of logic. Instead of
-performing any logic in view, create a producer for the view which performs
-required logic, and store the results in the state, which can then be utilized
-by the view.
+Engine recommends that `view`s should contain as little logic as possible.
+Ideally, a view should be completely free from all forms of logic, but can
+contain minimal amount of logic needed to provide a clean API.
+
+Instead of performing any logic in view, a producer should be created for the
+view to perform required business logic.

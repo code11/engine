@@ -93,7 +93,7 @@ In`src/Todo.tsx`
 2. Assigning `title` to `Observe.todosById[Prop.id].title` in view header gives
    access to the title of a todo from the global state
 
-[Prop](/docs/api/input-macros/prop) allow [composing
+[Prop](/docs/api/path-composers/prop) allow [composing
 paths](/docs/api/path-composers/path-composition) for accessing data from global
 state. `Prop.<path>` gives access to all the [React
 props](https://reactjs.org/docs/components-and-props.html) passed to a component

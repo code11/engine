@@ -5,7 +5,7 @@ sidebar_label: Path Composition
 ---
 
 Engine apps rely heavily on path composition. "Path" refers to the location of a
-property in state object. e.g if our state looks like:
+property in the global state object. e.g if the state looks like:
 
 ```js
 {
@@ -17,7 +17,7 @@ property in state object. e.g if our state looks like:
 }
 ```
 
-Then path for `bar` is `.foo.bar.baz`.
+Then path for `baz` is `.foo.bar.baz`.
 
 Path composition is the act of creating paths to access values from state. It
 sounds simple, because it is. It is also one of the most important (and
@@ -32,6 +32,6 @@ Engine provides following utilities for composing paths to work on:
 5. [Path](/docs/api/path-composers/path)
 
 Paths composed using these path composition utilities can be used with all 3
-state manipulation utilities provided by Engine i.e with
+state manipulation operators provided by Engine i.e with
 [Observe](/docs/api/observe), [Get](/docs/api/get) and
 [Update](/docs/api/update)

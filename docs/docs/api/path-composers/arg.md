@@ -4,11 +4,11 @@ title: Arg
 sidebar_label: Arg
 ---
 
-`Arg` allow us to refer to other arguments of the same
+`Arg` allows referring to other arguments in header of a
 [producer](/docs/api/producer) or [view](/docs/api/view).
 
-For example, if we have a `TodoItem` component which accepts a single arg `id:
-string`, and a state which looks like:
+For example, given a `TodoItem` component which accepts a single arg `id:
+string`, and global state which looks like:
 
 ```ts
 {
@@ -21,7 +21,8 @@ string`, and a state which looks like:
 }
 ```
 
-We can access tags for the Todo with `id`, by composing our path using `Arg`:
+It is possible to access tags for the Todo with `id`, by composing path using
+`Arg`:
 
 ```tsx
 const TodoItem: view = ({

@@ -55,5 +55,3 @@ enum Modes {
 ```
 
 When using an `Enum`, prefer using a string Enum.
-
-### Use state for view<->producer communication

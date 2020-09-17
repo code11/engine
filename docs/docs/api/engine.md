@@ -20,7 +20,10 @@ const engine = new Engine({
   view: {
     element: <App />,
     root: "#root"
-  }
+  },
+  producers: {
+    list: []
+  },
 });
 
 engine.start();
@@ -51,6 +54,11 @@ following properties:
     - `state.initial` becomes the initial state for our application. To get the
       magic macros like [Observe](/docs/api/observe) to work, our state state
       has to be an object.
+
+3. `producers`
+
+  Engine can have a list of global [producer](/docs/api/producer)s, which don't
+  belong to a particular [view](/docs/api/view)
 
 ### Engine instance
 

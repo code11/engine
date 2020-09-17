@@ -4,13 +4,11 @@ title: Prop
 sidebar_label: Prop
 ---
 
-`Prop` allow us to refer to [React
-props](https://reactjs.org/docs/components-and-props.html) in our
-[view](/docs/api/view)s, so we can dynamically `Observe` state data. `Prop` are
-usually `String`s provided by a parent Component in a React app.
+`Prop` allow us to refer to props given to the [view](/docs/api/view)s, so that
+they can be used to compose paths and operate on state data.
 
-For example, if we have a `TodoItem` component which accepts a single prop `id:
-string`, and a state which looks like:
+For example, if a `TodoItem` component accepts a single prop `id: string`, and
+global state looks like:
 
 ```ts
 {
@@ -20,11 +18,12 @@ string`, and a state which looks like:
 }
 ```
 
-We can access `title` for the Todo with `id`, by using `Prop.id` as path. e.g
+It is possible to access `title` for the Todo with a given `id`, by using
+`Prop.id` as path. e.g
 
 ```tsx
 const TodoItem: view = ({
-  id, // a shortcut for Prop.id
+  id, // shortcut for Prop.id
   title: Observe.todosById[Prop.id]
 }) => { ... }
 ```

@@ -4,11 +4,11 @@ title: Update
 sidebar_label: Update
 ---
 
-`Update` give us the ability to update values in our state. `Update` is the dual
-of `Observe`. [Observe](/docs/api/observe) enable us to read live values from
-state, `Update` allow us to change values in state.
+`Update` provides the ability to update values in the global state. `Update` is
+the dual of `Observe`. [Observe](/docs/api/observe) enables reading live values
+from state, `Update` allows changing values in state.
 
-e.g if our state looks like:
+e.g if the state looks like:
 
 ```json
 {
@@ -18,8 +18,8 @@ e.g if our state looks like:
 }
 ```
 
-We can get operations to change the value of `bar` by assigning `Update.foo.bar`
-in destructed arguments of a [view](/docs/api/view). e.g
+Operations to change the value of `bar` can be obtained by assigning
+`Update.foo.bar` in the header of a [view](/docs/api/view). e.g
 
 ```
 const MyComponent = ({ bar: Update.foo.bar }) => {

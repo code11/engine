@@ -4,11 +4,11 @@ title: Observe
 sidebar_label: Observe
 ---
 
-`Observe` give us the ability to observe values from our state. To get a "live"
-version of a value from Engine's global state, we can access the state
-properties directly from `Observe` import.
+`Observe` gives the ability to observe values from global state. To get a "live"
+version of a value from Engine's global state, state properties can be directly
+accessed from imported `Observe`.
 
-e.g if our state looks like:
+e.g if the state looks like:
 
 ```json
 {
@@ -18,8 +18,8 @@ e.g if our state looks like:
 }
 ```
 
-We can access the value of `bar` by assigning `Observe.foo.bar` in destructed
-arguments of a [view](/docs/api/view) or [producer](/docs/api/producer). e.g
+value of `bar` can be obtained by assigning `Observe.foo.bar` in header of the
+[view](/docs/api/view) or [producer](/docs/api/producer). For example,
 
 ```
 const MyView: view = ({ barVal: Observe.foo.bar }) => { ... }
