@@ -5,46 +5,43 @@ sidebar_label: Setup
 ---
 
 Although Engine itself is platform neutral, Engine's reactive features really
-shine in context of boilerplate laden world of React. So let's get started with:
+shine when building a React application.
 
 ## Building a React Engine App
 
-We are going to build a TodoMVC app. That's why todo apps exist, to be built in
-introductory tutorials. You can take a look at the
-[todomvc.com](http://todomvc.com/) to get a feeling of what we are about to
-implement.
+This tutorial builds a TodoMVC app following the specs defined at
+[todomvc.com](http://todomvc.com/).
 
 ## Setup
 
-Let's use `create-react-app` to set up a vanilla react app for us.
+Use `create-react-app` to create a vanilla react app.
 
 ```sh
 yarn create react-app engine-todos --template typescript
 ```
 
-We are using the typescript template here. Engine itself is written in
-Typescript, and we highly recommend using it.
+Engine itself is written in Typescript, and recommends using it for creating
+React applications using Engine.
 
-Doing a `yarn start` will start a vanilla react app on
-[localhost:3000](http://localhost:3000). Before we start building our glorious
-todos app, let's port the vanilla React app to Engine.
+`yarn start` can be used to start a vanilla react app on
+[localhost:3000](http://localhost:3000).
 
 ### Install Engine
 
-Following command will install engine dependencies for us:
+Following command will install engine dependencies:
 
 ```sh
 yarn add @c11/engine.macro @c11/engine.react
 ```
 
 `@c11/engine.macro` contain the platform agnostic core of Engine, and
-`@c11/engine.react` contain the React bindings. You can read more about these,
-and more engine packages on [packages](../packages) page.
+`@c11/engine.react` contain the React bindings. Find out more about engine
+packages on [packages](../packages) page.
 
 ### Create an Engine instance
 
-First thing we need to do is create an `Engine` instance, and let it take
-control of our app. In the `src/index.tsx` file:
+First step for building an Engine app is creating an `Engine` instance, and let
+it take control of the app. In the `src/index.tsx` file:
 
 ```diff
 import React from 'react';
@@ -69,21 +66,17 @@ import App from './App';
 + engine.start();
 ```
 
-1. We import and create an `Engine` instance
-2. Instead of having `react-dom` mounting our app to DOM, we give that honor to
-   Engine
+Engine takes care of mounting the app to DOM instead of having `react-dom`.
 
-That's it! We are running an Engine app now.
+This creates a valid, running Engine app.
 
-Now that we have our engine app set. Let's do some chores to set the stage for
-building our glorious TodoMVC app:
+Up next: some chores to set the stage for building the TodoMVC app:
 
 ### Add styles
 
-We want to keep our focus on building the React side of things. Let's install
-`todomvc-app-css` npm package provided by good people behind the TodoMVC
-project with `yarn add todomvc-app-css`, and update our `src/index.tsx` file to
-use it:
+To keep the focus on building the React side of things, install
+`todomvc-app-css` npm package with `yarn add todomvc-app-css`. Update
+`src/index.tsx` file to use it:
 
 ```diff
 - import "./index.css";
@@ -97,11 +90,11 @@ import App from "./App";
 - serviceWorker.unregister();
 ```
 
-We have
+This step:
 
 - Imported CSS from `todomvc-app-css`
-- Removed `create-react-app`'s default css and service worker code that we are
-  not going to use. We can safely delete them:
+- Removed `create-react-app`'s default css and service worker code. Files
+  containing dead code can now be deleted:
   ```sh
   rm src/index.css
   rm src/serviceWorker.ts
@@ -109,9 +102,8 @@ We have
 
 ### Starter Markup
 
-While we are at it, let's also update `/src/App.tsx` and add some markup to
-make our app feel more like the TodoMVC. Replace contents of `/src/App.tsx`
-with:
+To conclude this chapter, update `/src/App.tsx` and add some markup to make the
+app feel more like the TodoMVC. Replace contents of `/src/App.tsx` with:
 
 ```tsx
 import React from "react";
@@ -129,11 +121,11 @@ const App = () => (
 export default App;
 ```
 
-Replacing the default JSX allow us to remove some more code that is dead now:
+Replacing the default JSX allows removing some more code that is dead now:
 ```sh
 rm src/App.css
 rm public/logo*
 ```
 
-Remember that our CSS for our app is provided by `todomvc-app-css` npm package.
-As long as we are using correct CSS classes, our app will keep looking right.
+CSS is provided by `todomvc-app-css` npm package, which mandates using correct
+CSS classes to keep the app looking right.

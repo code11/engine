@@ -4,9 +4,9 @@ title: State as Communication Channel
 sidebar_label: State as Communication Channel
 ---
 
-We'll now make it possible to add new `TodoItem`s to our state. To start off,
-we'll extract `TodoForm` component out of `src/App.tsx`. Create a new file
-`src/TodoForm.tsx`, with following contents:
+It's time to make it possible to add new `TodoItem`s to the state. To start off,
+extract `TodoForm` view out of `src/App.tsx`. Create a new file
+`src/TodoForm.tsx` with following contents:
 
 ```tsx
 import React from "react";
@@ -22,7 +22,7 @@ const TodoForm = () => (
 export default TodoForm;
 ```
 
-And update `src/App.tsx` accordingly:
+Update `src/App.tsx` accordingly:
 
 ```diff
 + import TodoForm from "./TodoForm";
@@ -35,8 +35,8 @@ And update `src/App.tsx` accordingly:
 +    <TodoForm />
 ```
 
-Since global-state is the only kind of state recommended in Engine, we'll keep a
-state variable for what user is typing in our `TodoForm` input. Update
+Since global-state is the only kind of state recommended in Engine, a state
+variable should be kept for what user is typing in our `TodoForm` input. Update
 `src/TodoForm.tsx` to make its content be:
 
 ```tsx
@@ -59,22 +59,23 @@ const TodoForm: view = ({
 export default TodoForm;
 ```
 
-We have,
-1. Labeled our `TodoForm` as `view`, so that we can use
-   [Observe](/docs/api/observe) and [Update](/docs/api/update) in it
+Above snippet:
+1. Labeled `TodoForm` as `view`, so that it can use [Observe](/docs/api/observe)
+   and [Update](/docs/api/update) in its header
 2. Introduced a new state path `.newTodo.title`
 3. Update `newTodo.title` whenever user enters something in the `<input>`
 
-We want to add a new todo to our `todosById` list whenever user presses `Enter`
-key in the input. We could create an event handler in the view itself which does
-this work, but Engine recommends we rather not. Only logic that should go into a
-view is converting event payloads into value they contain, and store them at
-some path in state.
+A new todo should be added to the `todosById` object whenever user presses
+`Enter` key in the input. It is possible to create an event handler in the view
+itself which does this work, but Engine recommends to not do it from the `view`.
+Only logic that should go into a view is converting event payloads into value
+they contain, and store them at some path in state. All the business logic
+belongs in [producer](/docs/api/producer)s.
 
-We'll now
+Next steps are to:
 1. Add event listener for `onKeyDown` in the input
 2. Convert the pressed key to the intent TodoForm want to express, and store it
-   in our state
+   in the state
 3. Create producers for committing and discarding the new todo
 
 In `src/TodoForm.tsx`:
@@ -112,22 +113,22 @@ const TodoForm: view = ({
 };
 ```
 
-Remember we said our views are dumb as bricks? Well they are, but they can also
-contain as much logic as required to provide a clean API. A component's API
-constitutes two things:
-1. Input: props and global state
-2. Outputs: JSX and global state
+`view`s can contain as much logic as required to provide a clean API. A view's
+API is made up of two things:
 
-A good API do not reveal its implementation details. Our state shouldn't need to
-know which key is getting pressed, but only what is the objective that our
-component want to accomplish. To provide a clean API, we've added an event
-handler in the view itself, which stores the intent of the TodoForm component in
-state in `.newTodo.intent`.
+1. Its input: props and global state
+2. Its output: JSX and global state
 
-Using state as a communication mechanism between components and producers allow
-us to keep our views free of all business logic. We get to create small
-producers which do one thing well. `addNewTodo` is going to be one such producer
-for us. Make these changes in `src/TodoForm.tsx`, we'll add a new producer:
+A good API do not reveal its implementation details. State shouldn't need to
+know which key is getting pressed, but only what is the objective that a view
+want to accomplish. To provide a clean API, an event listener can be created in
+the view itself, which stores the intent of the TodoForm component in state in
+`.newTodo.intent`.
+
+Using state as a communication mechanism between components and producers allows
+keeping the views free of all business logic, which is kept in small producers
+which do one thing well. `addNewTodo` is going to be one such producer. Make
+these changes in `src/TodoForm.tsx` to create a new producer:
 
 ```tsx
 const addNewTodo: producer = ({
@@ -165,22 +166,23 @@ export default TodoForm;
 
 `addNewTodo` producer is doing a couple of interesting things:
 
-1. We use `Get.newTodo.title` instead of `Observe.newTodo.title`.
+1. It uses `Get.newTodo.title` instead of `Observe.newTodo.title`.
    [Get](/docs/api/get) is another macro, which provides a function to get live
    value from the state. It is very useful when our producer is doing something
    asynchronous and needs a value from state at a later time. Or as is the case
-   now, it allow us to access a value without `Observe`ing it. A `producer` or
-   `view` gets triggered every time anything it `Observe` changes. We don't want
-   `addNewTodo` producer to get called whenever `newTodo.title` changes, we are
-   only interested in changes in `pressedTodoFormKey`
-2. We added a guard in starting of the producer, which checks if state is valid
-   for execution of this producer. This is a common pattern in Engine apps,
-   since it recommends creating small, single-responsibility producers. Here we
-   check if the key user has pressed is the `Enter` key, if it isn't, we don't
-   want to do anything in this producer.
+   now, it allow accessing a value without `Observe`ing it.
 
-In the spirit of single-responsibility producers, let's add another producer to
-cancel adding a new todo if user presses Escape key.
+   A `producer` or `view` gets triggered every time anything it `Observe`
+   changes. `addNewTodo` producer should not get called whenever `newTodo.title`
+   changes. It is only interested in changes in `newTodoIntent`
+2. Notice that a guard has been added in starting of the producer, which checks
+   if state is valid for execution of this producer. This is a common pattern in
+   Engine apps, since it recommends creating small, single-responsibility
+   producers. The guard checks if the intent of newTodo is to commit it, if it
+   isn't, this producer should not do anything.
+
+In the spirit of single-responsibility producers, another producer can be
+created to cancel adding a new todo if user presses Escape key.
 
 ```tsx
 const cancelAddingTodo: producer = ({
@@ -203,15 +205,16 @@ Adding it to `TodoForm.producers` will bring it to life:
 + (TodoForm as any).producers = [addNewTodo, cancelAddingTodo];
 ```
 
-Although we can add new todos to our state, we can see the "Pending count"
-increase in footer on adding new todos, but we still can't see them added to the
-list. We have to update `visibleTodoIds` in our state, which is in charge of
-which todos are visible in the list. Question is, where do the producer for
-updating `visibleTodoIds` belong? Should we add a producer in `TodoForm` which
-adds the todos, or should it go in `App`, which shows the list of todos?
+Although new todos are getting added to the state, and "Pending count" in footer
+increases on adding new todos, new todos are not shown in the todo list.
+`visibleTodoIds` in the state need to be kept in sync with changes in
+`todosById`. It is in charge of which todos are visible in the list. Question
+is, where do the producer for updating `visibleTodoIds` belong? Should a
+producer be added in `TodoForm`, which adds the todos, or should it go in `App`,
+which shows the list of todos?
 
-Engine recommends that **Views which consume the derived state should track
-it**. Let's add a producer in `src/App.tsx`:
+Engine recommends that **views which consume the derived state should track
+it**. Add a producer in `src/App.tsx`:
 
 ```tsx
 const syncVisibleTodoIds: producer = ({
@@ -239,9 +242,9 @@ const syncVisibleTodoIds: producer = ({
 This view is doing a bit more than just adding all the `id`s from `todosById`.
 It also accounts for existence of a `filter` in state, which don't yet exist in
 state. This is how **Engine help gradually evolving the state as application
-evolves**. We'll set the filter when user clicks on "All", "Active" and
-"Completed" buttons in the `Footer`. But before that, let's add this producer to
-our `App`:
+evolves**. The filter will be set later, when user clicks on "All", "Active" and
+"Completed" buttons in the `Footer`. But before that, add this producer to
+`App`:
 
 ```diff
 (App as any).producers = [syncVisibleTodoIds];
@@ -249,8 +252,8 @@ our `App`:
 export default App;
 ```
 
-Before we add filters to state, let's create an enum to represent all the
-possible filters that our app can have. In `src/types.tsx`, add:
+Before adding filters to state, let's create an enum to represent all the
+possible filters. In `src/types.tsx`, add:
 
 ```ts
 export enum TodoFilters {
@@ -260,7 +263,7 @@ export enum TodoFilters {
 }
 ```
 
-Making a very simply change to `src/Footer.tsx` allow us to set filters for
+Making a very simply change to `src/Footer.tsx` allows setting filters for
 visible todos:
 
 ```diff
@@ -307,7 +310,8 @@ const Footer: view = ({
       </ul>
 ```
 
-We can also set an initial filter by setting it in our initial state in `src/index.tsx`:
+It's also possible to set an initial filter by setting it in the initial state.
+In `src/index.tsx`:
 
 ```diff
 + import { TodoFilters } from "./types";

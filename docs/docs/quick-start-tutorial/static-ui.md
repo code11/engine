@@ -4,11 +4,11 @@ title: Static UI
 sidebar_label: Static UI
 ---
 
-We'll take a top-bottom approach for building our todos app. Let's first add
-some static UI to our `App` component, which we'll give life to with Engine
-later.
+This tutorial takes a top-down approach for building the todos app. This chapter
+adds the static UI of our `App`, which will be given life with Engine in
+subsequent chapters.
 
-First thing we want to add is the todos input. In `App.tsx`:
+Add the todos `<input>` in `App.tsx`:
 
 ```tsx
 import React from "react";
@@ -26,8 +26,8 @@ const App = () => (
     />
 ```
 
-Next comes our main section which lists all the todos, and also has a control to
-toggle "Done" status of all todo items.
+Next section lists all the todos, and also has a control to toggle "Done"
+status of all todo items.
 
 ```tsx
     <section className="main">
@@ -46,8 +46,8 @@ toggle "Done" status of all todo items.
     </section>
 ```
 
-And finally, the footer of our app, which has some more controls for viewing
-todos, and clearing them.
+And finally, the footer has some more controls for viewing todos, and clearing
+them.
 
 ```tsx
     <footer className="footer">
@@ -75,5 +75,5 @@ todos, and clearing them.
 export default App;
 ```
 
-That's the entire app we are going to build. Let's start with making our todo
-items come from state instead of hard-coding them in JSX.
+Next chapter will populate todo items from state instead of hard-coding them in
+JSX.

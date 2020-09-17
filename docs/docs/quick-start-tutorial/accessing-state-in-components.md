@@ -4,7 +4,8 @@ title: Accessing State in Components
 sidebar_label: Accessing State
 ---
 
-First we'll check if we can access todos from our state in `src/App.tsx`:
+Converting a React Component to Engine [view](/docs/api/view) allow accessing
+todos from state In `src/App.tsx`:
 
   ```diff
 import React from "react";
@@ -16,16 +17,14 @@ import React from "react";
 +     {console.log("TODOS", todoIds)}
 ```
 
-1. We labeled our`App` component as a `view`
-2. We assigned`Observe.visibileTodoIds` in first argument of`App` view
+1. `App` component is labeled as a `view`
+2. In `App`'s header, `Observe.visibileTodoIds` allow reading `State.visibileTodoIds`
 
-We can see todos ids from our state printed in console! Engine allow us to
-observe any part of our state by assigning it as `Observe.<path>` in `view`
-argument.
+Todos ids from state can be seen printed in console! Engine allow observing any
+part of the state by assigning it as `Observe.<path>` in header of a `view.
 
-Time to put these todos in jsx.In`src/App.tsx`, let's extract the `<Todo>`
-component out of`<App>` so that we can easily do `map` these ids to`Todo`
-components.We'll put `Todo` in its own file. In `src/Todo.tsx`, add
+Extract the `<Todo>` component out of`<App>` to easily `map` todo ids to`Todo`
+components, and put it in its own file. In `src/Todo.tsx`, add
 
   ```tsx
 import React from "react";
@@ -43,7 +42,7 @@ const Todo = ({ id }) => (
 export default Todo;
 ```
 
-Now we can update our`App` component with:
+Update the `App` component with:
 
 ```diff
 + import Todo from './Todo';
@@ -62,16 +61,15 @@ Now we can update our`App` component with:
       </ul>
 ```
 
-As per our implementation of`Todo`, we can now see todo ids(i.e`todo1`,
-  `todo2`) in browser.But we want to show`TodoItem.title` in `Todo` component,
-    not their id.
+As per the implementation of`Todo`, it is possible to see todo ids(i.e`todo1`,
+  `todo2`) in browser. But it should actually show`TodoItem.title`, not their
+  id.
 
-This is where Engine differs from traditional React apps.Engine recommends that
-[parent component should pass minimal data to its
-children](docs / best - practices#pass - minimal - data - to - children).Minimum amount of
-data needed to render a`Todo` is its`id`.We can find the right todo from
-global state if we know its id.Let's modify our `Todo` component to follow the
-Engine way:
+This is where Engine differs from traditional React apps. Engine recommends that
+[parent component should pass minimal data to its children](docs / best -
+practices#pass - minimal - data - to - children). Minimum amount of data needed
+to render a `Todo` is its `id`. Right todo can be retrieved from global state
+with its id. Modify the `Todo` component to follow the Engine way:
 
 In`src/Todo.tsx`
 
@@ -91,25 +89,25 @@ In`src/Todo.tsx`
 );
 ```
 
-1. We labeled`Todo` as a[view](/docs/api / view)
-2. We assigned`title` to`Observe.todosById[Prop.id].title`, which gave us
-access to the title of todos from our global state.
+1. `Todo` is converted to a[view](/docs/api/view) (by labeling it with `view` macro)
+2. Assigning `title` to `Observe.todosById[Prop.id].title` in view header gives
+   access to the title of a todo from the global state
 
-   [Prop](/docs/api / input - macros / prop) is one of few features exported by
-Engine, which allow us to compose paths for accessing data from global state.
-   `Prop.<key>` gives us access to all the[React
-   props](https://reactjs.org/docs/components-and-props.html) passed to our
-  component by its parent.
+[Prop](/docs/api/input-macros/prop) allow [composing
+paths](/docs/api/path-composers/path-composition) for accessing data from global
+state. `Prop.<path>` gives access to all the [React
+props](https://reactjs.org/docs/components-and-props.html) passed to a component
+by its parent.
 
-  Every `view` in Engine can access any data path from Engine's global state.
-Trick is how to get the right thing.The input macros help to achieve clever
-ways of ** path composition ** to get the right data into our components.
+Every `view` in Engine can access any data path from Engine's global state.
+Trick is getting the right thing. The input macros help achieving clever ways of
+**[path composition](/docs/api/path-composers/path-composition)** to get the
+right data into views.
 
-When we do `Observe.todosById[Prop.id].title`, we are telling Engine to
-look - up a todo with `Prop.id` on`todosById` object of our global state, and
-observe its`title` property.This gives us read - only access to`title`.
+`Observe.todosById[Prop.id].title` tells Engine to look-up a todo with `Prop.id`
+in `todosById` object of the global state, and observe its `title` property. This
+gives read-only access to `title`.
 
-This will also ensure that our component gets re - rendered whenever`title`
-property of todo with id`Prop.id` changes.Any other changes that happen in
-  the state, `todosById`, or even the todo with id`Prop.id` won't affect our
-component.
+This also ensures that the view gets re-rendered whenever `title` property of
+todo with id `Prop.id` changes. Any other changes that happen in the state, even
+in the todo itself will not affect the view.

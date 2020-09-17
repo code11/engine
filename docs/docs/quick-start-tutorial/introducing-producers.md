@@ -6,13 +6,12 @@ sidebar_label: Producers
 
 [Producer](/docs/api/producer)s are the central concept of Engine. Engine
 recommends that our components should only represent the view, and have as
-little logic as possible (ideally components should have no logic at all).
-Producers are where logic lives in an Engine app.
+little logic as possible. Producers are where the logic lives in an Engine app.
 
-Simplest place to see producers in action can be our Todo list's footer. We'll
-use a producer to count the number of pending todos, and show them in our view.
-As we've done so far, let's first extract `Footer` out of `src/App.tsx`, into
-its own component. Create `src/Footer.tsx` with following contents:
+Simplest place to see producers in action can be Todo list's footer. A producer
+will count the number of pending todos, and show them in the view. Extract
+`Footer` out of `src/App.tsx` into its own component. Create `src/Footer.tsx`
+with following contents:
 
 ```tsx
 import React from "react";
@@ -69,9 +68,9 @@ Update `src/App.tsx` to use `Footer`:
 +    <Footer />
 ```
 
-We'll believe in ourselves, and trust that `pendingCount` is going to be
-available in our state, and it'll always contain the correct number of pending
-todo items. Update our `src/Footer.tsx` based on this assumption:
+`Footer` will trust that `pendingCount` is going to be available in the state,
+and that `it'll always contain the correct number of pending todo items. Update
+`src/Footer.tsx` based on this assumption:
 
 ```diff
 + import { view, Observe } from "@c11/engine.macro";
@@ -85,10 +84,10 @@ todo items. Update our `src/Footer.tsx` based on this assumption:
     <ul className="filters">
 ```
 
-We could write the logic for counting pending items in the `Footer` itself, in
-fact, in a traditional React app that's exactly what we would have done. But
-Engine strongly recommends that we keep our logic out of our `view`s, and put it
-in `producer`s. Let's add a `producer` to our Footer. In `src/Footer.tsx`, add
+The logic for counting pending items in the `Footer` itself, in fact, in a
+traditional React app that's exactly what we would have done. But Engine
+strongly recommends that business logic should be kept out of `view`s, and put
+it in `producer`s. Add a `producer` to the Footer. In `src/Footer.tsx`, add
 `pendingCounter` producer:
 
 ```diff
@@ -116,13 +115,13 @@ export default Footer;
 [producer](/docs/api/producer) macro. They can access the state the same way as
 `view`s; they even have access to `Prop`s that a view might get from its parent.
 
-To add a producer to a component, we assign a `.producers` property to the
-component, and pass it an array of producers.
+To add a producer to a component, `.producers` property of a view is given an
+array of producers.
 
 Similar to `view`s, a producer is triggered whenever anything that it `Observe`s
-changes. Our `pendingCounter` producer Observes `todosById` object, so whenever
-anything in todosById changes, our producer is executed. Whenever status of any
-todo item is updated, we see our `pendingCount` to have updated accordingly.
+changes. `pendingCounter` producer Observes `todosById` object, so whenever
+anything in todosById changes, this producer is executed. Whenever status of any
+todo item is updated, `pendingCount` gets updated accordingly.
 
 In the next chapter, we'll take a look at how producers make it possible to a
 very create workflow for view <-> producer communication.
