@@ -85,6 +85,11 @@ import React, { KeyboardEvent } from "react";
 import { view, Observe, Update, producer, Get } from "@c11/engine.macro";
 import { TodoItem, TodoStatuses, TodoModes } from "./types";
 
+enum NewTodoItents {
+  commit = "commit",
+  discard = "discard"
+}
+
 const TodoForm: view = ({
   updateNewTodoTitle = Update.newTodo.title,
   newTodoTitle = Observe.newTodo.title,
@@ -92,11 +97,11 @@ const TodoForm: view = ({
 }) => {
   const keyDownToIntent = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
-      updateNewTodoIntent.set("commit");
+      updateNewTodoIntent.set(NewTodoItents.commit);
     }
 
     if (e.key === "Escape") {
-      updateNewTodoIntent.set("discard");
+      updateNewTodoIntent.set(NewTodoItents.discard);
     }
   };
 
@@ -137,7 +142,7 @@ const addNewTodo: producer = ({
   updateTodosById = Update.todosById,
   updateNewTodoTitle = Update.newTodo.title
 }) => {
-  if (newTodoIntent !== "commit") {
+  if (newTodoIntent !== NewTodoItents.commit) {
     return;
   }
 
@@ -189,7 +194,7 @@ const cancelAddingTodo: producer = ({
   newTodoIntent = Observe.newTodo.intent,
   updateNewTodoTitle = Update.newTodo.title
 }) => {
-  if (newTodoIntent !== "discard") {
+  if (newTodoIntent !== NewTodoItents.discard) {
     return;
   }
 
