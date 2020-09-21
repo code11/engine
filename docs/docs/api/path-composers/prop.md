@@ -4,8 +4,8 @@ title: Prop
 sidebar_label: Prop
 ---
 
-`Prop` allow us to refer to props given to the [view](/docs/api/view)s, so that
-they can be used to compose paths and operate on state data.
+`Prop` gives access to props given to the [view](/docs/api/view)s, so that they
+can be used as data in the view, and to compose paths for accessing state.
 
 For example, if a `TodoItem` component accepts a single prop `id: string`, and
 global state looks like:
@@ -28,5 +28,5 @@ const TodoItem: view = ({
 }) => { ... }
 ```
 
-In this example, `TodoItem` will have access to `title` of Todo item from state
-which has the same id as the `id` prop provided by `TodoItem`'s parent component.
+In this example, when `TodoItem` is used as `<TodoItem id="todo1" />` anywhere
+in the application, it will get `My first todo` as value of `title`.

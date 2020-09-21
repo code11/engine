@@ -17,6 +17,9 @@ independently on-need basis.
 
 2. `@c11/engine.react`
 
-  Contains react bindings for Engine. Whenever we are creating a React
-  application, we are going to need this one. Almost always, all you need to
-  import from this package is `Engine` class.
+  Contains react bindings for Engine. `@c11/engine.react` is required for
+  creating React applications which use engine.
+
+  When building Engine applications, most concepts of React translate quite
+  transparently. For example, Engine [view](/docs/api/view)s are equivalent to
+  React components, view props are equivalent to react props etc.
