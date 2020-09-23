@@ -1,0 +1,15 @@
+{
+  "name": "@c11/templates.app",
+  "version": "1.4.0",
+  "license": "MIT",
+  "keywords": [
+    "c11",
+    "c11-app-scripts",
+    "template"
+  ],
+  "description": "The base template for C11 apps.",
+  "scripts": {
+    "test": "echo \"no tests available for this package\" ",
+    "build": "echo \"no build available for this package\" "
+  }
+}

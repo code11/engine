@@ -1,0 +1,3 @@
+{
+  "extends": "@c11/utils.app-scripts/src/config/tsconfig.json"
+}
