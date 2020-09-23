@@ -31,6 +31,7 @@ arguments.demandCommand(
 arguments.recommendCommands();
 
 module.exports = async () => {
+  console.log('step 1')
   const args = arguments.parse();
 
   const name = args._[0];
@@ -52,7 +53,7 @@ module.exports = async () => {
   logStep(
     `🔨  Application target directory is ${chalk.yellowBright(paths.app)}`
   );
-  console.log();
+  console.log('step 2');
 
   try {
     ensureAppDirectory({ target: paths.app });
@@ -89,7 +90,7 @@ module.exports = async () => {
 
     logStep(`Thank you for using our app generator and happy coding`);
   } catch (e) {
-    console.error(e);
+    console.error('eroare:',e);
   }
 };
 

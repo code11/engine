@@ -8,7 +8,7 @@ module.exports = () => {
   const currentVersion = pkg.version;
   const latestVersionOut = spawnSync(
     "npm",
-    ["show", "@c11/utils.create-engine-app", "version"],
+    ["show", "@c11/engine.create-app", "version"],
     {
       encoding: "utf-8",
     }
@@ -31,7 +31,7 @@ module.exports = () => {
     );
     logWarning(
       `In order to upgrade, please run ${chalk.yellowBright(
-        "npm install -g @c11/utils.create-engine-app"
+        "npm install -g @c11/engine.create-app"
       )} in a terminal window`
     );
     console.log();
