@@ -1,0 +1,19 @@
+{
+  "name": "@c11/utils.create-engine-app",
+  "version": "1.1.1",
+  "bin": {
+    "create-engine-app": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"no tests available for this package\" ",
+    "build": "echo \"no build available for this package\" "
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "ncp": "^2.0.0",
+    "semver": "^7.3.2",
+    "yargs": "^15.4.1"
+  }
+}
