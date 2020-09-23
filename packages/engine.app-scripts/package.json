@@ -2,13 +2,13 @@
   "name": "@c11/engine.app-scripts",
   "version": "4.0.0-alpha.5",
   "bin": {
-    "c11-app-scripts": "./bin/c11-app-scripts.js"
+    "app-scripts": "./bin/app-scripts.js"
   },
   "scripts": {
-    "pub": "npm unpublish --force @c11/engine.app-scripts && npm publish",
-    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/utils.app-scripts && npm publish --registry http://localhost:4873"
+    "test": "echo \"no tests available for this package\" ",
+    "build": "echo \"no build available for this package\" "
   },
-  "main": "./bin/c11-app-scripts.js",
+  "main": "./bin/app-scripts.js",
   "types": "./index.d.ts",
   "license": "MIT",
   "dependencies": {

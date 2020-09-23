@@ -3,11 +3,11 @@
   "private": true,
   "version": "4.0.0-alpha.5",
   "scripts": {
-    "build": "c11-app-scripts build",
-    "clean": "c11-app-scripts clean",
-    "serve": "c11-app-scripts serve",
-    "start": "c11-app-scripts start",
-    "test": "c11-app-scripts test"
+    "build": "app-scripts build",
+    "clean": "app-scripts clean",
+    "serve": "app-scripts serve",
+    "start": "app-scripts start",
+    "test": "app-scripts test"
   },
   "dependencies": {
     "@c11/engine.macro": "^4.0.0-alpha.5",

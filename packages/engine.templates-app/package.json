@@ -3,11 +3,10 @@
   "version": "4.0.0-alpha.5",
   "license": "MIT",
   "keywords": [
-    "c11",
-    "c11-app-scripts",
+    "app-scripts",
     "template"
   ],
-  "description": "The base template for C11 apps.",
+  "description": "The base template for Engine apps.",
   "scripts": {
     "test": "echo \"no tests available for this package\" ",
     "build": "echo \"no build available for this package\" "

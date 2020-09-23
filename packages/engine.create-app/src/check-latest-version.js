@@ -34,7 +34,6 @@ module.exports = () => {
         "npm install -g @c11/engine.create-app"
       )} in a terminal window`
     );
-    console.log();
     return;
   }
 
@@ -44,7 +43,6 @@ module.exports = () => {
         currentVersion
       )} is greater than latest ${chalk.yellowBright(latestVersion)}`
     );
-    console.log();
     return;
   }
 };
