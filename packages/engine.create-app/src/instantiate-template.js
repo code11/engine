@@ -35,10 +35,10 @@ module.exports = async ({ target, template }) => {
 };
 
 function getTemplatePackageName(name) {
-  if (!name) return `@c11/templates.app`;
+  if (!name) return `@c11/engine.templates-app`;
   if (name.startsWith("@")) return name;
 
-  return `@c11/templates.${name}`;
+  return `@c11/engine.templates-${name}`;
 }
 
 function logStep(text) {

@@ -5,7 +5,6 @@
   "scripts": {
     "build": "c11-app-scripts build",
     "clean": "c11-app-scripts clean",
-    "lint": "c11-app-scripts lint",
     "serve": "c11-app-scripts serve",
     "start": "c11-app-scripts start",
     "test": "c11-app-scripts test"
@@ -15,12 +14,6 @@
     "@c11/engine.react": "^4.0.0-alpha.0"
   },
   "devDependencies": {
-    "@c11/utils.app-scripts": "^1.2.1",
-    "@c11/utils.prettier-config": "^1.1.0",
-    "@c11/eslint-config-c11": "^1.1.0"
-  },
-  "prettier": "@c11/utils.prettier-config",
-  "eslintConfig": {
-    "extends": "eslint-config-c11"
+    "@c11/engine.app-scripts": "^1.2.1"
   }
 }
