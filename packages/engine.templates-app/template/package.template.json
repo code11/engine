@@ -1,7 +1,7 @@
 {
   "name": "{{appName}}",
   "private": true,
-  "version": "1.0.0",
+  "version": "4.0.0-alpha.5",
   "scripts": {
     "build": "c11-app-scripts build",
     "clean": "c11-app-scripts clean",
@@ -10,10 +10,10 @@
     "test": "c11-app-scripts test"
   },
   "dependencies": {
-    "@c11/engine.macro": "^4.0.0-alpha.0",
-    "@c11/engine.react": "^4.0.0-alpha.0"
+    "@c11/engine.macro": "^4.0.0-alpha.5",
+    "@c11/engine.react": "^4.0.0-alpha.5"
   },
   "devDependencies": {
-    "@c11/engine.app-scripts": "^1.2.1"
+    "@c11/engine.app-scripts": "^4.0.0-alpha.5"
   }
 }
