@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.templates-app",
-  "version": "4.0.1-alpha.0",
+  "version": "0.0.1",
   "license": "MIT",
   "keywords": [
     "app-scripts",
@@ -9,6 +9,7 @@
   "description": "The base template for Engine apps.",
   "scripts": {
     "test": "echo \"no tests available for this package\" ",
-    "build": "echo \"no build available for this package\" "
+    "build": "echo \"no build available for this package\" ",
+    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
   }
 }

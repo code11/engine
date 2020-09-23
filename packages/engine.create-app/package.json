@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.create-app",
-  "version": "4.0.1-alpha.0",
+  "version": "0.0.1",
   "bin": {
     "create-engine-app": "./index.js"
   },

@@ -29,6 +29,7 @@
     "release": "yarn clean && lerna run build && lerna run test",
     "version:lerna": "lerna version --conventional-commits",
     "publish": "lerna publish from-package",
+    "publish:local": "lerna run publish:local",
     "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\""
   },
   "scripts-info": {
