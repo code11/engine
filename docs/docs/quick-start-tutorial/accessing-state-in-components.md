@@ -94,14 +94,14 @@ In`src/Todo.tsx`
    access to the title of a todo from the global state
 
 [Prop](/docs/api/path-composers/prop) allow [composing
-paths](/docs/api/path-composers/path-composition) for accessing data from global
+paths](/docs/concepts/path-composition) for accessing data from global
 state. `Prop.<path>` gives access to all the [React
 props](https://reactjs.org/docs/components-and-props.html) passed to a component
 by its parent.
 
 Every `view` in Engine can access any data path from Engine's global state.
 Trick is getting the right thing. The input macros help achieving clever ways of
-**[path composition](/docs/api/path-composers/path-composition)** to get the
+**[path composition](/docs/concepts/path-composition)** to get the
 right data into views.
 
 `Observe.todosById[Prop.id].title` tells Engine to look-up a todo with `Prop.id`

@@ -1,6 +1,6 @@
 ---
 id: setup
-title: Quick Start
+title: Quick Start with React
 sidebar_label: Setup
 ---
 
