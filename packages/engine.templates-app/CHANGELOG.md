@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/code11/engine/compare/v4.0.0-alpha.5...v4.0.0) (2020-09-23)
+
+
+### Features
+
+* **engine.app-scripts:** updated packags names and added engine.app-scripts ([776bc7e](https://github.com/code11/engine/commit/776bc7e2a4cfb82b5a4425d0bb6ddb82e579e5d3)), closes [#55](https://github.com/code11/engine/issues/55)
+
+
+
+
+
 # [1.4.0](https://bitbucket.org/code11-com/front-end-standards/compare/@c11/templates.app@1.3.1...@c11/templates.app@1.4.0) (2020-09-18)
 
 

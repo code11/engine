@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.app-scripts",
-  "version": "1.3.0",
+  "version": "4.0.0",
   "bin": {
     "c11-app-scripts": "./bin/c11-app-scripts.js"
   },
@@ -26,7 +26,7 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@c11/engine.macro": "^4.0.0-alpha.0",
-    "@c11/engine.templates-app": "^1.4.0",
+    "@c11/engine.templates-app": "^4.0.0",
     "@types/jest": "^26.0.9",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.44",
