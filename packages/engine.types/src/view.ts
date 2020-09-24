@@ -1,14 +1,16 @@
+import { ReactElement } from "react";
 import {
   ProducerData,
   StructOperation,
   ProducerInstance,
   ProducerMeta,
+  ProducerConfig,
 } from "./producer";
 
 export type ViewFn = (data: ProducerData) => JSX.Element;
 
 export interface RenderConfig {
-  element: any;
+  component: any;
   root: any;
 }
 
@@ -17,13 +19,27 @@ export interface ViewConfig {
   args: StructOperation;
   fn: ViewFn;
 }
-export type RootElement = HTMLElement | null;
+
+declare type ReactWrapper<T> = (props: T) => ReactElement<T> | null;
+export declare type View<T = any> = ReactWrapper<T> & {
+  producers?: ProducerConfig[];
+};
+
+type PromiseContainer = Promise<StaticContainer>;
+
+type StaticContainer = HTMLElement | null;
+
+type DynamicContainer = (...params: any) => HTMLElement | PromiseContainer;
+
+export type Container = StaticContainer & DynamicContainer & PromiseContainer;
+
 export interface ViewInstance {
   id: string;
   producers: ProducerInstance[];
 }
+
 export interface RenderInstance {
   unmount: () => RenderInstance;
   mount: () => RenderInstance;
-  getRoot: () => RootElement;
+  getContext: () => Container;
 }
