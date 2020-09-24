@@ -1,58 +1,43 @@
 module.exports = {
   docs: {
-    "Getting Started": [
-      "introduction",
-      "usage",
+    "Getting Started": ["introduction", "usage"],
+    Concepts: ["concepts/state", "concepts/path-composition"],
+    Guides: ["packages", "best-practices", "guides/debugging"],
+    "API Reference": [
+      "api/engine",
+      "api/producer",
+      "api/view",
+      "api/observe",
+      "api/get",
+      "api/update",
+      "api/prop",
+      "api/arg",
+      "api/param",
+      "api/wildcard",
+      "api/path",
+    ],
+    Implementations: [
+     "implementations/react"
+    ],
+    Tutorials: [
       {
         type: "category",
-        label: "Quick Start With React",
+        label: "React",
         items: [
-          "quick-start-tutorial/setup",
-          "quick-start-tutorial/static-ui",
+          "tutorials/react/setup",
+          "tutorials/react/static-ui",
           {
             type: "category",
             label: "State",
             items: [
-              "quick-start-tutorial/state-is-king",
-              "quick-start-tutorial/accessing-state-in-components",
-              "quick-start-tutorial/updating-state-from-components",
+              "tutorials/react/state-is-king",
+              "tutorials/react/accessing-state-in-components",
+              "tutorials/react/updating-state-from-components",
             ],
           },
-          "quick-start-tutorial/introducing-producers",
-          "quick-start-tutorial/state-as-communication-channel",
-          "quick-start-tutorial/wrapping-up",
-        ],
-      },
-    ],
-    Concepts: ["concepts/state", "concepts/path-composition"],
-    Guide: ["packages", "best-practices"],
-    "API Documentation": [
-      "api/engine",
-      {
-        type: "category",
-        label: "Labels",
-        items: ["api/producer", "api/view"],
-      },
-      {
-        type: "category",
-        label: "Operators",
-        items: [
-          {
-            type: "category",
-            label: "State Manipulation",
-            items: ["api/observe", "api/get", "api/update"],
-          },
-          {
-            type: "category",
-            label: "Path Composition",
-            items: [
-              "api/path-composers/prop",
-              "api/path-composers/arg",
-              "api/path-composers/param",
-              "api/path-composers/wildcard",
-              "api/path-composers/path",
-            ],
-          },
+          "tutorials/react/introducing-producers",
+          "tutorials/react/state-as-communication-channel",
+          "tutorials/react/wrapping-up",
         ],
       },
     ],

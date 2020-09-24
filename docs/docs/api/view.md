@@ -1,7 +1,7 @@
 ---
 id: view
-title: view
-sidebar_label: view
+title: View
+sidebar_label: View
 ---
 
 `view` creates Engine views, which render HTML in browser. `view` can use Engine
@@ -62,3 +62,8 @@ contain minimal amount of logic needed to provide a clean API.
 
 Instead of performing any logic in view, a producer should be created for the
 view to perform required business logic.
+
+## Instance
+
+For debugging pruposes only - Documentation in progress
+

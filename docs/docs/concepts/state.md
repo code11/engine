@@ -47,3 +47,8 @@ product. For example, going from database to a backend application, to a
 serialized form for network transfer (e.g JSON), to UIs. It is advisable to keep
 them in a consistent representation across different components of our system.
 Doing so builds intuition and confidence in the system.
+
+
+## Initial state
+
+Define what a good initial state is.

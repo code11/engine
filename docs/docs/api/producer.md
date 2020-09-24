@@ -1,7 +1,7 @@
 ---
 id: producer
-title: producer
-sidebar_label: producer
+title: Producer
+sidebar_label: Producer
 ---
 
 `producer` is the central concept of Engine. Any function can become a producer
@@ -45,3 +45,7 @@ Engine when they meet following 2 conditions:
 
 Engine recommends that `producer`s should perform a single job. It is okay to
 have many small producers doing one thing each.
+
+## Instance
+
+For debugging pruposes only - Documentation in progress
