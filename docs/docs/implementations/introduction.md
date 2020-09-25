@@ -1,18 +1,14 @@
 ---
-id: engine
-title: Engine
-sidebar_label: Engine
+id: introduction
+title: Introduction
+sidebar_label: Introduction
 ---
-
-## Overview
 
 Every Engine application starts by creating a new **Engine instance** with the `Engine` function:
 
 ```ts
 const engine = new Engine(config: EngineConfig): EngineInstance
 ```
-
-See the [Implementations](#implementations) section for the available types of **Engine**.
 
 ## Configuration
 
@@ -123,9 +119,3 @@ Will act differently depending on the current Engine status:
 ### `engine.stop()`
 
 Halts pending updates to the state and any other triggering of producers (or views).
-
-## Implementations
-
-The Engine can run in different environments and flavours:
-
-* [React](/docs/implementations/react)
