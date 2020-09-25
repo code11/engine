@@ -1,13 +1,13 @@
 {
-  "name": "@c11/engine.create-app",
-  "version": "0.0.1",
+  "name": "@c11/engine.cli",
+  "version": "1.0.0",
   "bin": {
     "create-engine-app": "./index.js"
   },
   "scripts": {
-    "test": "echo \"no tests available for this package\" ",
     "build": "echo \"no build available for this package\" ",
-    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.create-app && npm publish --registry http://localhost:4873"
+    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.cli && npm publish --registry http://localhost:4873",
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./src/*"
   },
   "license": "MIT",
   "main": "index.js",

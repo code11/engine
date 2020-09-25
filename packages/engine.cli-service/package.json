@@ -1,15 +1,15 @@
 {
-  "name": "@c11/engine.app-scripts",
-  "version": "0.0.1",
+  "name": "@c11/engine.cli-service",
+  "version": "1.0.0",
   "bin": {
-    "app-scripts": "./bin/app-scripts.js"
+    "cli-scripts": "./bin/cli-scripts.js"
   },
   "scripts": {
     "test": "echo \"no tests available for this package\" ",
     "build": "echo \"no build available for this package\" ",
-    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.app-scripts && npm publish --registry http://localhost:4873"
+    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.cli-service && npm publish --registry http://localhost:4873"
   },
-  "main": "./bin/app-scripts.js",
+  "main": "./bin/cli-scripts.js",
   "types": "./index.d.ts",
   "license": "MIT",
   "dependencies": {

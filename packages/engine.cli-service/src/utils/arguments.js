@@ -33,6 +33,6 @@ arguments.command({
 arguments.demandCommand(1);
 arguments.recommendCommands();
 
-arguments.usage("c11-app-scripts <command>");
+arguments.usage("cli-scripts <command>");
 
 module.exports = arguments.parse();
