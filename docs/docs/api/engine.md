@@ -100,14 +100,25 @@ Allows you to have access to the internal instances
 
 ### `engine.status` 
 
-The current status of the Engine instance: `RUNNING`, `STOPPED`, `NOT_INITIALIZED`
+The current status of the Engine instance: 
+
+| Status | Description |
+|-|-|
+| `RUNNING` | The Engine is running, producers are triggered, etc. |
+| `STOPPED` | No state transitions, no producers are trigger, etc |
+| `NOT_INITIALIZED` | No producer or view have been mounted. No state transition was made. |
 
 ### `engine.start()`
 
+Start the Engine.
+
 Will act differently depending on the current Engine status:
-* `NOT_INITIALITAZED`: instantiate producers and if available, trigger the mounting of the application.
-* `STOPEED`:  resume the triggering of producers (and views) and apply pending updates.
-* `RUNNING`: nothing, the Engine is already running
+
+| Status | Action |
+|-|-|
+| `NOT_INITIALITAZED` | Instantiate producers and if available, trigger the mounting of the application |
+| `STOPEED` | Resume the triggering of producers (and views) and apply pending updates |
+| `RUNNING` | Nothing, the Engine is already running |
 
 ### `engine.stop()`
 
@@ -118,33 +129,3 @@ Halts pending updates to the state and any other triggering of producers (or vie
 The Engine can run in different environments and flavours:
 
 * [React](/docs/implementations/react)
-
-### React
-
-### Arguments
-
-React Engine accepts a single object as an argument. This object can have
-following properties:
-
-1. `view`
-
-  Engine React likes to take full control of the application, including how the
-  application is mounted to DOM. It accepts:
-
-    - `view.element`: A root react `element` which will be mounted to DOM
-    - `view.root`: A query-selector on which the `element` will be mounted. It can also be a
-        1. DOM node, a function which returns a DOM node
-        2. function which returns a DOM node
-        3. promise to a DOM node
-        4. function which returns a promise to a DOM node
-
-2. `state`
-
-  Engine, like Redux, keeps a global state. This global state can be very simply
-  defined by providing a plain object to `Engine`'s `state` option.
-
-    - `state.initial` becomes the initial state for our application. To get the
-      magic macros like [Observe](/docs/api/observe) to work, our state state
-      has to be an object.
-
-3. `producers`
