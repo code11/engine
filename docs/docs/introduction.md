@@ -4,10 +4,11 @@ title: Introduction
 sidebar_label: Introduction
 ---
 
-### What is Code<sup>11</sup> Engine?
+### What is the Code<sup>11</sup> Engine?
 
-Engine is a web development framework which keenly focuses on developer
-productivity. It allows creating robust web applications with unprecedented
+The Engine is a metaframework for building applications with browser and Node implementations.
+
+The Engine keenly focuses on developer productivity. It allows creating robust web applications with unprecedented
 simplicity.
 
 ### Goals
