@@ -23,7 +23,7 @@ module.exports = {
     {
       type: "category",
       label: "Implementations",
-      items: ["implementations/introduction", "implementations/react"],
+      items: ["implementations/react"],
     },
     {
       type: "category",
@@ -56,6 +56,7 @@ module.exports = {
       label: "API Reference",
       collapsed: false,
       items: [
+        "api/engine",
         "api/producer",
         "api/view",
         "api/observe",

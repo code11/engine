@@ -51,4 +51,5 @@ Doing so builds intuition and confidence in the system.
 
 ## Initial state
 
-Define what a good initial state is.
+*Initial state* is the state with which an application is going to start.
+Usually we define some defaults for many of our state data in initial state.

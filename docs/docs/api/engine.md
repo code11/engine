@@ -1,7 +1,7 @@
 ---
-id: introduction
-title: Introduction
-sidebar_label: Introduction
+id: engine
+title: Engine
+sidebar_label: Engine
 ---
 
 Every Engine application starts by creating a new **Engine instance** with the `Engine` function:
@@ -85,7 +85,7 @@ The Engine instance exposes some helpful methods for interacting with the Engine
 
 ### `engine.context`
 
-Allows you to have access to the internal instances 
+Allows you to have access to the internal instances
 
 | Property | Description | Type |
 |-|-|-|
@@ -94,9 +94,9 @@ Allows you to have access to the internal instances
 | views | A list instantiated views | [`ViewInstance`](/docs/api/view#instance)[] |
 | container | The used container for mounting the application | HTMLElement |
 
-### `engine.status` 
+### `engine.status`
 
-The current status of the Engine instance: 
+The current status of the Engine instance:
 
 | Status | Description |
 |-|-|

@@ -4,7 +4,9 @@ title: React
 sidebar_label: React
 ---
 
-**Package name:** `@c11/engine.react`
+**Package name:** [@c11/engine.react](/docs/packages)
+
+[Engine](/docs/api/engine) implementation for React.
 
 ## Installation
 
@@ -25,7 +27,7 @@ const App: View = ({
 
 const greeting: Producer = ({
   name = Observe.name,
-  greeting = Update.greeting 
+  greeting = Update.greeting
 }) => greeting.set(`Hello ${name}!`)
 
 App.producers = [greeting]
@@ -40,4 +42,3 @@ const engine = new Engine({
   }
 });
 ```
-
