@@ -36,7 +36,7 @@ yarn add @c11/engine.macro @c11/engine.react
 
 `@c11/engine.macro` contain the platform agnostic core of Engine, and
 `@c11/engine.react` contain the React bindings. Find out more about engine
-packages on [packages](../packages) page.
+packages on [packages](/docs/packages) page.
 
 ### Create an Engine instance
 

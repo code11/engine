@@ -44,7 +44,7 @@ engine.start();
 
 Creating an `Engine` instance takes care of mounting our application. It is
 possible to provide an initial state to it. More about Engine can be found in
-[API docs for Engine](/docs/api/engine).
+[API docs for Engine](/docs/implementations/react).
 
 ## Build
 
@@ -106,5 +106,5 @@ Functions labeled as [producer](/docs/api/producer) behave pretty much the same
 way as `view`s, but don't render anything on screen. Producers are where the
 business logic should live.
 
-[Quick start](quick-start-tutorial/setup) tutorial has a more involved
+[Quick start](/docs/tutorials/react/setup) tutorial has a more involved
 introduction to building an Engine app.

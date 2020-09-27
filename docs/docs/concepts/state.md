@@ -19,7 +19,7 @@ called "accidental") state.
 
 Engine strongly recommends keeping a single source of truth for an application's
 state. State of the app when it has just started up (aka initial state) can be
-given to [Engine](/docs/api/engine) when it is instantiated:
+given to [Engine](/docs/implementations/react) when it is instantiated:
 
 ```diff
 const engine = new Engine({

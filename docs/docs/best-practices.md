@@ -6,9 +6,9 @@ sidebar_label: Best Practices
 
 ### Use Global state as a single source of truth
 
-An instance of [Engine](/docs/api/engine) can have a single global state, and it
-is recommended to use that as the single source of truth for all the data
-required by all components of an application.
+An instance of [Engine](/docs/implementations/introduction) can have a single
+global state, and it is recommended to use that as the single source of truth
+for all the data required by all components of an application.
 
 ### Keep a normalized state
 
