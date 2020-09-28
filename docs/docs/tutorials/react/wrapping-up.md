@@ -6,7 +6,7 @@ sidebar_label: Wrapping Up
 
 We have learned almost all the concepts needed to build Engine apps. There is a
 bit more to Engine API, about which you can read in the [API
-section](/docs/api/engine).
+section](/docs/implementations/react).
 
 Let's wrap up by finishing our Todos app. Three last UI elements that left
 putting life in are:
@@ -27,7 +27,7 @@ to the view that will trigger the producer.
 In `src/Footer.tsx`, add a click event listener for "Clear Completed" todos
 button. The view is going to use state as a communication channel to trigger the
 producer (as discussed in [last
-chapter](/docs/quick-start-tutorial/state-as-communication-channel)).
+chapter](/docs/tutorials/react/state-as-communication-channel)).
 
 ```diff
 const Footer: view = ({

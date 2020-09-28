@@ -5,7 +5,7 @@ sidebar_label: State is King
 ---
 
 [State](/docs/concepts/state) of the app when it has just started up (aka
-initial state) can be given to [Engine](/docs/api/engine) when it is
+initial state) can be given to [Engine](/docs/implementations/react) when it is
 instantiated:
 
 ```diff

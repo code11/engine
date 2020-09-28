@@ -1,13 +1,13 @@
 module.exports = {
   docs: [
     {
-      type: 'doc',
-      id: 'introduction'
+      type: "doc",
+      id: "introduction",
     },
     {
       type: "category",
       label: "Getting Started",
-      items: [ "usage"],
+      items: ["usage"],
     },
     {
       type: "category",
@@ -23,7 +23,7 @@ module.exports = {
     {
       type: "category",
       label: "Implementations",
-      items: ["implementations/introduction", "implementations/react"],
+      items: ["implementations/react"],
     },
     {
       type: "category",
@@ -53,19 +53,20 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Syntax",
+      label: "API Reference",
       collapsed: false,
       items: [
-        "syntax/producer",
-        "syntax/view",
-        "syntax/observe",
-        "syntax/get",
-        "syntax/update",
-        "syntax/prop",
-        "syntax/arg",
-        "syntax/param",
-        "syntax/wildcard",
-        "syntax/path",
+        "api/engine",
+        "api/producer",
+        "api/view",
+        "api/observe",
+        "api/get",
+        "api/update",
+        "api/prop",
+        "api/arg",
+        "api/param",
+        "api/wildcard",
+        "api/path",
       ],
     },
   ],

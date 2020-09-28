@@ -33,11 +33,11 @@ the state (e.g. an might store a `selectedId` in state), or local variables.
 Engine provides following path composition operators for creating paths, and
 composing them together:
 
-1. [Prop](/docs/api/path-composers/prop)
-2. [Arg](/docs/api/path-composers/arg)
-3. [Param](/docs/api/path-composers/param)
-4. [Wildcard](/docs/api/path-composers/wildcard)
-5. [Path](/docs/api/path-composers/path)
+1. [Prop](/docs/api/prop)
+2. [Arg](/docs/api/arg)
+3. [Param](/docs/api/param)
+4. [Wildcard](/docs/api/wildcard)
+5. [Path](/docs/api/path)
 
 Paths composed using these operators can be used with all 3 state manipulation
 operators i.e with [Observe](/docs/api/observe), [Get](/docs/api/get) and

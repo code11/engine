@@ -22,7 +22,7 @@ cons titleWatchProducer: producer = ({
 `Wildcard` triggers producer whenever anything on the matching path changes, but
 `producer` won't know what exactly has changed. To get information about exactly
 what has changed, `Wildcard` can be assigned to another
-[Arg](/docs/api/path-composers/arg), to get information about exactly which path
+[Arg](/docs/api/arg), to get information about exactly which path
 has received the change. For example,
 
 ```tsx

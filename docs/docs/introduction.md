@@ -6,10 +6,10 @@ sidebar_label: Introduction
 
 ### What is the Code<sup>11</sup> Engine?
 
-The Engine is a metaframework for building applications with browser and Node implementations.
+Engine is a meta-framework for creating web applications.
 
-The Engine keenly focuses on developer productivity. It allows creating robust web applications with unprecedented
-simplicity.
+The Engine keenly focuses on developer productivity. It allows creating robust
+web applications with unprecedented simplicity.
 
 ### Goals
 
