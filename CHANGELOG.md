@@ -3,26 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [4.0.1-alpha.0](https://github.com/code11/engine/compare/v4.0.0...v4.0.1-alpha.0) (2020-09-23)
-
-**Note:** Version bump only for package engine
-
-
-
-
-
-# [4.0.0](https://github.com/code11/engine/compare/v4.0.0-alpha.5...v4.0.0) (2020-09-23)
-
-
-### Features
-
-* **application logistics:** added the templates.app and the utils.create-engine-app packages ([c9674b7](https://github.com/code11/engine/commit/c9674b74db992efb912bf77ed393f8929e4b859d))
-* **engine.app-scripts:** updated packags names and added engine.app-scripts ([776bc7e](https://github.com/code11/engine/commit/776bc7e2a4cfb82b5a4425d0bb6ddb82e579e5d3)), closes [#55](https://github.com/code11/engine/issues/55)
-
-
-
-
-
 # [4.0.0-alpha.5](https://github.com/code11/engine/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2020-09-16)
 
 
