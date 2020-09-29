@@ -1,0 +1,3 @@
+{
+  "extends": "@c11/engine.cli-scripts/src/config/tsconfig.json"
+}

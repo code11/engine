@@ -13,3 +13,4 @@ build
 *.tgz
 *.bkp
 dist
+.DS_Store

@@ -1,0 +1,20 @@
+{
+  "name": "@c11/engine.cli",
+  "version": "1.0.0",
+  "bin": {
+    "create-engine-app": "./index.js"
+  },
+  "scripts": {
+    "build": "echo \"no build available for this package\" ",
+    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.cli && npm publish --registry http://localhost:4873",
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./src/*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "ncp": "^2.0.0",
+    "semver": "^7.3.2",
+    "yargs": "^15.4.1"
+  }
+}
