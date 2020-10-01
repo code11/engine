@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "keywords": [
-    "cli-scripts",
     "template"
   ],
   "description": "The base template for Engine apps.",

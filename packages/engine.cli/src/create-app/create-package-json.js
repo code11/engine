@@ -12,7 +12,6 @@ module.exports = ({ replacements, target }) => {
   logStep(`Reading package.json template from ${chalk.yellowBright(packageJsonTemplatePath)}`);
   const packageJsonTemplate = readFileSync(packageJsonTemplatePath, 'utf-8');
 
-  // logStep(`Replacing package.json template values with ${chalk.yellowBright(JSON.stringify(replacements))}`);
   logStep(`Replacing package.json template values`);
   const packageJson = Object.keys(replacements).reduce((acc, curr) => {
     return acc.replace(`{{${curr}}}`, replacements[curr])
@@ -28,6 +27,3 @@ function logStep(text) {
   console.log(chalk.cyanBright(`📜  ${text}`));
 }
 
-function logWarning(text) {
-  console.log(chalk.redBright(`📢  ${text}`));
-}

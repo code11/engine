@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const { spawnSync } = require("child_process");
 const { eq, lt, gt } = require("semver");
 
-const pkg = require("../package.json");
+const pkg = require("../../package.json");
 
 module.exports = () => {
   const currentVersion = pkg.version;
@@ -27,7 +27,7 @@ module.exports = () => {
     logWarning(
       `Latest version is ${chalk.yellowBright(
         latestVersion
-      )}. Please update your create-react-app version`
+      )}. Please update your engine cli version`
     );
     logWarning(
       `In order to upgrade, please run ${chalk.yellowBright(

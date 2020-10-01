@@ -17,6 +17,3 @@ function logStep(text) {
   console.log(chalk.cyanBright(`🔌  ${text}`));
 }
 
-function logWarning(text) {
-  console.log(chalk.redBright(`📢  ${text}`));
-}

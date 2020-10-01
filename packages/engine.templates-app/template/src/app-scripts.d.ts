@@ -1,1 +1,1 @@
-/// <reference types="@c11/engine.app-scripts" />
+/// <reference types="@c11/engine.cli/src/create-app-scripts" />
