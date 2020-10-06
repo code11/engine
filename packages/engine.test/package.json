@@ -1,0 +1,42 @@
+{
+  "name": "@c11/engine.test",
+  "version": "4.0.0-alpha.5",
+  "description": "A test lib for the engine",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Alexandru Simandi",
+    "email": "simandialexander@gmail.com"
+  },
+  "contributors": [],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --runTestsByPath   ./src/**"
+  },
+  "peerDependencies": {
+    "react": "^16"
+  },
+  "dependencies": {
+    "@c11/engine.react": "^4.0.0-alpha.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.10.4",
+    "@testing-library/react": "^11.0.4",
+    "@types/jest": "^24.0.25",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-macros": "^2.8.0",
+    "react": "^16.13.1",
+    "jest": "^24.9.0",
+    "jest-screenshot": "^0.3.1",
+    "jest-transform-css": "^2.1.0",
+    "jest-transform-file": "^1.1.1",
+    "jsdom-screenshot": "^3.2.0",
+    "typescript": "^4.0.2"
+  }
+}
