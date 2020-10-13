@@ -5,15 +5,13 @@
   "scripts": {
     "build": "engine build",
     "clean": "engine clean",
-    "serve": "engine serve",
-    "start": "engine start",
-    "test": "engine test"
+    "start": "engine start"
   },
   "dependencies": {
-    "@c11/engine.macro": "4.0.0-alpha.5",
+    "@c11/engine.macro": "^4.0.0-alpha.5",
     "@c11/engine.react": "^4.0.0-alpha.5"
   },
   "devDependencies": {
-    "@c11/engine.cli": "^1.0.0"
+    "@c11/engine.cli": "^4.0.0-alpha.5"
   }
 }

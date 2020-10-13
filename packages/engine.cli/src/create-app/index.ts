@@ -56,5 +56,8 @@ export = async (dirName:string, templateName:string) => {
     `);
 
     logStep(`Thank you for using our app generator and happy coding`);
-  } catch (e) {}
+    return 'done'
+  } catch (e) {
+    return e
+  }
 };

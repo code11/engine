@@ -1,6 +1,5 @@
 "use strict";
 
-const fs = require("fs");
 // const { spawnSync } = require("child_process");
 
 // test("should build the app", () => { // test create script not bin
@@ -11,11 +10,16 @@ const fs = require("fs");
 //   expect(spawn2.stderr).toBe(null);
 // fs.rmdirSync(loc, { recursive: true });
 // });
-test("should build app", async () => {
+test("should create a test app", async () => {
+  console.log = jest.fn();
+  const fs = require("fs");
   const appDir = "test-app";
   const appTemplate = "app";
   const loc = process.cwd() + `/${appDir}`;
-  const createAppScript = require("../src/create-app");
-  await createAppScript(appDir, appTemplate);
+  const runCreateAppScript = await require("../src/create-app")(
+    appDir,
+    appTemplate
+  );
   fs.rmdirSync(loc, { recursive: true });
+  expect(runCreateAppScript).toBe("done");
 });
