@@ -1,4 +1,7 @@
+import { dirname } from "path";
+
 const chalk = require("chalk");
+const { logStep } = require("../utils/logger");
 const { relativeToCWD } = require("../utils/paths");
 const checkLatestVersion = require("./check-latest-version");
 const ensureAppDirectory = require("./ensure-app-directory");
@@ -7,7 +10,7 @@ const createPackageJson = require("./create-package-json");
 const installDependencies = require("./install-dependencies");
 const cleanup = require("./cleanup");
 
-module.exports = async (dirName, templateName) => {
+export = async (dirName:string, templateName:string) => {
   const name = dirName;
   const template = templateName;
 
@@ -55,7 +58,3 @@ module.exports = async (dirName, templateName) => {
     logStep(`Thank you for using our app generator and happy coding`);
   } catch (e) {}
 };
-
-function logStep(text) {
-  console.log(chalk.cyanBright(text));
-}

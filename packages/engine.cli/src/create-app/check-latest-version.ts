@@ -1,10 +1,11 @@
 const chalk = require("chalk");
+const { logStep, logWarning } = require("../utils/logger");
 const { spawnSync } = require("child_process");
 const { eq, lt, gt } = require("semver");
 
 const pkg = require("../../package.json");
 
-module.exports = () => {
+export = () => {
   const currentVersion = pkg.version;
   const latestVersionOut = spawnSync(
     "npm",
@@ -46,11 +47,3 @@ module.exports = () => {
     return;
   }
 };
-
-function logStep(text) {
-  console.log(chalk.cyanBright(`🔨  ${text}`));
-}
-
-function logWarning(text) {
-  console.log(chalk.redBright(`📢  ${text}`));
-}

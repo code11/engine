@@ -1,11 +1,10 @@
 {
   "name": "@c11/engine.cli",
-  "version": "1.0.0",
+  "version": "4.0.0-alpha.5",
   "description": "Command line interface for rapid Engine development",
   "bin": {
-    "engine": "bin/engine.js"
+    "engine": "dist/bin/engine.js"
   },
-  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/code11/engine.git",
@@ -17,15 +16,16 @@
   ],
   "author": "cristian.daniel.buta@gmail.com",
   "scripts": {
-    "build": "echo \"no build available for this package\" ",
+    "build": "tsc",
+    "build:clean": "tsc --build --clean",
     "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.cli && npm publish --registry http://localhost:4873",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./src/*"
+    "test": "jest --clear-cache && jest --config ../../jest.config.node.js --runTestsByPath ./specs/*"
   },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/code11/engine/issues"
   },
-  "homepage": "https://sosinc.io/engine/",
+  "homepage": "https://code11.github.io/engine/",
   "publishConfig": {
     "access": "public"
   },

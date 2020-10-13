@@ -1,7 +1,8 @@
 const chalk = require("chalk");
+const { logStep, logWarning } = require("../utils/logger");
 const { existsSync, mkdirSync } = require("fs");
 
-module.exports = ({ target }) => {
+export = ({ target }:{target:any}) => {
   logStep(`Checking path ${chalk.yellowBright(target)}`);
 
   if (existsSync(target)) {
@@ -12,11 +13,3 @@ module.exports = ({ target }) => {
   logStep(`Creating directory ${chalk.yellowBright(target)}`);
   mkdirSync(target);
 };
-
-function logStep(text) {
-  console.log(chalk.cyanBright(`🗃   ${text}`));
-}
-
-function logWarning(text) {
-  console.log(chalk.redBright(`📢  ${text}`));
-}

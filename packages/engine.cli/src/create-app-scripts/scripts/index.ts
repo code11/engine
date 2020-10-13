@@ -6,6 +6,6 @@ const scripts = {
   test: require("./test"),
 };
 
-module.exports = (name) => {
+export = (name: string) => {
   scripts[name]();
 };

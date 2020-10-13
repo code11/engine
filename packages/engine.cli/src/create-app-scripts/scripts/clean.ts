@@ -1,7 +1,7 @@
 const { existsSync, rmdirSync } = require("fs");
 const Paths = require("../utils/paths");
 
-module.exports = () => {
+export = () => {
   if (!existsSync(Paths.distApp)) {
     console.log(`Nothing to remove...`);
     return;

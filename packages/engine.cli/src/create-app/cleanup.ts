@@ -1,8 +1,8 @@
-const chalk = require("chalk");
+const { logStep } = require("../utils/logger");
 const { unlinkSync } = require("fs");
 const { resolve } = require("path");
 
-module.exports = ({ target }) => {
+export = ({ target }:{target:any}) => {
   logStep("Cleaning up unnecessary files...");
   const filesToRemove = [resolve(target, "package.template.json")];
 
@@ -11,11 +11,3 @@ module.exports = ({ target }) => {
   });
   logStep(`Cleanup done succesfully`);
 };
-
-function logStep(text) {
-  console.log(chalk.cyanBright(`🗑   ${text}`));
-}
-
-function logWarning(text) {
-  console.log(chalk.redBright(`📢  ${text}`));
-}
