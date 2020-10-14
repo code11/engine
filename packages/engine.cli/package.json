@@ -48,7 +48,7 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@c11/engine.macro": "^4.0.0-alpha.5",
-    "@c11/engine.templates-app": "^1.0.0",
+    "@c11/engine.templates-app": "^4.0.0-alpha.5",
     "@types/jest": "^26.0.9",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.44",
