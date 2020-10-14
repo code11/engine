@@ -8,7 +8,7 @@ const fileIsEsVersion = (version, encoding) => (path) => {
 
 const fileIsES5 = (encoding) => fileIsEsVersion(5, encoding);
 
-module.exports = {
+export = {
   fileIsEsVersion,
   fileIsES5,
 };

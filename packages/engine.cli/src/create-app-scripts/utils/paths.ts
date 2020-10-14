@@ -10,8 +10,7 @@ const resolveRelativeToApp = (...segments) =>
 
 const resolveRelativeToPackage = (...segments) =>
   resolve(__dirname, "../", "../", ...segments);
-
-module.exports = {
+export = {
   currentAppDirectory,
   resolveRelativeToApp,
   root: resolve(__dirname, "../"),

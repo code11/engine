@@ -9,7 +9,7 @@ const ResolveRelativeToCWD = (...segments) =>
 const ResolveRelativeToApp = (appName, ...segments) =>
   ResolveRelativeToCWD(appName, ...segments);
 
-module.exports = {
+export = {
   relativeToCWD: ResolveRelativeToCWD,
   relativeToApp: ResolveRelativeToApp,
   relativeToModule: ResolveRelativeToModule

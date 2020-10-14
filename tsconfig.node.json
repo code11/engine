@@ -1,11 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "target": "ES6",
     "allowJs": true /* Allow javascript files to be compiled. */,
     "checkJs": true /* Report errors in .js files. */,
     "noImplicitAny": false
-    },
-  "include": ["./src"]
+  }
 }

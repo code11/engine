@@ -76,7 +76,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "serve": "^11.3.2",
-    "single-spa": "^5.5.5",
     "style-loader": "^1.2.1",
     "typescript": "^3.9.7",
     "typescript-eslint": "0.0.1-alpha.0",
