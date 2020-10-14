@@ -30,30 +30,14 @@ program
   .action((cmd:commander.Command) => {
     require("../create-app-scripts/scripts")(cmd._name);
   });
-program
-  .command("lint")
-  .description("Lint source files using eslint")
-  .action((cmd:commander.Command) => {
-    require("../create-app-scripts/scripts")(cmd._name);
-  });
-program
-  .command("serve")
-  .description("Serve the latest build")
-  .action((cmd:commander.Command) => {
-    require("../create-app-scripts/scripts")(cmd._name);
-  });
+
 program
   .command("start")
   .description("Start a development server")
   .action((cmd:commander.Command) => {
     require("../create-app-scripts/scripts")(cmd._name);
   });
-program
-  .command("test")
-  .description("Execute unit tests using jest")
-  .action((cmd:commander.Command) => {
-    require("../create-app-scripts/scripts")(cmd._name);
-  });
+
 
 program.parse(process.argv);
 
