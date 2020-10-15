@@ -6,13 +6,16 @@ sidebar_label: Param
 
 `Param` allow using runtime values from the view/producer to create new paths.
 
-Occasionally, a `producer` (`view`s are also producers) need to access a path in
-state, which depends on a value which is created in the producer itself. `Param`
-is the path-composition operator to use in such sitations.
+Occasionally, a `producer` or `view` need to access a path in state, which
+depends on a value which is created in the producer itself. `Param` is the
+[path-composition](/concepts/path-composition) operator to use in such
+situations.
 
 For example, `Update.*` functions can be given an object in their second
 argument. Every key in this object can then be referred to with `Param.<key>` in
 the header
+
+## Example
 
 ```tsx
 const App: view = ({

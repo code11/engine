@@ -6,7 +6,13 @@ sidebar_label: Observe
 
 `Observe` gives the ability to observe values from global state. To get a "live"
 version of a value from Engine's global state, state properties can be directly
-accessed from imported `Observe`.
+accessed from the imported `Observe`.
+
+Every use of `Observe` in a `view`/`producer`'s header can be thought of as
+adding a trigger. Whenever the `Observe`d value changes in state, for whatsoever
+reason, the view or producer using this value will be re-computed.
+
+## Example
 
 e.g if the state looks like:
 

@@ -5,7 +5,10 @@ sidebar_label: Prop
 ---
 
 `Prop` gives access to props given to the [view](/docs/api/view)s, so that they
-can be used as data in the view, and to compose paths for accessing state.
+can be used as data in the view, and to [compose
+paths](/docs/concepts/path-composition) for accessing state.
+
+## Example
 
 For example, if a `TodoItem` component accepts a single prop `id: string`, and
 global state looks like:

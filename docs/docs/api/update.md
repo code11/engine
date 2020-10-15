@@ -8,7 +8,19 @@ sidebar_label: Update
 the dual of `Observe`. [Observe](/docs/api/observe) enables reading live values
 from state, `Update` allows changing values in state.
 
-e.g if the state looks like:
+## API
+
+`Update.<path>` returns an object with following properties:
+
+1. `.set(val: any)` to replace the value of `<path>` in state, or create it if it
+   doesn't exist yet.
+2. `.merge(val: any)` accepts an object, and merge it with existing object value
+   of `<path>` in state
+3. `.remove()` removes the `<path>` from state
+
+## Example
+
+If the state looks like:
 
 ```json
 {
@@ -27,11 +39,3 @@ const MyComponent = ({ bar: Update.foo.bar }) => {
   ...
 }
 ```
-
-`Update.<path>` returns an object with following properties:
-
-1. `.set(val: any)` to replace the value of `<path>` in state, or create it if it
-   doesn't exist yet.
-2. `.merge(val: any)` accepts an object, and merge it with existing object value
-   of `<path>` in state
-3. `.remove()` removes the `<path>` from state

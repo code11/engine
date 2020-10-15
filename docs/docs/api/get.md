@@ -17,6 +17,8 @@ after the `view` or `producer` was triggered. It works the same way as
 2. A value is needed at a later time since producer was triggered, e.g while
    performing an asynchronous operation
 
+## Example
+
 For example, if the state looks like:
 
 ```json

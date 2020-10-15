@@ -4,11 +4,24 @@ title: Arg
 sidebar_label: Arg
 ---
 
-`Arg` allows referring to other arguments in header of a
-[producer](/docs/api/producer) or [view](/docs/api/view).
+`Arg` allows referring to other arguments in the header of a
+[producer](/docs/api/producer) or [view](/docs/api/view). It makes it possible
+to treat other keys of the header object as local variables. All of the
+following are valid uses of `Arg`:
 
-For example, given a `TodoItem` component which accepts a single arg `id:
-string`, and global state which looks like:
+```ts
+        const result: producer = ({
+          a1 = '123',
+          a2 = Arg.a1,
+          a3 = Arg.a2[Arg.a1],
+          a4 = Arg.a3[Prop.foo],
+        }) => { }
+```
+
+## Example
+
+If we have a `TodoItem` component which accepts a single arg `id: string`, and
+global state which looks like:
 
 ```ts
 {

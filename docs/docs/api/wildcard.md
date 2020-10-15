@@ -6,8 +6,10 @@ sidebar_label: Wildcard
 
 `Wildcard` allow selecting arbitrarily deep paths from state.
 
-They are meant to be used by `producer` to obtain more powerful triggers. For
-example:
+They are meant to be used by `producer` to obtain more powerful triggers.
+
+## Example
+For example:
 
 ```tsx
 cons titleWatchProducer: producer = ({
