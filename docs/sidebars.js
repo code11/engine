@@ -10,6 +10,10 @@ module.exports = {
       items: ["usage"],
     },
     {
+      type: "doc",
+      id: "cli",
+    },
+    {
       type: "category",
       label: "Concepts",
       items: ["concepts/state", "concepts/path-composition"],
