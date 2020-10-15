@@ -90,8 +90,8 @@ This is where you declare everything that the producer will need in the
 execution part.
 
 It can take static data, variables, [parent
-properties](/docs/api/props), [path operations](/docs/api/path), [argument
-references](/docs/api/args).
+properties](/docs/api/prop), [path operations](/docs/api/path), [argument
+references](/docs/api/arg).
 
 Full example:
 

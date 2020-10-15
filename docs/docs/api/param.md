@@ -8,7 +8,7 @@ sidebar_label: Param
 
 Occasionally, a `producer` or `view` need to access a path in state, which
 depends on a value which is created in the producer itself. `Param` is the
-[path-composition](/concepts/path-composition) operator to use in such
+[path-composition](/docs/concepts/path-composition) operator to use in such
 situations.
 
 For example, `Update.*` functions can be given an object in their second
