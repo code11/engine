@@ -20,15 +20,18 @@ export const addPathImport: AddPathImport = (babel, state, ref) => {
     stringLiteral(producerName)
   );
 
-  const macroImport = ref
-    .findParent((p) => p.isProgram())
-    .get("body")
-    .find((p) => {
-      const result =
-        p.isImportDeclaration() &&
-        p.node.source.value.indexOf("@c11/engine.macro") !== -1;
-      return result;
-    });
+  const program = ref.findParent((p) => p.isProgram());
+
+  if (!program) {
+    throw new Error("Internal error. Cannot find program node");
+  }
+
+  const macroImport = program.get("body").find((p) => {
+    const result =
+      p.isImportDeclaration() &&
+      p.node.source.value.indexOf("@c11/engine.macro") !== -1;
+    return result;
+  });
 
   if (macroImport) {
     macroImport.insertAfter(pathImport);

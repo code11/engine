@@ -17,6 +17,10 @@ type ParseRef = (
 
 export const parseRef: ParseRef = (babel, state, ref) => {
   const parent = ref.findParent((p) => p.isVariableDeclarator());
+  if (!parent) {
+    throw new Error('Misuse of the view/producer keyword. It needs to be a variable declaration e.g. let foo: view = ...')
+  }
+
   const declaration = parent.node as VariableDeclarator;
   const fn = declaration.init as ArrowFunctionExpression;
   const params = fn.params[0] as ObjectPattern;
