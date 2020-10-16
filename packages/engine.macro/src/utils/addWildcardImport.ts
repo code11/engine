@@ -19,10 +19,13 @@ export const addWildcardImport: AddWildcardImport = (babel, state, ref) => {
     [importSpecifier(identifier("Wildcard"), identifier("Wildcard"))],
     stringLiteral(producerName)
   );
+  const program = ref.findParent((p) => p.isProgram())
+  if (!program) {
+    throw new Error('')
+  }
 
-  const macroImport = ref
-    .findParent((p) => p.isProgram())
-    .get("body")
+
+  const macroImport = program.get("body")
     .find((p) => {
       const result =
         p.isImportDeclaration() &&
