@@ -19,6 +19,19 @@ module.exports = {
       label: "Guides",
       items: ["packages", "best-practices", "guides/debugging"],
     },
+    {
+      type: "category",
+      label: "Patterns",
+      items: [
+        "patterns/aggregate",
+        "patterns/collections",
+        "patterns/flags",
+        "patterns/request-response",
+        "patterns/search",
+        "patterns/sections",
+        "patterns/triggers",
+      ],
+    },
 
     {
       type: "category",
