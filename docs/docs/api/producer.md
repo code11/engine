@@ -16,7 +16,10 @@ A `Producer` is simply a function that gets executed when something interesting
 Any function can be turned into a producer by labeling it with `producer`. It
 allows using Engine features to interact with the state using
 [Observe](/docs/api/observe), [Get](/docs/api/get), and
-[Update](/docs/api/update).
+[Update](/docs/api/update). It is also possible to use [Prop](/docs/api/prop) in
+producers, even though it is not possible to pass a value directly to the
+producer. producer receives same values as the [view](/docs/api/view) it is
+added to in `Prop`s.
 
 
 The syntax is straight forward:
@@ -41,23 +44,22 @@ body.
 
 ## Running a producer
 
-A `producer` can not be called directly. `producer`s are only ever executed by
-Engine when they meet following 2 conditions:
-
- 1. A `producer` must be added to a [view](/docs/api/view)'s `.producers` array,
-    or in `Engine`'s global producers list. e.g `myProducer` can added to the
-    `Button` view with:
+A `producer` can not be called directly. Engine considers a `producer` for
+execution if it is added to a [view](/docs/api/view)'s `.producers` array, or is
+added to `Engine`'s global producers list. e.g `myProducer` can added to a
+`Button` view with:
 
     ```tsx
     Button.producers = [myProducer];
     ```
-  2. A `producer` must have at least one trigger. Using
-     [Observe](/docs/api/observe) is the only way to add a trigger to a
-     `producer`. Whenever an `Observe`d value is changed (e.g using
-     [Update](/docs/api/update)), the `producer` is re-executed.
 
-> Note: You can also create an empty producer that will be executed only once when the Engine boots up
+`producer`s are executed by Engine on following occasions:
 
+  1. Globally added `producer`s are executed once when engine starts
+  2. `producer`s added to a [view](/docs/api/view)'s `producers` array are
+     executed once every time the view is mounted
+  3. A `producer` is executed every time any of its `Observe`d value (also
+     referred to as producer's trigger) is updated.
 
 ## Example
 
