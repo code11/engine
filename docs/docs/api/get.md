@@ -4,6 +4,12 @@ title: Get
 sidebar_label: Get
 ---
 
+```ts
+import { Get } from "@c11/engine.macro"
+```
+
+## Overview
+
 `Get` provides the ability to get values from the global state at a later time
 after the `view` or `producer` was triggered. It works the same way as
 [Observe](/docs/api/observe), except:

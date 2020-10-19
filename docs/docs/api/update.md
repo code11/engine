@@ -4,6 +4,11 @@ title: Update
 sidebar_label: Update
 ---
 
+```ts
+import { Update } from "@c11/engine.macro"
+```
+
+## Overview
 `Update` provides the ability to update values in the global state. `Update` is
 the dual of `Observe`. [Observe](/docs/api/observe) enables reading live values
 from state, `Update` allows changing values in state.

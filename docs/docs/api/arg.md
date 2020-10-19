@@ -4,6 +4,12 @@ title: Arg
 sidebar_label: Arg
 ---
 
+```ts
+import { Arg } from "@c11/engine.macro"
+```
+
+## Overview
+
 `Arg` allows referring to other arguments in the header of a
 [producer](/docs/api/producer) or [view](/docs/api/view). It makes it possible
 to treat other keys of the header object as local variables. All of the
@@ -12,9 +18,10 @@ following are valid uses of `Arg`:
 ```ts
         const result: producer = ({
           a1 = '123',
-          a2 = Arg.a1,
-          a3 = Arg.a2[Arg.a1],
-          a4 = Arg.a3[Prop.foo],
+          a2 = Arg.a1,            // Access previously defined argument
+          a3 = Arg.b1.b2.b3.b4    // Access nested properties of another Arg
+          a4 = Arg.a2[Arg.a1],    // Dynamically access argument properties based on other Arg
+          a5 = Arg.a3[Prop.foo],  // Dynamically access argument properties based on other Engine operators
         }) => { }
 ```
 

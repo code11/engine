@@ -4,6 +4,11 @@ title: Observe
 sidebar_label: Observe
 ---
 
+```ts
+import { Observe } from "@c11/engine.macro"
+```
+
+## Overview
 `Observe` gives the ability to observe values from global state. To get a "live"
 version of a value from Engine's global state, state properties can be directly
 accessed from the imported `Observe`.

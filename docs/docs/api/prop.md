@@ -4,6 +4,11 @@ title: Prop
 sidebar_label: Prop
 ---
 
+```ts
+import { Prop } from "@c11/engine.macro"
+```
+
+## Overview
 `Prop` gives access to props given to the [view](/docs/api/view)s, so that they
 can be used as data in the view, and to [compose
 paths](/docs/concepts/path-composition) for accessing state.

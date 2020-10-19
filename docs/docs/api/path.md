@@ -4,6 +4,11 @@ title: Path
 sidebar_label: Path
 ---
 
+```ts
+import { Path } from "@c11/engine.macro"
+```
+
+## Overview
 `Path` allow a parent view to give an arbitrary path to a child view at runtime.
 
 It differs from rest of the path-composition operators in its usage. Path don't
