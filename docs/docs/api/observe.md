@@ -9,6 +9,7 @@ import { Observe } from "@c11/engine.macro"
 ```
 
 ## Overview
+
 `Observe` gives the ability to observe values from global state. To get a "live"
 version of a value from Engine's global state, state properties can be directly
 accessed from the imported `Observe`.
@@ -16,6 +17,16 @@ accessed from the imported `Observe`.
 Every use of `Observe` in a `view`/`producer`'s header can be thought of as
 adding a trigger. Whenever the `Observe`d value changes in state, for whatsoever
 reason, the view or producer using this value will be re-computed.
+
+## API
+
+### `Observe.<path>: any`
+
+If `<path>` is a valid path to an existing property of State, `Observe.<path>`
+returns value stored at that path in State, otherwise it returns `undefined`. If
+the value is serializable (e.g a primitive Javascript type, a plain object), a
+copy of the data is returned. However, if the value is not serializable (e.g a
+class instance, function etc), a reference to it is returned.
 
 ## Example
 
