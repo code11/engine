@@ -90,8 +90,8 @@ Allows you to have access to the internal instances
 | Property | Description | Type |
 |-|-|-|
 | db | The internal database which stores the application state and triggers updates | EngineDbInstance |
-| producers | A list of instantiated producers | [`ProducerInstance`](/docs/api/producer#instance)[] |
-| views | A list instantiated views | [`ViewInstance`](/docs/api/view#instance)[] |
+| producers | A list of instantiated producers | [`ProducerInstance`](/docs/api/producer)[] |
+| views | A list instantiated views | [`ViewInstance`](/docs/api/view)[] |
 | container | The used container for mounting the application | HTMLElement |
 
 ### `engine.status`
