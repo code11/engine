@@ -13,10 +13,8 @@ import { Prop } from "@c11/engine.macro"
 `Prop` gives access to props given to the [view](/docs/api/view)s, so that they
 can be used as data in the view, and to [compose
 paths](/docs/concepts/path-composition) for accessing state. Prop can also be
-used in [producer](/docs/api/producer)s, in which case they either pass the Prop
-received by the corresponding view, or some contextual information from the
-Engine (in case of global producers, i.e producers added directly on
-[Engine](/docs/api/engine) instance).
+used in [producer](/docs/api/producer)s, in which case they pass the `Prop`s
+received by the corresponding view.
 
 ## Example
 

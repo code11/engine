@@ -36,8 +36,8 @@ Javascript type, a plain object), a copy of the data is returned. However, if
 the data is not serializable (e.g a class instance, function etc), a reference
 to it is returned.
 
-The getter function also receives an option argument of type `Object`. The keys
-of this object set the [Param](/docs/api/param)s.
+The getter function also receives an optional argument of type `Object`. The
+keys of this object set the [Param](/docs/api/param)s.
 
 ## Example
 
