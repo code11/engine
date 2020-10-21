@@ -4,8 +4,19 @@ title: Prop
 sidebar_label: Prop
 ---
 
+```ts
+import { Prop } from "@c11/engine.macro"
+```
+
+## Overview
+
 `Prop` gives access to props given to the [view](/docs/api/view)s, so that they
-can be used as data in the view, and to compose paths for accessing state.
+can be used as data in the view, and to [compose
+paths](/docs/concepts/path-composition) for accessing state. Prop can also be
+used in [producer](/docs/api/producer)s, in which case they pass the `Prop`s
+received by the corresponding view.
+
+## Example
 
 For example, if a `TodoItem` component accepts a single prop `id: string`, and
 global state looks like:

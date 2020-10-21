@@ -4,13 +4,26 @@ title: View
 sidebar_label: View
 ---
 
+```ts
+import { View } from "@c11/engine.macro"
+```
+
+## Overview
 `view` creates Engine views, which render HTML in browser. `view` can use Engine
 operators [Observe](/docs/api/observe), [Get](/docs/api/get), and
 [Update](/docs/api/update) to interact with global state.
 
 `Observe`, `Get` and `Update` are used in the first object argument of a
-function, also called "header" of the function. For example, a react component
-that looks like:
+function, also called "header" of the function.
+
+A `view` is just a specialized form of a [producer](/docs/api/producer). All the
+[concepts](/docs/api/producer#parts) and [best
+practices](/docs/api/producer#best-practices) of producers apply for views as
+well.
+
+## Example
+
+For example, a react component that looks like:
 
 ```tsx
 const Button = ({ title }) => (<button>{title}</button>);
@@ -66,4 +79,3 @@ view to perform required business logic.
 ## Instance
 
 For debugging pruposes only - Documentation in progress
-

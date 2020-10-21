@@ -53,3 +53,10 @@ Doing so builds intuition and confidence in the system.
 
 *Initial state* is the state with which an application is going to start.
 Usually we define some defaults for many of our state data in initial state.
+
+## State as a communication channel
+
+Engine producers work in complete isolation, and cannot communicate with each
+other. Only way for two producers to talk to each other is through state. For
+example, when producers need to share references (to streams, XHR objects, DOM
+nodes etc).

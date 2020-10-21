@@ -10,6 +10,10 @@ module.exports = {
       items: ["usage"],
     },
     {
+      type: "doc",
+      id: "cli",
+    },
+    {
       type: "category",
       label: "Concepts",
       items: ["concepts/state", "concepts/path-composition"],
@@ -18,6 +22,19 @@ module.exports = {
       type: "category",
       label: "Guides",
       items: ["packages", "best-practices", "guides/debugging"],
+    },
+    {
+      type: "category",
+      label: "Patterns",
+      items: [
+        "patterns/aggregate",
+        "patterns/collections",
+        "patterns/flags",
+        "patterns/request-response",
+        "patterns/search",
+        "patterns/sections",
+        "patterns/triggers",
+      ],
     },
 
     {

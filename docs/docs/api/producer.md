@@ -10,15 +10,25 @@ import { Producer } from "@c11/engine.macro"
 
 ## Overview
 
-A `Producer` is a function that reacts to specific state changes and produces new data through specific state updates. It can also produce effects. 
+A `Producer` is simply a function that gets executed when something interesting
+(a trigger) changes in state.
+
+Any function can be turned into a producer by labeling it with `producer`. It
+allows using Engine features to interact with the state using
+[Observe](/docs/api/observe), [Get](/docs/api/get), and
+[Update](/docs/api/update). It is also possible to use [Prop](/docs/api/prop) in
+producers, even though it is not possible to pass a value directly to the
+producer. producer receives same values as the [view](/docs/api/view) it is
+added to in `Prop`s.
 
 
 The syntax is straight forward:
 ```ts
-const producer: Producer = ({ /* declarations */ }) => { /* execution */ }
+const producer: Producer = ({ /* header */ }) => { /* body */ }
 ```
 
-The **declarations** is a regular object that uses the Engine API to declare what data the producer needs at runtime.
+The **header** is a regular object that uses the Engine API to declare what data
+the producer needs at runtime.
 
 ```
 {
@@ -27,161 +37,29 @@ The **declarations** is a regular object that uses the Engine API to declare wha
 }
 ```
 
-The **execution** part is left entirely to the developer.
+The **body** part is left entirely to the developer. It's a normal function
+body.
 
-Diagram (not working for some reason):
-![Producer](/img/producer.jpg)
+<img src='/static/img/producer.jpg' alt='Producer' />
 
 ## Running a producer
 
-A `producer` can not be called directly. `producer`s are only ever executed by
-Engine when they meet following 2 conditions:
-
- 1. A `producer` must be added to a [view](/docs/api/view)'s `.producers` array,
-    or in `Engine`'s global producers list. e.g `myProducer` can added to the
-    `Button` view with:
+A `producer` can not be called directly. Engine considers a `producer` for
+execution if it is added to a [view](/docs/api/view)'s `.producers` array, or is
+added to `Engine`'s global producers list. e.g `myProducer` can added to a
+`Button` view with:
 
     ```tsx
     Button.producers = [myProducer];
     ```
-  2. A `producer` must have at least one trigger. Using
-     [Observe](/docs/api/observe) is the only way to add a trigger to a
-     `producer`. Whenever an `Observe`d value is changed (e.g using
-     [Update](/docs/api/update)), the `producer` is re-executed.
-     !!! Not necessarily, you can also create an empty producer that will be called when the Engine boots but it won't receive any argument.
 
+`producer`s are executed by Engine on following occasions:
 
-## Other ideas:
-
-Producers are managed entirely by the Engine which will instantiate, trigger and remove them.
-
-Producers should handle a very specific task. The more specific, the better.
-
-Producers cannot be composed or inherited or operated in any way.
-
-Each producer lives in complete isolation from other producers. The only way producers can communicate is through state changes.
-
-The developer will not be able to decide when a producer will be executed.
-
-Any logic regarding the reason that a producer shouldn't be executed will exist in the `Guards` section (see bellow)
-
-When producers need to share references (to streams, xhr requests, dom nodes, etc) they need to use the state for this sharing.
-
-## Parts
-
-The `Producer` is build up from from one or more parts with different/specific responsabilities:
-
-- Header
-- Guards
-- Processing
-- Effects
-- Updates
-
-### Header
-
-This is where you declare everything that the producer will need in the execution part.
-
-It can take static data, variables, parent properties, path operations, argument references.
-
-Any function can become a producer by labeling it with `producer`. It allows using Engine features to interact with
-the state using [Observe](/docs/api/observe), [Get](/docs/api/get), and
-[Update](/docs/api/update).
-
-Full example:
-
-```ts
-const foo = 123
-const producer: Producer = ({
-  varValue = foo,
-  staticValue = 'sample text',
-  propValue = Prop.value,
-  propValue2, // Same as Prop.propValue2
-  updateValue = Update.sample.path,
-  observeValue = Observe.sample.value,
-  getValue = Get.sample.otherValue,
-  refValue = Arg.propValue2
-}) => { ... }
-```
-
-Producers should be pure functions and any service used should be passed in the header.
-
-The following is encuraged to increase the testability and reusability of the producer:
-```ts
-import axios from 'axios'
-
-const producer: Producer = ({
-  get = axios.get,
-  data = Observe.data
-  ...
-}) => {
-  get({ ... })
-}
-```
-
-### Guards
-Producers will be triggered by the Engine with both valid and invalid data.
-
-It is the producer responsability to decide if the data is suitable to its execution needs.
-
-Data from `Observe` operations should be checked first and the producer should exit (using return) fast.
-
-```ts
-const producer: Producer = ({
-  description = Observe.description,
-  summary = Update.summary
-}) => {
-  if (!description || !isString(description) ) {
-    return
-  }
-  summary.set(description.substr(0, 20))
-}
-```
-
-Guards can also stop effects from happening (e.g. triggering another system):
-```ts
-import axios from 'axios'
-const producer: Producer = ({
-  post = axios.post
-  trigger = Observe.submit,
-  getUrl = Get.url
-  getData = Get.data
-}) => {
-  if (!trigger) {
-    return
-  }
-
-  const data = getData())
-  const url = getUrl()
-  if (!isValid(data) || !url) {
-    return
-  }
-
-  post(url, data) // best practice is to handle then and catch
-}
-```
-
-### Processing
-`Producers` are responsibile with transforming or interpreting the data received from the state.
-
-Producers contain the logic of the Engine and any process will be defined as one ore more producers that process data and act upon it.
-
-### Effects
-Producers can call other systems, interact with the environment and produces changes that are not visible in the state.
-
-As mentioned above, the APIs for doing these effects should be received from the `Header` in order to keep the producer pure.
-
-With outside effects, producers will be able to create new data that didn't exist before.
-
-For example making an XHR request to retrieve data, read the browser session storage, interact with the DOM API or set timers.
-
-Producers should inform the state upon the succesful completion or failure to carry out effects.
-
-Managing the failure of the effects should be handled in a separate producer if those failures are not recoverable.
-
-### Updates
-The state can only be changed through the `Update` operation.
-
-This means, `Producers` will be pushing new data to the Engine which in turn trigger other producers to execute and in turn update the state.
+  1. Globally added `producer`s are executed once when engine starts
+  2. `producer`s added to a [view](/docs/api/view)'s `producers` array are
+     executed once every time the view is mounted
+  3. A `producer` is executed every time any of its `Observe`d value (also
+     referred to as producer's trigger) is updated.
 
 ## Example
 
@@ -200,11 +78,123 @@ const todoCounter: producer = ({
 );
 ```
 
+
+## Parts
+
+Although a producer is just a function, at a conceptual level it can be broken
+into parts with different/specific responsibilities:
+
+<img src='/static/img/producer-parts.png' alt='Conceptual parts of a Producer' />
+
+### Header
+
+This is where you declare everything that the producer will need in the
+execution part.
+
+It can take static data, variables, [parent
+properties](/docs/api/prop), [path operations](/docs/api/path), [argument
+references](/docs/api/arg).
+
+Full example:
+
+```ts
+const foo = 123
+const producer: Producer = ({
+  varValue = foo,
+  staticValue = 'sample text',
+  propValue = Prop.value,
+  propValue2, // Same as Prop.propValue2
+  updateValue = Update.sample.path,
+  observeValue = Observe.sample.value,
+  getValue = Get.sample.otherValue,
+  refValue = Arg.propValue2
+}) => { ... }
+```
+
+### Guards
+
+Producers will be triggered by the Engine regardless of whether the data they
+depend on is valid or not. It is the producer's responsability to decide if the
+data is suitable for its execution needs.
+
+Data from the triggers (i.e `Observe` operations) should be checked first, and
+the producer should exit if its requirements aren't fulfilled.
+
+```ts
+const producer: Producer = ({
+  description = Observe.description,
+  summary = Update.summary
+}) => {
+  if (!description || !isString(description) ) {
+    return
+  }
+  summary.set(description.substr(0, 20))
+}
+```
+
+Guards can also be used to stop effects from happening (e.g. triggering another system):
+```ts
+import axios from 'axios'
+const producer: Producer = ({
+  post = axios.post
+  trigger = Observe.submit,
+  getUrl = Get.url
+  getData = Get.data,
+  updateData = Update.data
+}) => {
+  if (!trigger) {
+    return
+  }
+
+  const data = getData();
+  const url = getUrl();
+
+  if (!isValid(data) || !url) {
+    return;
+  }
+
+  updateData.set(data);
+}
+```
+
+### Processing
+
+Producers contain the logic of an Engine app. Any process (aka domain operation)
+can (and should) be defined as one ore more producers acting on some data.
+Processing data can be broadly categorized into two categories based on the kind
+of results they achieve.
+
+#### Effects
+
+Producers can call other systems, interact with the environment and produces
+changes that are not visible in the state.
+
+For example making an XHR request to retrieve data, read the browser session
+storage, interact with the DOM API or set timers.
+
+#### Updates
+
+Producers can update the current state of the Engine app. The state can only be
+changed through the `Update` operation.
+
+This means, `Producers` will be pushing new data to the Engine which in turn
+trigger other producers to execute and in turn update the state.
+
+
 ## Best practices
 
-Engine recommends that `producer`s should perform a single job. It is okay to
-have many small producers doing one thing each.
+1. A `producer` should perform a single, very specific job. The more specific
+   the better. It is okay to have many small producers doing one thing each.
+2. All the dependencies of a Producers should be passed in the header.
+   The following is encouraged to increase the testability and reusability of the producer:
+   ```ts
+   import axios from 'axios'
 
-## Instance
-
-For debugging pruposes only - Documentation in progress
+   const producer: Producer = ({
+     get = axios.get,
+     data = Observe.data
+     ...
+   }) => {
+     get({ ... })
+   }
+   ```

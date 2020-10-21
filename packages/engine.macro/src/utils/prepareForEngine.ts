@@ -15,6 +15,7 @@ import {
   callExpression,
   ImportDeclaration,
   isImportSpecifier,
+  isIdentifier,
 } from "@babel/types";
 import { validateRef } from "./validateRef";
 
@@ -40,6 +41,9 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
   const op = parseRef(babel, state, ref);
   const args = structOperationCompiler(op);
   const parent = ref.findParent((p) => p.isVariableDeclarator());
+  if (!parent) {
+    throw new Error('Misuse of the view/producer keyword. It needs to be a variable declaration e.g. let foo: view = ...')
+  }
   const node = parent.node as VariableDeclarator;
   const fn = node.init as ArrowFunctionExpression;
 
@@ -55,18 +59,20 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
     const viewCall = callExpression(identifier("view"), [result]);
     node.init = viewCall;
     const viewImport = config.view.importFrom;
-    const macroImport = ref
+    const program = ref
       .findParent((p) => p.isProgram())
-      .get("body")
+    if (!program) {
+      throw new Error('Internal error. Cannot find program node')
+    }
+    const macroImport = program.get("body")
       .find((p) => {
         const result =
           p.isImportDeclaration() &&
           p.node.source.value.indexOf("@c11/engine.macro") !== -1;
         return result;
       });
-    const engineImport = ref
-      .findParent((p) => p.isProgram())
-      .get("body")
+
+    const engineImport = program.get("body")
       .find((p) => {
         const result =
           p.isImportDeclaration() &&
@@ -85,7 +91,7 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
       } else {
         const node = engineImport.node as ImportDeclaration;
         const viewNode = node.specifiers.find((node) => {
-          return isImportSpecifier(node) && node.imported.name === "view";
+          return isImportSpecifier(node) && isIdentifier(node.imported) && node.imported.name === "view";
         });
         if (!viewNode) {
           node.specifiers.push(
