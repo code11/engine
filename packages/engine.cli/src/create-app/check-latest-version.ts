@@ -17,6 +17,8 @@ export = () => {
   const latestVersion = latestVersionOut.stdout
     .replace("\n", "")
     .replace("\r\n", "");
+    
+    console.log('latestVersion:',latestVersion)
 
   logStep(`Current version ${chalk.yellowBright(currentVersion)}`);
 

@@ -1,4 +1,3 @@
-const { readFileSync, existsSync } = require("fs");
 const Webpack = require("webpack");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -8,18 +7,15 @@ const babelConfig = require("./babel.config");
 const postCSSConfig = require("./postcss.config");
 const paths = require("../utils/paths");
 
-module.exports = {
-  mode: "development",
-  devtool: "source-map",
+const FILE_LOADER_NAME_PATTERN = "[name].[ext]?[hash]";
+const FILE_LOADER_OUTPUT_PATH = "assets";
 
-  entry: {
-    app: paths.entrypoint,
-  },
+module.exports = {
+  mode: "production",
+  devtool: "source-map",
+  entry: paths.entrypoint,
   output: {
-    publicPath: "/",
     path: paths.distApp,
-    filename: "[name].js",
-    chunkFilename: "[name].js",
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -32,7 +28,7 @@ module.exports = {
         // exclude: fileIsES5('UTF-8'),
         use: [
           {
-            loader: "babel-loader",
+            loader: require.resolve("babel-loader"),
             options: babelConfig,
           },
         ],
@@ -63,8 +59,8 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[name].[ext]?[hash]",
-              outputPath: "assets",
+              name: FILE_LOADER_NAME_PATTERN,
+              outputPath: FILE_LOADER_OUTPUT_PATH,
             },
           },
         ],
@@ -101,8 +97,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: paths.htmlTemplate,
-      filename: "index.html",
-      favicon: paths.htmlFavicon,
+      filename: "index.html"
     }),
   ],
   optimization: {

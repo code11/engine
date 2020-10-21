@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const paths = require("../utils//paths");
+const paths = require("./paths");
 
 export = function replaceImport(
   originalPath,

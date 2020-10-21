@@ -22,12 +22,10 @@ export = {
   assets: resolveRelativeToApp(".dist.app", "assets"),
   nodeModules: resolveRelativeToApp("node_modules"),
   entrypoint: resolveRelativeToApp("src", "index.tsx"),
-  htmlTemplate: resolveRelativeToApp("public", "index.ejs"),
-  htmlFavicon: resolveRelativeToApp("public", "assets", "favicon.png"),
+  htmlTemplate: resolveRelativeToApp("public", "index.html"),
+  // htmlFavicon: resolveRelativeToApp("public", "assets", "favicon.png"),
   babelConfig: resolveRelativeToPackage("create-app-scripts","config", "babel.config.js"),
-  appLoader: resolveRelativeToPackage("create-app-scripts", "assets", "loader.js"),
   packageJsonTemplate: resolveRelativeToPackage("create-app-scripts", "assets", "package.template.json"),
-  // appPackageJson: resolveRelativeToApp("package.json"),
   appTemplate: resolveRelativeToPackage("node_modules", "@c11/templates.app", "template"),
   babelModuleRewriteReplacer: resolveRelativeToPackage("create-app-scripts", "utils", "replace-module-paths.js")
 };

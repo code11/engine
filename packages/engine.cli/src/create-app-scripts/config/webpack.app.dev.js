@@ -10,15 +10,11 @@ const paths = require("../utils/paths");
 const FILE_LOADER_NAME_PATTERN = "[name].[ext]?[hash]";
 const FILE_LOADER_OUTPUT_PATH = "assets";
 
-const PACKAGED_HTML_FILE_NAME = "index.html";
-
 module.exports = {
   mode: "development",
   devtool: "eval-source-map",
 
-  entry: {
-    app: paths.appLoader
-  },
+  entry: paths.entrypoint,
   output: {
     path: paths.distApp,
   },
@@ -45,7 +41,7 @@ module.exports = {
         // exclude: fileIsES5(FILE_ENCODING),
         use: [
           {
-            loader: "babel-loader",
+            loader: require.resolve("babel-loader"),
             options: Object.assign(
               {
                 cacheDirectory: true,
@@ -111,8 +107,6 @@ module.exports = {
     new Webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: paths.htmlTemplate,
-      filename: PACKAGED_HTML_FILE_NAME,
-      favicon: paths.htmlFavicon,
     }),
   ],
 

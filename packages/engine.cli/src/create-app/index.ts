@@ -10,7 +10,7 @@ const createPackageJson = require("./create-package-json");
 const installDependencies = require("./install-dependencies");
 const cleanup = require("./cleanup");
 
-export = async (dirName:string, templateName:string) => {
+export = async (dirName: string, templateName: string) => {
   const name = dirName;
   const template = templateName;
 
@@ -35,6 +35,7 @@ export = async (dirName:string, templateName:string) => {
     const replacements = {
       appName: name,
     };
+
     createPackageJson({ target: paths.app, replacements });
 
     installDependencies({ target: paths.app });
@@ -47,7 +48,6 @@ export = async (dirName:string, templateName:string) => {
       )} using template ${chalk.yellowBright(template)}`
     );
     logStep(`🔨  Resulted directory ${chalk.yellowBright(paths.app)}`);
-    console.log();
 
     logStep(`Quickstart`);
     logStep(`
@@ -56,8 +56,9 @@ export = async (dirName:string, templateName:string) => {
     `);
 
     logStep(`Thank you for using our app generator and happy coding`);
-    return 'done'
+    return "done";
   } catch (e) {
-    return e
+    console.error(e);
+    return e;
   }
 };
