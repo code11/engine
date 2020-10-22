@@ -6,26 +6,35 @@ sidebar_label: Collections
 
 ### Collections
 
-Collections group similar data structures together and provide a friendly way of accesing and working with those data structures.
+Collections group similar data structures together and provide a friendly way of
+accessing and working with those data structures. Collections are very useful
+when used in conjuction with entities.
 
-Collections are very useful used in conjuction with entities.
+Entities are domain objects that are uniquely defined by a unique identifier.
 
-Entities are domain object that are uniquely defined by a unique identifier, and not by their attributes.
+In Engine, it's best to aim for achieving a balance between normalizing and
+denormalizing data based on the needs of observing changes or accessing partial
+or processed data. As a rule of thumb, data received from the outside of the
+system should be kept in a raw form somewhere so that it can be transformed in
+the many ways needed from your system.
 
-[More description]
+Also, it's very important for an Entity to have its `id` stored in its data
+structure. Entities should always be able to exist on their own if needed.
 
-In the Engine data structure it's best to aim for balance between normalizing and denormalizing data based on the needs of observing changes or accesing partial or processed data.
+In the following example several data processing patterns are used:
+- `articles.raw` stores denormalized data received from an API.
+- `articles.items` is created by a producer that `reduce`s `articles.raw` and
+  extracts only the information needed by the application; and only the items
+  needed for the application.
+- `articles.ids` is created by a producer that `reduce`s `articles.items` and
+  extracts only the list of ids. This is useful when you want to iterate on all
+  articles but you don't want to get the data associated with the ids.
+- `articles.count` is made by a producer that `reduce`s `articles.ids` and gives
+  the number of articles.
+- `articles.filters.category` is made by a producer that groups articles by
+  their category. It's useful when you want to iterate on a single category. The
+  existence of this producer is determined by the need of this information.
 
-As a rule of thumb, data received from the outside of the system should be kept in a raw form somewhere so that it can be transformed in the many ways needed from your system.
-
-Also, very important is for the `item` to have its `id` stored on its data structure. Items should always be able to exist on their own if needed.
-
-In the following example there are many data processing patterns used:
-`articles.raw` - stores denormalized data
-`articles.items` - is made by a producer that makes a reduce over `articles.raw` and extracts only the information needed by the application & only the items needed for the application
-`articles.ids` - is made by a producer that makes a reduce over `articles.items` and extracts only the list of ids - useful when you want to iterate on all articles but you don't want to get the data associated with the ids
-`articles.count` - is made by a producer that makes a reduce over `articles.ids` and gives the no. of articles
-`articles.filters.category` - is made by a producer that groups articles by their category - useful when you want to iterate on a single category - the existance of this producer is determined by the need of this information
 ```
 {
   articles: {
@@ -63,4 +72,3 @@ In the following example there are many data processing patterns used:
   }
 }
 ```
-

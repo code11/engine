@@ -140,7 +140,8 @@ const producer: Producer = ({
   trigger = Observe.submit,
   getUrl = Get.url
   getData = Get.data,
-  updateData = Update.data
+  updateData = Update.data,
+  updateError = Update.error
 }) => {
   if (!trigger) {
     return
@@ -153,7 +154,13 @@ const producer: Producer = ({
     return;
   }
 
-  updateData.set(data);
+  try {
+    const response = await post(url, data);
+
+    updateData.set(response.data);
+  } catch (err) {
+    updateError.set(err.message);
+  }
 }
 ```
 

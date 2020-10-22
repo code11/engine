@@ -6,7 +6,8 @@ sidebar_label: Search
 
 ### Search
 
-Implements the following patterns: `Collections`, `Triggers`,  
+Implements the following patterns: [Collections](/docs/patterns/collections),
+[Triggers](/docs/patterns/triggers)
 
 ```
 {

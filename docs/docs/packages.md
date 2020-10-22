@@ -23,3 +23,11 @@ independently on-need basis.
   When building Engine applications, most concepts of React translate quite
   transparently. For example, Engine [view](/docs/api/view)s are equivalent to
   React components, view props are equivalent to react props etc.
+
+3. `@c11/enine.cli`
+
+  Provides a neat [CLI](/docs/cli) to build Engine apps.
+
+4. `@c11/engine.test`
+
+  Helper utilities for [testing Engine apps](/docs/testing) using Jest
