@@ -1,9 +1,8 @@
 {
   "name": "@c11/engine.templates-app",
-  "version": "1.0.0",
+  "version": "4.0.0-alpha.5",
   "license": "MIT",
   "keywords": [
-    "cli-scripts",
     "template"
   ],
   "description": "The base template for Engine apps.",

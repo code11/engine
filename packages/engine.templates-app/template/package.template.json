@@ -3,17 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "cli-scripts build",
-    "clean": "cli-scripts clean",
-    "serve": "cli-scripts serve",
-    "start": "cli-scripts start",
-    "test": "cli-scripts test"
+    "build": "engine build",
+    "clean": "engine clean",
+    "start": "engine start"
   },
   "dependencies": {
-    "@c11/engine.macro": "4.0.0-alpha.5",
+    "@c11/engine.macro": "^4.0.0-alpha.5",
     "@c11/engine.react": "^4.0.0-alpha.5"
   },
   "devDependencies": {
-    "@c11/engine.cli-scripts": "^1.0.0"
+    "@c11/engine.cli": "^4.0.0-alpha.5"
   }
 }

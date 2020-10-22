@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "allowJs": true /* Allow javascript files to be compiled. */,
+    "checkJs": true /* Report errors in .js files. */,
+    "noImplicitAny": false
+  }
+}
