@@ -24,6 +24,10 @@ module.exports = {
       items: ["packages", "best-practices", "guides/debugging"],
     },
     {
+      type: "doc",
+      id: "testing",
+    },
+    {
       type: "category",
       label: "Patterns",
       items: [
