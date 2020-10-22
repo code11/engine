@@ -6,13 +6,19 @@ sidebar_label: Sections
 
 ### Sections
 
-Implements the following patterns: `Collections`  
+Implements the following patterns: [Collections](/docs/patterns/collections)
 
-Sections are parts of an application that are shown are certain times. These can be full pages or even smaller parts like a menu bar.
+Sections are parts of an application that are shown at certain times. These can
+be full pages or smaller parts, like a menu bar.
 
-The `isMounted` flag on sections can be a producer that decides if a certain section needs to be present or not.
+The `isMounted` flag on sections can be a trigger for a producer to decide if a
+certain section needs to be present or not.
 
-For example when loading an application a producer can decide that the `Initialitzation` section should be visible if data is not yet synced. After the data is synced the same or another producer can decide that the `Login` page should be shown. If the user is authenticated then the `Dashboard` page would be shown. If the user is of a certain type then the `StatisticsPanel` can be shown.
+For example when loading an application a producer can decide that the
+`Initialitzation` section should be visible if data is not yet synced. After the
+data is synced the same or another producer can decide that the `Login` page
+should be shown. If the user is authenticated then the `Dashboard` page would be
+shown. If the user is of a certain type then the `StatisticsPanel` can be shown.
 
 Each section has a `data` location where it can store temporary data.
 
