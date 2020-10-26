@@ -2,10 +2,11 @@ import React from 'react';
 import { Engine } from "@c11/engine.react";
 import { generateImage } from 'jsdom-screenshot';
 
-jest.useFakeTimers();
+
 
 export async function testView(name: string, { state, View, props }) {
     test(name, async () => {
+        jest.useFakeTimers();
         const root = document.createElement("div")
         const title = document.createElement("h1")
         title.innerHTML = name
@@ -30,5 +31,7 @@ export async function testView(name: string, { state, View, props }) {
       
         const screenshot = await generateImage();
         expect(screenshot).toMatchImageSnapshot();
+
+        jest.useRealTimers()
     })
 }
