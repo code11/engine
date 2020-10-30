@@ -14,17 +14,17 @@ pluginTester({
     });
   },
   tests: {
-    "should support Observe": {
+    "should support observe": {
       code: `
         import { producer } from ${macroFile}
         const result: producer = ({
-          a1 = Observe.foo,
-          a2 = Observe[Prop.foo],
-          a3 = Observe[Arg.a2],
-          a4 = Observe.foo[Prop.bar.baz],
-          a5 = Observe.foo.bar[Arg.a2],
+          a1 = observe.foo,
+          a2 = observe[prop.foo],
+          a3 = observe[arg.a2],
+          a4 = observe.foo[prop.bar.baz],
+          a5 = observe.foo.bar[arg.a2],
           a6 = {
-            baz: Observe.foo[Arg.a4].baz,
+            baz: observe.foo[arg.a4].baz,
           }
         }) => { }
       `,

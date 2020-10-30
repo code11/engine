@@ -18,7 +18,7 @@ pluginTester({
       code: `
         import { producer } from ${macroFile}
         const result: producer = ({
-          a1 = Get.foo || '123' && '123'
+          a1 = get.foo || '123' && '123'
         }) => { }
       `,
       snapshot: true,

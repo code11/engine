@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Observe, Update, Prop, view, producer } from "@c11/engine.macro";
+import { observe, update, prop, view, producer } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -21,18 +21,18 @@ test("Should mount and unmount producers attached to a component", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Observe.foo }) => {
+  const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
   const prodA: producer = ({
-    propValue = Observe[Prop.propName],
-    bar = Update.bar,
+    propValue = observe[prop.propName],
+    bar = update.bar,
   }) => {
     bar.set(propValue);
   };
   Component.producers = [prodA];
 
-  const Parent: view = ({ shouldMount = Observe.shouldMountChild }) => (
+  const Parent: view = ({ shouldMount = observe.shouldMountChild }) => (
     <div>{shouldMount && <Component propName="foo"></Component>}</div>
   );
 

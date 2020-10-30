@@ -2,7 +2,7 @@ import { GraphStructure, ObserveOperation } from "@c11/engine.types";
 import { isValidPath } from "./isValidPath";
 import { resolveValue } from "./resolveValue";
 import { PathSymbol } from "../path";
-import { Wildcard } from "../wildcard";
+import { wildcard } from "../wildcard";
 
 export const observeOperation = (
   structure: GraphStructure,
@@ -16,7 +16,7 @@ export const observeOperation = (
         acc = acc.concat(expanded.split("."));
       }
     } else {
-      if (value === Wildcard) {
+      if (value === wildcard) {
         acc.push("*");
       } else {
         acc.push(value);

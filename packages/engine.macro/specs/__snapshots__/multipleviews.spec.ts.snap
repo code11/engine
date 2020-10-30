@@ -4,10 +4,10 @@ exports[`macros should keep Constants: should keep Constants 1`] = `
 
 import { view } from '@c11/engine.macro'
 const a: view = ({
-  foo = Get.foo
+  foo = get.foo
 }) => {  }
 const b: view = ({
-  foo = Get.foo
+  foo = get.foo
 }) => {  }
 
       ↓ ↓ ↓ ↓ ↓ ↓

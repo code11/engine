@@ -54,7 +54,7 @@ Available only in Engine implementations that support rendering.
 The element that will be rendered in the container. Accepts one of:
 
 * `HTMLElement` - an HTML element that will be inserted in the container
-* `View` - an Engine View ([read more](/docs/api/view))
+* `view` - an Engine View ([read more](/docs/api/view))
 
 #### `container`
 

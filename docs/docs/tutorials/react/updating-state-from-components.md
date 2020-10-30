@@ -12,13 +12,13 @@ In `src/Todo.tsx`,
 
 ```diff
 import React from "react";
-- import { view, Observe, Prop } from "@c11/engine.macro";
-+ import { view, Observe, Prop, Update } from "@c11/engine.macro";
+- import { view, observe, prop } from "@c11/engine.macro";
++ import { view, observe, prop, update } from "@c11/engine.macro";
 
-- const Todo: view = ({ title = Observe.todosById[Prop.id].title }) => (
+- const Todo: view = ({ title = observe.todosById[prop.id].title }) => (
 + const Todo: view = ({
-+   title = Observe.todosById[Prop.id].title,
-+   updateStatus = Update.todosyById[Prop.id].status
++   title = observe.todosById[prop.id].title,
++   updateStatus = update.todosyById[prop.id].status
 + }) => (
   <li>
     <div className="view">
@@ -45,13 +45,13 @@ export default Todo;
 ```
 
 Above snippet:
-1. Uses `Observe.todosById<todoId>.status` for deciding whether the checkbox for
+1. Uses `observe.todosById<todoId>.status` for deciding whether the checkbox for
    the `Todo` is checked or not
-2. Uses `Update.todosById<todoId>.status` to change status of the TodoItem.
-   [Update](/docs/api/update) is the dual of [Observe](/docs/api/observe).
+2. Uses `update.todosById<todoId>.status` to change status of the TodoItem.
+   [update](/docs/api/update) is the dual of [observe](/docs/api/observe).
    Observe allows reading any value from the global state, Update allows
-   changing them. `Update.<path>` returns an object with a number of methods to
-   conveniently work with our state. You can read [more about Update in api
+   changing them. `update.<path>` returns an object with a number of methods to
+   conveniently work with our state. You can read [more about `update` in api
    docs](/docs/api/update).
 
 ## Many faced component
@@ -94,13 +94,13 @@ and gives a directory to nicely keep `Todo.View` and `Todo.Edit` close together.
 Create `src/Todo/View.tsx` with following contents
 ```tsx
 import React from "react";
-import { view, Observe, Prop, Update } from "@c11/engine.macro";
+import { view, observe, prop, update } from "@c11/engine.macro";
 import { TodoStatuses } from "../types";
 
 const View: view = ({
-  title = Observe.todosById[Prop.id].title,
-  status = Observe.todosById[Prop.id].status,
-  updateStatus = Update.todosById[Prop.id].status
+  title = observe.todosById[prop.id].title,
+  status = observe.todosById[prop.id].status,
+  updateStatus = update.todosById[prop.id].status
 }) => (
     <li>
       <div className="view">
@@ -130,11 +130,11 @@ export default View;
 For the editing mode of `Todo`, create `src/Todo/Edit.tsx`:
 ```tsx
 import React from "react";
-import { view, Observe, Prop, Update } from "@c11/engine.macro";
+import { view, observe, prop, update } from "@c11/engine.macro";
 
 const Edit: view = ({
-  title = Observe.todosById[Prop.id].title,
-  updateTodo = Update.todosById[Prop.id]
+  title = observe.todosById[prop.id].title,
+  updateTodo = update.todosById[prop.id]
 }) => (
     <li className="editing">
       <input
@@ -153,7 +153,7 @@ appropriate view based on Todo's state. In `src/Todo/index.tsx`
 
  ```tsx
 import React from "react";
-import { view, Observe, Prop } from "@c11/engine.macro";
+import { view, observe, prop } from "@c11/engine.macro";
 import View from "./View";
 import Edit from "./Edit";
 import { TodoModes } from "../types";
@@ -169,7 +169,7 @@ const Fallback = ({ id }: { id: string }) => {
   return null;
 };
 
-const Todo: view = ({ id, mode = Observe.todosById[Prop.id].mode }) => {
+const Todo: view = ({ id, mode = observe.todosById[prop.id].mode }) => {
   const Component = uiStates[mode as TodoModes] || Fallback;
 
   return <Component id={id} />;
@@ -209,10 +209,10 @@ Change `TodoItem.mode` of todos in state whenever user double clicks a
 + import { TodoModes } from "../types";
 ...
 const View: view = ({
-  title = Observe.todosById[Prop.id].title,
-  status = Observe.todosById[Prop.id].status,
-- updateStatus = Update.todosById[Prop.id].status
-+ updateTodo = Update.todosById[Prop.id]
+  title = observe.todosById[prop.id].title,
+  status = observe.todosById[prop.id].status,
+- updateStatus = update.todosById[prop.id].status
++ updateTodo = update.todosById[prop.id]
 }) => (
     <li>
       <div className="view">
@@ -243,10 +243,10 @@ const View: view = ({
 ```
 
 Above snippet:
-1. Changed `Update` from `Update.todosById[Prop.id].status` to
-   `Update.todosById[Prop.id]`. Since we want to update more than just status of
+1. Changed `update` from `update.todosById[prop.id].status` to
+   `update.todosById[prop.id]`. Since we want to update more than just status of
    a Todo, it's better to minimize our component's API surface and get an
-   [Update](/docs/api/update) for the whole Todo item
+   [update](/docs/api/update) for the whole Todo item
 2. Updates the method of changing status of the todo is updated as a consequence of #1
 3. Adds an event-listener to change the mode of Todo when user double-clicks
    the todo title
@@ -264,5 +264,5 @@ Update `src/Todo/Edit.tsx` so Todo can switch back to `viewing` mode:
       />
 ```
 
-Next section introduces [Producer](/docs/api/producer)s, which are another core
+Next section introduces [producer](/docs/api/producer)s, which are another core
 concept of Engine.

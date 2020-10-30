@@ -14,16 +14,16 @@ pluginTester({
     });
   },
   tests: {
-    "should support Path": {
+    "should support path": {
       code: `
-        import { Path, view } from ${macroFile};
-        const a = Path.foo.bar
-        const b = Path
+        import { path, view } from ${macroFile};
+        const a = path.foo.bar
+        const b = path
         const foo: view = ({
-          value = Path.bar,
+          value = path.bar,
           doo = a.bam,
-          boo = Observe.foo[Arg.value][Arg.doo],
-          moo = Observe[b]
+          boo = observe.foo[arg.value][arg.doo],
+          moo = observe[b]
         }) => {}
       `,
       snapshot: true,

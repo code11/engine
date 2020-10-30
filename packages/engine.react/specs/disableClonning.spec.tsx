@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Observe, Update, Prop, view } from "@c11/engine.macro";
+import { observe, update, prop, view } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -22,11 +22,11 @@ test("Should not clone children", (done) => {
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
   let refs = [];
-  const Child: view = ({ foo = Prop.children }) => {
+  const Child: view = ({ foo = prop.children }) => {
     refs.push(foo);
     return <div>{foo}</div>;
   };
-  const Parent: view = ({ changeBaz = Update.baz, baz = Observe.baz }) => {
+  const Parent: view = ({ changeBaz = update.baz, baz = observe.baz }) => {
     return (
       <div>
         <button data-testid="change-baz" onClick={() => changeBaz.set(val)} />

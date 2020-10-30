@@ -20,10 +20,10 @@ pluginTester({
       code: `
         import { view } from ${macroFile}
         const a: view = ({
-          foo = Get.foo
+          foo = get.foo
         }) => {  }
         const b: view = ({
-          foo = Get.foo
+          foo = get.foo
         }) => {  }
       `,
       snapshot: true,

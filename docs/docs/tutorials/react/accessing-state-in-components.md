@@ -9,19 +9,19 @@ todos from state In `src/App.tsx`:
 
   ```diff
 import React from "react";
-+ import { view, Observe } from "@c11/engine.macro";
++ import { view, observe } from "@c11/engine.macro";
 +
 - const App = () => (
-+ const App: view = ({ todoIds = Observe.visibleTodoIds }) => (
++ const App: view = ({ todoIds = observe.visibleTodoIds }) => (
     <section className="todoapp">
 +     {console.log("TODOS", todoIds)}
 ```
 
 1. `App` component is labeled as a `view`
-2. In `App`'s header, `Observe.visibileTodoIds` allow reading `State.visibileTodoIds`
+2. In `App`'s header, `observe.visibileTodoIds` allow reading `State.visibileTodoIds`
 
 Todos ids from state can be seen printed in console! Engine allow observing any
-part of the state by assigning it as `Observe.<path>` in header of a `view.
+part of the state by assigning it as `observe.<path>` in header of a `view.
 
 Extract the `<Todo>` component out of`<App>` to easily `map` todo ids to`Todo`
 components, and put it in its own file. In `src/Todo.tsx`, add
@@ -74,10 +74,10 @@ with its id. Modify the `Todo` component to follow the Engine way:
 In`src/Todo.tsx`
 
   ```diff
-+ import { view, Observe, Prop } from "@c11/engine.macro";
++ import { view, observe, prop } from "@c11/engine.macro";
 +
 - const Todo = ({ id }) => (
-+ const Todo: view = ({ title = Observe.todosById[Prop.id].title }) => (
++ const Todo: view = ({ title = observe.todosById[prop.id].title }) => (
   <li>
     <div className="view">
       <input className="toggle" type="checkbox" />
@@ -90,12 +90,12 @@ In`src/Todo.tsx`
 ```
 
 1. `Todo` is converted to a[view](/docs/api/view) (by labeling it with `view` macro)
-2. Assigning `title` to `Observe.todosById[Prop.id].title` in view header gives
+2. Assigning `title` to `observe.todosById[prop.id].title` in view header gives
    access to the title of a todo from the global state
 
-[Prop](/docs/api/prop) allow [composing
+[prop](/docs/api/prop) allow [composing
 paths](/docs/concepts/path-composition) for accessing data from global
-state. `Prop.<path>` gives access to all the [React
+state. `prop.<path>` gives access to all the [React
 props](https://reactjs.org/docs/components-and-props.html) passed to a component
 by its parent.
 
@@ -104,10 +104,10 @@ Trick is getting the right thing. The input macros help achieving clever ways of
 **[path composition](/docs/concepts/path-composition)** to get the
 right data into views.
 
-`Observe.todosById[Prop.id].title` tells Engine to look-up a todo with `Prop.id`
+`observe.todosById[prop.id].title` tells Engine to look-up a todo with `prop.id`
 in `todosById` object of the global state, and observe its `title` property. This
 gives read-only access to `title`.
 
 This also ensures that the view gets re-rendered whenever `title` property of
-todo with id `Prop.id` changes. Any other changes that happen in the state, even
+todo with id `prop.id` changes. Any other changes that happen in the state, even
 in the todo itself will not affect the view.

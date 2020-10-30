@@ -84,7 +84,7 @@ interface Values {
 }
 
 const Values: Values = {
-  // foo = Get.foo.bar
+  // foo = get.foo.bar
   MemberExpression: (node) => {
     const params = getMemberExpressionParams(node);
     const op = params[0] as PathType;
@@ -128,11 +128,11 @@ const Values: Values = {
       return constValue({ __node__: node });
     }
   },
-  // foo = Get.foo || Get.bar
+  // foo = get.foo || get.bar
   LogicalExpression: (node) => {
     return logicalExpression(node);
   },
-  // foo = Get.foo ? true : false
+  // foo = get.foo ? true : false
   ConditionalExpression: (node) => {
     return funcValue(node);
   },

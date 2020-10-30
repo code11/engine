@@ -14,22 +14,22 @@ pluginTester({
     });
   },
   tests: {
-    "should support Get": {
+    "should support get": {
       code: `
         import { producer } from ${macroFile}
         const result: producer = ({
-          a1 = Get.foo,
-          a2 = Get[Prop.foo],
-          a3 = Get[Arg.a2],
-          a4 = Get.foo[Prop.bar.baz],
-          a5 = Get.foo.bar[Arg.a2],
+          a1 = get.foo,
+          a2 = get[prop.foo],
+          a3 = get[arg.a2],
+          a4 = get.foo[prop.bar.baz],
+          a5 = get.foo.bar[arg.a2],
           a6 = {
-            baz: Get.foo[Arg.a4].baz,
+            baz: get.foo[arg.a4].baz,
           },
-          a7 = Get.foo[Arg.a5.baz],
-          a8 = Get.foo[Param.prop],
-          a9 = Get.foo[Param.prop].baz,
-          a10 = Get.foo[Param.prop].baz[Prop.a2]
+          a7 = get.foo[arg.a5.baz],
+          a8 = get.foo[param.prop],
+          a9 = get.foo[param.prop].baz,
+          a10 = get.foo[param.prop].baz[prop.a2]
         }) => { }
       `,
       snapshot: true,

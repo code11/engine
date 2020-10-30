@@ -1,23 +1,23 @@
 ---
 id: get
-title: Get
-sidebar_label: Get
+title: get
+sidebar_label: get
 ---
 
 ```ts
-import { Get } from "@c11/engine.macro"
+import { get } from "@c11/engine.macro"
 ```
 
 ## Overview
 
-`Get` provides the ability to get values from the global state at a later time,
+`get` provides the ability to get values from the global state at a later time,
 after the `view` or `producer` was triggered. It works the same way as
-[Observe](/docs/api/observe), except:
-1. `Get` don't provide a value, but instead a function which can be called at
+[observe](/docs/api/observe), except:
+1. `get` don't provide a value, but instead a function which can be called at
    any time in future to get the latest value form state
-2. `Get` don't cause `view`s and `producer`s to get triggered
+2. `get` don't cause `view`s and `producer`s to get triggered
 
-`Get` is ideal when:
+`get` is ideal when:
 1. A value is needed to do a computation in a `producer`, but the producer
    should not get triggered when this value changes
 2. A value is needed at a later time since producer was triggered, e.g while
@@ -25,9 +25,9 @@ after the `view` or `producer` was triggered. It works the same way as
 
 ## API
 
-### `Get.<path>: (newParams?: object) => any`
+### `get.<path>: (newParams?: object) => any`
 
-A call to `Get.<path>` (where `<path>` is a path to any data in state) returns a
+A call to `get.<path>` (where `<path>` is a path to any data in state) returns a
 getter function.
 
 Calling this function returns the data stored in that path, or `undefined` (for
@@ -37,7 +37,7 @@ the data is not serializable (e.g a class instance, function etc), a reference
 to it is returned.
 
 The getter function also receives an optional argument of type `Object`. The
-keys of this object set the [Param](/docs/api/param)s.
+keys of this object set the [param](/docs/api/param)s.
 
 ## Example
 
@@ -51,15 +51,15 @@ For example, if the state looks like:
 }
 ```
 
-The value of `bar` can be accessed by assigning `Get.foo.bar` in header of a
+The value of `bar` can be accessed by assigning `get.foo.bar` in header of a
 [view](/docs/api/view) or [producer](/docs/api/producer), and calling it later
 e.g
 
 ```
-const doSomeWork: producer = ({ getBar: Get.foo.bar }) => {
+const doSomeWork: producer = ({ getBar = get.foo.bar }) => {
   const var = getBar(); // provides lates value of bar, and does not trigger if bar ever changes
 }
 ```
 
-Whenever a value accessed with `Get` in state is changed (e.g with
-[Update](/docs/api/update)), the view or producer using it is **not** re-triggered.
+Whenever a value accessed with `get` in state is changed (e.g with
+[update](/docs/api/update)), the view or producer using it is **not** re-triggered.

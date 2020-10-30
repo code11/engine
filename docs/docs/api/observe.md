@@ -1,28 +1,28 @@
 ---
 id: observe
-title: Observe
-sidebar_label: Observe
+title: observe
+sidebar_label: observe
 ---
 
 ```ts
-import { Observe } from "@c11/engine.macro"
+import { observe } from "@c11/engine.macro"
 ```
 
 ## Overview
 
-`Observe` gives the ability to observe values from global state. To get a "live"
+`observe` gives the ability to observe values from global state. To get a "live"
 version of a value from Engine's global state, state properties can be directly
-accessed from the imported `Observe`.
+accessed from the imported `observe`.
 
-Every use of `Observe` in a `view`/`producer`'s header can be thought of as
-adding a trigger. Whenever the `Observe`d value changes in state, for whatsoever
+Every use of `observe` in a `view`/`producer`'s header can be thought of as
+adding a trigger. Whenever the `observe`d value changes in state, for whatsoever
 reason, the view or producer using this value will be re-computed.
 
 ## API
 
-### `Observe.<path>: any`
+### `observe.<path>: any`
 
-If `<path>` is a valid path to an existing property of State, `Observe.<path>`
+If `<path>` is a valid path to an existing property of State, `observe.<path>`
 returns value stored at that path in State, otherwise it returns `undefined`. If
 the value is serializable (e.g a primitive Javascript type, a plain object), a
 copy of the data is returned. However, if the value is not serializable (e.g a
@@ -40,12 +40,12 @@ e.g if the state looks like:
 }
 ```
 
-value of `bar` can be obtained by assigning `Observe.foo.bar` in header of the
+value of `bar` can be obtained by assigning `observe.foo.bar` in header of the
 [view](/docs/api/view) or [producer](/docs/api/producer). For example,
 
 ```
-const MyView: view = ({ barVal: Observe.foo.bar }) => { ... }
+const MyView: view = ({ barVal = observe.foo.bar }) => { ... }
 ```
 
-Whenever an `Observe`d value in state is changed (e.g with
-[Update](/docs/api/update)), the view or producer using it is re-triggered.
+Whenever an `observe`d value in state is changed (e.g with
+[update](/docs/api/update)), the view or producer using it is re-triggered.

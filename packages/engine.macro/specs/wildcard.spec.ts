@@ -14,13 +14,13 @@ pluginTester({
     });
   },
   tests: {
-    "should support Wildcard": {
+    "should support wildcard": {
       code: `
-        import { Wildcard, view } from ${macroFile};
+        import { wildcard, view } from ${macroFile};
         const foo: view = ({
-          id = Wildcard,
-          boo = Observe.foo[Arg.id].foo,
-          bar = Observe.foo[Wildcard].bar
+          id = wildcard,
+          boo = observe.foo[arg.id].foo,
+          bar = observe.foo[wildcard].bar
         }) => {}
       `,
       snapshot: true,

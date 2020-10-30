@@ -1,30 +1,30 @@
 ---
 id: producer
-title: Producer
-sidebar_label: Producer
+title: producer
+sidebar_label: producer
 ---
 
 ```ts
-import { Producer } from "@c11/engine.macro"
+import { producer } from "@c11/engine.macro"
 ```
 
 ## Overview
 
-A `Producer` is simply a function that gets executed when something interesting
+A `producer` is simply a function that gets executed when something interesting
 (a trigger) changes in state.
 
 Any function can be turned into a producer by labeling it with `producer`. It
 allows using Engine features to interact with the state using
-[Observe](/docs/api/observe), [Get](/docs/api/get), and
-[Update](/docs/api/update). It is also possible to use [Prop](/docs/api/prop) in
+[observe](/docs/api/observe), [get](/docs/api/get), and
+[update](/docs/api/update). It is also possible to use [prop](/docs/api/prop) in
 producers, even though it is not possible to pass a value directly to the
 producer. producer receives same values as the [view](/docs/api/view) it is
-added to in `Prop`s.
+added to in `prop`s.
 
 
 The syntax is straight forward:
 ```ts
-const producer: Producer = ({ /* header */ }) => { /* body */ }
+const producer: producer = ({ /* header */ }) => { /* body */ }
 ```
 
 The **header** is a regular object that uses the Engine API to declare what data
@@ -32,8 +32,8 @@ the producer needs at runtime.
 
 ```
 {
-  bar = Observe.foo.bar,
-  baz = Get.foo.baz
+  bar = observe.foo.bar,
+  baz = get.foo.baz
 }
 ```
 
@@ -58,19 +58,19 @@ added to `Engine`'s global producers list. e.g `myProducer` can added to a
   1. Globally added `producer`s are executed once when engine starts
   2. `producer`s added to a [view](/docs/api/view)'s `producers` array are
      executed once every time the view is mounted
-  3. A `producer` is executed every time any of its `Observe`d value (also
+  3. A `producer` is executed every time any of its `observe`d value (also
      referred to as producer's trigger) is updated.
 
 ## Example
 
-`Observe`, `Get` and `Update` are used in the first object argument of a
+`observe`, `get` and `update` are used in the first object argument of a
 producer function, which is referred to as the "header" of a function. In the
 header, Engine operators can be used to interact with state. For example
 
 ```tsx
 const todoCounter: producer = ({
-  todosById: Observe.todosById,
-  updateCount = Update.count
+  todosById = observe.todosById,
+  updateCount = update.count
 }) => (
   const count = Object.keys(todosById).length;
 
@@ -84,7 +84,7 @@ const todoCounter: producer = ({
 Although a producer is just a function, at a conceptual level it can be broken
 into parts with different/specific responsibilities:
 
-<img src='/static/img/producer-parts.png' alt='Conceptual parts of a Producer' />
+<img src='/static/img/producer-parts.png' alt='Conceptual parts of a producer' />
 
 ### Header
 
@@ -99,15 +99,15 @@ Full example:
 
 ```ts
 const foo = 123
-const producer: Producer = ({
+const producer: producer = ({
   varValue = foo,
   staticValue = 'sample text',
-  propValue = Prop.value,
-  propValue2, // Same as Prop.propValue2
-  updateValue = Update.sample.path,
-  observeValue = Observe.sample.value,
-  getValue = Get.sample.otherValue,
-  refValue = Arg.propValue2
+  propValue = prop.value,
+  propValue2, // Same as prop.propValue2
+  updateValue = update.sample.path,
+  observeValue = observe.sample.value,
+  getValue = get.sample.otherValue,
+  refValue = arg.propValue2
 }) => { ... }
 ```
 
@@ -117,13 +117,13 @@ Producers will be triggered by the Engine regardless of whether the data they
 depend on is valid or not. It is the producer's responsability to decide if the
 data is suitable for its execution needs.
 
-Data from the triggers (i.e `Observe` operations) should be checked first, and
+Data from the triggers (i.e `observe` operations) should be checked first, and
 the producer should exit if its requirements aren't fulfilled.
 
 ```ts
-const producer: Producer = ({
-  description = Observe.description,
-  summary = Update.summary
+const producer: producer = ({
+  description = observe.description,
+  summary = update.summary
 }) => {
   if (!description || !isString(description) ) {
     return
@@ -135,13 +135,13 @@ const producer: Producer = ({
 Guards can also be used to stop effects from happening (e.g. triggering another system):
 ```ts
 import axios from 'axios'
-const producer: Producer = ({
+const producer: producer = ({
   post = axios.post
-  trigger = Observe.submit,
-  getUrl = Get.url
-  getData = Get.data,
-  updateData = Update.data,
-  updateError = Update.error
+  trigger = observe.submit,
+  getUrl = get.url
+  getData = get.data,
+  updateData = update.data,
+  updateError = update.error
 }) => {
   if (!trigger) {
     return
@@ -183,9 +183,9 @@ storage, interact with the DOM API or set timers.
 #### Updates
 
 Producers can update the current state of the Engine app. The state can only be
-changed through the `Update` operation.
+changed through the `update` operation.
 
-This means, `Producers` will be pushing new data to the Engine which in turn
+This means, `producer`s will be pushing new data to the Engine which in turn
 trigger other producers to execute and in turn update the state.
 
 
@@ -193,14 +193,14 @@ trigger other producers to execute and in turn update the state.
 
 1. A `producer` should perform a single, very specific job. The more specific
    the better. It is okay to have many small producers doing one thing each.
-2. All the dependencies of a Producers should be passed in the header.
+2. All the dependencies of a producers should be passed in the header.
    The following is encouraged to increase the testability and reusability of the producer:
    ```ts
    import axios from 'axios'
 
-   const producer: Producer = ({
+   const producer: producer = ({
      get = axios.get,
-     data = Observe.data
+     data = observe.data
      ...
    }) => {
      get({ ... })

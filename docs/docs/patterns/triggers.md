@@ -12,7 +12,7 @@ intent, made by someone or something and might be acted-on (or not) by a
 producer.
 
 The intent is captured in the form of a path. For example an update to
-`Path.articles.triggers.delete` will record the fact that a certain article
+`path.articles.triggers.delete` will record the fact that a certain article
 needs to be deleted.
 
 The main way in which a trigger is recored is by the use of a timestamp. The

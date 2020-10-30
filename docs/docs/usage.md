@@ -60,11 +60,11 @@ For example:
 
 ```tsx
 import React from "react";
-import { view, Observe, Update, producer } from "@c11/engine.macro";
+import { view, observe, update, producer } from "@c11/engine.macro";
 
 const greeter: producer = ({
-  name = Observe.name,
-  updateGreeting = Update.greeting
+  name = observe.name,
+  updateGreeting = update.greeting
 }) => {
   if (!name) {
     updateGreeting.set("Bye bye");
@@ -74,9 +74,9 @@ const greeter: producer = ({
 };
 
 const App: view = ({
-  name = Observe.name,
-  greeting = Observe.greeting,
-  updateName = Update.name
+  name = observe.name,
+  greeting = observe.greeting,
+  updateName = update.name
 }) => {
   return (
     <>
@@ -99,8 +99,8 @@ export default App;
 This tiny example demonstrates pretty much all the Engine concepts needed to use
 it!
 
-Components labeled as [view](/docs/api/view) can [Observe](/docs/api/observe)
-anything from state, and [Update](/docs/api/update) anything in the state.
+Components labeled as [view](/docs/api/view) can [observe](/docs/api/observe)
+anything from state, and [update](/docs/api/update) anything in the state.
 
 Functions labeled as [producer](/docs/api/producer) behave pretty much the same
 way as `view`s, but don't render anything on screen. Producers are where the

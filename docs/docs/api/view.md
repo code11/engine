@@ -1,19 +1,19 @@
 ---
 id: view
-title: View
-sidebar_label: View
+title: view
+sidebar_label: view
 ---
 
 ```ts
-import { View } from "@c11/engine.macro"
+import { view } from "@c11/engine.macro"
 ```
 
 ## Overview
 `view` creates Engine views, which render HTML in browser. `view` can use Engine
-operators [Observe](/docs/api/observe), [Get](/docs/api/get), and
-[Update](/docs/api/update) to interact with global state.
+operators [observe](/docs/api/observe), [get](/docs/api/get), and
+[update](/docs/api/update) to interact with global state.
 
-`Observe`, `Get` and `Update` are used in the first object argument of a
+`observe`, `get` and `update` are used in the first object argument of a
 function, also called "header" of the function.
 
 A `view` is just a specialized form of a [producer](/docs/api/producer). All the
@@ -42,8 +42,8 @@ interact with state. For example:
 ```tsx
 const Button: view = ({
   title,
-  count = Observe.count,
-  updateCount = Update.count
+  count = observe.count,
+  updateCount = update.count
 }) => (
   <button
     onClick={() => updateCount((count || 0) + 1)}

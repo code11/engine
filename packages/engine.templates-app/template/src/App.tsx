@@ -1,13 +1,13 @@
 import React from "react";
-import { view, producer, Observe, Update } from "@c11/engine.macro";
+import { view, producer, observe, update } from "@c11/engine.macro";
 
-export const App: view = ({ greeting = Observe.greeting }) => (
+export const App: view = ({ greeting = observe.greeting }) => (
   <div>{greeting}</div>
 );
 
 const greeting: producer = ({
-  name = Observe.name,
-  greeting = Update.greeting,
+  name = observe.name,
+  greeting = update.greeting,
 }) => greeting.set(`Hello ${name}!`);
 
 App.producers = [greeting];

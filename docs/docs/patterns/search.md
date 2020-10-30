@@ -12,7 +12,7 @@ Implements the following patterns: [Collections](/docs/patterns/collections),
 ```
 {
   search: {
-    items: Path.articles.items,
+    items: path.articles.items,
     term: 'something',
     filters: {
       category: ['news']

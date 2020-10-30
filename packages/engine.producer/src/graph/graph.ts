@@ -21,7 +21,7 @@ import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { funcOperation } from "./funcOperation";
 import { updateListeners } from "./updateListeners";
-import { Wildcard } from "../wildcard";
+import { wildcard } from "../wildcard";
 
 export class Graph {
   private structure: GraphStructure;
@@ -104,10 +104,10 @@ export class Graph {
       }, [] as string[]);
       data = Object.keys(data).reduce((acc: any, x) => {
         const value = data[x];
-        if (value === Wildcard) {
+        if (value === wildcard) {
           const node = this.structure[`internal.${x}`];
           if (node) {
-            // There should be only one dependency to a Wildcard node
+            // There should be only one dependency to a wildcard node
             const depId = node.isDependedBy[0];
             const dep = this.structure[depId];
             if (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Observe, Update, Prop, view, producer } from "@c11/engine.macro";
+import { observe, update, prop, view, producer } from "@c11/engine.macro";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
 
@@ -11,17 +11,17 @@ test("Simple load of a react component", () => {
   const defaultState = {
     foo: "123",
   };
-  const testProducer: producer = ({ foo = Observe.foo }) => {};
+  const testProducer: producer = ({ foo = observe.foo }) => {};
 
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Observe.foo }) => {
+  const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
   const prodA: producer = ({
-    propValue = Observe[Prop.propName],
-    setBar = Update.bar,
+    propValue = observe[prop.propName],
+    setBar = update.bar,
   }) => {
     setBar.set(propValue);
   };

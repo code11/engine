@@ -14,22 +14,22 @@ pluginTester({
     });
   },
   tests: {
-    "should support Update": {
+    "should support update": {
       code: `
         import { producer } from ${macroFile}
         const result: producer = ({
-          a1 = Update.foo,
-          a2 = Update[Prop.foo],
-          a3 = Update[Arg.a2],
-          a4 = Update.foo[Prop.bar.baz],
-          a5 = Update.foo.bar[Arg.a2],
+          a1 = update.foo,
+          a2 = update[prop.foo],
+          a3 = update[arg.a2],
+          a4 = update.foo[prop.bar.baz],
+          a5 = update.foo.bar[arg.a2],
           a6 = {
-            baz: Update.foo[Arg.a4].baz,
+            baz: update.foo[arg.a4].baz,
           },
-          a7 = Update.foo[Prop.a5.baz],
-          a8 = Update.foo[Param.prop],
-          a9 = Update.foo[Param.prop].baz,
-          a10 = Update.foo[Param.prop].baz[Prop.a2]
+          a7 = update.foo[prop.a5.baz],
+          a8 = update.foo[param.prop],
+          a9 = update.foo[param.prop].baz,
+          a10 = update.foo[param.prop].baz[prop.a2]
         }) => { }
       `,
       snapshot: true,

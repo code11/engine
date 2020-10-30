@@ -4,7 +4,7 @@ exports[`macros should support composed types: functions: should support compose
 
 import { producer } from '@c11/engine.macro'
 const result: producer = ({
-  a1 = Get.foo || '123' && '123'
+  a1 = get.foo || '123' && '123'
 }) => { }
 
       ↓ ↓ ↓ ↓ ↓ ↓
