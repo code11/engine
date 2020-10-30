@@ -18,16 +18,16 @@ npm install @c11/engine.react @c11/engine.macro
 
 ```tsx
 import React from 'react'
-import { View, Producer, Observe, Update } from '@c11/engine.macro'
+import { view, producer, observe, update } from '@c11/engine.macro'
 import { Engine } from '@c11/engine.react'
 
-const App: View = ({
-  greeting = Observe.greeting
+const App: view = ({
+  greeting = observe.greeting
 }) => <div>{greeting}</div>
 
-const greeting: Producer = ({
-  name = Observe.name,
-  greeting = Update.greeting
+const greeting: producer = ({
+  name = observe.name,
+  greeting = update.greeting
 }) => greeting.set(`Hello ${name}!`)
 
 App.producers = [greeting]

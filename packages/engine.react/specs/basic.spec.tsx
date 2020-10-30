@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Observe, view } from "@c11/engine.macro";
+import { observe, view } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -20,7 +20,7 @@ test("Simple load of a react component", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = Observe.foo }) => {
+  const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
   const engine = new Engine({

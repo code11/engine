@@ -10,7 +10,7 @@ import {
 import { updateListeners } from "./updateListeners";
 import { Graph } from "./graph";
 
-// TODO: This needs to be rethought around the Get operation
+// TODO: This needs to be rethought around the get operation
 // that is the only one that responds to updates to the state
 // and creates a dependency chain between args + once one arg
 // is updated the rest need to be updated to the latest version
@@ -24,7 +24,7 @@ export const pathListener = (
   structure: GraphStructure,
   node: GraphNode
 ) => {
-  // Don't trigger is for updates that occur during anoter Get
+  // Don't trigger is for updates that occur during anoter get
   // operation that would otherwise call the update multiple
   // times for the same value
   return (newValue: any, patch?: Patch[], shouldUpdate?: boolean) => {

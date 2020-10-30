@@ -1,15 +1,15 @@
 export enum PathType {
-  GET = "Get",
-  OBSERVE = "Observe",
-  UPDATE = "Update",
-  PROP = "Prop",
-  ARG = "Arg",
+  GET = "get",
+  OBSERVE = "observe",
+  UPDATE = "update",
+  PROP = "prop",
+  ARG = "arg",
 }
 
 export enum PathArgs {
-  EXTERNAL = "Prop",
-  INTERNAL = "Arg",
-  PARAM = "Param",
+  EXTERNAL = "prop",
+  INTERNAL = "arg",
+  PARAM = "param",
 }
 
 export enum PathSymbol {

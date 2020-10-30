@@ -10,26 +10,26 @@ import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
  * unnecessary ones
  */
 
-const EngineMacroHandler:MacroHandler = ({ 
-  references, 
-  state, 
-  babel, 
+const EngineMacroHandler:MacroHandler = ({
+  references,
+  state,
+  babel,
   // @ts-ignore
-  config 
+  config
 }) => {
-  const { Wildcard = [], Path = [], view = [], producer = [] } = references;
+  const { wildcard = [], path = [], view = [], producer = [] } = references;
   state.config = config
   view.forEach((x) => prepareForEngine(babel, state, x, TransformType.VIEW));
   producer.forEach((x) =>
     prepareForEngine(babel, state, x, TransformType.PRODUCER)
   );
-  if (Path.length > 0) {
-    Path.forEach((x) => {
+  if (path.length > 0) {
+    path.forEach((x) => {
       addPathImport(babel, state, x);
     });
   }
-  if (Wildcard.length > 0) {
-    Wildcard.forEach((x) => {
+  if (wildcard.length > 0) {
+    wildcard.forEach((x) => {
       addWildcardImport(babel, state, x);
     });
   }
@@ -43,14 +43,14 @@ export type producer<T = any> = (props: T) => void;
 declare type viewFunction<T> = (props: T) => ReactElement<T> | null;
 export declare type view<T=any> = viewFunction<T> & {producers?: producer[]};
 
-export const Observe: any = {};
-export const Update: any = {};
-export const Get: any = {};
-export const Arg: any = {};
-export const Prop: any = {};
-export const Param: any = {};
-export const Path: any = {};
-export const Wildcard: any = {};
+export const observe: any = {};
+export const update: any = {};
+export const get: any = {};
+export const arg: any = {};
+export const prop: any = {};
+export const param: any = {};
+export const path: any = {};
+export const wildcard: any = {};
 
 const macro = createMacro(EngineMacroHandler, {
   configName: "engine",

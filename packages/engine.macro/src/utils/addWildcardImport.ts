@@ -16,7 +16,7 @@ type AddWildcardImport = (
 export const addWildcardImport: AddWildcardImport = (babel, state, ref) => {
   const producerName = "@c11/engine.producer";
   const pathImport = importDeclaration(
-    [importSpecifier(identifier("Wildcard"), identifier("Wildcard"))],
+    [importSpecifier(identifier("wildcard"), identifier("wildcard"))],
     stringLiteral(producerName)
   );
   const program = ref.findParent((p) => p.isProgram())

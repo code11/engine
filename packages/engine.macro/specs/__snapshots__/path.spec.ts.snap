@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should support Path: should support Path 1`] = `
+exports[`macros should support path: should support path 1`] = `
 
-import { Path, view } from '@c11/engine.macro';
-const a = Path.foo.bar
-const b = Path
+import { path, view } from '@c11/engine.macro';
+const a = path.foo.bar
+const b = path
 const foo: view = ({
-  value = Path.bar,
+  value = path.bar,
   doo = a.bam,
-  boo = Observe.foo[Arg.value][Arg.doo],
-  moo = Observe[b]
+  boo = observe.foo[arg.value][arg.doo],
+  moo = observe[b]
 }) => {}
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -20,8 +20,8 @@ var _engine = require("@c11/engine.producer");
 
 var _engineView = require("@c11/engine-view");
 
-var a = _engine.Path.foo.bar;
-var b = _engine.Path;
+var a = _engine.path.foo.bar;
+var b = _engine.path;
 var foo = (0, _engineView.view)({
   args: {
     type: "STRUCT",
@@ -30,7 +30,7 @@ var foo = (0, _engineView.view)({
         type: "VALUE",
         value: {
           type: "CONST",
-          value: _engine.Path.bar,
+          value: _engine.path.bar,
         },
       },
       doo: {

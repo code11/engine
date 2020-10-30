@@ -14,13 +14,13 @@ pluginTester({
     });
   },
   tests: {
-    "should support Prop": {
+    "should support prop": {
       code: `
         import { producer } from ${macroFile}
         const result: producer = ({
-          foo = Prop.foo,
-          bar = Prop.foo[Prop.baz],
-          baz = Prop.foo[Arg.bar][Prop.baz]
+          foo = prop.foo,
+          bar = prop.foo[prop.baz],
+          baz = prop.foo[arg.bar][prop.baz]
         }) => { }
       `,
       snapshot: true,

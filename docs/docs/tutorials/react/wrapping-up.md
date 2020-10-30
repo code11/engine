@@ -31,10 +31,10 @@ chapter](/docs/tutorials/react/state-as-communication-channel)).
 
 ```diff
 const Footer: view = ({
-  pendingCount = Observe.pendingCount,
-  filter = Observe.filter,
-  updateFilter = Update.filter,
-+ updateClearRequest = Update.clearRequest
+  pendingCount = observe.pendingCount,
+  filter = observe.filter,
+  updateFilter = update.filter,
++ updateClearRequest = update.clearRequest
 }) => (
 ...
 -     <button className="clear-completed">Clear completed</button>
@@ -53,10 +53,10 @@ clearing completed todos.
 
 ```tsx
 const handleClearRequest: producer = ({
-  clearRequest = Observe.clearRequest,
-  updateClearRequest = Update.clearRequest,
-  getTodosById = Get.todosById,
-  updateTodosById = Update.todosById
+  clearRequest = observe.clearRequest,
+  updateClearRequest = update.clearRequest,
+  getTodosById = get.todosById,
+  updateTodosById = update.todosById
 }) => {
   if (!clearRequest) {
     return;
@@ -95,11 +95,11 @@ actual work.
 In `src/App.tsx`, store the value in state:
 
 ```diff
-- const App: view = ({ todoIds = Observe.visibleTodoIds }) => (
+- const App: view = ({ todoIds = observe.visibleTodoIds }) => (
 + const App: view = ({
-+   pendingCount = Observe.pendingCount,
-+   todoIds = Observe.visibleTodoIds,
-+   updateToggleAllRequest = Update.toggleAllRequest
++   pendingCount = observe.pendingCount,
++   todoIds = observe.visibleTodoIds,
++   updateToggleAllRequest = update.toggleAllRequest
 + }) => (
 ...
 -       <input id="toggle-all" className="toggle-all" type="checkbox" />
@@ -116,11 +116,11 @@ Add a new producer `handleToggleAllRequest`:
 
 ```tsx
 const handleToggleAllRequest: producer = ({
-  toggleAllRequest = Observe.toggleAllRequest,
-  updateToggleAllRequest = Update.toggleAllRequest,
-  getTodosById = Get.todosById,
-  getPendingCount = Get.pendingCount,
-  updateTodosById = Update.todosById
+  toggleAllRequest = observe.toggleAllRequest,
+  updateToggleAllRequest = update.toggleAllRequest,
+  getTodosById = get.todosById,
+  getPendingCount = get.pendingCount,
+  updateTodosById = update.todosById
 }) => {
   if (!toggleAllRequest) {
     return;
@@ -156,7 +156,7 @@ Add it to `App`'s producers:
 
 ## Removing Todos
 
-Check out the documentation for [Update](/docs/api/update), and try to implement
+Check out the documentation for [update](/docs/api/update), and try to implement
 this feature by yourself 🙂
 
 <details>

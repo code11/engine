@@ -1,1 +1,1 @@
-export const Wildcard = Symbol("wildcard");
+export const wildcard = Symbol("wildcard");

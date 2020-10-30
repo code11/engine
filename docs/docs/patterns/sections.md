@@ -54,14 +54,14 @@ enum Sections {
 
 ```
 const SectionXyz: view = ({
-  isMounted = Observe.sections.items[Sections.XYZ].isMounted,
-  data = Observe.sections.items[Sections.XYZ].data.tempValue
+  isMounted = observe.sections.items[Sections.XYZ].isMounted,
+  data = observe.sections.items[Sections.XYZ].data.tempValue
 }) => isMounted && <div>I'm section xyz: {data}</div>
 ```
 
 ```
 const SectionAbc: view = ({
-  isMounted = Observe.sections.items[Sections.Abc].isMounted
+  isMounted = observe.sections.items[Sections.Abc].isMounted
 }) => isMounted && <div>I'm section abc</div>
 ```
 

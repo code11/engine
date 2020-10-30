@@ -14,14 +14,14 @@ pluginTester({
     });
   },
   tests: {
-    "should support Arg": {
+    "should support arg": {
       code: `
         import { producer } from ${macroFile}
         const result: producer = ({
           a1 = '123',
-          a2 = Arg.a1,
-          a3 = Arg.a2[Arg.a1],
-          a4 = Arg.a3[Prop.foo],
+          a2 = arg.a1,
+          a3 = arg.a2[arg.a1],
+          a4 = arg.a3[prop.foo],
         }) => { }
       `,
       snapshot: true,

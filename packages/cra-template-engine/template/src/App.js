@@ -1,11 +1,11 @@
 import React from "react";
 import logo from "./logo.svg";
 import { view } from "@c11/engine.macro";
-import { Get } from "./structure";
+import { get, set } from "./structure";
 import "./App.css";
 
 const App = view(
-  (greeting = Get.greeting, setBar = Set.foo.bar, bar = Get.foo.bar) => {
+  (greeting = get.greeting, setBar = set.foo.bar, bar = get.foo.bar) => {
     return (
       <div className="App">
         <header className="App-header">

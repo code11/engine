@@ -4,7 +4,7 @@ title: Introducing Producers
 sidebar_label: Producers
 ---
 
-[Producer](/docs/api/producer)s are the central concept of Engine. Engine
+[producer](/docs/api/producer)s are the central concept of Engine. Engine
 recommends that our components should only represent the view, and have as
 little logic as possible. Producers are where the logic lives in an Engine app.
 
@@ -73,9 +73,9 @@ and that `it'll always contain the correct number of pending todo items. Update
 `src/Footer.tsx` based on this assumption:
 
 ```diff
-+ import { view, Observe } from "@c11/engine.macro";
++ import { view, observe } from "@c11/engine.macro";
 - const Footer = () => (
-+ const Footer: view = ({ pendingCount = Observe.pendingCount }) => (
++ const Footer: view = ({ pendingCount = observe.pendingCount }) => (
   <footer className="footer">
     <span className="todo-count">
 -     <strong>1</strong> items left
@@ -92,8 +92,8 @@ it in `producer`s. Add a `producer` to the Footer. In `src/Footer.tsx`, add
 
 ```diff
 + const pendingCounter: producer = ({
-+   updatePendingCount = Update.pendingCount,
-+   todosById = Observe.todosById
++   updatePendingCount = update.pendingCount,
++   todosById = observe.todosById
 + }) => {
 +   const pendingCount = Object.values(
 +     todosById as { [id: string]: TodoItem }
@@ -113,12 +113,12 @@ export default Footer;
 
 `producer`s are just normal functions which are labeled with
 [producer](/docs/api/producer) macro. They can access the state the same way as
-`view`s; they even have access to `Prop`s that a view might get from its parent.
+`view`s; they even have access to `prop`s that a view might get from its parent.
 
 To add a producer to a component, `.producers` property of a view is given an
 array of producers.
 
-Similar to `view`s, a producer is triggered whenever anything that it `Observe`s
+Similar to `view`s, a producer is triggered whenever anything that it `observe`s
 changes. `pendingCounter` producer Observes `todosById` object, so whenever
 anything in todosById changes, this producer is executed. Whenever status of any
 todo item is updated, `pendingCount` gets updated accordingly.

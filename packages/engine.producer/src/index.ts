@@ -1,3 +1,3 @@
 export * from "./producer";
-export { Path } from "./path";
-export { Wildcard } from "./wildcard";
+export { path } from "./path";
+export { wildcard } from "./wildcard";

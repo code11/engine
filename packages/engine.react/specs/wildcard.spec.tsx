@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Observe, Wildcard, Arg, view } from "@c11/engine.macro";
+import { observe, wildcard, arg, view } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -13,14 +13,14 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support Wildcard", (done) => {
+test("should support wildcard", (done) => {
   const defaultState = {};
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
   const Component: view = ({
-    id = Wildcard,
-    name = Observe.foo[Arg.id].name,
+    id = wildcard,
+    name = observe.foo[arg.id].name,
   }) => {
     return (
       <div data-testid="foo" data-id={id}>

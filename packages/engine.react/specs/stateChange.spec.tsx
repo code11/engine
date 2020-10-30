@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Observe, Update, Prop, Arg, view, producer } from "@c11/engine.macro";
+import { observe, update, prop, arg, view, producer } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -19,7 +19,7 @@ test("Simple load of a react component and work with producers", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ bam = Observe.bam, baz = Update.baz }) => {
+  const Component: view = ({ bam = observe.bam, baz = update.baz }) => {
     return (
       <div>
         <div data-testid="foo" onClick={() => baz.set(val)}></div>;
@@ -27,7 +27,7 @@ test("Simple load of a react component and work with producers", (done) => {
       </div>
     );
   };
-  const prod: producer = ({ baz = Observe.baz, bam = Update.bam }) => {
+  const prod: producer = ({ baz = observe.baz, bam = update.bam }) => {
     bam.set(baz);
   };
   const engine = new Engine({

@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { Observe, Update, Prop, Arg, view, producer } from "@c11/engine.macro";
+import { observe, update, prop, arg, view, producer } from "@c11/engine.macro";
 import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { Engine } from "../src/engine";
@@ -21,7 +21,7 @@ test("Should propagate changes in props", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Child: view = ({ foo = Prop.foo, setFoo = Update.foo }) => {
+  const Child: view = ({ foo = prop.foo, setFoo = update.foo }) => {
     return (
       <div>
         <div data-testid="foo">{foo}</div>;
@@ -29,7 +29,7 @@ test("Should propagate changes in props", (done) => {
       </div>
     );
   };
-  const Parent: view = ({ foo = Observe.foo }) => {
+  const Parent: view = ({ foo = observe.foo }) => {
     return <Child foo={foo} />;
   };
 

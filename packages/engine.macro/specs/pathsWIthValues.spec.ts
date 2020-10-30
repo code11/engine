@@ -29,12 +29,12 @@ pluginTester({
           }
         }
         const a: producer = ({
-          a1 = Get.foo[123],
-          a2 = Get.foo[val],
-          a3 = Get.foo["val"].foo,
-          a4 = Get.foo[obj.foo.bar].baz,
-          a5 = Get.foo[Prop.foo][Request.foo][Param.bar].baz,
-          a6 = Get.foo[\`bam\${val}baz\`].foo,
+          a1 = get.foo[123],
+          a2 = get.foo[val],
+          a3 = get.foo["val"].foo,
+          a4 = get.foo[obj.foo.bar].baz,
+          a5 = get.foo[prop.foo][Request.foo][param.bar].baz,
+          a6 = get.foo[\`bam\${val}baz\`].foo,
         }) => {  }
       `,
       snapshot: true,

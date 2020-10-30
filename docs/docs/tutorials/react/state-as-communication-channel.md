@@ -41,11 +41,11 @@ variable should be kept for what user is typing in our `TodoForm` input. Update
 
 ```tsx
 import React from "react";
-import { view, Observe, Update } from "@c11/engine.macro";
+import { view, observe, update } from "@c11/engine.macro";
 
 const TodoForm: view = ({
-  updateNewTodoTitle = Update.newTodo.title,
-  newTodoTitle = Observe.newTodo.title
+  updateNewTodoTitle = update.newTodo.title,
+  newTodoTitle = observe.newTodo.title
 }) => (
     <input
       className="new-todo"
@@ -60,8 +60,8 @@ export default TodoForm;
 ```
 
 Above snippet:
-1. Labeled `TodoForm` as `view`, so that it can use [Observe](/docs/api/observe)
-   and [Update](/docs/api/update) in its header
+1. Labeled `TodoForm` as `view`, so that it can use [observe](/docs/api/observe)
+   and [update](/docs/api/update) in its header
 2. Introduced a new state path `.newTodo.title`
 3. Update `newTodo.title` whenever user enters something in the `<input>`
 
@@ -82,7 +82,7 @@ In `src/TodoForm.tsx`:
 
 ```diff
 import React, { KeyboardEvent } from "react";
-import { view, Observe, Update, producer, Get } from "@c11/engine.macro";
+import { view, observe, update, producer, get } from "@c11/engine.macro";
 import { TodoItem, TodoStatuses, TodoModes } from "./types";
 
 enum NewTodoItents {
@@ -91,9 +91,9 @@ enum NewTodoItents {
 }
 
 const TodoForm: view = ({
-  updateNewTodoTitle = Update.newTodo.title,
-  newTodoTitle = Observe.newTodo.title,
-  updateNewTodoIntent = Update.newTodo.intent
+  updateNewTodoTitle = update.newTodo.title,
+  newTodoTitle = observe.newTodo.title,
+  updateNewTodoIntent = update.newTodo.intent
 }) => {
   const keyDownToIntent = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -137,10 +137,10 @@ these changes in `src/TodoForm.tsx` to create a new producer:
 
 ```tsx
 const addNewTodo: producer = ({
-  newTodoIntent = Observe.newTodo.intent,
-  getTitle = Get.newTodo.title,
-  updateTodosById = Update.todosById,
-  updateNewTodoTitle = Update.newTodo.title
+  newTodoIntent = observe.newTodo.intent,
+  getTitle = get.newTodo.title,
+  updateTodosById = update.todosById,
+  updateNewTodoTitle = update.newTodo.title
 }) => {
   if (newTodoIntent !== NewTodoItents.commit) {
     return;
@@ -171,13 +171,13 @@ export default TodoForm;
 
 `addNewTodo` producer is doing a couple of interesting things:
 
-1. It uses `Get.newTodo.title` instead of `Observe.newTodo.title`.
-   [Get](/docs/api/get) is another macro, which provides a function to get live
+1. It uses `get.newTodo.title` instead of `observe.newTodo.title`.
+   [get](/docs/api/get) is another macro, which provides a function to get live
    value from the state. It is very useful when our producer is doing something
    asynchronous and needs a value from state at a later time. Or as is the case
-   now, it allow accessing a value without `Observe`ing it.
+   now, it allow accessing a value without `observe`ing it.
 
-   A `producer` or `view` gets triggered every time anything it `Observe`
+   A `producer` or `view` gets triggered every time anything it `observe`
    changes. `addNewTodo` producer should not get called whenever `newTodo.title`
    changes. It is only interested in changes in `newTodoIntent`
 2. Notice that a guard has been added in starting of the producer, which checks
@@ -191,8 +191,8 @@ created to cancel adding a new todo if user presses Escape key.
 
 ```tsx
 const cancelAddingTodo: producer = ({
-  newTodoIntent = Observe.newTodo.intent,
-  updateNewTodoTitle = Update.newTodo.title
+  newTodoIntent = observe.newTodo.intent,
+  updateNewTodoTitle = update.newTodo.title
 }) => {
   if (newTodoIntent !== NewTodoItents.discard) {
     return;
@@ -223,9 +223,9 @@ it**. Add a producer in `src/App.tsx`:
 
 ```tsx
 const syncVisibleTodoIds: producer = ({
-  todosById = Observe.todosById,
-  filter = Observe.filter,
-  visibleTodoIds = Update.visibleTodoIds
+  todosById = observe.todosById,
+  filter = observe.filter,
+  visibleTodoIds = update.visibleTodoIds
 }) => {
   const todoIdsToDisplay = Object.entries(todosById)
     .map(([key, value]) => {
@@ -276,9 +276,9 @@ visible todos:
 + import { TodoItem, TodoStatuses, TodoFilters } from "./types";
 
 const Footer: view = ({
-  pendingCount = Observe.pendingCount,
-+ filter = Observe.filter,
-+ updateFilter = Update.filter
+  pendingCount = observe.pendingCount,
++ filter = observe.filter,
++ updateFilter = update.filter
 }) => (
 ...
       <ul className="filters">

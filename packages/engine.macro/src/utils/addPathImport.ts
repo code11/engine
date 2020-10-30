@@ -16,7 +16,7 @@ type AddPathImport = (
 export const addPathImport: AddPathImport = (babel, state, ref) => {
   const producerName = "@c11/engine.producer";
   const pathImport = importDeclaration(
-    [importSpecifier(identifier("Path"), identifier("Path"))],
+    [importSpecifier(identifier("path"), identifier("path"))],
     stringLiteral(producerName)
   );
 

@@ -44,11 +44,11 @@ For example:
 
 ```tsx
 import React from "react";
-import { view, Observe, Update, producer } from "@c11/engine.macro";
+import { view, observe, update, producer } from "@c11/engine.macro";
 
 const greeter: producer = ({
-  name = Observe.name,
-  updateGreeting = Update.greeting
+  name = observe.name,
+  updateGreeting = update.greeting
 }) => {
   if (!name) {
     updateGreeting.set("Bye bye");
@@ -58,9 +58,9 @@ const greeter: producer = ({
 };
 
 const App: view = ({
-  name = Observe.name,
-  greeting = Observe.greeting,
-  updateName = Update.name
+  name = observe.name,
+  greeting = observe.greeting,
+  updateName = update.name
 }) => {
   return (
     <>
@@ -84,8 +84,8 @@ This tiny example demonstrates pretty much all the Engine concepts needed to use
 it!
 
 Components labeled as [view](https://code11.github.io/engine/docs/api/view) can
-[Observe](https://code11.github.io/engine/docs/api/observe) anything from state,
-and [Update](https://code11.github.io/engine/docs/api/update) anything in the
+[observe](https://code11.github.io/engine/docs/api/observe) anything from state,
+and [update](https://code11.github.io/engine/docs/api/update) anything in the
 state.
 
 Functions labeled as

@@ -10,11 +10,11 @@ export async function testView(name: string, { state, View, props }) {
         const root = document.createElement("div")
         const title = document.createElement("h1")
         title.innerHTML = name
-        
+
         document.body.innerHTML = ""
         document.body.appendChild(title)
         document.body.appendChild(root)
-      
+
         const engine = new Engine({
           state: {
               initial: state
@@ -26,9 +26,9 @@ export async function testView(name: string, { state, View, props }) {
             root
           },
         });
-      
+
         jest.runAllTimers();
-      
+
         const screenshot = await generateImage();
         expect(screenshot).toMatchImageSnapshot();
 
