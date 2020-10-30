@@ -48,7 +48,7 @@ possible to provide an initial state to it. More about Engine can be found in
 
 ## Build
 
-Engine react application are pretty much written like any other React
+Engine react applications are pretty much written like any other React
 application, with few differences:
 
 1. Only functional react components can become Engine [view](/docs/api/view)s

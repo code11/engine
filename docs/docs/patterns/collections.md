@@ -31,8 +31,8 @@ In the following example several data processing patterns are used:
   articles but you don't want to get the data associated with the ids.
 - `articles.count` is made by a producer that `reduce`s `articles.ids` and gives
   the number of articles.
-- `articles.filters.category` is made by a producer that groups articles by
-  their category. It's useful when you want to iterate on a single category. The
+- `articles.filters` is made by a producer that groups articles by their
+  category. It's useful when you want to iterate on a single category. The
   existence of this producer is determined by the need of this information.
 
 ```

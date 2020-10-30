@@ -151,6 +151,7 @@ const producer: Producer = ({
   const url = getUrl();
 
   if (!isValid(data) || !url) {
+  updateError.set('Invalid state');
     return;
   }
 

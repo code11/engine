@@ -43,7 +43,8 @@ Paths composed using these operators can be used with all 3 state manipulation
 operators i.e with [Observe](/docs/api/observe), [Get](/docs/api/get) and
 [Update](/docs/api/update)
 
-All Engine state access operators ([Arg](/docs/api/arg), [Get](/docs/api/get),
+All Engine path composition operators ([Arg](/docs/api/arg),
+[Get](/docs/api/get), [Prop](/docs/api/prop), [Param](/docs/api/param),
 [Update](/docs/api/update), [Observe](/docs/api/observe)) can be given any
 arbitrarily nested path (e.g `Arg.b1.b2.b3`) regardless of whether the given
 path exists in state or not. Engine won't throw an error if an invalid path is
