@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should support prop: should support prop 1`] = `
+exports[`unknown plugin should support prop: should support prop 1`] = `
 
 import { producer } from '@c11/engine.macro'
 const result: producer = ({

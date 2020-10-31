@@ -21,7 +21,7 @@
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --runTestsByPath   ./src/**"
   },
   "peerDependencies": {
-    "react": "^16"
+    "react": "^17"
   },
   "dependencies": {
     "@c11/engine.db": "^4.0.0-alpha.3",
@@ -30,13 +30,13 @@
   },
   "devDependencies": {
     "@c11/engine.macro": "^4.0.0-alpha.5",
-    "@c11/engine.types": "^3.8.1",
-    "@testing-library/jest-dom": "^5.11.2",
-    "@testing-library/react": "^10.4.7",
-    "@types/react": "^16.9.43",
-    "@types/react-dom": "^16.9.8",
+    "@c11/engine.types": "^4.0.0-alpha.0",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.0",
+    "@types/react": "^16.9.55",
+    "@types/react-dom": "^16.9.9",
     "react": "^16.12.0",
-    "react-dom": "^16.13.1"
+    "react-dom": "^17.0.1"
   },
   "engineConfig": {
     "view": {

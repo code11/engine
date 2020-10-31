@@ -18,6 +18,9 @@
     "email": "constantin.dumitrescu@code11.com"
   },
   "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
+  "resolutions": {
+    "@types/react": "^16.9.55"
+  },
   "scripts": {
     "clean": "lerna clean --yes && rm -rf packages/*/dist",
     "build:engine": "lerna run --scope=@c11/engine* build",
@@ -49,24 +52,24 @@
     "node": ">=9"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "@babel/preset-typescript": "^7.10.4",
-    "@babel/types": "^7.10.5",
-    "@types/jest": "^26.0.7",
-    "@types/lodash": "^4.14.158",
-    "babel-jest": "^26.1.0",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@babel/types": "^7.12.1",
+    "@types/jest": "^26.0.15",
+    "@types/lodash": "^4.14.164",
+    "babel-jest": "^26.6.1",
     "babel-plugin-macros": "^2.8.0",
-    "commitizen": "^4.1.2",
-    "conventional-changelog-cli": "^2.0.34",
-    "cz-conventional-changelog": "^3.2.0",
-    "jest": "^26.1.0",
+    "commitizen": "^4.2.2",
+    "conventional-changelog-cli": "^2.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "jest": "^26.6.1",
     "lerna": "^3.22.1",
-    "prettier": "^2.0.5",
-    "ts-jest": "^26.4.1",
-    "typescript": "^3.9.7"
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.3",
+    "typescript": "^4.0.5"
   },
   "config": {
     "commitizen": {

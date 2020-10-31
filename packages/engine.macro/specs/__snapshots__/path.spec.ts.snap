@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should support path: should support path 1`] = `
+exports[`unknown plugin should support path: should support path 1`] = `
 
 import { path, view } from '@c11/engine.macro';
 const a = path.foo.bar

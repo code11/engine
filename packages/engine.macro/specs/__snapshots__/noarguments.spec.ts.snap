@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should support empty arguments: should support empty arguments 1`] = `
+exports[`unknown plugin should support empty arguments: should support empty arguments 1`] = `
 
 import { view } from '@c11/engine.macro';
 const foo: view = () => {}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should keep values in paths: should keep values in paths 1`] = `
+exports[`unknown plugin should keep values in paths: should keep values in paths 1`] = `
 
 import { producer } from '@c11/engine.macro'
 const val = "321"
