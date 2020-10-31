@@ -34,6 +34,7 @@ export const addWildcardImport: AddWildcardImport = (babel, state, ref) => {
     });
 
   if (macroImport) {
+    // @ts-ignore
     macroImport.insertAfter(pathImport);
   }
 };

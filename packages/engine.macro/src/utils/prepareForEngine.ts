@@ -82,12 +82,12 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
 
     if (macroImport) {
       if (!engineImport) {
-        macroImport.insertAfter(
-          importDeclaration(
+        const importView = importDeclaration(
             [importSpecifier(identifier("view"), identifier("view"))],
             stringLiteral(viewImport)
           )
-        );
+        // @ts-ignore
+        macroImport.insertAfter(importView);
       } else {
         const node = engineImport.node as ImportDeclaration;
         const viewNode = node.specifiers.find((node) => {

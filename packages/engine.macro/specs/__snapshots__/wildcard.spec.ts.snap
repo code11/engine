@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should support wildcard: should support wildcard 1`] = `
+exports[`unknown plugin should support wildcard: should support wildcard 1`] = `
 
 import { wildcard, view } from '@c11/engine.macro';
 const foo: view = ({

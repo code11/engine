@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros should keep Constants: should keep Constants 1`] = `
+exports[`unknown plugin should keep Constants: should keep Constants 1`] = `
 
 import { view } from '@c11/engine.macro'
 const a: view = ({

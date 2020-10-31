@@ -34,6 +34,7 @@ export const addPathImport: AddPathImport = (babel, state, ref) => {
   });
 
   if (macroImport) {
+    // @ts-ignore
     macroImport.insertAfter(pathImport);
   }
 };
