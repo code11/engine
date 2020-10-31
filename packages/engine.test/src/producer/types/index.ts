@@ -1,2 +1,2 @@
-export * from './expectations'
-export * from './testProducerConfig'
+export * from "./expectations";
+export * from "./testProducerConfig";

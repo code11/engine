@@ -1,1 +1,1 @@
-export const validateResults = jest.fn()
+export const validateResults = jest.fn();

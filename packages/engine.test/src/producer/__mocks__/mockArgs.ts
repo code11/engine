@@ -1,1 +1,1 @@
-export const mockArgs = jest.fn()
+export const mockArgs = jest.fn();

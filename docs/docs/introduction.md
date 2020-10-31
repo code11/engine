@@ -33,8 +33,8 @@ the challenges that come with it.
 
 > A view is just another representation of some data
 
-Components are bricks of an Engine view, and they should be as dumb as bricks. A
-component does not do anything except:
+Components are bricks of an Engine [view](/docs/api/view), and they should be as
+dumb as bricks. A component does not do anything except:
 
 1. Render the view it is supposed to display
 2. Change the data it is supposed to represent
@@ -43,14 +43,15 @@ component does not do anything except:
 
 > At the core of every UI is a state
 
-The clay of an application is its state. Although the core of the application,
-state in engine is simply a plain old Javascript Object. As the requirements
-evolve, so do the state, and views and logic associated with it.
+The clay of an application is its [state](/docs/concepts/state). Although the
+core of the application, state in engine is simply a plain old Javascript
+Object. As the requirements evolve, so do the state, and views and logic
+associated with it.
 
 #### Reactive Computations
 
-Dumb components, plain data, and computations capable of reacting to changes in
-the data makes an Engine app.
+Dumb components, plain data, and computations capable of reacting to changes
+(called [producers](/docs/api/producer)) in the data makes an Engine app.
 
 
 Engine apps are reactive. They start with:
@@ -62,6 +63,7 @@ Engine apps are reactive. They start with:
   todos
 
 Engine takes care of updating the view and re-running the computations only when
-their dependencies from state change.
-
-This is all the plumbing needed to build an Engine app!
+their dependencies from state change. Head over to the [Getting
+started](/docs/usage) page for a sneak peek into how Engine apps look like, or
+take a loot at the [quick start tutorial](/docs/tutorials/react/setup) for a
+more comprehensive guide to building an Engine app.
