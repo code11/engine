@@ -1,7 +1,7 @@
 export type expectations = {
-    [key: string]: {
-        set: object,
-        merge: object,
-        remove: object
-    }
-}
+  [key: string]: {
+    set: object;
+    merge: object;
+    remove: object;
+  };
+};

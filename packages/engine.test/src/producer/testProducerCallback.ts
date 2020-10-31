@@ -1,14 +1,13 @@
-import { mockArgs } from './mockArgs'
-import { validateResults } from './validateResults'
+import { mockArgs } from "./mockArgs";
+import { validateResults } from "./validateResults";
 
 export const testProducerCallback = (producer, values, expectations) => {
-    return () => {
-        jest.useFakeTimers();
+  return () => {
+    jest.useFakeTimers();
 
-        const mockMap = mockArgs(producer, values);
-        validateResults(producer, mockMap, expectations)
-    
-        jest.useRealTimers()
-    }
-}
+    const mockMap = mockArgs(producer, values);
+    validateResults(producer, mockMap, expectations);
 
+    jest.useRealTimers();
+  };
+};
