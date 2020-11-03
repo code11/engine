@@ -1,25 +1,43 @@
-import { ProducerConfig, ProducerInstance } from "./producer";
-import { RenderConfig, RootElement } from "./view";
+import { MacroProducerType } from "./macro";
+import { ProducerInstance } from "./producer";
 
-export interface EngineConfig {
-  autostart?: boolean;
-  producers?: {
-    list: ProducerConfig[];
-  };
-  view?: RenderConfig;
+export type ModuleContext = {
+  addProducer: (config: MacroProducerType) => ProducerInstance
+  removeProducers: () => void
+}
+
+export type EngineModuleInstance = {
+  unmount(): void
+}
+
+export type EngineModuleSource = {
+  bootstrap?: () => void | Promise<void>
+  update?: () => void | Promise<void>
+  mount: (context: ModuleContext) => void | Promise<void>
+  unmount: (context: ModuleContext) => void | Promise<void>
+}
+
+export type EngineConfig = {
   state?: {
-    initial?: {
-      [key: string]: any;
-    };
-    schema?: any;
+    [key: string]: any;
   };
-  debug?: boolean;
-}
-export interface EngineApi {
-  start: () => void;
-  stop: () => void;
-  getRoot: () => RootElement;
-  getProducers: () => ProducerInstance[];
+  use?: EngineModuleSource[];
 }
 
-export abstract class Engine {}
+export type EngineState = {
+  [key:string]: any
+}
+
+export interface EngineApi {
+  use(bundle: EngineModuleSource): void
+}
+
+export enum EngineModuleState {
+  NOT_BOOTSTRAPPED = "NOT_BOOTSTRAPPED",
+  BOOTSTRAPING = "BOOTSTRAPING",
+  NOT_MOUNTED = "NOT_MOUNTED",
+  MOUNTED = "MOUNTED",
+  UNMOUNTING = "UNMOUNTING",
+  UPDATING = "UPDATING",
+  SKIP_BECAUSE_BROKEN = "SKIP_BECAUSE_BROKEN"
+}

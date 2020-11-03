@@ -1,5 +1,5 @@
 {
-  "name": "@c11/engine.react",
+  "name": "@c11/engine",
   "version": "4.0.0-alpha.5",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
@@ -18,13 +18,12 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.react/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
+    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
     "react": "^17"
   },
   "dependencies": {
-    "@c11/engine": "^4.0.0-alpha.5",
     "@c11/engine.db": "^4.0.0-alpha.3",
     "@c11/engine.producer": "^4.0.0-alpha.5",
     "@c11/engine.types": "^4.0.0-alpha.0"

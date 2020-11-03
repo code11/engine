@@ -1,9 +1,14 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { observe, wildcard, arg, view } from "@c11/engine.macro";
+import { producer, observe, update, wildcard, arg, view } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine, producers } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
 
@@ -13,7 +18,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support wildcard", (done) => {
+test("should support wildcard", async (done) => {
   const defaultState = {};
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
@@ -28,19 +33,15 @@ test("should support wildcard", (done) => {
       </div>
     );
   };
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Component />,
-      root: rootEl,
-    },
-  });
-  engine
-    .getContext()
-    .db.patch([{ op: "add", path: "/foo/xyz/name", value: "321" }]);
+  const fooUpdater: producer = ({ value = update.foo.xyz.name }) => {
+    value.set('321')
+  }
+  engine({
+    state: defaultState,
+    use: [renderReact(<Component />, rootEl), producers([fooUpdater])]
+  }).start()
   jest.runAllTimers();
+  await flushPromises()
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe("321");
     expect(x.getAttribute("data-id")).toBe("xyz");

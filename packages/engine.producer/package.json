@@ -25,6 +25,7 @@
     "@types/shortid": "^0.0.29"
   },
   "dependencies": {
+    "@c11/engine": "^4.0.0-alpha.5",
     "@c11/engine.db": "^4.0.0-alpha.3",
     "@c11/engine.types": "^4.0.0-alpha.0",
     "clone-deep": "^4.0.1",

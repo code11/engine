@@ -1,9 +1,14 @@
 // tslint:disable:no-expression-statement
 import React from "react";
 import { observe, update, view } from "@c11/engine.macro";
-import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
+import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
 
@@ -13,7 +18,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should pass falsy values as well", (done) => {
+test("Should pass falsy values as well", async (done) => {
   const val = "321";
   const defaultState = {
     foo: true,
@@ -34,21 +39,18 @@ test("Should pass falsy values as well", (done) => {
   const Parent: view = ({ foo = observe.foo }) => {
     return <Child foo={foo} />;
   };
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Parent />,
-      root: rootEl,
-    },
-  });
+  engine({
+    state: defaultState,
+    use: [renderReact(<Parent /> ,rootEl)]
+  }).start();
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
+  await flushPromises()
+  waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(x.dataset.value).toBe("true");
     const button = getByTestId(document.body, "button");
     fireEvent.click(button);
     jest.runAllTimers();
+    await flushPromises();
     const newFoo = getByTestId(document.body, "foo");
     expect(newFoo.dataset.value).toBe("false");
     done();

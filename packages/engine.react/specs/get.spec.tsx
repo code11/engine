@@ -1,9 +1,14 @@
 // tslint:disable:no-expression-statement
 import React from "react";
 import { get, view } from "@c11/engine.macro";
-import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
+import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
 
@@ -13,7 +18,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Expect to call using only get", (done) => {
+test("Expect to call using only get", async (done) => {
   const defaultState = {
     foo: "123",
   };
@@ -24,17 +29,13 @@ test("Expect to call using only get", (done) => {
     expect(foo).toBeDefined();
     return <div data-testid="foo">{foo()}</div>;
   };
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Component />,
-      root: rootEl,
-    },
-  });
+  engine({
+    state: defaultState,
+    use: [renderReact(<Component />, rootEl)]
+  }).start()
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
+  await flushPromises()
+  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     done();
   });

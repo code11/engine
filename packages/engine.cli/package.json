@@ -16,10 +16,10 @@
   ],
   "author": "cristian.daniel.buta@gmail.com",
   "scripts": {
-    "build": "tsc",
+    "build": "echo \"tsc\"",
     "build:clean": "tsc --build --clean",
     "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.cli && npm publish --registry http://localhost:4873",
-    "test": "jest --clear-cache && jest --config ../../jest.config.node.js --runTestsByPath ./specs/*"
+    "test": "echo \"jest --clear-cache && jest --config ../../jest.config.node.js --runTestsByPath ./specs/*\""
   },
   "license": "MIT",
   "bugs": {
@@ -30,10 +30,6 @@
     "access": "public"
   },
   "dependencies": {
-    "commander": "^6.2.0",
-    "chalk": "^4.1.0",
-    "ncp": "^2.0.0",
-    "semver": "^7.3.2",
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-export-default-from": "^7.12.1",
@@ -47,6 +43,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
+    "@c11/engine": "^4.0.0-alpha.5",
     "@c11/engine.macro": "^4.0.0-alpha.5",
     "@c11/engine.templates-app": "^4.0.0-alpha.5",
     "@types/jest": "^26.0.15",
@@ -58,6 +55,8 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-macros": "^2.8.0",
     "babel-plugin-module-rewrite": "^0.2.0",
+    "chalk": "^4.1.0",
+    "commander": "^6.2.0",
     "core-js": "^3.6.5",
     "css-loader": "^5.0.0",
     "eslint": "^7.12.1",
@@ -70,11 +69,13 @@
     "jest": "^26.6.1",
     "mini-css-extract-plugin": "^1.2.1",
     "mustache": "^4.0.1",
+    "ncp": "^2.0.0",
     "postcss-loader": "^4.0.4",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "semver": "^7.3.2",
     "serve": "^11.3.2",
     "style-loader": "^2.0.0",
     "typescript": "^4.0.5",
