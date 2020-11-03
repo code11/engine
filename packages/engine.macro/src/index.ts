@@ -1,4 +1,4 @@
-import { ProducerConfig } from "@c11/engine.types";
+import { macroProducerType, macroViewType, ProducerConfig } from "@c11/engine.types";
 import { createMacro, MacroHandler } from "babel-plugin-macros";
 import { ReactElement } from "react";
 import { addPathImport } from "./utils/addPathImport";
@@ -39,9 +39,8 @@ interface Config {
   [k: string]: any;
 }
 
-export type producer<T = any> = (props: T) => void;
-declare type viewFunction<T> = (props: T) => ReactElement<T> | null;
-export declare type view<T=any> = viewFunction<T> & {producers?: producer[]};
+export type producer = macroProducerType
+export type view<T=any> = macroViewType<T>
 
 export const observe: any = {};
 export const update: any = {};

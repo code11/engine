@@ -1,19 +1,22 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { observe, update, prop, arg, view, producer } from "@c11/engine.macro";
-import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
+import { observe, update, view, producer } from "@c11/engine.macro";
+import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine, producers } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
-
-// @ts-ignore
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Simple load of a react component and work with producers", (done) => {
+test("Simple load of a react component and work with producers", async (done) => {
   const defaultState = {};
   const val = "321";
   const rootEl = document.createElement("div");
@@ -30,23 +33,17 @@ test("Simple load of a react component and work with producers", (done) => {
   const prod: producer = ({ baz = observe.baz, bam = update.bam }) => {
     bam.set(baz);
   };
-  const engine = new Engine({
-    producers: {
-      list: [prod],
-    },
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Component />,
-      root: rootEl,
-    },
-  });
+  engine({
+    state: defaultState,
+    use: [renderReact(<Component />, rootEl), producers([prod])]
+  }).start()
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
+  await flushPromises();
+  waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     fireEvent.click(x);
     jest.runAllTimers();
-    waitForElement(() => getByTestId(document.body, "bam")).then((y) => {
+    await flushPromises();
+    waitFor(() => getByTestId(document.body, "bam")).then((y) => {
       expect(y.innerHTML).toBe(val);
       done();
     });

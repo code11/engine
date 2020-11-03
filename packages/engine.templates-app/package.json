@@ -10,5 +10,8 @@
     "test": "echo \"no tests available for this package\" ",
     "build": "echo \"no build available for this package\" ",
     "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
+  },
+  "dependencies": {
+    "@c11/engine": "^4.0.0-alpha.5"
   }
 }

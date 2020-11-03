@@ -14,6 +14,7 @@
     "email": "constantin.dumitrescu@code11.com"
   },
   "dependencies": {
+    "@c11/engine": "^4.0.0-alpha.5",
     "@c11/engine.db": "^4.0.0-alpha.3",
     "@c11/engine.macro": "^4.0.0-alpha.5",
     "@c11/engine.producer": "^4.0.0-alpha.5"

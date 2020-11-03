@@ -1,9 +1,14 @@
 // tslint:disable:no-expression-statement
 import React from "react";
 import { observe, update, prop, view, producer } from "@c11/engine.macro";
-import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
+import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine, producers } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
 
@@ -13,7 +18,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should mount and unmount producers attached to a component", (done) => {
+test("Should mount and unmount producers attached to a component", async (done) => {
   const defaultState = {
     foo: "123",
     shouldMountChild: true,
@@ -36,26 +41,34 @@ test("Should mount and unmount producers attached to a component", (done) => {
     <div>{shouldMount && <Component propName="foo"></Component>}</div>
   );
 
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Parent />,
-      root: rootEl,
-    },
-  });
+  let bar
+  const syncBar: producer = ({ value = observe.bar }) => {
+    bar = value
+  }
+  let mountFn
+  const setMount: producer = ({ value = update.shouldMountChild }) => {
+    mountFn = value.set
+  }
+  let fooFn
+  const setFoo: producer = ({ value = update.foo }) => {
+    fooFn = value.set
+  }
+
+  engine({
+    state: defaultState,
+    use: [renderReact(<Parent />, rootEl), producers([syncBar, setMount, setFoo])]
+  }).start()
 
   jest.runAllTimers();
+  await flushPromises()
 
-  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
-    const db = engine.getContext().db;
-    expect(db.get("/bar")).toBe("123");
-    db.patch([{ op: "add", path: "/shouldMountChild", value: false }]);
+  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
+    expect(bar).toBe("123");
+    mountFn(false)
     jest.runAllTimers();
-    db.patch([{ op: "add", path: "/foo", value: "321" }]);
+    fooFn("321")
     jest.runAllTimers();
-    expect(db.get("/bar")).toBe("123");
+    expect(bar).toBe("123");
     done();
   });
 });

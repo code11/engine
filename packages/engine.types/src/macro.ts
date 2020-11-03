@@ -1,3 +1,6 @@
+import { ReactElement } from "react";
+import { ProducerConfig } from "./producer";
+
 export enum PathType {
   GET = "get",
   OBSERVE = "observe",
@@ -17,3 +20,9 @@ export enum PathSymbol {
   INTERNAL = "$",
   INVOKABLE = ":",
 }
+
+type producerFunction<T = any> = (props: T) => void;
+type viewFunction<T> = (props: T) => ReactElement<T> | null;
+
+export type MacroProducerType<T = any> = producerFunction<T> | ProducerConfig
+export type MacroViewType<T=any> = viewFunction<T> & {producers?: MacroProducerType[]};

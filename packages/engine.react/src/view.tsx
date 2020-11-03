@@ -3,7 +3,6 @@ import shortid from "shortid";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
 import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine.types";
-import { Producer } from "@c11/engine.producer";
 import { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 
@@ -38,6 +37,7 @@ interface SampleState {}
 export function view({ args, fn, meta }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
+    isMounted: boolean = false;
     args: StructOperation;
     producers: ProducerInstance[];
     isStateReady = false;
@@ -49,43 +49,48 @@ export function view({ args, fn, meta }: ViewConfig) {
       context.keepReferences = ["external.children"];
       this.args = args;
       this.ref = React.createRef();
-      this.producers = [
-        new Producer(
-          {
+      const viewProducer = {
             args,
             fn: this.updateData.bind(this),
             meta,
-          },
-          context
-        ),
+          }
+      this.producers = [
+        context.addProducer(viewProducer, context)
       ];
       const producers = (this.constructor as any).producers || [];
       producers.forEach((x: any) => {
-        this.producers.push(new Producer(x, context));
+        this.producers.push(context.addProducer(x, context));
       });
       this.instance = {
         id: shortid.generate(),
         producers: this.producers,
       };
-      context.addView(this.instance);
+      // context.addView(this.instance);
       this.state = {};
     }
     componentDidMount() {
+      this.isMounted = true
       this.producers.forEach((x) => x.mount());
     }
     componentWillUnmount() {
+      this.isMounted = false
       this.producers.forEach((x) => x.unmount());
     }
     updateData(data: any) {
+      if (!this.isMounted) {
+        return
+      }
+
       this.setState({
         data,
       });
+
       if (!this.isStateReady) {
         this.isStateReady = true;
       }
     }
     render() {
-      this.producers.forEach((x) => x.updateExternal(this.props));
+      this.producers.forEach((x) => { x.updateExternal(this.props) });
       if (!this.isStateReady) {
         return null;
       }

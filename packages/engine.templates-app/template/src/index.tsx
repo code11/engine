@@ -1,17 +1,15 @@
 import React from "react";
-import { Engine } from "@c11/engine.react";
+import { engine } from "@c11/engine";
+import { render } from "@c11/engine.render-react";
 import { App } from "./App";
 
-const engine = new Engine({
+engine({
   state: {
-    initial: {
-      name: "John Doe",
-    },
+    name: "John Doe",
   },
-  view: {
-    root: "#app",
-    element: <App />
-  },
+  output: render(<App />, '#app')
 });
 
-engine.start();
+
+// Each renderer can have a state where it stores if it finished rendering/mounting/etc
+// This can be used to hook-up processes for export for example

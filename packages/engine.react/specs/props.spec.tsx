@@ -1,9 +1,14 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { observe, update, prop, arg, view, producer } from "@c11/engine.macro";
-import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
+import { observe, update, prop, view } from "@c11/engine.macro";
+import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
 
@@ -13,7 +18,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should propagate changes in props", (done) => {
+test("Should propagate changes in props", async (done) => {
   const val = "321";
   const defaultState = {
     foo: "123",
@@ -33,21 +38,18 @@ test("Should propagate changes in props", (done) => {
     return <Child foo={foo} />;
   };
 
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Parent />,
-      root: rootEl,
-    },
-  });
+  engine({
+    state:  defaultState,
+    use: [renderReact(<Parent />, rootEl)]
+  }).start()
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
+  await flushPromises()
+  waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     const button = getByTestId(document.body, "set-foo");
     fireEvent.click(button);
     jest.runAllTimers();
+    await flushPromises()
     const newFoo = getByTestId(document.body, "foo");
     expect(newFoo.innerHTML).toBe(val);
     done();

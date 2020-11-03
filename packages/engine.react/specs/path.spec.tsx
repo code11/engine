@@ -1,19 +1,22 @@
 // tslint:disable:no-expression-statement
 import React from "react";
-import { get, observe, update, view, path, prop } from "@c11/engine.macro";
+import { producer, get, observe, update, view, path, prop } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine, producers } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
-
-// @ts-ignore
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support path operations", (done) => {
+test("should support path operations", async (done) => {
   const defaultState = {
     items: {
       foo: {
@@ -34,23 +37,21 @@ test("should support path operations", (done) => {
   }) => {
     return <div data-testid="foo">{value}</div>;
   };
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Component path2={path2} />,
-      root: rootEl,
-    },
-  });
+  engine({
+    state:  defaultState,
+    use: [
+      renderReact(<Component path2={path2} />, rootEl)
+    ]
+  }).start()
   jest.runAllTimers();
+  await flushPromises()
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe(defaultState.items.foo.bar.value);
     done();
   });
 });
 
-test("should support path operations with multiple components", (done) => {
+test("should support path operations with multiple components", async (done) => {
   const defaultState = {
     items: {
       foo: {
@@ -82,21 +83,20 @@ test("should support path operations with multiple components", (done) => {
       </div>
     );
   };
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Component path={path1} />,
-      root: rootEl,
-    },
-  });
+  let tempStore
+  const sync: producer = ({ value = observe.items.foo.bar.value }) => {
+    tempStore = value
+  }
+  engine({
+    state:  defaultState,
+    use: [renderReact(<Component path={path1} />, rootEl), producers([sync])]
+  }).start()
   jest.runAllTimers();
+  await flushPromises()
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     fireEvent.change(x, { target: { value: "321" } });
     jest.runAllTimers();
-    const value = engine.getContext().db.get("/items/foo/bar/value");
-    expect(value).toBe("321");
+    expect(tempStore).toBe("321");
     done();
   });
 });

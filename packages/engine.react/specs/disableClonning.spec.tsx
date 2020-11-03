@@ -1,19 +1,22 @@
 // tslint:disable:no-expression-statement
 import React from "react";
 import { observe, update, prop, view } from "@c11/engine.macro";
-import { waitForElement, getByTestId, fireEvent } from "@testing-library/react";
+import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { Engine } from "../src/engine";
+import { renderReact } from "../src";
+import { engine } from "@c11/engine";
+
+const flushPromises = () => {
+  return new Promise(setImmediate);
+}
 
 jest.useFakeTimers();
-
-// @ts-ignore
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should not clone children", (done) => {
+test("Should not clone children", async (done) => {
   const val = "321";
   const defaultState = {
     baz: "123",
@@ -36,17 +39,13 @@ test("Should not clone children", (done) => {
       </div>
     );
   };
-  const engine = new Engine({
-    state: {
-      initial: defaultState,
-    },
-    view: {
-      element: <Parent />,
-      root: rootEl,
-    },
-  });
+  engine({
+    state:  defaultState,
+    use: [renderReact(<Parent />, rootEl)]
+  }).start()
   jest.runAllTimers();
-  waitForElement(() => getByTestId(document.body, "foo")).then((x) => {
+  await flushPromises()
+  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     const button = getByTestId(document.body, "change-baz");
     fireEvent.click(button);
     jest.runAllTimers();

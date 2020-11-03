@@ -6,13 +6,14 @@ import {
   RenderInstance,
   RenderConfig,
   RootElement,
+  EngineModuleSource
 } from "@c11/engine.types";
 
 export class Render implements RenderInstance {
   private context: ProducerContext;
   private config: RenderConfig;
   private root: RootElement = null;
-  constructor(context: ProducerContext, config: RenderConfig) {
+  constructor(config: RenderConfig, context: ProducerContext) {
     this.config = config;
     this.context = context;
   }
@@ -49,3 +50,19 @@ export class Render implements RenderInstance {
     return this;
   }
 }
+
+export const renderReact = (element: any, container: any): EngineModuleSource => {
+  return {
+    bootstrap: () => {},
+    unmount: () => {},
+    update: () => {},
+    mount: (context: any) => {
+      const config = {
+        element,
+        root: container,
+      };
+      const result = new Render(config, context);
+      result.mount();
+    },
+  };
+};
