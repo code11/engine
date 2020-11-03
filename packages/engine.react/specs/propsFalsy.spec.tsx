@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import React from "react";
 import { observe, update, view } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
@@ -8,7 +7,7 @@ import { engine } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 
@@ -41,10 +40,10 @@ test("Should pass falsy values as well", async (done) => {
   };
   engine({
     state: defaultState,
-    use: [renderReact(<Parent /> ,rootEl)]
+    use: [renderReact(<Parent />, rootEl)],
   }).start();
   jest.runAllTimers();
-  await flushPromises()
+  await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(x.dataset.value).toBe("true");
     const button = getByTestId(document.body, "button");

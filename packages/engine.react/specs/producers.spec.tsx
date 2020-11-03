@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import React from "react";
 import { observe, update, prop, view, producer } from "@c11/engine.macro";
 import { waitFor, getByTestId } from "@testing-library/react";
@@ -8,7 +7,7 @@ import { engine, producers } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 
@@ -41,32 +40,35 @@ test("Should mount and unmount producers attached to a component", async (done) 
     <div>{shouldMount && <Component propName="foo"></Component>}</div>
   );
 
-  let bar
+  let bar;
   const syncBar: producer = ({ value = observe.bar }) => {
-    bar = value
-  }
-  let mountFn
+    bar = value;
+  };
+  let mountFn;
   const setMount: producer = ({ value = update.shouldMountChild }) => {
-    mountFn = value.set
-  }
-  let fooFn
+    mountFn = value.set;
+  };
+  let fooFn;
   const setFoo: producer = ({ value = update.foo }) => {
-    fooFn = value.set
-  }
+    fooFn = value.set;
+  };
 
   engine({
     state: defaultState,
-    use: [renderReact(<Parent />, rootEl), producers([syncBar, setMount, setFoo])]
-  }).start()
+    use: [
+      renderReact(<Parent />, rootEl),
+      producers([syncBar, setMount, setFoo]),
+    ],
+  }).start();
 
   jest.runAllTimers();
-  await flushPromises()
+  await flushPromises();
 
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(bar).toBe("123");
-    mountFn(false)
+    mountFn(false);
     jest.runAllTimers();
-    fooFn("321")
+    fooFn("321");
     jest.runAllTimers();
     expect(bar).toBe("123");
     done();

@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import React from "react";
 import { producer, get, observe, update, view, path, prop } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";

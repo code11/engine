@@ -50,13 +50,11 @@ export function view({ args, fn, meta }: ViewConfig) {
       this.args = args;
       this.ref = React.createRef();
       const viewProducer = {
-            args,
-            fn: this.updateData.bind(this),
-            meta,
-          }
-      this.producers = [
-        context.addProducer(viewProducer, context)
-      ];
+        args,
+        fn: this.updateData.bind(this),
+        meta,
+      };
+      this.producers = [context.addProducer(viewProducer, context)];
       const producers = (this.constructor as any).producers || [];
       producers.forEach((x: any) => {
         this.producers.push(context.addProducer(x, context));
@@ -69,16 +67,16 @@ export function view({ args, fn, meta }: ViewConfig) {
       this.state = {};
     }
     componentDidMount() {
-      this.isMounted = true
+      this.isMounted = true;
       this.producers.forEach((x) => x.mount());
     }
     componentWillUnmount() {
-      this.isMounted = false
+      this.isMounted = false;
       this.producers.forEach((x) => x.unmount());
     }
     updateData(data: any) {
       if (!this.isMounted) {
-        return
+        return;
       }
 
       this.setState({
@@ -90,7 +88,9 @@ export function view({ args, fn, meta }: ViewConfig) {
       }
     }
     render() {
-      this.producers.forEach((x) => { x.updateExternal(this.props) });
+      this.producers.forEach((x) => {
+        x.updateExternal(this.props);
+      });
       if (!this.isStateReady) {
         return null;
       }

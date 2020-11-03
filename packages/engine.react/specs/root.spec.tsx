@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import React from "react";
 import { observe, view } from "@c11/engine.macro";
 import "@testing-library/jest-dom/extend-expect";
@@ -7,7 +6,7 @@ import { engine } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 global.Promise = require("promise");
 
@@ -31,9 +30,7 @@ test.skip("Calling engine.getRoot() should return the root element in which the 
   };
   engine({
     state: defaultState,
-    use: [
-      renderReact(<Component />, rootEl)
-    ]
+    use: [renderReact(<Component />, rootEl)],
   });
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);
@@ -51,7 +48,7 @@ test.skip("Should support root as a function", () => {
   };
   engine({
     state: defaultState,
-    use: [renderReact(<Component />, () => rootEl)]
+    use: [renderReact(<Component />, () => rootEl)],
   }).start();
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);
@@ -68,8 +65,8 @@ test.skip("Should support root as a function that returns a promise", () => {
     return <div data-testid="foo">{foo}</div>;
   };
   engine({
-    state:  defaultState,
-    use: [renderReact(<Component />, Promise.resolve(rootEl))]
+    state: defaultState,
+    use: [renderReact(<Component />, Promise.resolve(rootEl))],
   });
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);
@@ -87,7 +84,7 @@ test.skip("Should support root as a promise", () => {
   };
   engine({
     state: defaultState,
-    use: [renderReact(<Component />, Promise.resolve(rootEl))]
+    use: [renderReact(<Component />, Promise.resolve(rootEl))],
   });
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);

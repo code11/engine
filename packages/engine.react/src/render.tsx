@@ -6,7 +6,7 @@ import {
   RenderInstance,
   RenderConfig,
   RootElement,
-  EngineModuleSource
+  EngineModuleSource,
 } from "@c11/engine.types";
 
 export class Render implements RenderInstance {
@@ -51,7 +51,10 @@ export class Render implements RenderInstance {
   }
 }
 
-export const renderReact = (element: any, container: any): EngineModuleSource => {
+export const renderReact = (
+  element: any,
+  container: any
+): EngineModuleSource => {
   return {
     bootstrap: () => {},
     unmount: () => {},

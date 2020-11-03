@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import React from "react";
 import { observe, update, view, producer } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
@@ -8,7 +7,7 @@ import { engine, producers } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 
@@ -35,8 +34,8 @@ test("Simple load of a react component and work with producers", async (done) =>
   };
   engine({
     state: defaultState,
-    use: [renderReact(<Component />, rootEl), producers([prod])]
-  }).start()
+    use: [renderReact(<Component />, rootEl), producers([prod])],
+  }).start();
   jest.runAllTimers();
   await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
