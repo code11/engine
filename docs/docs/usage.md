@@ -6,25 +6,26 @@ sidebar_label: Usage
 
 ## Install
 
-To build React apps with Engine, 2 packages must be installed:
+Fastest way to get started with Engine is by using the Engine
+[CLI](https://code11.github.io/engine/docs/cli).
 
-```sh
-   yarn add @c11/engine.macro @c11/engine.react
+```
+npm i -g @c11/engine.cli
+engine create my-app
+cd my-app
+npm start
 ```
 
-`@c11/engine.macro` is the platform independent core of Engine. Engine makes
-good use of babel-macros to take care of a bunch of things we'd otherwise do
-manually. `@c11/engine.react` is needed for building Engine React applications.
-
-Find out more about the Engine packages on [packages](packages) page.
+`engine create <app-name>` will setup an npm project with all the dependencies
+required for building an engine app installed. Engine itself is built in a
+modular way in the form of multiple packages. You can read more about the
+Engine packages on [packages](packages) page.
 
 ## Instantiate
 
 To create an Engine app, an instance of the `Engine` class from
-`@c11/engine.macro` need to be created, and started:
-
-This can go in `src/index.ts` of a traditional react app (created with
-create-react-app):
+`@c11/engine.macro` need to be created. This goes in `src/index.ts` of a
+an app (created with engine CLI):
 
 ```tsx
 import React from "react";
@@ -99,10 +100,11 @@ export default App;
 This tiny example demonstrates pretty much all the Engine concepts needed to use
 it!
 
-Components labeled as [view](/docs/api/view) can [observe](/docs/api/observe)
-anything from state, and [update](/docs/api/update) anything in the state.
+[View](/docs/api/view)s can [observe](/docs/api/observe) anything from
+[state](/docs/concepts/state), and [update](/docs/api/update) anything in the
+state.
 
-Functions labeled as [producer](/docs/api/producer) behave pretty much the same
+[Producer](/docs/api/producer)s behave pretty much the same
 way as `view`s, but don't render anything on screen. Producers are where the
 business logic should live.
 
