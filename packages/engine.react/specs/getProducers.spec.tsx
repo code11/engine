@@ -6,7 +6,7 @@ import { engine, producers } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 
@@ -31,13 +31,10 @@ test.skip("Simple load of a react component", async () => {
 
   Component.producers = [prodA];
   engine({
-    use: [
-      renderReact(<Component />, rootEl),
-      producers([testProducer])
-    ],
+    use: [renderReact(<Component />, rootEl), producers([testProducer])],
     state: defaultState,
   });
   jest.runAllTimers();
-  await flushPromises()
+  await flushPromises();
   // expect(engine.getProducers().length).toBe(3);
 });

@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import React from "react";
 import { get, view } from "@c11/engine.macro";
 import { waitFor, getByTestId } from "@testing-library/react";
@@ -8,7 +7,7 @@ import { engine } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 
@@ -31,10 +30,10 @@ test("Expect to call using only get", async (done) => {
   };
   engine({
     state: defaultState,
-    use: [renderReact(<Component />, rootEl)]
-  }).start()
+    use: [renderReact(<Component />, rootEl)],
+  }).start();
   jest.runAllTimers();
-  await flushPromises()
+  await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     done();

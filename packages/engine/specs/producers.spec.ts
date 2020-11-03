@@ -3,7 +3,7 @@ import { engine, producers } from "../src";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 

@@ -25,15 +25,18 @@ export class EngineModule {
     };
   }
 
-  private addProducer(config: MacroProducerType, extendedContext: any = {}): ProducerInstance {
+  private addProducer(
+    config: MacroProducerType,
+    extendedContext: any = {}
+  ): ProducerInstance {
     const context = {
       db: this.db,
-      ...extendedContext
+      ...extendedContext,
     };
     // @ts-ignore
     const producer = new Producer(config, context);
     this.producers.push(producer);
-    return producer
+    return producer;
   }
 
   private removeProducers() {

@@ -1,4 +1,3 @@
-// tslint:disable:no-expression-statement
 import React from "react";
 import { observe, update, prop, view } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
@@ -8,7 +7,7 @@ import { engine } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 
@@ -39,17 +38,17 @@ test("Should propagate changes in props", async (done) => {
   };
 
   engine({
-    state:  defaultState,
-    use: [renderReact(<Parent />, rootEl)]
-  }).start()
+    state: defaultState,
+    use: [renderReact(<Parent />, rootEl)],
+  }).start();
   jest.runAllTimers();
-  await flushPromises()
+  await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     const button = getByTestId(document.body, "set-foo");
     fireEvent.click(button);
     jest.runAllTimers();
-    await flushPromises()
+    await flushPromises();
     const newFoo = getByTestId(document.body, "foo");
     expect(newFoo.innerHTML).toBe(val);
     done();
