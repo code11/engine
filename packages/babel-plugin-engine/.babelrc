@@ -1,8 +1,6 @@
 {
   "presets": [
     "@babel/preset-typescript",
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ],
-  "plugins": ["macros", "@babel/plugin-proposal-class-properties"]
+    ["@babel/preset-env", { "targets": {"node": "current"}}]
+  ]
 }

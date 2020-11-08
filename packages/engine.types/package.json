@@ -18,8 +18,5 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
-  "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521",
-  "dependencies": {
-    "@c11/engine": "^4.0.0-alpha.5"
-  }
+  "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }

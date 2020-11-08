@@ -20,15 +20,11 @@
   },
   "devDependencies": {
     "@c11/babel-plugin-engine": "^4.0.0-alpha.5",
-    "@c11/engine.macro": "^4.0.0-alpha.5",
     "@c11/engine.types": "^4.0.0-alpha.0",
     "@types/clone-deep": "^4.0.1",
     "@types/shortid": "^0.0.29"
   },
   "dependencies": {
-    "@c11/engine": "^4.0.0-alpha.5",
-    "@c11/engine.db": "^4.0.0-alpha.3",
-    "@c11/engine.types": "^4.0.0-alpha.0",
     "clone-deep": "^4.0.1",
     "lodash": "^4.17.20",
     "shortid": "^2.2.16"

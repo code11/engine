@@ -1,5 +1,4 @@
 import React from "react";
-import { observe, update, view } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
