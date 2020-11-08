@@ -105,11 +105,18 @@ export interface ProducerData {
 export type ProducerFn = (...data: any) => void;
 
 export interface ProducerMeta {
-  name: string;
-  fileName: string;
-  lineNumber: number;
-  columnNumber: number;
-  order: string[];
+  name?: string;
+  location?: {
+    start: {
+      line: number,
+      column: number
+    },
+    end: {
+      line: number,
+      column: number
+    }
+  };
+  fileName?: string;
 }
 
 export interface ProducerConfig {
