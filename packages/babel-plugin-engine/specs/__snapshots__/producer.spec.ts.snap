@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel-plugin-engine should compile a producer: should compile a producer 1`] = `
+
+const foo: producer = ({ foo = observe.foo }) => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const foo = {
+  args: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+    },
+    meta: {
+      name: "foo",
+      location: {
+        start: {
+          line: 1,
+          column: 6,
+        },
+        end: {
+          line: 1,
+          column: 51,
+        },
+      },
+      fileName: undefined,
+    },
+  },
+  fn: ({ foo: foo }) => {},
+};
+
+
+`;

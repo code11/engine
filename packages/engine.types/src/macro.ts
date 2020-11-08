@@ -1,6 +1,16 @@
 import { ReactElement } from "react";
 import { ProducerConfig } from "./producer";
 
+export enum EngineKeywords {
+  PRODUCER = "producer",
+  VIEW = "view",
+  GET = "get",
+  OBSERVE = "observe",
+  UPDATE = "update",
+  PROP = "prop",
+  ARG = "arg",
+}
+
 export enum PathType {
   GET = "get",
   OBSERVE = "observe",
