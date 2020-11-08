@@ -9,12 +9,6 @@
     "name": "Constantin Dumitrescu",
     "email": "constantin.dumitrescu@code11.com"
   },
-  "contributors": [
-    {
-      "name": "Alexandru Oprisean",
-      "email": "alexandru.oprisean@code11.com"
-    }
-  ],
   "scripts": {
     "build": "tsc",
     "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",

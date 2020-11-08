@@ -15,10 +15,11 @@
   "scripts": {
     "build:declaration": "tsc --project tsconfig.build.json",
     "build": "tsc",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./src/*",
-    "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./src/*"
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.5",
     "@c11/engine.macro": "^4.0.0-alpha.5",
     "@c11/engine.types": "^4.0.0-alpha.0",
     "@types/clone-deep": "^4.0.1",
