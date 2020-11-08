@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.cli",
-  "version": "4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
   "description": "Command line interface for rapid Engine development",
   "bin": {
     "engine": "dist/bin/engine.js"
@@ -43,10 +43,10 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
-    "@c11/engine": "^4.0.0-alpha.5",
-    "@c11/engine.macro": "^4.0.0-alpha.5",
-    "@c11/engine.templates-app": "^4.0.0-alpha.5",
-    "@c11/engine.types": "^4.0.0-alpha.0",
+    "@c11/engine": "^4.0.0-alpha.6",
+    "@c11/engine.macro": "^4.0.0-alpha.6",
+    "@c11/engine.templates-app": "^4.0.0-alpha.6",
+    "@c11/engine.types": "^4.0.0-alpha.6",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.6",
     "@types/react": "^16.9.55",
@@ -87,7 +87,7 @@
     "webpack-encoding-plugin": "^0.3.1"
   },
   "devDependencies": {
-    "@c11/babel-plugin-engine": "^4.0.0-alpha.5",
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.6",
     "@c11/engine.types": "^4.0.0-alpha.0"
   }
 }

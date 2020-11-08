@@ -8,10 +8,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **api:** make all keywords lowercase ([#77](https://github.com/code11/engine/issues/77)) ([e75ac5e](https://github.com/code11/engine/commit/e75ac5ea1103b379aa84626d641007d9befe8c7d))
-
-
-
-
-
-# Change Log
+* **babel-plugin-engine:** create a babel plugin to remove the macro dependency ([#86](https://github.com/code11/engine/issues/86)) ([436730e](https://github.com/code11/engine/commit/436730e1fb92d8b3f5407d35384f20b10e5d0df8))

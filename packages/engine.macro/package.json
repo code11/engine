@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.macro",
-  "version": "4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
   "description": "Babel macros that define the Engine API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@babel/types": "^7.12.1",
-    "@c11/babel-plugin-engine": "^4.0.0-alpha.5",
-    "@c11/engine.types": "^4.0.0-alpha.0",
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.6",
+    "@c11/engine.types": "^4.0.0-alpha.6",
     "@types/babel-plugin-macros": "^2.8.3",
     "babel-plugin-tester": "^10.0.0",
     "prettier": "^2.1.2"
