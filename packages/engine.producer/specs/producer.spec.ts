@@ -1,17 +1,7 @@
 import db from "@c11/engine.db";
-import { Producer } from "./";
-import {
-  get,
-  observe,
-  update,
-  prop,
-  arg,
-  param,
-  producer,
-} from "@c11/engine.macro";
-import { path } from "./path";
-import { wildcard } from "./wildcard";
-import { isPlainObject } from "lodash";
+import { Producer } from "../src";
+import { path } from "../src/path";
+import { wildcard } from "../src/wildcard";
 
 jest.useFakeTimers();
 

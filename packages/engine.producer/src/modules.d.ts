@@ -19,3 +19,5 @@ declare module "babel-plugin-tester" {
   function fn(args: any): any;
   export default fn;
 }
+
+declare interface producer {}

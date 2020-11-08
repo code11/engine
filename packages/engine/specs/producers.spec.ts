@@ -1,4 +1,3 @@
-import { producer, observe, update } from "@c11/engine.macro";
 import { engine, producers } from "../src";
 
 const flushPromises = () => {
