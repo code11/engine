@@ -1,9 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react",
     "outDir": "./dist",
-    "types": ["react"]
   },
-  "include": ["./src", "specs"]
+  "include": ["./src", "specs", "modules.d.ts"]
 }

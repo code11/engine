@@ -1,9 +1,8 @@
 import React from "react";
-import { producer, get, observe, update, view, path, prop } from "@c11/engine.macro";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
-import { engine, producers } from "@c11/engine";
+import { engine, producers, path } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);

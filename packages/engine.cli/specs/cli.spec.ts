@@ -21,6 +21,6 @@ describe("creating an engine app", () => {
     expect(isGenerated).toBe(true);
   });
   afterAll(() => {
-    fs.rmdirSync(loc, { recursive: true });
+    // fs.rmdirSync(loc, { recursive: true });
   });
 });

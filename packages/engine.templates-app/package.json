@@ -12,6 +12,11 @@
     "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
   },
   "dependencies": {
-    "@c11/engine": "^4.0.0-alpha.5"
+    "@c11/engine": "^4.0.0-alpha.5",
+    "@c11/engine.types": "^4.0.0-alpha.0"
+  },
+  "devDependencies": {
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.5",
+    "@c11/engine.types": "^4.0.0-alpha.0"
   }
 }

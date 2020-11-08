@@ -24,12 +24,12 @@
     "react": "^17"
   },
   "dependencies": {
-    "@c11/engine": "^4.0.0-alpha.5",
-    "@c11/engine.db": "^4.0.0-alpha.3",
-    "@c11/engine.producer": "^4.0.0-alpha.5",
-    "@c11/engine.types": "^4.0.0-alpha.0"
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.5",
+    "@types/shortid": "^0.0.29",
+    "@c11/engine": "^4.0.0-alpha.5",
     "@c11/engine.macro": "^4.0.0-alpha.5",
     "@c11/engine.types": "^4.0.0-alpha.0",
     "@testing-library/jest-dom": "^5.11.5",
@@ -38,11 +38,6 @@
     "@types/react-dom": "^16.9.9",
     "react": "^16.12.0",
     "react-dom": "^17.0.1"
-  },
-  "engineConfig": {
-    "view": {
-      "importFrom": "../src/index"
-    }
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }

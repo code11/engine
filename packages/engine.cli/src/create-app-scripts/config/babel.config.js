@@ -4,6 +4,9 @@ module.exports = {
   comments: false,
   minified: true,
   presets: [
+    {
+      plugins: ["babel-plugin-engine"]
+    },
     "@babel/preset-typescript",
     "@babel/preset-env",
     "@babel/preset-react",
