@@ -1,5 +1,4 @@
 import React from "react";
-import { observe, view } from "@c11/engine.macro";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
 import { engine } from "@c11/engine";
@@ -7,8 +6,6 @@ import { engine } from "@c11/engine";
 const flushPromises = () => {
   return new Promise(setImmediate);
 };
-
-global.Promise = require("promise");
 
 jest.useFakeTimers();
 

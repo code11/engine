@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === "test") {
   dbFn = require(`${__dirname}/../../dist`);
 }
 
-const Promise = require("promise");
 const decomposePath = require(`${__dirname}/../../src/fn/decomposePath`)
   .default;
 

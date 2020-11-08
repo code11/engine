@@ -1,7 +1,7 @@
 {
   "name": "@c11/engine",
   "version": "4.0.0-alpha.5",
-  "description": "A programming engine for a react environment",
+  "description": "An engine for applications",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
@@ -14,28 +14,13 @@
     "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
-  "peerDependencies": {
-    "react": "^17"
-  },
   "dependencies": {
     "@c11/engine.db": "^4.0.0-alpha.3",
     "@c11/engine.producer": "^4.0.0-alpha.5",
     "@c11/engine.types": "^4.0.0-alpha.0"
   },
   "devDependencies": {
-    "@c11/engine.macro": "^4.0.0-alpha.5",
-    "@c11/engine.types": "^4.0.0-alpha.0",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
-    "@types/react": "^16.9.55",
-    "@types/react-dom": "^16.9.9",
-    "react": "^16.12.0",
-    "react-dom": "^17.0.1"
-  },
-  "engineConfig": {
-    "view": {
-      "importFrom": "../src/index"
-    }
+    "@c11/engine.types": "^4.0.0-alpha.0"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }
