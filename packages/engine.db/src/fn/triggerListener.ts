@@ -1,7 +1,8 @@
 import "setimmediate";
 import getNode from "./getNode";
 import err from "./err";
-import { isPlainObject, isArray } from "lodash";
+import isPlainObject from "lodash/isPlainObject";
+import isArray from "lodash/isArray";
 
 function callNode(db, path, i, patch = []) {
   let fns = db.updates.fns[path];
