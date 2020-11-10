@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.react",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@c11/babel-plugin-engine": "^4.0.0-alpha.6",
-    "@c11/engine": "^4.0.0-alpha.6",
+    "@c11/engine": "^4.0.0-alpha.7",
     "@c11/engine.macro": "^4.0.0-alpha.6",
     "@c11/engine.types": "^4.0.0-alpha.6",
     "@testing-library/jest-dom": "^5.11.5",
