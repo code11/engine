@@ -26,7 +26,7 @@
     "build:engine": "lerna run --scope=@c11/engine* build",
     "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
     "build": "lerna run build",
-    "test": "jest --clear-cache && lerna run test",
+    "test": "jest --clear-cache && lerna run test --parallel",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
     "release": "yarn clean && lerna run build && lerna run test",
