@@ -42,6 +42,10 @@ body.
 
 <img src='/static/img/producer.jpg' alt='Producer' />
 
+Additionally, the producer function can return a callback for clean-up purposes.
+   This will be called when the producer will be unmounted from the state and thus
+   no longer in operation.
+
 ## Running a producer
 
 A `producer` can not be called directly. Engine considers a `producer` for
@@ -78,6 +82,19 @@ const todoCounter: producer = ({
 );
 ```
 
+## Example with clean-up
+```tsx
+const subscriber: producer = ({
+  something = update.something
+}) => (
+  const stream = subscribeToStream(value => {
+    something.set(value)
+  })
+  return () => {
+    stream.unsubscribe()
+  }
+);
+```
 
 ## Parts
 
@@ -188,6 +205,12 @@ changed through the `update` operation.
 This means, `producer`s will be pushing new data to the Engine which in turn
 trigger other producers to execute and in turn update the state.
 
+#### Clean-up
+
+Producers can be long running by subscribing to streams, initiating long calls, using
+   timers, etc. As such, when the `producer` is unmounted from the state, it is the
+   `producer`'s responsability to provide a callback for clean-up purposes. See the
+   example above.
 
 ## Best practices
 

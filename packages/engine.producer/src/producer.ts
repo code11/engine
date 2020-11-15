@@ -8,6 +8,7 @@ import {
   StructOperation,
   ProducerMeta,
 } from "@c11/engine.types";
+import isFunction from "lodash/isFunction";
 import shortid from "shortid";
 
 import { Graph } from "./graph";
@@ -30,6 +31,7 @@ export class Producer implements ProducerInstance {
   private debug: boolean;
   private keepReferences: string[];
   private meta: ProducerMeta;
+  private results: any[] = [];
   private stats = {
     executionCount: 0,
   };
@@ -47,13 +49,16 @@ export class Producer implements ProducerInstance {
       this.db,
       this.external,
       this.args,
-      this.debug ? this.fnWrapper.bind(this) : this.fn,
+      this.fnWrapper.bind(this),
       this.keepReferences
     );
   }
   private fnWrapper(...params: any[]) {
     this.stats.executionCount += 1;
-    this.fn.apply(null, params);
+    const result = this.fn.apply(null, params);
+    if (result !== undefined && isFunction(result)) {
+      this.results.push(result)
+    }
   }
   mount() {
     if (this.state === ProducerStates.MOUNTED) {
@@ -69,6 +74,11 @@ export class Producer implements ProducerInstance {
     }
     this.graph.destroy();
     this.state = ProducerStates.UNMOUNTED;
+    this.results.forEach(x => {
+      if (x) {
+        x()
+      }
+    })
     return this;
   }
   updateExternal(props: ProducerContext["props"]) {

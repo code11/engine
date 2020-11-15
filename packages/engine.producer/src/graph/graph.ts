@@ -10,12 +10,12 @@ import {
   GraphStructure,
   GraphNodeType,
   ValueTypes,
+  DatastoreInstance,
 } from "@c11/engine.types";
 import { resolveDependencies } from "./resolveDependencies";
 import { getExternalNodes } from "./getExternalNodes";
 import { getInternalNodes } from "./getInternalNodes";
 import { resolveOrder } from "./resolveOrder";
-import { DatastoreInstance } from "@c11/engine.types";
 import { observeOperation } from "./observeOperation";
 import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
