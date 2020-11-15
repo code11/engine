@@ -13,7 +13,7 @@ import { get } from "@c11/engine.macro"
 `get` provides the ability to get values from the global state at a later time,
 after the `view` or `producer` was triggered. It works the same way as
 [observe](/docs/api/observe), except:
-1. `get` don't provide a value, but instead a function which can be called at
+1. `get` don't provide a value, but instead an api for that path which can be used at
    any time in future to get the latest value form state
 2. `get` don't cause `view`s and `producer`s to get triggered
 
@@ -25,19 +25,20 @@ after the `view` or `producer` was triggered. It works the same way as
 
 ## API
 
-### `get.<path>: (newParams?: object) => any`
+`get.<path>` returns an object with following properties:
 
-A call to `get.<path>` (where `<path>` is a path to any data in state) returns a
-getter function.
+1. `.value(params?: object)` returns the date stored at that `<path>`
+   `params` is an optional object argument, the keys of which set the
+   [param](/docs/api/param)s.
+2. `.includes(value: any, params?: object)` if the value at the given
+   `<path>` is an array or a string, it returns a boolean if the provided
+   `value` exists at that `<path>`
+3. `.length(params?: object)` if the value at the given `<path>` is an `array`,a `string`, or a `function` it returns the length property
 
-Calling this function returns the data stored in that path, or `undefined` (for
-non-existent path). If the stored data is serializable (e.g a primitive
+For the `value` getter method, if the stored data is serializable (e.g a primitive
 Javascript type, a plain object), a copy of the data is returned. However, if
 the data is not serializable (e.g a class instance, function etc), a reference
 to it is returned.
-
-The getter function also receives an optional argument of type `Object`. The
-keys of this object set the [param](/docs/api/param)s.
 
 ## Example
 
@@ -57,7 +58,7 @@ e.g
 
 ```
 const doSomeWork: producer = ({ getBar = get.foo.bar }) => {
-  const var = getBar(); // provides lates value of bar, and does not trigger if bar ever changes
+  const var = getBar.value(); // provides lates value of bar, and does not trigger if bar ever changes
 }
 ```
 

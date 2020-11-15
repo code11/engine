@@ -142,3 +142,12 @@ export interface ProducerContext {
   debug?: boolean;
   addView?: (view: ViewInstance) => void;
 }
+
+export type OperationParams = {
+  [k: string]: OperationParams | string | number | void | null;
+}
+
+
+
+
+

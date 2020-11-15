@@ -2,7 +2,9 @@ import {
   DatastoreInstance,
   GraphStructure,
   UpdateOperation,
+  OperationParams
 } from "@c11/engine.types";
+import isArray from "lodash/isArray";
 import { getInvokablePath } from "./getInvokablePath";
 
 export const updateOperation = (
@@ -10,7 +12,7 @@ export const updateOperation = (
   structure: GraphStructure,
   op: UpdateOperation
 ) => {
-  const set = (value: any, params: any) => {
+  const set = (value: any, params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const patch = {
@@ -21,7 +23,7 @@ export const updateOperation = (
       db.patch([patch]);
     }
   };
-  const merge = (value: any, params: any) => {
+  const merge = (value: any, params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const patch = {
@@ -42,7 +44,7 @@ export const updateOperation = (
       db.patch([patch]);
     }
   };
-  const remove = (params: any) => {
+  const remove = (params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const patch = {
@@ -52,9 +54,46 @@ export const updateOperation = (
       db.patch([patch]);
     }
   };
+  const push = (value: any, params: OperationParams) => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      const val = db.get(path)
+      if (!isArray(val)) {
+        // console.error('path is not an array')
+        return
+      }
+      val.push(value)
+      const patch = {
+        op: "add",
+        path: path,
+        value: val
+      };
+      db.patch([patch]);
+    }
+  };
+  const pop = (params: OperationParams) => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      const val = db.get(path)
+      if (!isArray(val)) {
+        // console.error('path is not an array')
+        return
+      }
+      val.pop()
+      const patch = {
+        op: "add",
+        path: path,
+        value: val
+      };
+      db.patch([patch]);
+    }
+  };
+
   return {
     set,
     merge,
     remove,
-  };
+    push,
+    pop
+  }
 };

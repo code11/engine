@@ -70,7 +70,7 @@ test("should support path operations with multiple components", async (done) => 
     <input
       data-testid="foo"
       type="text"
-      defaultValue={value()}
+      defaultValue={value.value()}
       onChange={(e) => path2.set(e.target.value)}
     />
   );

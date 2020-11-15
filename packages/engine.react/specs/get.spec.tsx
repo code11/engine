@@ -25,7 +25,7 @@ test("Expect to call using only get", async (done) => {
   document.body.appendChild(rootEl);
   const Component: view = ({ foo = get.foo }) => {
     expect(foo).toBeDefined();
-    return <div data-testid="foo">{foo()}</div>;
+    return <div data-testid="foo">{foo.value()}</div>;
   };
   engine({
     state: defaultState,

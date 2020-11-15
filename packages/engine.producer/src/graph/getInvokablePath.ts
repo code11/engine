@@ -2,6 +2,7 @@ import {
   GraphStructure,
   UpdateOperation,
   GetOperation,
+  OperationParams
 } from "@c11/engine.types";
 import { PathSymbol } from "../path";
 import { resolveValue } from "./resolveValue";
@@ -10,7 +11,7 @@ import { wildcard } from "../wildcard";
 export const getInvokablePath = (
   structure: GraphStructure,
   op: GetOperation | UpdateOperation,
-  params: any
+  params: OperationParams
 ) => {
   const path = op.path.reduce((acc, x: any) => {
     const value = resolveValue(structure, x, params);
