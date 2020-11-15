@@ -589,6 +589,27 @@ test("should support the full api for the get operation", () => {
   jest.runAllTimers();
 });
 
+test("should support unmount lifecycle method", () => {
+  const struct: producer = ({
+    a = update.a,
+  }) => {
+    const id = setInterval(() => {
+      a.push('a')
+    }, 500)
+    return () => {
+      clearInterval(id)
+    }
+  };
+  const result = run(struct, {
+    a: []
+  });
+  jest.advanceTimersByTime(1000);
+  result.producer.unmount()
+  jest.advanceTimersByTime(1000);
+  jest.runOnlyPendingTimers();
+  expect(result.db.get("/a")).toEqual(['a', 'a']);
+});
+
 /*
 test("should allow args composition", () => {
   const state = {
