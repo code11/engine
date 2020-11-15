@@ -610,6 +610,91 @@ test("should support unmount lifecycle method", () => {
   expect(result.db.get("/a")).toEqual(['a', 'a']);
 });
 
+test("#40: setting nested paths issue", () => {
+  const struct: producer = ({
+    a = update.a.bar.baz,
+    b = update.b.bar.baz,
+    c = update.c.bar.baz,
+    d = update.d.bar.baz,
+    e = update.e.bar.baz,
+    f = update.f.bar.baz,
+    g = update.g.bar.baz,
+    h = update.h.bar.baz,
+    i = update.i.bar.baz,
+    j = update.j.bar.baz,
+    k = update.k.bar.baz,
+  }) => {
+    a.set({x: 'a'})
+    b.set({x: 'a'})
+    c.set({x: 'a'})
+    d.set({x: 'a'})
+    e.set({x: 'a'})
+    f.set({x: 'a'})
+    g.set({x: 'a'})
+    h.set({x: 'a'})
+    i.set({x: 'a'})
+    j.set({x: 'a'})
+    k.set({x: 'a'})
+  };
+  const result = run(struct, {
+    a: false,
+    b: null,
+    c: undefined,
+    d: true,
+    e: 'a',
+    f: 123,
+    g: 0,
+    h: [1, 2],
+    i: {
+      bam: 'b'
+    },
+    j: {
+      bar: 'b'
+    },
+    k: {
+      bam: 'a',
+      bar: {
+        bam: 'c',
+        baz: 'b'
+      }
+    }
+  });
+  jest.runAllTimers();
+  const expected = {
+    bar: {
+      baz: {
+        x: 'a'
+      }
+    }
+  }
+  expect(result.db.get("/a")).toEqual(expected)
+  expect(result.db.get("/b")).toEqual(expected)
+  expect(result.db.get("/c")).toEqual(expected)
+  expect(result.db.get("/d")).toEqual(expected)
+  expect(result.db.get("/e")).toEqual(expected)
+  expect(result.db.get("/f")).toEqual(expected)
+  expect(result.db.get("/g")).toEqual(expected)
+  expect(result.db.get("/h")).toEqual(expected)
+  expect(result.db.get("/i")).toEqual({
+    bam: 'b',
+    bar: {
+      baz: {
+        x: 'a'
+      }
+    }
+  })
+  expect(result.db.get("/j")).toEqual(expected)
+  expect(result.db.get("/k")).toEqual({
+    bam: 'a',
+    bar: {
+      bam: 'c',
+      baz: {
+        x: 'a'
+      }
+    }
+  })
+});
+
 /*
 test("should allow args composition", () => {
   const state = {

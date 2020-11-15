@@ -115,11 +115,18 @@ function applyPatch(db, patch, shouldClone) {
     // @TODO: Implement both path && from in a function
     parts = splitPath(xPath);
     obj = db.static;
+    let prevState
+    let prevPart
     for (j = 0, lenj = parts.length - 1; j < lenj; j += 1) {
       part = parts[j];
       path += "/" + part;
+      let initialState = obj
 
       if (!obj[part] && x.op === "add") {
+        if (!isPlainObject(obj)) {
+          prevState[prevPart] = {}
+          obj = prevState[prevPart]
+        }
         obj[part] = {};
         obj = obj[part];
       } else {
@@ -132,6 +139,8 @@ function applyPatch(db, patch, shouldClone) {
         }
       }
 
+      prevState = initialState
+      prevPart = part
       delete cachePaths[path];
       clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, path);
     }
@@ -201,6 +210,10 @@ function applyPatch(db, patch, shouldClone) {
         if (objIsArray) {
           obj.splice(last, 0, shouldClone ? clone(xValue) : xValue);
         } else if (isPlainObject(obj)) {
+          obj[last] = shouldClone ? clone(xValue) : xValue;
+        } else {
+          prevState[prevPart] = {}
+          obj = prevState[prevPart]
           obj[last] = shouldClone ? clone(xValue) : xValue;
         }
         break;
