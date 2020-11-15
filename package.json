@@ -29,7 +29,7 @@
     "test": "jest --clear-cache && lerna run test --parallel",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
-    "release": "yarn clean && lerna run build && lerna run test",
+    "release": "yarn clean && lerna run build && lerna run test --parallel",
     "version:lerna": "lerna version --conventional-commits",
     "publish": "lerna publish from-package",
     "publish:local": "lerna run publish:local",

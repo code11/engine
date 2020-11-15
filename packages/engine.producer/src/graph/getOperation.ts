@@ -2,8 +2,12 @@ import {
   DatastoreInstance,
   GraphStructure,
   GetOperation,
+  OperationParams,
 } from "@c11/engine.types";
+import isString from "lodash/isString";
+import isArray from "lodash/isArray";
 import { getInvokablePath } from "./getInvokablePath";
+import isFunction from "lodash/isFunction";
 
 // TODO: add a isValid method to be able to check
 // if the ref path is properly generated
@@ -15,11 +19,35 @@ export const getOperation = (
   structure: GraphStructure,
   op: GetOperation
 ) => {
-  const get = (params: any) => {
+  const value = (params: OperationParams): unknown => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       return db.get(path);
     }
+    return
   };
-  return get;
+  const includes = (value: any, params: OperationParams): void | boolean => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      const val = db.get(path);
+      if (isArray(val) || isString(val)) {
+        return val.includes(value)
+      }
+    }
+  }
+  const length = (params: OperationParams): void | number => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      const val = db.get(path);
+      if (!(isString(val) || isArray(val) || isFunction(val))) {
+        return
+      }
+      return val.length
+    }
+  }
+  return {
+    value,
+    includes,
+    length
+  };
 };

@@ -237,7 +237,7 @@ test("should support get operations", () => {
     },
   };
   const struct: producer = ({ refProp = get.items[param.id.bar].value }) => {
-    const value = refProp({
+    const value = refProp.value({
       id: {
         bar: "foo",
       },
@@ -416,7 +416,7 @@ test("should support path values to be used", () => {
     val3 = update[prop.path1][prop.path2.bam.value],
   }) => {
     observeVal = val1;
-    getVal = val2({ propName: "value" });
+    getVal = val2.value({ propName: "value" });
     updateVal = val3;
   };
   const propName = "bar";
@@ -518,6 +518,75 @@ test("should redo paths and keep reference if external props change", () => {
   ]);
   jest.runAllTimers();
   expect(fn.mock.calls[2][0]).toBe(333);
+});
+
+test("should support the full api for the update operation", () => {
+  const struct: producer = ({
+    b = update.b,
+    c = update.c,
+    d = update.d,
+    e = update.e,
+    f = update.f,
+    g = update.g,
+  }) => {
+    b.set("123");
+    c.merge({ foo: "123" });
+    d.remove();
+    e.push(3);
+    f.push(2);
+    g.pop();
+  };
+  const result = run(struct, {
+    b: "abc2",
+    c: {
+      bar: "123",
+    },
+    d: "foo",
+    e: [1, 2],
+    f: 1,
+    g: [1, 2, 3],
+  });
+  jest.runAllTimers();
+  expect(result.db.get("/b")).toBe("123");
+  expect(result.db.get("/c")).toEqual({
+    foo: "123",
+    bar: "123",
+  });
+  expect(result.db.get("/d")).toBe(undefined);
+  expect(result.db.get("/e")).toEqual([1, 2, 3]);
+  expect(result.db.get("/f")).toBe(1);
+  expect(result.db.get("/g")).toEqual([1, 2]);
+});
+
+test("should support the full api for the get operation", () => {
+  const struct: producer = ({
+    a = get.a,
+    b = get.b[param.prop],
+    c = get.c,
+    d = get.d,
+    e = get.e,
+    f = get.f
+  }) => {
+    expect(a.value()).toBe('abc1')
+    expect(b.value({prop: 'bar'})).toBe('123')
+    expect(c.includes('foo')).toBe(true)
+    expect(c.includes('baz')).toBe(false)
+    expect(d.length()).toBe(4)
+    expect(e.includes('bam')).toBe(true)
+    expect(e.includes('qux')).toBe(false)
+    expect(f.length()).toBe(3)
+  };
+  run(struct, {
+    a: "abc1",
+    b: {
+      bar: "123",
+    },
+    c: ["foo"],
+    d: [1, 2, 3, 4],
+    e: 'foo bam baz',
+    f: (a, b, c) => {}
+  });
+  jest.runAllTimers();
 });
 
 /*
