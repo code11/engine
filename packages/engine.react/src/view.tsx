@@ -37,7 +37,7 @@ interface SampleState {}
 export function view({ args, fn, meta }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
-    isMounted: boolean = false;
+    isComponentMounted: boolean = false;
     args: StructOperation;
     producers: ProducerInstance[];
     isStateReady = false;
@@ -67,15 +67,15 @@ export function view({ args, fn, meta }: ViewConfig) {
       this.state = {};
     }
     componentDidMount() {
-      this.isMounted = true;
+      this.isComponentMounted = true;
       this.producers.forEach((x) => x.mount());
     }
     componentWillUnmount() {
-      this.isMounted = false;
+      this.isComponentMounted = false;
       this.producers.forEach((x) => x.unmount());
     }
     updateData(data: any) {
-      if (!this.isMounted) {
+      if (!this.isComponentMounted) {
         return;
       }
 
