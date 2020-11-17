@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.8](https://github.com/code11/engine/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2020-11-17)
+
+
+### Bug Fixes
+
+* **engine.db:** ensure nested paths are converted to object when using set ([#95](https://github.com/code11/engine/issues/95)) ([88dd77a](https://github.com/code11/engine/commit/88dd77a8d545d74bc66058fbeeaededa2e6be778)), closes [#40](https://github.com/code11/engine/issues/40)
+
+
+
+
+
 # [4.0.0-alpha.7](https://github.com/code11/engine/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2020-11-10)
 
 

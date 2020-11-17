@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.8](https://github.com/code11/engine/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2020-11-17)
+
+
+### Bug Fixes
+
+* **engine.db:** ensure nested paths are converted to object when using set ([#95](https://github.com/code11/engine/issues/95)) ([88dd77a](https://github.com/code11/engine/commit/88dd77a8d545d74bc66058fbeeaededa2e6be778)), closes [#40](https://github.com/code11/engine/issues/40)
+
+
+### Features
+
+* **engine.producer:** add clean-up callback for producers ([#94](https://github.com/code11/engine/issues/94)) ([1f989af](https://github.com/code11/engine/commit/1f989af5833a200dbc2e7fb6247301e2c3a73428)), closes [#60](https://github.com/code11/engine/issues/60)
+* **engine.producer:** add methods to get and update operations ([#93](https://github.com/code11/engine/issues/93)) ([437f1fd](https://github.com/code11/engine/commit/437f1fdfee9051f3e417d51ac7dcc333953753a0)), closes [#53](https://github.com/code11/engine/issues/53)
+
+
+
+
+
 # [4.0.0-alpha.6](https://github.com/code11/engine/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2020-11-08)
 
 

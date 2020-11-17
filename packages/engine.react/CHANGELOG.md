@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.8](https://github.com/code11/engine/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2020-11-17)
+
+
+### Bug Fixes
+
+* **engine.react:** change isMounted to isComponentMounted to not conflict with deprecated api ([b196901](https://github.com/code11/engine/commit/b1969018e5e4850f9486b2d1fa384f33e0ef8d91))
+
+
+### Features
+
+* **engine.producer:** add methods to get and update operations ([#93](https://github.com/code11/engine/issues/93)) ([437f1fd](https://github.com/code11/engine/commit/437f1fdfee9051f3e417d51ac7dcc333953753a0)), closes [#53](https://github.com/code11/engine/issues/53)
+
+
+
+
+
 # [4.0.0-alpha.7](https://github.com/code11/engine/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2020-11-10)
 
 **Note:** Version bump only for package @c11/engine.react
