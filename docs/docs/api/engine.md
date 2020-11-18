@@ -4,66 +4,25 @@ title: Engine
 sidebar_label: Engine
 ---
 
-Every Engine application starts by creating a new **Engine instance** with the `Engine` function:
+Engine application are created by invoking **engine** function:
 
 ```ts
-const engine = new Engine(config: EngineConfig): EngineInstance
+const app = new engine(config: EngineConfig): EngineInstance
 ```
 
 ## Configuration
 
-The configuration object contains the application structure and runtime setttings.
+The configuration object contains the [initial state](/docs/concepts/state) of
+the engine app, and [Engine Modules](/docs/api/modules) it is going to use.
 
 ```ts
 type EngineConfig = {
-  autostart?: boolean;
-  producers?:  Producer[];
-  render?: {
-    element: HTMLElement | View;
-    container: string | HTMLElement | Promise | Function;
-  }
   state?: {
     [key: string]: any;
   };
-  debug?: boolean;
+  use: EngineModule[];
 }
 ```
-
-### `autostart`
-**default:** `boolean = true`
-
-When the `Engine` starts, it will instantiate producers and attempt to mount the view.
-
-If `false`, any activity will be delayed until the [`start`](#enginestart) method is called on the Engine instance
-
-### `producers`
-
-**default:** `[]`
-
-An array of producers that will be instantiated when the Engine starts.
-
-[Read more about producers](/docs/api/producer)
-
-### `render`
-**default:** `undefined`
-
-Available only in Engine implementations that support rendering.
-
-#### `element`
-
-The element that will be rendered in the container. Accepts one of:
-
-* `HTMLElement` - an HTML element that will be inserted in the container
-* `view` - an Engine View ([read more](/docs/api/view))
-
-#### `container`
-
-The mounting point for the `element`. Accepts one of:
-
-* `string` - a CSS selector (the first matched element will be used)
-* `HTMLElement` - an HTML element that will be used a
-* `Promise` - should return an `HTMLElement`
-* `Function` - can return an `HTMLElement` or a `Promise`
 
 ### `state`
 **default:** `{}`
@@ -72,50 +31,37 @@ The initial state that will be available to producers and views when the Engine 
 
 [Read more about state](/docs/concepts/state)
 
-### `debug`
-**default:**: `false`
+### `use: EngineModule[]`
 
-Trigger the engine to run in debug more. This will record all state transitions, producers and views trigger and update history and more.
+An array of Engine modules that the app will start with. These can also be added
+later, after the `app` has been created using `app.use`. Engine modules an app
+uses make most decisiosn about it. Including how the app is going to be
+rendered, e.g as a React app.
 
-[Read more about debugging](/docs/guides/debugging)
+[Read more about Engine Modules]('/docs/api/modules')
 
 ## Methods
 
 The Engine instance exposes some helpful methods for interacting with the Engine runtime.
 
-### `engine.context`
+### `app.start()`
 
-Allows you to have access to the internal instances
+Start the Engine app, resulting in mounting all the modules currently in use. It
+is an idempotent function, i.e it can be called multiple times safely. An engine
+module is used only once for an engine instance, until `app.stop()` is called.
 
-| Property | Description | Type |
-|-|-|-|
-| db | The internal database which stores the application state and triggers updates | EngineDbInstance |
-| producers | A list of instantiated producers | [`ProducerInstance`](/docs/api/producer)[] |
-| views | A list instantiated views | [`ViewInstance`](/docs/api/view)[] |
-| container | The used container for mounting the application | HTMLElement |
+### `app.stop()`
 
-### `engine.status`
+Halts pending updates to the state and any other triggering of producers (or
+views). An `app.start()` after a call to `app.stop()` will make all the modules
+to be mounted again.
 
-The current status of the Engine instance:
+### `app.state: { [key: string]: any; }`
 
-| Status | Description |
-|-|-|
-| `RUNNING` | The Engine is running, producers are triggered, etc. |
-| `STOPPED` | No state transitions, no producers are trigger, etc |
-| `NOT_INITIALIZED` | No producer or view have been mounted. No state transition was made. |
+Allows patching the application state at runtime. `app.state` takes a new state,
+and merges it with existing state.
 
-### `engine.start()`
+### `app.use(module: EngineModule): void`
 
-Start the Engine.
-
-Will act differently depending on the current Engine status:
-
-| Status | Action |
-|-|-|
-| `NOT_INITIALITAZED` | Instantiate producers and if available, trigger the mounting of the application |
-| `STOPEED` | Resume the triggering of producers (and views) and apply pending updates |
-| `RUNNING` | Nothing, the Engine is already running |
-
-### `engine.stop()`
-
-Halts pending updates to the state and any other triggering of producers (or views).
+Adds new modules to running Engine app. If Engine app is already started,
+`app.use(module)` will do nothing until engine app is stopped and started again.

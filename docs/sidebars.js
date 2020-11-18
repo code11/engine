@@ -78,6 +78,7 @@ module.exports = {
       collapsed: false,
       items: [
         "api/engine",
+        "api/modules",
         "api/producer",
         "api/view",
         "api/observe",
