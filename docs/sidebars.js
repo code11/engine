@@ -78,7 +78,14 @@ module.exports = {
       collapsed: false,
       items: [
         "api/engine",
-        "api/modules",
+        {
+          type: "category",
+          label: "Modules",
+          items: [
+            "api/modules",
+            "api/react-module",
+          ]
+        },
         "api/producer",
         "api/view",
         "api/observe",

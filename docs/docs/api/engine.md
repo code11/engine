@@ -38,7 +38,7 @@ later, after the `app` has been created using `app.use`. Engine modules an app
 uses make most decisiosn about it. Including how the app is going to be
 rendered, e.g as a React app.
 
-[Read more about Engine Modules]('/docs/api/modules')
+[Read more about Engine Modules](/docs/api/modules)
 
 ## Methods
 
