@@ -1,9 +1,7 @@
-import * as Babel from "@babel/core";
-import {
+import type * as Babel from "@babel/core";
+import type {
   ObjectProperty,
-  isAssignmentPattern,
   LogicalExpression,
-  isMemberExpression,
   AssignmentPattern,
 } from "@babel/types";
 import {
@@ -44,8 +42,11 @@ const funcValue = (node: Node): FuncOperation => {
   };
 };
 
-const logicalExpression = (babel: typeof Babel, node: LogicalExpression): FuncOperation => {
-  const t= babel.types
+const logicalExpression = (
+  babel: typeof Babel,
+  node: LogicalExpression
+): FuncOperation => {
+  const t = babel.types;
   const params: StaticOperation[] = [];
   let temp: any = node;
   while (temp.left) {
@@ -147,8 +148,11 @@ const Values: Values = {
   },
 };
 
-export const processValue = (babel: typeof Babel, node: ObjectProperty): Operation | void => {
-  const t = babel.types
+export const processValue = (
+  babel: typeof Babel,
+  node: ObjectProperty
+): Operation | void => {
+  const t = babel.types;
   let valueNode;
   if (t.isAssignmentPattern(node.value)) {
     valueNode = node.value.right;
@@ -167,7 +171,7 @@ export const processParamValue = (
   babel: typeof Babel,
   node: Babel.types.AssignmentPattern
 ): Operation | void => {
-  const t = babel.types
+  const t = babel.types;
   let valueNode;
   if (t.isAssignmentPattern(node)) {
     valueNode = node.right;

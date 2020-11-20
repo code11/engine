@@ -1,5 +1,4 @@
-import * as Babel from "@babel/core";
-import { callExpression } from "@babel/types";
+import type * as Babel from "@babel/core";
 import { EngineKeywords } from "@c11/engine.types";
 import { Messages } from "../messages";
 import { PluginConfig } from "../plugin";
@@ -12,7 +11,6 @@ export const VariableDeclaratorVisitor = (
   path: Babel.NodePath<Babel.types.VariableDeclarator>,
   state: Babel.PluginPass
 ) => {
-  // filename: state.file.opts.filename,
   const t = babel.types;
   const id = path.node.id;
   if (

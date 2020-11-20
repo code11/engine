@@ -1,4 +1,4 @@
-import * as Babel from "@babel/core";
+import type * as Babel from "@babel/core";
 import { EngineKeywords } from "@c11/engine.types";
 import { paramParser } from "../parsers";
 import { structOperationCompiler, paramsCompiler } from "../compilers";
@@ -30,7 +30,7 @@ export const instrumentView = (
 
   const parsedParam = paramParser(babel, param);
   let metaProps = {};
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV === "development") {
     metaProps = extractMeta(babel, state, path);
   }
 

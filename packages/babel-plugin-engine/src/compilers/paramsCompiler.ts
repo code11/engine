@@ -1,6 +1,6 @@
-import { StructOperation } from "@c11/engine.types";
-import * as Babel from "@babel/core";
-import { ObjectPattern, ObjectProperty } from "@babel/types";
+import type { StructOperation } from "@c11/engine.types";
+import type * as Babel from "@babel/core";
+import type { ObjectPattern, ObjectProperty } from "@babel/types";
 
 export const paramsCompiler = (
   babel: typeof Babel,

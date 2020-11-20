@@ -1,4 +1,4 @@
-import * as Babel from "@babel/core";
+import type * as Babel from "@babel/core";
 import { PathArgs } from "@c11/engine.types";
 
 type ValueNodes =

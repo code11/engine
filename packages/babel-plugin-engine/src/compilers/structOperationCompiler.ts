@@ -1,6 +1,6 @@
+import type * as Babel from "@babel/core";
+import type { ObjectExpression, ObjectProperty } from "@babel/types";
 import { StructOperation, OperationTypes } from "@c11/engine.types";
-import * as Babel from "@babel/core";
-import { ObjectExpression, ObjectProperty } from "@babel/types";
 import { pathOperationCompiler } from "./pathOperationCompiler";
 import { funcOperationCompiler } from "./funcOperationCompiler";
 import { valueOperationCompiler } from "./valueOperationCompiler";

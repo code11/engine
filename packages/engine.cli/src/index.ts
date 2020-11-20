@@ -2,6 +2,7 @@
 import { engine, producers } from "@c11/engine";
 import * as create from "./create";
 import * as setup from "./setup";
+import "./global";
 
 engine({
   use: [

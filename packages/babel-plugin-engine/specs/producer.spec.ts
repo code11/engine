@@ -42,5 +42,3 @@ pluginTester({
     },
   },
 });
-
-export const foo = 123;

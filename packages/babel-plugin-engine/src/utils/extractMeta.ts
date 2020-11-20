@@ -1,5 +1,5 @@
-import * as Babel from "@babel/core";
-import { ProducerMeta } from "@c11/engine.types";
+import type * as Babel from "@babel/core";
+import type { ProducerMeta } from "@c11/engine.types";
 
 export const extractMeta = (
   babel: typeof Babel,

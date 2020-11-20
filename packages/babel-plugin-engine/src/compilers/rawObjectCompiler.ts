@@ -1,9 +1,9 @@
-import * as Babel from "@babel/core";
+import type * as Babel from "@babel/core";
+import type { ObjectExpression, ObjectProperty } from "@babel/types";
 import isString from "lodash/isString";
 import isPlainObject from "lodash/isPlainObject";
 import isArray from "lodash/isArray";
 import toNumber from "lodash/toNumber";
-import { ObjectExpression, ObjectProperty } from "@babel/types";
 
 export const rawObjectCompiler = (
   babel: typeof Babel,

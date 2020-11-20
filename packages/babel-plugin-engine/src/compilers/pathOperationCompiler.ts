@@ -1,10 +1,10 @@
-import * as Babel from "@babel/core";
-import {
+import type * as Babel from "@babel/core";
+import type {
   GetOperation,
   UpdateOperation,
   ObserveOperation,
 } from "@c11/engine.types";
-import { ObjectExpression } from "@babel/types";
+import type { ObjectExpression } from "@babel/types";
 
 import { pathCompiler } from "./pathCompiler";
 

@@ -36,3 +36,26 @@ test("Simple load of a react component", async (done) => {
   });
 });
 
+type view<T> = (props: any) => React.ReactElement<T>;
+
+type external = {
+  qux: number;
+  baz: number;
+};
+
+type props = {
+  qux: number;
+  foo?: string;
+  bar?: string;
+};
+
+const Foo: view<external> = ({
+  qux,
+  foo = observe.foo.bar.baz,
+  bar = observe.bam,
+}: props) => {
+  qux;
+  return <div></div>;
+};
+
+<Foo qux={123} baz={1} />;

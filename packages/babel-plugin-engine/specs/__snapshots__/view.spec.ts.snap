@@ -22,21 +22,9 @@ const foo = viewEngine({
         ],
       },
     },
-    meta: {
-      name: "foo",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 1,
-          column: 48,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ foo: foo }) => {},
 });
 const bar = viewEngine({
@@ -53,21 +41,9 @@ const bar = viewEngine({
         ],
       },
     },
-    meta: {
-      name: "bar",
-      location: {
-        start: {
-          line: 2,
-          column: 6,
-        },
-        end: {
-          line: 2,
-          column: 48,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ foo: foo }) => {},
 });
 
@@ -95,21 +71,9 @@ const foo = viewEngine({
         ],
       },
     },
-    meta: {
-      name: "foo",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 1,
-          column: 47,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ foo: foo }) => {},
 });
 
@@ -127,21 +91,9 @@ const foo = viewEngine({
   args: {
     type: "STRUCT",
     value: {},
-    meta: {
-      name: "foo",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 1,
-          column: 26,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({}) => {},
 });
 

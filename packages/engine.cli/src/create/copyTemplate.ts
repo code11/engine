@@ -16,6 +16,8 @@ export const copyTemplate: producer = async ({
     return;
   }
 
+  targetPath;
+
   await _ncp(sandboxPath, targetPath);
   await _rename(
     _resolve(targetPath, "gitignore"),
