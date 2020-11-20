@@ -55,9 +55,12 @@ export class Producer implements ProducerInstance {
   }
   private fnWrapper(...params: any[]) {
     this.stats.executionCount += 1;
+    if (this.debug) {
+      console.log(this.meta.relativeFilePath + ":" + this.meta.name, params);
+    }
     const result = this.fn.apply(null, params);
     if (result !== undefined && isFunction(result)) {
-      this.results.push(result)
+      this.results.push(result);
     }
   }
   mount() {
@@ -74,11 +77,11 @@ export class Producer implements ProducerInstance {
     }
     this.graph.destroy();
     this.state = ProducerStates.UNMOUNTED;
-    this.results.forEach(x => {
+    this.results.forEach((x) => {
       if (x) {
-        x()
+        x();
       }
-    })
+    });
     return this;
   }
   updateExternal(props: ProducerContext["props"]) {

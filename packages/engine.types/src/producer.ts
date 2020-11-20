@@ -108,15 +108,17 @@ export interface ProducerMeta {
   name?: string;
   location?: {
     start: {
-      line: number,
-      column: number
-    },
+      line: number;
+      column: number;
+    };
     end: {
-      line: number,
-      column: number
-    }
+      line: number;
+      column: number;
+    };
   };
-  fileName?: string;
+  absoluteFilePath?: string;
+  absoluteRootPath?: string;
+  relativeFilePath?: string;
 }
 
 export interface ProducerConfig {
@@ -145,9 +147,4 @@ export interface ProducerContext {
 
 export type OperationParams = {
   [k: string]: OperationParams | string | number | void | null;
-}
-
-
-
-
-
+};

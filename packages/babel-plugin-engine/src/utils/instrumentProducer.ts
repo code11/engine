@@ -4,10 +4,12 @@ import { structOperationCompiler, paramsCompiler } from "../compilers";
 import { Messages } from "../messages";
 import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
+import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
 
 export const instrumentProducer = (
   babel: typeof Babel,
-  state: PluginConfig,
+  config: PluginConfig,
+  state: Babel.PluginPass,
   path: Babel.NodePath<Babel.types.VariableDeclarator>
 ) => {
   const t = babel.types;
@@ -25,14 +27,18 @@ export const instrumentProducer = (
   }
 
   const parsedParam = paramParser(babel, param);
+  let metaProps = {};
   if (process.env.NODE_ENV !== "production") {
-    parsedParam.meta = extractMeta(babel, path);
+    metaProps = extractMeta(babel, state, path);
   }
-  const args = structOperationCompiler(babel, parsedParam);
 
+  const args = structOperationCompiler(babel, parsedParam);
+  const meta = rawObjectCompiler(babel, metaProps);
   fn.params = paramsCompiler(babel, parsedParam);
+
   const result = t.objectExpression([
     t.objectProperty(t.identifier("args"), args),
+    t.objectProperty(t.identifier("meta"), meta),
     t.objectProperty(t.identifier("fn"), fn),
   ]);
 

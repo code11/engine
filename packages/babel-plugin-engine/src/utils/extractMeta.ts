@@ -3,6 +3,7 @@ import { ProducerMeta } from "@c11/engine.types";
 
 export const extractMeta = (
   babel: typeof Babel,
+  state: Babel.PluginPass,
   path: Babel.NodePath<Babel.types.VariableDeclarator>
 ) => {
   const t = babel.types;
@@ -10,7 +11,7 @@ export const extractMeta = (
   const result: ProducerMeta = {};
 
   if (t.isIdentifier(node.id)) {
-    result.name = node.id.name
+    result.name = node.id.name;
   }
   const loc = path.node.loc;
   if (loc) {
@@ -24,8 +25,12 @@ export const extractMeta = (
         column: loc.end.column,
       },
     };
-    //@ts-ignore
-    result.fileName = loc.filename;
+    result.absoluteFilePath = state.file.opts.filename || "";
+    result.absoluteRootPath = state.file.opts.root || "";
+    result.relativeFilePath = result.absoluteFilePath.replace(
+      result.absoluteRootPath + "/",
+      ""
+    );
   }
 
   return result;
