@@ -1,16 +1,29 @@
 import { writeFile } from "fs";
 import { promisify } from "util";
 import { JSONSchemaForNPMPackageJsonFiles } from "@schemastore/package";
+import { CreateTemplateTarget } from "../state";
+
+const pWriteFile = promisify(writeFile);
+
+type props = {
+  _writeFile: typeof pWriteFile;
+  target: State["create"]["templateConfig"]["target"];
+  packageConfig: Get<State["create"]["templateConfig"]["package"]>;
+  getScripts: Get<State["config"]["scripts"][CreateTemplateTarget]>;
+  appName: Get<State["create"]["config"]["appName"]>;
+  getTargetPath: Get<State["create"]["config"]["targetPackageJsonPath"]>;
+  flag: Update<State["create"]["flags"]["isPackageJsonReady"]>;
+};
 
 export const writePackageJson: producer = async ({
-  _writeFile = promisify(writeFile),
+  _writeFile = pWriteFile,
   target = observe.create.templateConfig.target,
   packageConfig = get.create.templateConfig.package,
   getScripts = get.config.scripts[arg.target],
   appName = get.create.config.appName,
   getTargetPath = get.create.config.targetPackageJsonPath,
   flag = update.create.flags.isPackageJsonReady,
-}) => {
+}: props) => {
   if (!target) {
     return;
   }
@@ -18,6 +31,7 @@ export const writePackageJson: producer = async ({
   const scripts = getScripts.value();
   const name = appName.value();
   const targetPath = getTargetPath.value();
+  const config = packageConfig.value();
 
   console.log("scripts", scripts);
 
@@ -38,7 +52,7 @@ export const writePackageJson: producer = async ({
       [scripts.packageName]: scripts.version,
     },
     dependencies: {
-      ...packageConfig.dependencies,
+      ...config.dependencies,
     },
   };
 

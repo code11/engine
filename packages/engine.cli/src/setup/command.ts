@@ -1,10 +1,16 @@
 import commander from "commander";
 
+type props = {
+  _commander: typeof commander;
+  version: State["config"]["version"];
+  startCreate: Update<State["create"]["triggers"]["start"]>;
+};
+
 export const command: producer = ({
   _commander = commander,
   version = observe.config.version,
   startCreate = update.create.triggers.start,
-}) => {
+}: props) => {
   if (!version) {
     return;
   }

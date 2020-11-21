@@ -30,7 +30,7 @@
     "tsc": "tsc --project tsconfig.json --listFiles",
     "build": "babel src --out-dir dist --extensions \".ts\"",
     "clean": "rm -rf ./dist && rm -rf ./foo",
-    "execute": "chmod +x dist/index.js && ./dist/index.js create foo",
+    "execute": "NODE_ENV=development chmod +x dist/index.js && ./dist/index.js create foo",
     "start": "yarn clean && yarn build && yarn execute",
     "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"

@@ -1,12 +1,22 @@
 import { mkdir, readdir } from "fs";
 import { promisify } from "util";
 
+const pReaddir = promisify(readdir);
+const pMkdir = promisify(mkdir);
+
+type props = {
+  _readdir: typeof pReaddir;
+  _mkdir: typeof pMkdir;
+  targetPath: State["create"]["config"]["targetPath"];
+  isAppFolderReady: Update<State["create"]["flags"]["isAppFolderReady"]>;
+};
+
 export const prepareAppFolder: producer = async ({
-  _readdir = promisify(readdir),
-  _mkdir = promisify(mkdir),
+  _readdir = pReaddir,
+  _mkdir = pMkdir,
   targetPath = observe.create.config.targetPath,
   isAppFolderReady = update.create.flags.isAppFolderReady,
-}) => {
+}: props) => {
   if (!targetPath) {
     return;
   }

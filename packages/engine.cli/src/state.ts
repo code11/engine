@@ -5,7 +5,7 @@ export enum CreateTemplateTarget {
   WEB = "web",
 }
 
-export type EngineScripts = {
+export type EngineScript = {
   target: CreateTemplateTarget;
   packageName: string;
   binName: string;
@@ -19,7 +19,7 @@ export type State = {
     commandPath: DirPath;
     packagePath: DirPath;
     scripts: {
-      [k in CreateTemplateTarget]: EngineScripts;
+      [k in CreateTemplateTarget]: EngineScript;
     };
   };
   create: {
@@ -38,6 +38,7 @@ export type State = {
       templatePath: DirPath;
       templateSandboxPath: DirPath;
       templateConfigFilePath: DirPath;
+      targetPackageJsonPath: DirPath;
     };
     templateConfig: {
       target: CreateTemplateTarget;

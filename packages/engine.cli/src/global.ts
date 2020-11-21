@@ -1,7 +1,8 @@
-import { State } from "./state";
+import { State as StateStructure } from "./state";
 
 declare global {
-  type producer = (props: any) => void;
+  type State = StateStructure;
+  type producer = (props: any) => any;
   type view<T = {}> = (props: any) => React.ReactElement<T> | void;
   const observe: State;
   const get: any;
@@ -16,9 +17,12 @@ declare global {
 
   type Update<T, P = {}> = {
     set: (value: T, params?: Params<P>) => void;
-    merge: (value: T, params?: Params<P>) => void;
+    merge: (value: Partial<T>, params?: Params<P>) => void;
     remove: (params?: Params<P>) => void;
-    push: (value: T, params?: Params<P>) => void;
+    push: (
+      value: T extends (infer R)[] ? R : unknown,
+      params?: Params<P>
+    ) => void;
     pop: (params?: Params<P>) => void;
   };
 

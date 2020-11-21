@@ -1,12 +1,20 @@
 import { resolve } from "path";
 
+type props = {
+  _resolve: typeof resolve;
+  commandPath: State["config"]["commandPath"];
+  appName: State["create"]["config"]["appName"];
+  templateName: State["create"]["config"]["templateName"];
+  config: Update<State["create"]["config"]>;
+};
+
 export const config: producer = ({
   _resolve = resolve,
   commandPath = observe.config.commandPath,
   appName = observe.create.config.appName,
   templateName = observe.create.config.templateName,
   config = update.create.config,
-}) => {
+}: props) => {
   if (!commandPath || !appName || !templateName) {
     return;
   }
