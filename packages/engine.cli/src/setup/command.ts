@@ -23,8 +23,8 @@ export const command: producer = ({
     .option(
       "-t, --template <template>",
       "If the template name starts with @, then then the template package used will match the option value\nOtherwise, the template package used will be @c11/template.<template>",
-      // "@c11/engine.templates-app"
-      "cra-template-engine"
+      "@c11/engine.templates-react"
+      // "cra-template-engine"
     )
     .action((name: string, cmd: commander.Command) => {
       const opts = cmd.opts();

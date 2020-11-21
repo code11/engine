@@ -6,3 +6,4 @@ export { copyTemplate } from "./copyTemplate";
 export { readTemplateConfig } from "./readTemplateConfig";
 export { writePackageJson } from "./writePackageJson";
 export { installDependencies } from "./installDependencies";
+export { cleanup } from "./cleanup";

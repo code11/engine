@@ -1,5 +1,4 @@
 import { spawn } from "child_process";
-// import { promisify } from "util";
 
 type props = {
   _spawn: typeof spawn;
@@ -25,9 +24,13 @@ export const installDependencies: producer = async ({
 
   console.log(targetPath);
 
-  const install = _spawn("npm", ["install"], {
-    cwd: targetPath,
-  });
+  const install = _spawn(
+    "yarn",
+    ["install", "--registry=http://localhost:4873"],
+    {
+      cwd: targetPath,
+    }
+  );
 
   install.stdout.on("data", (data) => {
     // console.log(`stdout: ${data}`);
@@ -43,6 +46,4 @@ export const installDependencies: producer = async ({
     }
     flag.set(true);
   });
-
-  // flag.set(true);
 };

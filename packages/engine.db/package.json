@@ -26,6 +26,7 @@
     "@c11/engine.types": "^4.0.0-alpha.8",
     "clone-deep": "^4.0.1",
     "lodash": "^4.17.20",
+    "setimmediate": "^1.0.5",
     "uniq": "^1.0.1"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521",

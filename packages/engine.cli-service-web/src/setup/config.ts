@@ -3,7 +3,6 @@ import { readFile } from "fs";
 import { promisify } from "util";
 import { resolve } from "path";
 import { JSONSchemaForNPMPackageJsonFiles } from "@schemastore/package";
-import { CreateTemplateTarget } from "../state";
 
 const pReadFile = promisify(readFile);
 
@@ -34,25 +33,5 @@ export const config: producer = async ({
     version: result.version,
     packagePath: root,
     commandPath: _cwd(),
-    scripts: {
-      [CreateTemplateTarget.NODE]: {
-        target: CreateTemplateTarget.NODE,
-        packageName: "@c11/engine.cli-service-node",
-        binName: "engine-node-scripts",
-        version:
-          (result.devDependencies &&
-            result.devDependencies["@c11/engine.cli-service-node"]) ||
-          "",
-      },
-      [CreateTemplateTarget.WEB]: {
-        target: CreateTemplateTarget.WEB,
-        packageName: "@c11/engine.cli-service-web",
-        binName: "engine-web-scripts",
-        version:
-          (result.devDependencies &&
-            result.devDependencies["@c11/engine.cli-service-web"]) ||
-          "4.0.0-alpha.9",
-      },
-    },
   });
 };

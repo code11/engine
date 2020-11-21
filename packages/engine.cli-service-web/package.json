@@ -1,18 +1,18 @@
 {
-  "name": "@c11/engine.cli",
+  "name": "@c11/engine.cli-service-web",
   "version": "4.0.0-alpha.9",
-  "description": "A cli for creating and analysing engine applications",
+  "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {
-    "engine": "dist/index.js"
+    "engine-web-scripts": "dist/index.js"
   },
   "typings": "dist/index.d.ts",
   "license": "MIT",
-  "author": {
-    "name": "Cristian Buta",
-    "email": "cristian.daniel.buta@gmail.com"
-  },
   "contributors": [
+    {
+      "name": "Cristian Buta",
+      "email": "cristian.daniel.buta@gmail.com"
+    },
     {
       "name": "Constantin Dumitrescu",
       "email": "dum.constantin@gmail.com"
@@ -29,9 +29,7 @@
     "build:declaration": "tsc --project tsconfig.build.json",
     "tsc": "tsc --project tsconfig.json --listFiles",
     "build": "babel src --out-dir dist --extensions \".ts\"",
-    "clean": "rm -rf ./dist && rm -rf ./test",
-    "execute": "chmod +x dist/index.js && NODE_ENV=development ./dist/index.js create test",
-    "start": "yarn clean && yarn build && yarn execute",
+    "start": "NODE_ENV=development ./dist/index.js start",
     "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
