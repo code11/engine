@@ -1,6 +1,6 @@
 {
   "name": "@c11/babel-plugin-engine",
-  "version": "4.0.0-alpha.8",
+  "version": "4.0.0-alpha.10",
   "description": "Compile engine keywords into code",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "@babel/core": "^7.12.3",
     "@babel/plugin-syntax-typescript": "^7.12.1",
     "@babel/types": "^7.12.6",
-    "@c11/engine.types": "^4.0.0-alpha.8",
+    "@c11/engine.types": "^4.0.0-alpha.10",
     "babel-plugin-tester": "^10.0.0",
     "prettier": "^2.1.2"
   }

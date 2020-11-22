@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.cli-service-web",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0-alpha.10",
   "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {
@@ -42,9 +42,9 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
-    "@c11/babel-plugin-engine": "^4.0.0-alpha.8",
-    "@c11/engine": "^4.0.0-alpha.9",
-    "@c11/engine.react": "^4.0.0-alpha.9",
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.10",
+    "@c11/engine": "^4.0.0-alpha.10",
+    "@c11/engine.react": "^4.0.0-alpha.10",
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
     "autoprefixer": "^10.0.2",
     "babel-plugin-module-rewrite": "^0.2.0",
