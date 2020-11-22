@@ -5,6 +5,7 @@ import { BaseProps, BaseState } from "./types";
 import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine.types";
 import { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
+import type { RenderContext } from "./render";
 
 // TopLevel{
 //   ErrorManagement,
@@ -43,10 +44,13 @@ export function view({ args, fn, meta }: ViewConfig) {
     isStateReady = false;
     ref: any;
     instance: ViewInstance;
-    constructor(props: BaseProps, context: any) {
+    constructor(props: BaseProps, context: RenderContext) {
       super(props, context);
-      context.props = props;
-      context.keepReferences = ["external.children"];
+      const viewContext = {
+        props,
+        keepReferences: ["external.children"],
+        ...context.config,
+      };
       this.args = args;
       this.ref = React.createRef();
       const viewProducer = {
@@ -54,10 +58,10 @@ export function view({ args, fn, meta }: ViewConfig) {
         fn: this.updateData.bind(this),
         meta,
       };
-      this.producers = [context.addProducer(viewProducer, context)];
+      this.producers = [context.module.addProducer(viewProducer, viewContext)];
       const producers = (this.constructor as any).producers || [];
       producers.forEach((x: any) => {
-        this.producers.push(context.addProducer(x, context));
+        this.producers.push(context.module.addProducer(x, viewContext));
       });
       this.instance = {
         id: shortid.generate(),

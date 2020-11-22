@@ -1,11 +1,19 @@
-export type DirPath = string;
+export type Path = string;
 
 export type State = {
   config: {
     name: string;
     version: string;
-    commandPath: DirPath;
-    packagePath: DirPath;
+    commandPath: Path;
+    packagePath: Path;
+    srcPath: Path;
+    entryPath: Path;
+    distPath: Path;
+    publicPath: Path;
+    publicIndexPath: Path;
+    nodeModulesPath: Path;
+    overrideModulesPath: Path;
+    replacerPath: Path;
   };
   start: {
     flags: {};

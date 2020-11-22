@@ -2,6 +2,7 @@ import db from "@c11/engine.db";
 import { Producer } from "../src";
 import { path } from "../src/path";
 import { wildcard } from "../src/wildcard";
+import "./global";
 
 jest.useFakeTimers();
 

@@ -19,12 +19,11 @@ export const command: producer = ({
   _commander.version(version).usage("<command> [options]");
 
   _commander
-    .command("start <app-name>")
+    .command("start")
     .description("Start the application")
-    .action((name: string, cmd: commander.Command) => {
-      const opts = cmd.opts();
+    .action((cmd: commander.Command) => {
       start.set({
-        opts,
+        opts: (cmd && cmd.opts && cmd.opts()) || {},
         timestamp: performance.now(),
       });
     });
