@@ -1,5 +1,6 @@
 {
   "name": "@c11/engine.template-express",
+  "private": true,
   "version": "4.0.0-alpha.10",
   "license": "MIT",
   "keywords": [
