@@ -1,4 +1,3 @@
 package.json
 packages/**/dist/
-packages/**/build/
 .*

@@ -25,5 +25,15 @@ export type State = {
       };
     };
   };
+  build: {
+    flags: {};
+    config: {};
+    triggers: {
+      init: {
+        opts: any;
+        timestamp: number;
+      };
+    };
+  };
   err: any;
 };

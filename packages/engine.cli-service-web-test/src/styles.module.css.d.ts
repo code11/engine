@@ -1,5 +1,6 @@
 declare namespace StylesModuleCssNamespace {
   export interface IStylesModuleCss {
+    container: string;
     foo: string;
   }
 }

@@ -78,6 +78,7 @@
     }
   },
   "dependencies": {
-    "csstype": "^3.0.5"
+    "csstype": "^3.0.5",
+    "postcss-import": "^13.0.0"
   }
 }

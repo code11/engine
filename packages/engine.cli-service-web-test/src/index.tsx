@@ -9,7 +9,7 @@ const initial: State = {
 
 engine({
   state: initial,
-  use: [renderReact(<App />, "#app", { debug: true })],
+  use: [renderReact(<App />, "#app")],
 }).start();
 
 // Each renderer can have a state where it stores if it finished rendering/mounting/etc

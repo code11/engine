@@ -1,11 +1,13 @@
 import webpack, { Configuration } from "webpack";
-import WebpackDevServer from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 type props = {
   _webpack: typeof webpack;
-  _WebpackDevServer: typeof WebpackDevServer;
   _HtmlWebpackPlugin: typeof HtmlWebpackPlugin;
+  _BundleAnalyzerPlugin: typeof BundleAnalyzerPlugin;
+  _MiniCssExtractPlugin: typeof MiniCssExtractPlugin;
   trigger: State["start"]["triggers"]["init"];
   entryPath: Get<State["config"]["entryPath"]>;
   packagePath: Get<State["config"]["packagePath"]>;
@@ -18,9 +20,10 @@ type props = {
 
 export const init: producer = ({
   _webpack = webpack,
-  _WebpackDevServer = WebpackDevServer,
   _HtmlWebpackPlugin = HtmlWebpackPlugin,
-  trigger = observe.start.triggers.init,
+  _BundleAnalyzerPlugin = BundleAnalyzerPlugin,
+  _MiniCssExtractPlugin = MiniCssExtractPlugin,
+  trigger = observe.build.triggers.init,
   entryPath = get.config.entryPath,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
@@ -34,11 +37,12 @@ export const init: producer = ({
   }
 
   const config = {
-    mode: "development",
-    devtool: "eval-source-map",
+    mode: "production",
+    devtool: "source-map",
     entry: entryPath.value(),
     output: {
       path: distPath.value(),
+      filename: "[name].[contenthash:8].js",
     },
     resolve: {
       extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -115,7 +119,12 @@ export const init: producer = ({
           test: /\.css$/,
           exclude: /\.module\.css$/,
           use: [
-            "style-loader",
+            {
+              loader: _MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: "/",
+              },
+            },
             {
               loader: "css-loader",
               options: { modules: false, importLoaders: 1 },
@@ -125,8 +134,12 @@ export const init: producer = ({
         {
           test: /\.module.css$/,
           use: [
-            "style-loader",
-            "@teamsupercell/typings-for-css-modules-loader",
+            {
+              loader: _MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: "/",
+              },
+            },
             {
               loader: "css-loader",
               options: {
@@ -153,18 +166,60 @@ export const init: producer = ({
     },
     plugins: [
       // new Webpack.HotModuleReplacementPlugin(),
-      // new _webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
+      new _BundleAnalyzerPlugin(),
+      new _webpack.ids.HashedModuleIdsPlugin(),
       new _webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-        "process.env.DEBUG": JSON.stringify(process.env.DEBUG),
+        "process.env.NODE_ENV": JSON.stringify("production"),
+        "process.env.DEBUG": JSON.stringify(false),
       }),
       new _HtmlWebpackPlugin({
         template: publicIndexPath.value(),
       }),
+      new _MiniCssExtractPlugin({
+        filename: "[name].css",
+        chunkFilename: "[id].css",
+      }),
     ],
+    optimization: {
+      runtimeChunk: "single",
+      splitChunks: {
+        chunks: "all",
+        maxInitialRequests: Infinity,
+        minSize: 0,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // get the name. E.g. node_modules/packageName/not/this/part.js
+              // or node_modules/packageName
+              const packageName = module.context.match(
+                /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+              )[1];
+
+              // npm package names are URL-safe, but some servers don't like @ symbols
+              return `npm.${packageName.replace("@", "")}`;
+            },
+          },
+        },
+      },
+    },
   } as Configuration;
 
-  const server = new _WebpackDevServer(_webpack(config));
-
-  server.listen(8081, "0.0.0.0");
+  _webpack(config, (err, stats) => {
+    if (err) {
+      console.error(err.stack || err);
+      return;
+    }
+    if (stats) {
+      const info = stats.toJson();
+      if (stats.hasErrors()) {
+        console.error(info.errors);
+      }
+      if (stats.hasWarnings()) {
+        console.warn(info.warnings);
+      }
+      console.log(stats.toString());
+    }
+    console.log(`Build complete`);
+  });
 };
