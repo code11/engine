@@ -1,9 +1,18 @@
 import { ModuleContext, MacroProducerType } from "@c11/engine.types";
 
-export const producers = (list: MacroProducerType[]) => {
+type Config = {
+  debug?: boolean;
+};
+
+export const producers = (list: MacroProducerType[], config: Config = {}) => {
   return {
     mount: (context: ModuleContext) => {
-      list.map((x) => context.addProducer(x)).map((x) => x.mount());
+      const producerContext = {
+        debug: config.debug || false,
+      };
+      list
+        .map((x) => context.addProducer(x, producerContext))
+        .map((x) => x.mount());
       return Promise.resolve();
     },
     unmount: (context: ModuleContext) => {

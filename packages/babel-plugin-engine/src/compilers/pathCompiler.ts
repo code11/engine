@@ -1,6 +1,6 @@
 import { InvokablePath, ValueTypes } from "@c11/engine.types";
-import * as Babel from "@babel/core";
-import { ArrayExpression } from "@babel/types";
+import type * as Babel from "@babel/core";
+import type { ArrayExpression } from "@babel/types";
 
 export const pathCompiler = (
   babel: typeof Babel,

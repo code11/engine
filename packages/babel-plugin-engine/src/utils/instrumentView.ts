@@ -1,4 +1,4 @@
-import * as Babel from "@babel/core";
+import type * as Babel from "@babel/core";
 import { EngineKeywords } from "@c11/engine.types";
 import { paramParser } from "../parsers";
 import { structOperationCompiler, paramsCompiler } from "../compilers";
@@ -6,10 +6,12 @@ import { Messages } from "../messages";
 import { addNamedImport } from "./addNamedImport";
 import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
+import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
 
 export const instrumentView = (
   babel: typeof Babel,
-  state: PluginConfig,
+  config: PluginConfig,
+  state: Babel.PluginPass,
   path: Babel.NodePath<Babel.types.VariableDeclarator>
 ) => {
   const t = babel.types;
@@ -27,13 +29,18 @@ export const instrumentView = (
   }
 
   const parsedParam = paramParser(babel, param);
-  if (process.env.NODE_ENV !== "production") {
-    parsedParam.meta = extractMeta(babel, path);
+  let metaProps = {};
+  if (process.env.NODE_ENV === "development") {
+    metaProps = extractMeta(babel, state, path);
   }
+
   fn.params = paramsCompiler(babel, parsedParam);
   const args = structOperationCompiler(babel, parsedParam);
+  const meta = rawObjectCompiler(babel, metaProps);
+
   const result = t.objectExpression([
     t.objectProperty(t.identifier("args"), args),
+    t.objectProperty(t.identifier("meta"), meta),
     t.objectProperty(t.identifier("fn"), fn),
   ]);
 
@@ -43,11 +50,9 @@ export const instrumentView = (
   const alias = addNamedImport(
     babel,
     program,
-    state.viewLibrary,
+    config.viewLibrary,
     EngineKeywords.VIEW
   );
 
   node.init = t.callExpression(t.identifier(alias), [result]);
-
-
 };

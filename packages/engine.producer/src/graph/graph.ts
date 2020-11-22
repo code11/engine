@@ -26,6 +26,7 @@ import { wildcard } from "../wildcard";
 export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
+  private prevData: any;
   db: DatastoreInstance;
   props: any;
   data: GraphData = {};
@@ -140,6 +141,12 @@ export class Graph {
         return acc;
       }, {});
     }
+
+    const currentData = data;
+    if (isEqual(this.prevData, data)) {
+      return;
+    }
+    this.prevData = currentData;
     this.cb.call(null, data);
   }
 

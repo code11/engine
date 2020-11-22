@@ -1,0 +1,21 @@
+{
+  "name": "@c11/engine.templates-express",
+  "version": "4.0.0-alpha.9",
+  "license": "MIT",
+  "keywords": [
+    "template"
+  ],
+  "description": "The base template for Engine apps.",
+  "scripts": {
+    "test": "echo \"no tests available for this package\" ",
+    "build": "echo \"no build available for this package\" ",
+    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
+  },
+  "dependencies": {
+    "@c11/engine": "^4.0.0-alpha.9",
+    "@c11/engine.types": "^4.0.0-alpha.8"
+  },
+  "devDependencies": {
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.8"
+  }
+}

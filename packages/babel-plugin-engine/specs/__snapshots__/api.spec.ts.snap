@@ -145,21 +145,9 @@ const a = {
         ],
       },
     },
-    meta: {
-      name: "a",
-      location: {
-        start: {
-          line: 7,
-          column: 6,
-        },
-        end: {
-          line: 14,
-          column: 10,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ a1: a1, a2: a2, a3: a3, a4: a4, a5: a5, a6: a6 }) => {},
 };
 
@@ -210,21 +198,9 @@ const result = {
         },
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 6,
-          column: 9,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ a1: a1, a2: a2, a3: a3, a4: a4 }) => {},
 };
 
@@ -398,21 +374,9 @@ const result = {
         ],
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 14,
-          column: 9,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({
     a1: a1,
     a2: a2,
@@ -529,21 +493,9 @@ const result = {
         },
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 10,
-          column: 9,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ a1: a1, a2: a2, a3: a3, a4: a4, a5: a5, a6: a6 }) => {},
 };
 
@@ -594,21 +546,9 @@ const result = {
         },
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 6,
-          column: 9,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ bam: bam, foo: foo, bar: bar, baz: baz }) => {},
 };
 
@@ -782,21 +722,9 @@ const result = {
         ],
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 14,
-          column: 9,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({
     a1: a1,
     a2: a2,
@@ -870,21 +798,9 @@ const foo = {
         ],
       },
     },
-    meta: {
-      name: "foo",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 5,
-          column: 8,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ id: id, boo: boo, bar: bar }) => {},
 };
 

@@ -2,10 +2,12 @@ import {
   DatastoreInstance,
   GraphStructure,
   UpdateOperation,
-  OperationParams
+  OperationParams,
 } from "@c11/engine.types";
 import isArray from "lodash/isArray";
 import { getInvokablePath } from "./getInvokablePath";
+
+export const UpdateOperationSymbol = Symbol("update");
 
 export const updateOperation = (
   db: DatastoreInstance,
@@ -57,16 +59,16 @@ export const updateOperation = (
   const push = (value: any, params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
-      const val = db.get(path)
+      const val = db.get(path);
       if (!isArray(val)) {
         // console.error('path is not an array')
-        return
+        return;
       }
-      val.push(value)
+      val.push(value);
       const patch = {
         op: "add",
         path: path,
-        value: val
+        value: val,
       };
       db.patch([patch]);
     }
@@ -74,26 +76,32 @@ export const updateOperation = (
   const pop = (params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
-      const val = db.get(path)
+      const val = db.get(path);
       if (!isArray(val)) {
         // console.error('path is not an array')
-        return
+        return;
       }
-      val.pop()
+      val.pop();
       const patch = {
         op: "add",
         path: path,
-        value: val
+        value: val,
       };
       db.patch([patch]);
     }
   };
 
-  return {
+  const operation = {
     set,
     merge,
     remove,
     push,
-    pop
-  }
+    pop,
+    __operation__: {
+      symbol: UpdateOperationSymbol,
+      path: op.path,
+    },
+  };
+
+  return operation;
 };

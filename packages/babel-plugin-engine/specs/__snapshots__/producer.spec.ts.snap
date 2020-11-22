@@ -20,21 +20,9 @@ const foo = {
         ],
       },
     },
-    meta: {
-      name: "foo",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 1,
-          column: 51,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ foo: foo }) => {},
 };
 

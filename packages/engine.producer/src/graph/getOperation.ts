@@ -14,6 +14,8 @@ import isFunction from "lodash/isFunction";
 
 // TODO: Return a false or error if the path was not generated
 
+export const GetOperationSymbol = Symbol("get");
+
 export const getOperation = (
   db: DatastoreInstance,
   structure: GraphStructure,
@@ -24,30 +26,37 @@ export const getOperation = (
     if (path) {
       return db.get(path);
     }
-    return
+    return;
   };
   const includes = (value: any, params: OperationParams): void | boolean => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const val = db.get(path);
       if (isArray(val) || isString(val)) {
-        return val.includes(value)
+        return val.includes(value);
       }
     }
-  }
+  };
   const length = (params: OperationParams): void | number => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const val = db.get(path);
       if (!(isString(val) || isArray(val) || isFunction(val))) {
-        return
+        return;
       }
-      return val.length
+      return val.length;
     }
-  }
-  return {
+  };
+
+  const operation = {
     value,
     includes,
-    length
+    length,
+    __operation__: {
+      symbol: GetOperationSymbol,
+      path: op.path,
+    },
   };
+
+  return operation;
 };

@@ -1,0 +1,4 @@
+.foo {
+  @apply italic;
+  background: red;
+}

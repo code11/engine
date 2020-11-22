@@ -52,6 +52,8 @@
     "node": ">=9"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
@@ -68,13 +70,15 @@
     "lerna": "^3.22.1",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.3",
-    "typescript": "^4.0.5",
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3"
+    "typescript": "^4.0.5"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "csstype": "^3.0.5",
+    "postcss-import": "^13.0.0"
   }
 }

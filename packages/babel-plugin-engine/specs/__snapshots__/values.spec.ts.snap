@@ -87,21 +87,9 @@ const result = {
         },
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 2,
-          column: 6,
-        },
-        end: {
-          line: 13,
-          column: 9,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({
     a1: a1,
     a2: a2,
@@ -142,21 +130,9 @@ const result = {
         },
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 3,
-          column: 8,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ a1: a1 }) => {},
 };
 
@@ -207,21 +183,9 @@ const result = {
         },
       },
     },
-    meta: {
-      name: "result",
-      location: {
-        start: {
-          line: 1,
-          column: 6,
-        },
-        end: {
-          line: 8,
-          column: 8,
-        },
-      },
-      fileName: undefined,
-    },
+    meta: {},
   },
+  meta: {},
   fn: ({ a1: a1 }) => {},
 };
 

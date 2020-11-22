@@ -15,7 +15,7 @@
   "scripts": {
     "build:declaration": "tsc --project tsconfig.build.json",
     "build": "tsc",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/**/*",
+    "test": "jest --clear-cache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/**/*",
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./specs/**/*"
   },
   "devDependencies": {
@@ -26,6 +26,8 @@
     "@c11/engine.types": "^4.0.0-alpha.8",
     "clone-deep": "^4.0.1",
     "lodash": "^4.17.20",
+    "postcss": "^8.1.9",
+    "setimmediate": "^1.0.5",
     "uniq": "^1.0.1"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521",

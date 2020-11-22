@@ -2,6 +2,7 @@ import db from "@c11/engine.db";
 import { Producer } from "../src";
 import { path } from "../src/path";
 import { wildcard } from "../src/wildcard";
+import "./global";
 
 jest.useFakeTimers();
 
@@ -565,16 +566,16 @@ test("should support the full api for the get operation", () => {
     c = get.c,
     d = get.d,
     e = get.e,
-    f = get.f
+    f = get.f,
   }) => {
-    expect(a.value()).toBe('abc1')
-    expect(b.value({prop: 'bar'})).toBe('123')
-    expect(c.includes('foo')).toBe(true)
-    expect(c.includes('baz')).toBe(false)
-    expect(d.length()).toBe(4)
-    expect(e.includes('bam')).toBe(true)
-    expect(e.includes('qux')).toBe(false)
-    expect(f.length()).toBe(3)
+    expect(a.value()).toBe("abc1");
+    expect(b.value({ prop: "bar" })).toBe("123");
+    expect(c.includes("foo")).toBe(true);
+    expect(c.includes("baz")).toBe(false);
+    expect(d.length()).toBe(4);
+    expect(e.includes("bam")).toBe(true);
+    expect(e.includes("qux")).toBe(false);
+    expect(f.length()).toBe(3);
   };
   run(struct, {
     a: "abc1",
@@ -583,31 +584,29 @@ test("should support the full api for the get operation", () => {
     },
     c: ["foo"],
     d: [1, 2, 3, 4],
-    e: 'foo bam baz',
-    f: (a, b, c) => {}
+    e: "foo bam baz",
+    f: (a, b, c) => {},
   });
   jest.runAllTimers();
 });
 
 test("should support unmount lifecycle method", () => {
-  const struct: producer = ({
-    a = update.a,
-  }) => {
+  const struct: producer = ({ a = update.a }) => {
     const id = setInterval(() => {
-      a.push('a')
-    }, 500)
+      a.push("a");
+    }, 500);
     return () => {
-      clearInterval(id)
-    }
+      clearInterval(id);
+    };
   };
   const result = run(struct, {
-    a: []
+    a: [],
   });
   jest.advanceTimersByTime(1000);
-  result.producer.unmount()
+  result.producer.unmount();
   jest.advanceTimersByTime(1000);
   jest.runOnlyPendingTimers();
-  expect(result.db.get("/a")).toEqual(['a', 'a']);
+  expect(result.db.get("/a")).toEqual(["a", "a"]);
 });
 
 test("#40: setting nested paths issue", () => {
@@ -624,75 +623,100 @@ test("#40: setting nested paths issue", () => {
     j = update.j.bar.baz,
     k = update.k.bar.baz,
   }) => {
-    a.set({x: 'a'})
-    b.set({x: 'a'})
-    c.set({x: 'a'})
-    d.set({x: 'a'})
-    e.set({x: 'a'})
-    f.set({x: 'a'})
-    g.set({x: 'a'})
-    h.set({x: 'a'})
-    i.set({x: 'a'})
-    j.set({x: 'a'})
-    k.set({x: 'a'})
+    a.set({ x: "a" });
+    b.set({ x: "a" });
+    c.set({ x: "a" });
+    d.set({ x: "a" });
+    e.set({ x: "a" });
+    f.set({ x: "a" });
+    g.set({ x: "a" });
+    h.set({ x: "a" });
+    i.set({ x: "a" });
+    j.set({ x: "a" });
+    k.set({ x: "a" });
   };
   const result = run(struct, {
     a: false,
     b: null,
     c: undefined,
     d: true,
-    e: 'a',
+    e: "a",
     f: 123,
     g: 0,
     h: [1, 2],
     i: {
-      bam: 'b'
+      bam: "b",
     },
     j: {
-      bar: 'b'
+      bar: "b",
     },
     k: {
-      bam: 'a',
+      bam: "a",
       bar: {
-        bam: 'c',
-        baz: 'b'
-      }
-    }
+        bam: "c",
+        baz: "b",
+      },
+    },
   });
   jest.runAllTimers();
   const expected = {
     bar: {
       baz: {
-        x: 'a'
-      }
-    }
-  }
-  expect(result.db.get("/a")).toEqual(expected)
-  expect(result.db.get("/b")).toEqual(expected)
-  expect(result.db.get("/c")).toEqual(expected)
-  expect(result.db.get("/d")).toEqual(expected)
-  expect(result.db.get("/e")).toEqual(expected)
-  expect(result.db.get("/f")).toEqual(expected)
-  expect(result.db.get("/g")).toEqual(expected)
-  expect(result.db.get("/h")).toEqual(expected)
+        x: "a",
+      },
+    },
+  };
+  expect(result.db.get("/a")).toEqual(expected);
+  expect(result.db.get("/b")).toEqual(expected);
+  expect(result.db.get("/c")).toEqual(expected);
+  expect(result.db.get("/d")).toEqual(expected);
+  expect(result.db.get("/e")).toEqual(expected);
+  expect(result.db.get("/f")).toEqual(expected);
+  expect(result.db.get("/g")).toEqual(expected);
+  expect(result.db.get("/h")).toEqual(expected);
   expect(result.db.get("/i")).toEqual({
-    bam: 'b',
+    bam: "b",
     bar: {
       baz: {
-        x: 'a'
-      }
-    }
-  })
-  expect(result.db.get("/j")).toEqual(expected)
+        x: "a",
+      },
+    },
+  });
+  expect(result.db.get("/j")).toEqual(expected);
   expect(result.db.get("/k")).toEqual({
-    bam: 'a',
+    bam: "a",
     bar: {
-      bam: 'c',
+      bam: "c",
       baz: {
-        x: 'a'
-      }
-    }
-  })
+        x: "a",
+      },
+    },
+  });
+});
+
+test("should not call more than once with same data", () => {
+  const fn = jest.fn();
+  const a: producer = ({ foo = update.foo }) => {
+    foo.set({
+      val1: "a",
+      val2: "b",
+    });
+  };
+  const b: producer = ({ foo = observe.foo }) => {
+    fn(foo);
+  };
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: {},
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  const instB = new Producer(b, ctx);
+  instA.mount();
+  instB.mount();
+  jest.runAllTimers();
+  expect(fn).toBeCalledTimes(1);
 });
 
 /*

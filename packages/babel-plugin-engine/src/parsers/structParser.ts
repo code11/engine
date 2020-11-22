@@ -1,5 +1,5 @@
-import * as Babel from "@babel/core";
-import { Identifier, ObjectPattern, ObjectProperty } from "@babel/types";
+import type * as Babel from "@babel/core";
+import type { Identifier, ObjectPattern, ObjectProperty } from "@babel/types";
 import { OperationTypes, StructOperation } from "@c11/engine.types";
 import { processValue } from "./valueParser";
 

@@ -1,4 +1,4 @@
-import * as Babel from "@babel/core";
+import type * as Babel from "@babel/core";
 
 export const addNamedImport = (
   babel: typeof Babel,

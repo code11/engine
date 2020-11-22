@@ -1,0 +1,27 @@
+{
+  "name": "@c11/engine.types-generator",
+  "version": "4.0.0-alpha.8",
+  "private": true,
+  "description": "Produces typescript types for views and producers",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "echo \"skipping\"",
+    "test": "echo \"skipping\""
+  },
+  "author": {
+    "name": "Constantin Dumitrescu",
+    "email": "constantin.dumitrescu@code11.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-syntax-typescript": "^7.12.1",
+    "@babel/types": "^7.12.6",
+    "@c11/engine.types": "^4.0.0-alpha.8",
+    "prettier": "^2.1.2"
+  },
+  "dependencies": {
+    "@c11/babel-plugin-engine": "^4.0.0-alpha.8"
+  }
+}

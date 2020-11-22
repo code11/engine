@@ -1,8 +1,15 @@
 import { MacroProducerType } from "./macro";
-import { ProducerInstance } from "./producer";
+import { ProducerContext, ProducerInstance } from "./producer";
+
+export type ExternalProducerContext = {
+  debug?: boolean;
+};
 
 export type ModuleContext = {
-  addProducer: (config: MacroProducerType) => ProducerInstance;
+  addProducer: (
+    config: MacroProducerType,
+    context?: ExternalProducerContext
+  ) => ProducerInstance;
   removeProducers: () => void;
 };
 
