@@ -14,6 +14,7 @@ export type State = {
     nodeModulesPath: Path;
     overrideModulesPath: Path;
     replacerPath: Path;
+    packageNodeModulesPath: Path;
   };
   start: {
     flags: {};

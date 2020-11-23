@@ -15,9 +15,9 @@
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "dependencies": {
-    "@c11/engine.db": "^4.0.0-alpha.10",
-    "@c11/engine.producer": "^4.0.0-alpha.10",
-    "@c11/engine.types": "^4.0.0-alpha.10"
+    "@c11/engine.db": "4.0.0-alpha.10",
+    "@c11/engine.producer": "4.0.0-alpha.10",
+    "@c11/engine.types": "4.0.0-alpha.10"
   },
   "gitHead": "6bac5082b953e238b46b76a3cbf9892db9efd521"
 }

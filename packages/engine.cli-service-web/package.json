@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.cli-service-web",
-  "version": "4.0.0-alpha.10",
+  "version": "4.0.0-alpha.11",
   "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {
@@ -29,7 +29,7 @@
     "build:declaration": "tsc --project tsconfig.build.json",
     "tsc": "tsc --project tsconfig.json --listFiles",
     "build": "babel src --out-dir dist --extensions \".ts\" && chmod +x dist/index.js",
-    "run:start": "yarn build && chmod +x dist/index.js && cd ../engine.cli-service-web-test && yarn start",
+    "run:start": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn start",
     "run:build": "yarn build && chmod +x dist/index.js && cd ../engine.cli-service-web-test && yarn build",
     "test": "echo \"jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
@@ -38,13 +38,14 @@
     "@schemastore/package": "^0.0.6"
   },
   "dependencies": {
+    "@babel/core": "^7.12.7",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
-    "@c11/babel-plugin-engine": "^4.0.0-alpha.10",
-    "@c11/engine": "^4.0.0-alpha.10",
-    "@c11/engine.react": "^4.0.0-alpha.10",
+    "@c11/babel-plugin-engine": "4.0.0-alpha.10",
+    "@c11/engine": "4.0.0-alpha.10",
+    "@c11/engine.react": "4.0.0-alpha.10",
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
     "autoprefixer": "^10.0.2",
     "babel-plugin-module-rewrite": "^0.2.0",
@@ -62,6 +63,7 @@
     "postcss-loader": "^4.1.0",
     "postcss-preset-env": "^6.7.0",
     "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "style-loader": "^2.0.0",
     "svg-inline-loader": "^0.8.2",
     "tailwindcss": "^2.0.1",

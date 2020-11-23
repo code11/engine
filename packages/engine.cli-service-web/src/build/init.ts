@@ -16,6 +16,7 @@ type props = {
   nodeModulesPath: Get<State["config"]["nodeModulesPath"]>;
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
+  packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
 };
 
 export const init: producer = ({
@@ -31,6 +32,7 @@ export const init: producer = ({
   nodeModulesPath = get.config.nodeModulesPath,
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
+  packageNodeModulesPath = get.config.packageNodeModulesPath,
 }: props) => {
   if (!trigger) {
     return;
@@ -46,6 +48,9 @@ export const init: producer = ({
     },
     resolve: {
       extensions: [".js", ".jsx", ".ts", ".tsx"],
+    },
+    resolveLoader: {
+      modules: [nodeModulesPath.value(), packageNodeModulesPath.value()],
     },
     module: {
       rules: [

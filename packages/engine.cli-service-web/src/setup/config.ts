@@ -23,6 +23,7 @@ export const config: producer = async ({
 }: props) => {
   const root = _findRoot(__dirname);
   const packageJson = _resolve(root, "package.json");
+  const packageNodeModulesPath = _resolve(root, "node_modules");
   const replacerPath = _resolve(root, "dist", "utils", "replacer.js");
   const data = await _readFile(packageJson, "utf8");
   const result = JSON.parse(data) as JSONSchemaForNPMPackageJsonFiles;
@@ -50,5 +51,6 @@ export const config: producer = async ({
     nodeModulesPath,
     overrideModulesPath,
     replacerPath,
+    packageNodeModulesPath,
   });
 };

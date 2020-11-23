@@ -31,7 +31,7 @@
   resolved "http://localhost:4873/@babel%2fcompat-data/-/compat-data-7.12.7.tgz#9329b4782a7d6bbd7eef57e11addf91ee3ef1e41"
   integrity sha512-YaxPMGs/XIWtYqrdEOZOCPsVWfEoriXopnsz3/i7apYPXQ3698UFhS6dVT1KN5qOsWmVgw/FOrmQgpRaZayGsw==
 
-"@babel/core@^7.1.0", "@babel/core@^7.12.3", "@babel/core@^7.7.5":
+"@babel/core@^7.1.0", "@babel/core@^7.12.3", "@babel/core@^7.12.7", "@babel/core@^7.7.5":
   version "7.12.7"
   resolved "http://localhost:4873/@babel%2fcore/-/core-7.12.7.tgz#bf55363c08c8352a37691f7216ec30090bf7e3bf"
   integrity sha512-tRKx9B53kJe8NCGGIxEQb2Bkr0riUIEuN7Sc1fxhs5H8lKlCWUvQCSNMVIB0Meva7hcbCRJ76de15KoLltdoqw==
@@ -9866,13 +9866,6 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-awesome-button@^6.5.1:
-  version "6.5.1"
-  resolved "http://localhost:4873/react-awesome-button/-/react-awesome-button-6.5.1.tgz#d2103e98dc4d48550efd21dd9ec8f5a09e596407"
-  integrity sha512-94AS4BSIgRCMSHq8wcy3ztostjLK8cqjUX6DT5oWiYNs3uxLv5uk4yFMlzXBjo0I4TERLOZGn66q0xwb+xw5qw==
-  dependencies:
-    web-animation-club "^0.6.0"
-
 react-dom@^16.14.0:
   version "16.14.0"
   resolved "http://localhost:4873/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
@@ -11597,9 +11590,9 @@ typescript@^4.0.5:
   integrity sha512-thGloWsGH3SOxv1SoY7QojKi0tc+8FnOmiarEGMbd/lar7QOEd3hvlx3Fp5y6FlDUGl9L+pd4n2e+oToGMmhRQ==
 
 uglify-js@^3.1.4:
-  version "3.11.6"
-  resolved "http://localhost:4873/uglify-js/-/uglify-js-3.11.6.tgz#144b50d3e05eadd3ad4dd047c60ca541a8cd4e9c"
-  integrity sha512-oASI1FOJ7BBFkSCNDZ446EgkSuHkOZBuqRFrwXIKWCoXw8ZXQETooTQjkAcBS03Acab7ubCKsXnwuV2svy061g==
+  version "3.12.0"
+  resolved "http://localhost:4873/uglify-js/-/uglify-js-3.12.0.tgz#b943f129275c41d435eb54b643bbffee71dccf57"
+  integrity sha512-8lBMSkFZuAK7gGF8LswsXmir8eX8d2AAMOnxSDWjKBx/fBR6MypQjs78m6ML9zQVp1/hD4TBdfeMZMC7nW1TAA==
 
 uid-number@0.0.6:
   version "0.0.6"
@@ -11866,11 +11859,6 @@ wcwidth@^1.0.0:
   integrity sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=
   dependencies:
     defaults "^1.0.3"
-
-web-animation-club@^0.6.0:
-  version "0.6.0"
-  resolved "http://localhost:4873/web-animation-club/-/web-animation-club-0.6.0.tgz#c1dd79646b21e4265b5f95ae9cb8b93b73e05e47"
-  integrity sha512-9W+EQu1HiaPLe/7WZlhJ2ULqQ4VL80RPDYW+ZcjfTKp6ayOuT1k3SVO6+tu0VBRmOqueJ/mrG+rjjInIv8Aglg==
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
