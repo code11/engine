@@ -30,7 +30,7 @@
     "describe": "npm-scripts-info",
     "commit": "git-cz",
     "release": "yarn clean && lerna run build && lerna run test --parallel",
-    "version:lerna": "lerna version --conventional-commits --exact",
+    "version:lerna": "lerna version --conventional-commits --exact --no-push",
     "publish": "lerna publish from-package",
     "publish:local": "lerna run publish:local",
     "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\""
