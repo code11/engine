@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.cli",
-  "version": "4.0.0-alpha.14",
+  "version": "4.0.0-alpha.15",
   "description": "A cli for creating and analysing engine applications",
   "main": "dist/index.js",
   "bin": {
@@ -36,7 +36,7 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
-    "@c11/babel-plugin-engine": "4.0.0-alpha.12",
+    "@c11/babel-plugin-engine": "4.0.0-alpha.15",
     "@schemastore/package": "^0.0.6"
   },
   "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae",
