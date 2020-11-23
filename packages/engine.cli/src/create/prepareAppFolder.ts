@@ -1,5 +1,6 @@
 import { mkdir, readdir } from "fs";
 import { promisify } from "util";
+import { performance } from "perf_hooks";
 
 const pReaddir = promisify(readdir);
 const pMkdir = promisify(mkdir);
@@ -7,15 +8,17 @@ const pMkdir = promisify(mkdir);
 type props = {
   _readdir: typeof pReaddir;
   _mkdir: typeof pMkdir;
+  _now: typeof performance.now;
   targetPath: State["create"]["config"]["targetPath"];
-  isAppFolderReady: Update<State["create"]["flags"]["isAppFolderReady"]>;
+  flag: Update<State["create"]["flags"]["isAppFolderReady"]>;
 };
 
 export const prepareAppFolder: producer = async ({
   _readdir = pReaddir,
   _mkdir = pMkdir,
+  _now = performance.now,
   targetPath = observe.create.config.targetPath,
-  isAppFolderReady = update.create.flags.isAppFolderReady,
+  flag = update.create.flags.isAppFolderReady,
 }: props) => {
   if (!targetPath) {
     return;
@@ -32,5 +35,5 @@ export const prepareAppFolder: producer = async ({
     }
   }
 
-  isAppFolderReady.set(true);
+  flag.set(_now());
 };

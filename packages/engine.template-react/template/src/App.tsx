@@ -1,6 +1,3 @@
-import React from "react";
-import { view, producer, observe, update } from "@c11/engine.macro";
-
 export const App: view = ({ greeting = observe.greeting }) => (
   <div>{greeting}</div>
 );

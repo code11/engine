@@ -24,11 +24,16 @@ export type State = {
   };
   create: {
     flags: {
-      isAppFolderReady: boolean;
-      isTemplateDownloadReady: boolean;
-      isTemplateCopyReady: boolean;
-      isPackageJsonReady: boolean;
-      isDependencyInstallReady: boolean;
+      isAppFolderReady: number;
+      isTemplateDownloadReady: number;
+      isTemplateCopyReady: number;
+      isPackageJsonReady: number;
+      isDependencyInstallReady: number;
+      isTemplateConfigReady: number;
+      isTsConfigReady: number;
+      isGitIgnoreReady: number;
+      isSetupReady: number;
+      isCleanupReady: number;
     };
     config: {
       appName: string;
@@ -39,6 +44,8 @@ export type State = {
       templateSandboxPath: DirPath;
       templateConfigFilePath: DirPath;
       targetPackageJsonPath: DirPath;
+      targetTsConfigPath: DirPath;
+      targetGitIgnorePath: DirPath;
     };
     templateConfig: {
       target: CreateTemplateTarget;

@@ -20,6 +20,8 @@ export const config: producer = ({
   }
   const targetPath = _resolve(commandPath, appName);
   const targetPackageJsonPath = _resolve(targetPath, "package.json");
+  const targetTsConfigPath = _resolve(targetPath, "tsconfig.json");
+  const targetGitIgnorePath = _resolve(targetPath, ".gitignore");
   const tmpPath = _resolve(targetPath, ".tmp");
   const templatePath = _resolve(tmpPath, templateName);
   const templateSandboxPath = _resolve(templatePath, "template");
@@ -31,5 +33,7 @@ export const config: producer = ({
     templatePath,
     templateSandboxPath,
     templateConfigFilePath,
+    targetTsConfigPath,
+    targetGitIgnorePath,
   });
 };

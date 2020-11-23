@@ -1,7 +1,9 @@
 import { spawn } from "child_process";
+import { performance } from "perf_hooks";
 
 type props = {
   _spawn: typeof spawn;
+  _now: typeof performance.now;
   isReady: State["create"]["flags"]["isPackageJsonReady"];
   getTargetPath: Get<State["create"]["config"]["targetPath"]>;
   flag: Update<State["create"]["flags"]["isDependencyInstallReady"]>;
@@ -9,6 +11,7 @@ type props = {
 
 export const installDependencies: producer = async ({
   _spawn = spawn,
+  _now = performance.now,
   isReady = observe.create.flags.isPackageJsonReady,
   getTargetPath = get.create.config.targetPath,
   flag = update.create.flags.isDependencyInstallReady,
@@ -44,6 +47,6 @@ export const installDependencies: producer = async ({
     if (code !== 0) {
       throw new Error("Could not install dependencies");
     }
-    flag.set(true);
+    flag.set(_now());
   });
 };

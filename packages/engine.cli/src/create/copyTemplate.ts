@@ -1,15 +1,12 @@
 import ncp from "ncp";
 import { promisify } from "util";
-import { rename } from "fs";
-import { resolve } from "path";
+import { performance } from "perf_hooks";
 
-const pRename = promisify(rename);
 const pNcp = promisify(ncp);
 
 type props = {
-  _rename: typeof pRename;
   _ncp: typeof pNcp;
-  _resolve: typeof resolve;
+  _now: typeof performance.now;
   isReady: State["create"]["flags"]["isTemplateDownloadReady"];
   sandboxPath: State["create"]["config"]["templateSandboxPath"];
   targetPath: State["create"]["config"]["targetPath"];
@@ -17,9 +14,8 @@ type props = {
 };
 
 export const copyTemplate: producer = async ({
-  _rename = pRename,
   _ncp = pNcp,
-  _resolve = resolve,
+  _now = performance.now,
   isReady = observe.create.flags.isTemplateDownloadReady,
   sandboxPath = observe.create.config.templateSandboxPath,
   targetPath = observe.create.config.targetPath,
@@ -32,9 +28,5 @@ export const copyTemplate: producer = async ({
   targetPath;
 
   await _ncp(sandboxPath, targetPath);
-  await _rename(
-    _resolve(targetPath, "gitignore"),
-    _resolve(targetPath, ".gitignore")
-  );
-  flag.set(true);
+  flag.set(_now());
 };

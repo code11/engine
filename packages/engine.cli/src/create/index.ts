@@ -7,3 +7,6 @@ export { readTemplateConfig } from "./readTemplateConfig";
 export { writePackageJson } from "./writePackageJson";
 export { installDependencies } from "./installDependencies";
 export { cleanup } from "./cleanup";
+export { writeTsConfig } from "./writeTsConfig";
+export { writeGitIgnore } from "./writeGitIgnore";
+export { isSetupReady } from "./isSetupReady";
