@@ -22,5 +22,6 @@
     "@c11/engine.types": "4.0.0-alpha.10",
     "babel-plugin-tester": "^10.0.0",
     "prettier": "^2.1.2"
-  }
+  },
+  "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae"
 }

@@ -42,5 +42,6 @@
     "jsdom-screenshot": "^3.2.0",
     "react": "^16.13.1",
     "typescript": "^4.0.5"
-  }
+  },
+  "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae"
 }
