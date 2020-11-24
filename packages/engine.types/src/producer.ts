@@ -102,7 +102,8 @@ export interface ProducerData {
   [key: string]: any;
 }
 
-export type ProducerFn = (...data: any) => void;
+export type ProducerCb = () => void;
+export type ProducerFn = (props: ProducerData) => void | ProducerCb;
 
 export interface ProducerMeta {
   name?: string;
@@ -147,4 +148,38 @@ export interface ProducerContext {
 
 export type OperationParams = {
   [k: string]: OperationParams | string | number | void | null;
+};
+
+export type Params<T> = {
+  [k in keyof T]: string | number | Params<T[k]>;
+};
+
+export type UpdateValue<T, P = {}> = {
+  set: (value: T, params?: Params<P>) => void;
+  merge: (value: Partial<T>, params?: Params<P>) => void;
+  remove: (params?: Params<P>) => void;
+  push: (
+    value: T extends (infer R)[] ? R : unknown,
+    params?: Params<P>
+  ) => void;
+  pop: (params?: Params<P>) => void;
+};
+
+export type GetValue<T, P = {}> = {
+  value: (params?: Params<P>) => T;
+  includes: (value: any, params?: Params<P>) => boolean;
+  length: (params?: Params<P>) => number;
+};
+
+export type ObservePath<T> = T;
+export type UpdatePath<T> = any;
+export type GetPath<T> = any;
+export type Prop = {
+  [k: string]: string | number | Prop;
+};
+export type Param = {
+  [k: string]: string | number | Prop;
+};
+export type Arg = {
+  [k: string]: string | number | Prop;
 };

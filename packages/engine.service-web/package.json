@@ -38,6 +38,7 @@
     "@schemastore/package": "^0.0.6"
   },
   "dependencies": {
+    "@types/react": "^16.9.56",
     "@babel/core": "^7.12.7",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",

@@ -1,4 +1,4 @@
 export type State = {
-  name?: string;
+  name: string;
   greeting?: string;
 };

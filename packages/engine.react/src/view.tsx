@@ -2,8 +2,13 @@ import React from "react";
 import shortid from "shortid";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
-import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine.types";
-import { ProducerInstance } from "@c11/engine.types";
+import {
+  ProducerFn,
+  ViewConfig,
+  ViewInstance,
+  StructOperation,
+} from "@c11/engine.types";
+import type { ProducerInstance, ProducerData } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
 
@@ -35,6 +40,17 @@ import type { RenderContext } from "./render";
  */
 
 interface SampleState {}
+
+export type ViewFn<ExternalProps = {}> = (
+  props: ProducerData
+) => React.ReactElement<ExternalProps> | null;
+
+export type ViewExtra = {
+  producers?: ProducerFn[];
+};
+
+export type View<ExternalProps = {}> = ViewFn<ExternalProps> & ViewExtra;
+
 export function view({ args, fn, meta }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
