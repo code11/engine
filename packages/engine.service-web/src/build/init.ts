@@ -170,7 +170,6 @@ export const init: producer = ({
       ],
     },
     plugins: [
-      // new Webpack.HotModuleReplacementPlugin(),
       new _BundleAnalyzerPlugin(),
       new _webpack.ids.HashedModuleIdsPlugin(),
       new _webpack.DefinePlugin({
