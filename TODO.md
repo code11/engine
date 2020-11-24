@@ -36,12 +36,3 @@ bar = Observe[Arg.foo.baz]
 - Add Array methods for modifying arrays to the Update operation
 
 - Wildcard observe's can be parallelized!
-
-1. Ensure modules for @c11/engine.cli & @c11/engine.cli-service-web install are placed in the right location to be accessed at runtime
-2. Change the cli-service-web to match the engine-web-service -> @c11/engine.engine.web-service
-3. Check why webpack doubles the @c11/engine.db and @c11/engine.producer packages, might be linked to 1.)
-4. Update the types for the pages according to the global.ts example
-5. Remove the debug flag from @c11/engine.cli
-6. Add finish message to engine.cli
-7. Add intermediate messges to show progress in engine.cli
-8. Refactor the engine.test package

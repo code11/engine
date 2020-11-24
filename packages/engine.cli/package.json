@@ -28,7 +28,7 @@
   "scripts": {
     "build:declaration": "tsc --project tsconfig.build.json",
     "tsc": "tsc --project tsconfig.json --listFiles",
-    "build": "babel src --out-dir dist --extensions \".ts\"",
+    "build": "yarn clean && babel src --out-dir dist --extensions \".ts\"",
     "clean": "rm -rf ./dist && rm -rf ./test",
     "execute": "chmod +x dist/index.js && NODE_ENV=development ./dist/index.js create test",
     "start": "yarn clean && yarn build && yarn execute",
@@ -37,7 +37,8 @@
   },
   "devDependencies": {
     "@c11/babel-plugin-engine": "4.0.0-alpha.15",
-    "@schemastore/package": "^0.0.6"
+    "@schemastore/package": "^0.0.6",
+    "@c11/engine.service-web": "4.0.0-alpha.15"
   },
   "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae",
   "engineConfig": {},
@@ -47,7 +48,6 @@
     "@c11/engine": "4.0.0-alpha.15",
     "commander": "^6.2.0",
     "find-root": "^1.1.0",
-    "init-pkg-json": "^1.0.0",
     "ncp": "^2.0.0",
     "pacote": "^11.1.13"
   }

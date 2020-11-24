@@ -1,10 +1,10 @@
 {
-  "name": "@c11/engine.cli-service-web",
+  "name": "@c11/engine.service-web",
   "version": "4.0.0-alpha.15",
   "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {
-    "engine-web-scripts": "dist/index.js"
+    "engine-service-web": "dist/index.js"
   },
   "typings": "dist/index.d.ts",
   "license": "MIT",

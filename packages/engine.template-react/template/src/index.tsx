@@ -7,8 +7,12 @@ engine({
   state: {
     name: "John Doe",
   },
-  use: [renderReact(<App />, "#app")],
-});
+  use: [
+    renderReact(<App />, "#app", {
+      debug: process.env.NODE_ENV === "development",
+    }),
+  ],
+}).start();
 
 // Each renderer can have a state where it stores if it finished rendering/mounting/etc
 // This can be used to hook-up processes for export for example
