@@ -170,7 +170,7 @@ export const init: producer = ({
       ],
     },
     plugins: [
-      new _BundleAnalyzerPlugin(),
+      // new _BundleAnalyzerPlugin(),
       new _webpack.ids.HashedModuleIdsPlugin(),
       new _webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify("production"),
