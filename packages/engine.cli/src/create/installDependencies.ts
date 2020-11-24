@@ -25,15 +25,9 @@ export const installDependencies: producer = async ({
     throw new Error("Missing values");
   }
 
-  console.log(targetPath);
-
-  const install = _spawn(
-    "yarn",
-    ["install", "--registry=http://localhost:4873"],
-    {
-      cwd: targetPath,
-    }
-  );
+  const install = _spawn("yarn", ["install"], {
+    cwd: targetPath,
+  });
 
   install.stdout.on("data", (data) => {
     // console.log(`stdout: ${data}`);

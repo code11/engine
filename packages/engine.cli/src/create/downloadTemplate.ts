@@ -22,8 +22,6 @@ export const downloadTemplate: producer = async ({
     return;
   }
 
-  await _pacote.extract(templateName, templatePath, {
-    registry: "http://localhost:4873",
-  });
+  await _pacote.extract(templateName, templatePath);
   flag.set(_now());
 };

@@ -98,13 +98,12 @@ export interface ProducerArgs {
   [key: string]: Operation;
 }
 
-export interface ProducerData {
+export type ProducerData = {
   [key: string]: any;
-}
+};
 
 export type ProducerCb = () => void;
-export type ProducerFn = (props: ProducerData) => void | ProducerCb;
-
+export type ProducerFn = (props: ProducerData | any) => any | ProducerCb;
 export interface ProducerMeta {
   name?: string;
   location?: {
@@ -174,12 +173,6 @@ export type GetValue<T, P = {}> = {
 export type ObservePath<T> = T;
 export type UpdatePath<T> = any;
 export type GetPath<T> = any;
-export type Prop = {
-  [k: string]: string | number | Prop;
-};
-export type Param = {
-  [k: string]: string | number | Prop;
-};
-export type Arg = {
-  [k: string]: string | number | Prop;
-};
+export type Prop = any;
+export type Param = any;
+export type Arg = any;
