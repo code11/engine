@@ -5,8 +5,5 @@ import * as setup from "./setup";
 import "./global";
 
 engine({
-  use: [
-    producers(Object.values(create), { debug: true }),
-    producers(Object.values(setup)),
-  ],
+  use: [producers(Object.values(create)), producers(Object.values(setup))],
 }).start();
