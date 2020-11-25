@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.cli",
-  "version": "4.0.0-alpha.17",
+  "version": "4.0.0-alpha.18",
   "description": "A cli for creating and analysing engine applications",
   "main": "dist/index.js",
   "bin": {
