@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.service-web",
-  "version": "4.0.0-alpha.15",
+  "version": "4.0.0-alpha.17",
   "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {
@@ -39,17 +39,17 @@
     "@schemastore/package": "^0.0.6"
   },
   "dependencies": {
-    "@types/react": "^16.9.56",
     "@babel/core": "^7.12.7",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
-    "@c11/engine.babel-plugin": "4.0.0-alpha.15",
-    "@c11/engine": "4.0.0-alpha.15",
-    "@c11/engine.react": "4.0.0-alpha.15",
-    "@c11/engine.test": "4.0.0-alpha.15",
+    "@c11/engine": "4.0.0-alpha.17",
+    "@c11/engine.babel-plugin": "4.0.0-alpha.17",
+    "@c11/engine.react": "4.0.0-alpha.17",
+    "@c11/engine.test": "4.0.0-alpha.17",
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
+    "@types/react": "^16.9.56",
     "autoprefixer": "^10.0.2",
     "babel-loader": "^8.2.1",
     "babel-plugin-module-rewrite": "^0.2.0",
