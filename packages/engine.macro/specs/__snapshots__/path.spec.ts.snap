@@ -23,7 +23,7 @@ var _engineView = require("@c11/engine-view");
 var a = _engine.path.foo.bar;
 var b = _engine.path;
 var foo = (0, _engineView.view)({
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       value: {

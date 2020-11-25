@@ -31,6 +31,7 @@
     "build": "babel src --out-dir dist --extensions \".ts\" && chmod +x dist/index.js",
     "run:start": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn start",
     "run:build": "yarn build && chmod +x dist/index.js && cd ../engine.cli-service-web-test && yarn build",
+    "run:test": "yarn build && chmod +x dist/index.js && cd ../engine.cli-service-web-test && yarn test",
     "test": "echo \"jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
@@ -47,6 +48,7 @@
     "@c11/babel-plugin-engine": "4.0.0-alpha.15",
     "@c11/engine": "4.0.0-alpha.15",
     "@c11/engine.react": "4.0.0-alpha.15",
+    "@c11/engine.test": "4.0.0-alpha.15",
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
     "autoprefixer": "^10.0.2",
     "babel-loader": "^8.2.1",

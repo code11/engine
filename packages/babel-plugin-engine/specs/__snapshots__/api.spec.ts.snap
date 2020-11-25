@@ -39,7 +39,7 @@ const obj = {
   },
 };
 const a = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {
@@ -166,7 +166,7 @@ const result: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {
@@ -227,7 +227,7 @@ const result: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {
@@ -410,7 +410,7 @@ const result: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {
@@ -514,7 +514,7 @@ const result: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       bam: {
@@ -575,7 +575,7 @@ const result: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {
@@ -753,7 +753,7 @@ const foo: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const foo = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       id: {

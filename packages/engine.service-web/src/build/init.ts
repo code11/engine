@@ -8,7 +8,7 @@ type props = {
   _HtmlWebpackPlugin: typeof HtmlWebpackPlugin;
   _BundleAnalyzerPlugin: typeof BundleAnalyzerPlugin;
   _MiniCssExtractPlugin: typeof MiniCssExtractPlugin;
-  trigger: State["start"]["triggers"]["init"];
+  trigger: State["build"]["triggers"]["init"];
   entryPath: Get<State["config"]["entryPath"]>;
   packagePath: Get<State["config"]["packagePath"]>;
   distPath: Get<State["config"]["distPath"]>;

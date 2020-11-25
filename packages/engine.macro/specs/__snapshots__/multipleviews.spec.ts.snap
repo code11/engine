@@ -17,7 +17,7 @@ const b: view = ({
 var _engineView = require("@c11/engine-view");
 
 var a = (0, _engineView.view)({
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       foo: {
@@ -37,7 +37,7 @@ var a = (0, _engineView.view)({
   },
 });
 var b = (0, _engineView.view)({
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       foo: {

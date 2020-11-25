@@ -7,7 +7,7 @@ import {
   isIdentifier,
   isTemplateLiteral,
 } from "@babel/types";
-import { PathArgs } from "@c11/engine.types";
+import { PathProps } from "@c11/engine.types";
 
 type ValueNodes = StringLiteral | NumberLiteral | BooleanLiteral;
 
@@ -20,13 +20,13 @@ export const getMemberExpressionParams = (node: Node): any[] => {
         result = result.concat(params);
       }
       let pathArg;
-      if (result[0] === PathArgs.EXTERNAL) {
+      if (result[0] === PathProps.EXTERNAL) {
         result.shift();
         pathArg = "@" + result.join(".");
-      } else if (result[0] === PathArgs.INTERNAL) {
+      } else if (result[0] === PathProps.INTERNAL) {
         result.shift();
         pathArg = "$" + result.join(".");
-      } else if (result[0] === PathArgs.PARAM) {
+      } else if (result[0] === PathProps.PARAM) {
         result.shift();
         pathArg = ":" + result.join(".");
       } else {

@@ -14,7 +14,7 @@ export interface RenderConfig {
 
 export interface ViewConfig {
   meta: ProducerMeta;
-  args: StructOperation;
+  props: StructOperation;
   fn: ViewFn;
 }
 export type RootElement = HTMLElement | null;

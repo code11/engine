@@ -32,12 +32,12 @@ export const instrumentProducer = (
     metaProps = extractMeta(babel, state, path);
   }
 
-  const args = structOperationCompiler(babel, parsedParam);
+  const props = structOperationCompiler(babel, parsedParam);
   const meta = rawObjectCompiler(babel, metaProps);
   fn.params = paramsCompiler(babel, parsedParam);
 
   const result = t.objectExpression([
-    t.objectProperty(t.identifier("args"), args),
+    t.objectProperty(t.identifier("props"), props),
     t.objectProperty(t.identifier("meta"), meta),
     t.objectProperty(t.identifier("fn"), fn),
   ]);

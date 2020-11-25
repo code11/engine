@@ -18,7 +18,7 @@ var _engine = require("@c11/engine.producer");
 var _engineView = require("@c11/engine-view");
 
 var foo = (0, _engineView.view)({
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       id: {

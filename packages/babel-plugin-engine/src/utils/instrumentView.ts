@@ -21,6 +21,12 @@ export const instrumentView = (
     throw path.buildCodeFrameError(Messages.ARROW_FUNCTION_EXPECTED);
   }
 
+  if (!config.viewLibrary) {
+    throw path.buildCodeFrameError(`Configuration error. Add a view library to you babel config, example:
+"plugins": ["@c11/babel-plugin-engine", { "viewLibrary": "@c11/engine.react" }]
+    `);
+  }
+
   const fn = node.init as Babel.types.ArrowFunctionExpression;
   const param = fn.params[0];
 
@@ -35,18 +41,18 @@ export const instrumentView = (
   }
 
   fn.params = paramsCompiler(babel, parsedParam);
-  const args = structOperationCompiler(babel, parsedParam);
+  const props = structOperationCompiler(babel, parsedParam);
   const meta = rawObjectCompiler(babel, metaProps);
 
   const result = t.objectExpression([
-    t.objectProperty(t.identifier("args"), args),
+    t.objectProperty(t.identifier("props"), props),
     t.objectProperty(t.identifier("meta"), meta),
     t.objectProperty(t.identifier("fn"), fn),
   ]);
 
-  const program = path.findParent((p) => p.isProgram()) as Babel.NodePath<
-    Babel.types.Program
-  >;
+  const program = path.findParent((p) =>
+    p.isProgram()
+  ) as Babel.NodePath<Babel.types.Program>;
   const alias = addNamedImport(
     babel,
     program,

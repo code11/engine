@@ -39,17 +39,19 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
   const config = getConfig(state);
 
   const op = parseRef(babel, state, ref);
-  const args = structOperationCompiler(op);
+  const props = structOperationCompiler(op);
   const parent = ref.findParent((p) => p.isVariableDeclarator());
   if (!parent) {
-    throw new Error('Misuse of the view/producer keyword. It needs to be a variable declaration e.g. let foo: view = ...')
+    throw new Error(
+      "Misuse of the view/producer keyword. It needs to be a variable declaration e.g. let foo: view = ..."
+    );
   }
   const node = parent.node as VariableDeclarator;
   const fn = node.init as ArrowFunctionExpression;
 
   fn.params = paramsCompiler(op);
   const result = objectExpression([
-    objectProperty(identifier("args"), args),
+    objectProperty(identifier("props"), props),
     objectProperty(identifier("fn"), fn),
   ]);
 
@@ -59,39 +61,40 @@ export const prepareForEngine: PrepareForEngine = (babel, state, ref, type) => {
     const viewCall = callExpression(identifier("view"), [result]);
     node.init = viewCall;
     const viewImport = config.view.importFrom;
-    const program = ref
-      .findParent((p) => p.isProgram())
+    const program = ref.findParent((p) => p.isProgram());
     if (!program) {
-      throw new Error('Internal error. Cannot find program node')
+      throw new Error("Internal error. Cannot find program node");
     }
-    const macroImport = program.get("body")
-      .find((p) => {
-        const result =
-          p.isImportDeclaration() &&
-          p.node.source.value.indexOf("@c11/engine.macro") !== -1;
-        return result;
-      });
+    const macroImport = program.get("body").find((p) => {
+      const result =
+        p.isImportDeclaration() &&
+        p.node.source.value.indexOf("@c11/engine.macro") !== -1;
+      return result;
+    });
 
-    const engineImport = program.get("body")
-      .find((p) => {
-        const result =
-          p.isImportDeclaration() &&
-          p.node.source.value.indexOf(viewImport) !== -1;
-        return result;
-      });
+    const engineImport = program.get("body").find((p) => {
+      const result =
+        p.isImportDeclaration() &&
+        p.node.source.value.indexOf(viewImport) !== -1;
+      return result;
+    });
 
     if (macroImport) {
       if (!engineImport) {
         const importView = importDeclaration(
-            [importSpecifier(identifier("view"), identifier("view"))],
-            stringLiteral(viewImport)
-          )
+          [importSpecifier(identifier("view"), identifier("view"))],
+          stringLiteral(viewImport)
+        );
         // @ts-ignore
         macroImport.insertAfter(importView);
       } else {
         const node = engineImport.node as ImportDeclaration;
         const viewNode = node.specifiers.find((node) => {
-          return isImportSpecifier(node) && isIdentifier(node.imported) && node.imported.name === "view";
+          return (
+            isImportSpecifier(node) &&
+            isIdentifier(node.imported) &&
+            node.imported.name === "view"
+          );
         });
         if (!viewNode) {
           node.specifiers.push(

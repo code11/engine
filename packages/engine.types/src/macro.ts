@@ -19,7 +19,7 @@ export enum PathType {
   ARG = "arg",
 }
 
-export enum PathArgs {
+export enum PathProps {
   EXTERNAL = "prop",
   INTERNAL = "arg",
   PARAM = "param",
@@ -34,5 +34,7 @@ export enum PathSymbol {
 type producerFunction<T = any> = (props: T) => void;
 type viewFunction<T> = (props: T) => ReactElement<T> | null;
 
-export type MacroProducerType<T = any> = producerFunction<T> | ProducerConfig
-export type MacroViewType<T=any> = viewFunction<T> & {producers?: MacroProducerType[]};
+export type MacroProducerType<T = any> = producerFunction<T> | ProducerConfig;
+export type MacroViewType<T = any> = viewFunction<T> & {
+  producers?: MacroProducerType[];
+};

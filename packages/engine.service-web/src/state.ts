@@ -16,6 +16,16 @@ export type State = {
     replacerPath: Path;
     packageNodeModulesPath: Path;
   };
+  test: {
+    flags: {};
+    config: {};
+    triggers: {
+      init: {
+        opts: any;
+        timestamp: number;
+      };
+    };
+  };
   start: {
     flags: {};
     config: {};

@@ -7,7 +7,7 @@ const foo: producer = ({ foo = observe.foo }) => {}
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const foo = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       foo: {

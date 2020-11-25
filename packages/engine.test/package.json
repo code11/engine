@@ -12,7 +12,7 @@
   "contributors": [],
   "scripts": {
     "build": "echo \"tsc\"",
-    "test": "echo \"jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
     "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\"",
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --runTestsByPath   ./src/**"
   },
@@ -22,9 +22,11 @@
   "dependencies": {
     "@c11/engine": "4.0.0-alpha.15",
     "@c11/engine.react": "4.0.0-alpha.15",
-    "@c11/engine.types": "4.0.0-alpha.10"
+    "@c11/engine.types": "4.0.0-alpha.10",
+    "jsdom-screenshot": "^4.0.0"
   },
   "devDependencies": {
+    "@types/jsdom-screenshot": "^3.2.0",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
@@ -39,7 +41,6 @@
     "jest-screenshot": "^0.3.1",
     "jest-transform-css": "^2.1.0",
     "jest-transform-file": "^1.1.1",
-    "jsdom-screenshot": "^3.2.0",
     "react": "^16.13.1",
     "typescript": "^4.0.5"
   },

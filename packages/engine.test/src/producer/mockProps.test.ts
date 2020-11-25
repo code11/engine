@@ -1,21 +1,21 @@
-import { mockArgs } from "./mockArgs";
+import { mockProps } from "./mockProps";
 
 // @ts-ignore
-describe("mockArgs", () => {
+describe("mockProps", () => {
   test("empty producer no values", () => {
     const producer = {
-      args: {
+      props: {
         value: {},
       },
     };
 
-    const result = mockArgs(producer, {});
+    const result = mockProps(producer, {});
     expect(result).toEqual({});
   });
 
   test("observe producer no values", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "OBSERVE",
@@ -24,13 +24,13 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, {});
+    const result = mockProps(producer, {});
     expect(result).toEqual({});
   });
 
   test("observe producer with overriden value", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "OBSERVE",
@@ -39,13 +39,13 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, { foo: "bar" });
+    const result = mockProps(producer, { foo: "bar" });
     expect(result).toEqual({ foo: "bar" });
   });
 
   test("value producer no values", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "VALUE",
@@ -57,13 +57,13 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, {});
+    const result = mockProps(producer, {});
     expect(result).toEqual({ foo: "bar" });
   });
 
   test("value producer with overriden value", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "VALUE",
@@ -75,13 +75,13 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, { foo: "bang" });
+    const result = mockProps(producer, { foo: "bang" });
     expect(result).toEqual({ foo: "bang" });
   });
 
   test("get producer no values is actually mocked", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "GET",
@@ -90,7 +90,7 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, {});
+    const result = mockProps(producer, {});
     expect(result).toMatchObject({
       foo: expect.any(Function),
     });
@@ -99,7 +99,7 @@ describe("mockArgs", () => {
 
   test("get producer no values is actually mocked", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "GET",
@@ -108,7 +108,7 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, { foo: "bar" });
+    const result = mockProps(producer, { foo: "bar" });
     expect(result).toMatchObject({
       foo: expect.any(Function),
     });
@@ -117,7 +117,7 @@ describe("mockArgs", () => {
 
   test("update producer no values is actually mocked", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "UPDATE",
@@ -126,7 +126,7 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, {});
+    const result = mockProps(producer, {});
     expect(result).toMatchObject({
       foo: {
         set: expect.any(Function),
@@ -141,7 +141,7 @@ describe("mockArgs", () => {
 
   test("weird argument name in producer", () => {
     const producer = {
-      args: {
+      props: {
         value: {
           foo: {
             type: "weird",
@@ -150,7 +150,7 @@ describe("mockArgs", () => {
       },
     };
 
-    const result = mockArgs(producer, {});
+    const result = mockProps(producer, {});
     expect(result).toEqual({});
   });
 });

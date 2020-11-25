@@ -1,8 +1,11 @@
-import { ProducerConfig } from "@c11/engine.types";
+import { ProducerFn } from "@c11/engine.types";
 import { expectations } from "./expectations";
 
 export type testProducerConfig = {
-  producer: ProducerConfig;
-  values: object;
-  expectations: expectations;
+  name: string;
+  producer: ProducerFn;
+  props: {
+    [k: string]: any;
+  };
+  expect: expectations;
 };

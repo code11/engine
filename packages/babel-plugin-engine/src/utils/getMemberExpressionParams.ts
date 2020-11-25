@@ -1,5 +1,5 @@
 import type * as Babel from "@babel/core";
-import { PathArgs } from "@c11/engine.types";
+import { PathProps } from "@c11/engine.types";
 
 type ValueNodes =
   | Babel.types.StringLiteral
@@ -19,13 +19,13 @@ export const getMemberExpressionParams = (
         result = result.concat(params);
       }
       let pathArg;
-      if (result[0] === PathArgs.EXTERNAL) {
+      if (result[0] === PathProps.EXTERNAL) {
         result.shift();
         pathArg = "@" + result.join(".");
-      } else if (result[0] === PathArgs.INTERNAL) {
+      } else if (result[0] === PathProps.INTERNAL) {
         result.shift();
         pathArg = "$" + result.join(".");
-      } else if (result[0] === PathArgs.PARAM) {
+      } else if (result[0] === PathProps.PARAM) {
         result.shift();
         pathArg = ":" + result.join(".");
       } else {

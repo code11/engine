@@ -94,7 +94,7 @@ export type Operation =
   | StructOperation
   | ValueOperation;
 
-export interface ProducerArgs {
+export interface ProducerProps {
   [key: string]: Operation;
 }
 
@@ -123,7 +123,7 @@ export interface ProducerMeta {
 
 export interface ProducerConfig {
   meta: ProducerMeta;
-  args: StructOperation;
+  props: StructOperation;
   fn: ProducerFn;
 }
 

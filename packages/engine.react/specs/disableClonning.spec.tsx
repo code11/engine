@@ -6,7 +6,7 @@ import { engine } from "@c11/engine";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
-}
+};
 
 jest.useFakeTimers();
 
@@ -38,11 +38,11 @@ test("Should not clone children", async (done) => {
     );
   };
   engine({
-    state:  defaultState,
-    use: [renderReact(<Parent />, rootEl)]
-  }).start()
+    state: defaultState,
+    use: [renderReact(<Parent />, rootEl)],
+  }).start();
   jest.runAllTimers();
-  await flushPromises()
+  await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     const button = getByTestId(document.body, "change-baz");
     fireEvent.click(button);

@@ -51,26 +51,26 @@ export type ViewExtra = {
 
 export type View<ExternalProps = {}> = ViewFn<ExternalProps> & ViewExtra;
 
-export function view({ args, fn, meta }: ViewConfig) {
+export function view({ props, fn, meta }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
     isComponentMounted: boolean = false;
-    args: StructOperation;
+    viewProps: StructOperation;
     producers: ProducerInstance[];
     isStateReady = false;
     ref: any;
     instance: ViewInstance;
-    constructor(props: BaseProps, context: RenderContext) {
-      super(props, context);
+    constructor(externalProps: BaseProps, context: RenderContext) {
+      super(externalProps, context);
       const viewContext = {
-        props,
+        props: externalProps,
         keepReferences: ["external.children"],
         ...context.config,
       };
-      this.args = args;
+      this.viewProps = props;
       this.ref = React.createRef();
       const viewProducer = {
-        args,
+        props,
         fn: this.updateData.bind(this),
         meta,
       };

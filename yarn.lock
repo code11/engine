@@ -2398,6 +2398,13 @@
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
 
+"@types/jsdom-screenshot@^3.2.0":
+  version "3.2.0"
+  resolved "http://localhost:4873/@types%2fjsdom-screenshot/-/jsdom-screenshot-3.2.0.tgz#6193dc8552f5655dfbe90f204750c8d067c46909"
+  integrity sha512-3bQghPJksQSWcTnO4ZHUcJsp1d5oCTvUAfMsh/9T1eJdCAL+83pwACxQTyLMspIhs5/tMG4gqvTwNAI3mUe7ag==
+  dependencies:
+    "@types/puppeteer" "*"
+
 "@types/json-schema@*", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   version "7.0.6"
   resolved "http://localhost:4873/@types%2fjson-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
@@ -2442,6 +2449,13 @@
   version "15.7.3"
   resolved "http://localhost:4873/@types%2fprop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/puppeteer@*":
+  version "5.4.0"
+  resolved "http://localhost:4873/@types%2fpuppeteer/-/puppeteer-5.4.0.tgz#1ef860bd7a9dcf0c4633aac8c0ec21f75b431868"
+  integrity sha512-zTYDLjnHjgzokrwKt7N0rgn7oZPYo1J0m8Ghu+gXqzLCEn8RWbELa2uprE2UFJ0jU/Sk0x9jXXdOH/5QQLFHhQ==
+  dependencies:
+    "@types/node" "*"
 
 "@types/react-dom@^16.9.9":
   version "16.9.10"
@@ -7247,10 +7261,10 @@ jsbn@~0.1.0:
   resolved "http://localhost:4873/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
 
-jsdom-screenshot@^3.2.0:
-  version "3.2.0"
-  resolved "http://localhost:4873/jsdom-screenshot/-/jsdom-screenshot-3.2.0.tgz#367c0ceada2405d4bd48d499f947ceb9072a5539"
-  integrity sha512-kAmHKr9ZrybEAtQYVE4kA2vdaXQ9LQn0Wa1HnEfLyrbe9mXgS4ftzdjJXfTeCoq5BmvmYOy2IFFiaYa/v2YSZg==
+jsdom-screenshot@^4.0.0:
+  version "4.0.0"
+  resolved "http://localhost:4873/jsdom-screenshot/-/jsdom-screenshot-4.0.0.tgz#633c1bd0e557244cd602b47dcd19c755093654d1"
+  integrity sha512-as86MWDSiwQEQqaw3qt41u4Fi0Wi60biHmL2p3xe8e/PoZoz/qcTmoCEsNrNzPm8RcnT69A8zXuMUL9g7uyQzA==
   dependencies:
     connect "3.7.0"
     eslint-plugin-prettier "3.1.0"

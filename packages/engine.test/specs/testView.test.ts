@@ -1,6 +1,18 @@
-import Test from "../src/index";
+import { testView } from "../src/index";
+import "./global";
 
-// @ts-ignore
-test("dummy test view", () => {
-  console.log("hello");
+const foo: view = ({ bam = observe.bam }) => {
+  return null;
+};
+
+/*
+testView({
+  name: "it should do something",
+  state: {},
+  view: foo,
+  props: {
+    bam: 123,
+  },
 });
+
+*/

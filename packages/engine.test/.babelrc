@@ -4,5 +4,5 @@
     "@babel/preset-env",
     "@babel/preset-react"
   ],
-  "plugins": ["macros"]
+  "plugins": [["@c11/babel-plugin-engine", { "viewLibrary": "@c11/engine.react" }], "@babel/plugin-transform-runtime"]
 }

@@ -21,7 +21,7 @@ describe("validateResults", () => {
   test("dummy producer empty mockMap", () => {
     const producer = {
       fn: jest.fn(),
-      args: {
+      props: {
         value: {},
       },
     };
@@ -38,7 +38,7 @@ describe("validateResults", () => {
   test("update producer no expectations", () => {
     const producer = {
       fn: jest.fn(),
-      args: {
+      props: {
         value: {
           foo: {
             type: "UPDATE",
@@ -65,7 +65,7 @@ describe("validateResults", () => {
   test("update producer with expectations", () => {
     const producer = {
       fn: jest.fn(),
-      args: {
+      props: {
         value: {
           foo: {
             type: "UPDATE",
@@ -96,7 +96,7 @@ describe("validateResults", () => {
   test("not update producer with expectations", () => {
     const producer = {
       fn: jest.fn(),
-      args: {
+      props: {
         value: {
           foo: {
             type: "not update",
