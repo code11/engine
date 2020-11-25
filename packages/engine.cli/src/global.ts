@@ -1,34 +1,26 @@
-import { State as StateStructure } from "./state";
+import type {
+  ObservePath,
+  GetPath,
+  UpdatePath,
+  Prop,
+  Param,
+  Arg,
+  UpdateValue,
+  GetValue,
+  ProducerFn,
+} from "@c11/engine.types";
+import type { State as StateType } from "./state";
 
 declare global {
-  type State = StateStructure;
-  type producer = (props: any) => any;
-  type view<T = {}> = (props: any) => React.ReactElement<T> | void;
-  const observe: State;
-  const get: any;
-  const update: any;
-  const prop: any;
-  const param: any;
-  const arg: any;
+  type State = StateType;
+  type producer = ProducerFn;
+  const observe: ObservePath<State>;
+  const get: GetPath<State>;
+  const update: UpdatePath<State>;
+  const prop: Prop;
+  const param: Param;
+  const arg: Arg;
 
-  type Params<T> = {
-    [k in keyof T]: string | number | Params<T[k]>;
-  };
-
-  type Update<T, P = {}> = {
-    set: (value: T, params?: Params<P>) => void;
-    merge: (value: Partial<T>, params?: Params<P>) => void;
-    remove: (params?: Params<P>) => void;
-    push: (
-      value: T extends (infer R)[] ? R : unknown,
-      params?: Params<P>
-    ) => void;
-    pop: (params?: Params<P>) => void;
-  };
-
-  type Get<T, P = {}> = {
-    value: (params?: Params<P>) => T;
-    includes: (value: any, params?: Params<P>) => boolean;
-    length: (params?: Params<P>) => number;
-  };
+  type Update<T, P = {}> = UpdateValue<T, P>;
+  type Get<T, P = {}> = GetValue<T, P>;
 }

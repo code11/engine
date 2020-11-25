@@ -35,5 +35,4 @@ bar = Observe[Arg.foo.baz]
 
 - Add Array methods for modifying arrays to the Update operation
 
-
 - Wildcard observe's can be parallelized!

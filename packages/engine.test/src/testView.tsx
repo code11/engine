@@ -1,8 +1,21 @@
 import React from "react";
-import { Engine } from "@c11/engine.react";
+import { engine } from "@c11/engine";
+import { renderReact } from "@c11/engine.react";
 import { generateImage } from "jsdom-screenshot";
+import { ViewFn } from "@c11/engine.react";
 
-export async function testView(name: string, { state, View, props }) {
+type testViewProps = {
+  name: string;
+  state: {
+    [k: string]: any;
+  };
+  view: ViewFn;
+  props: {
+    [k: string]: any;
+  };
+};
+
+export const testView = async ({ name, state, view, props }: testViewProps) => {
   test(name, async () => {
     jest.useFakeTimers();
     const root = document.createElement("div");
@@ -12,22 +25,19 @@ export async function testView(name: string, { state, View, props }) {
     document.body.innerHTML = "";
     document.body.appendChild(title);
     document.body.appendChild(root);
+    const View = view;
 
-    const engine = new Engine({
-      state: {
-        initial: state,
-      },
-      view: {
-        element: <View {...props} />,
-        root,
-      },
-    });
+    engine({
+      state,
+      use: [renderReact(<View {...props} />, root)],
+    }).start();
 
     jest.runAllTimers();
 
     const screenshot = await generateImage();
+    //@ts-ignore
     expect(screenshot).toMatchImageSnapshot();
 
     jest.useRealTimers();
   });
-}
+};

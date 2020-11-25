@@ -94,16 +94,16 @@ export type Operation =
   | StructOperation
   | ValueOperation;
 
-export interface ProducerArgs {
+export interface ProducerProps {
   [key: string]: Operation;
 }
 
-export interface ProducerData {
+export type ProducerData = {
   [key: string]: any;
-}
+};
 
-export type ProducerFn = (...data: any) => void;
-
+export type ProducerCb = () => void;
+export type ProducerFn = (props: ProducerData | any) => any | ProducerCb;
 export interface ProducerMeta {
   name?: string;
   location?: {
@@ -123,7 +123,7 @@ export interface ProducerMeta {
 
 export interface ProducerConfig {
   meta: ProducerMeta;
-  args: StructOperation;
+  props: StructOperation;
   fn: ProducerFn;
 }
 
@@ -148,3 +148,31 @@ export interface ProducerContext {
 export type OperationParams = {
   [k: string]: OperationParams | string | number | void | null;
 };
+
+export type Params<T> = {
+  [k in keyof T]: string | number | Params<T[k]>;
+};
+
+export type UpdateValue<T, P = {}> = {
+  set: (value: T, params?: Params<P>) => void;
+  merge: (value: Partial<T>, params?: Params<P>) => void;
+  remove: (params?: Params<P>) => void;
+  push: (
+    value: T extends (infer R)[] ? R : unknown,
+    params?: Params<P>
+  ) => void;
+  pop: (params?: Params<P>) => void;
+};
+
+export type GetValue<T, P = {}> = {
+  value: (params?: Params<P>) => T;
+  includes: (value: any, params?: Params<P>) => boolean;
+  length: (params?: Params<P>) => number;
+};
+
+export type ObservePath<T> = T;
+export type UpdatePath<T> = any;
+export type GetPath<T> = any;
+export type Prop = any;
+export type Param = any;
+export type Arg = any;

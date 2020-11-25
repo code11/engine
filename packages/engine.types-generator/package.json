@@ -11,7 +11,7 @@
   },
   "author": {
     "name": "Constantin Dumitrescu",
-    "email": "constantin.dumitrescu@code11.com"
+    "email": "dum.constantin@gmail.com"
   },
   "license": "MIT",
   "devDependencies": {
@@ -22,6 +22,6 @@
     "prettier": "^2.1.2"
   },
   "dependencies": {
-    "@c11/babel-plugin-engine": "4.0.0-alpha.15"
+    "@c11/engine.babel-plugin": "4.0.0-alpha.15"
   }
 }

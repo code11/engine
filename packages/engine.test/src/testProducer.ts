@@ -7,11 +7,13 @@ expect.extend({
   },
 });
 
-export type testProducer = (name: string, config: testProducerConfig) => void;
+export type testProducer = (config: testProducerConfig) => void;
 
-export const testProducer: testProducer = (
+export const testProducer: testProducer = ({
   name,
-  { producer, values = {}, expectations = {} }
-) => {
-  test(name, testProducerCallback(producer, values, expectations));
+  producer,
+  props = {},
+  expect = {},
+}) => {
+  test(name, testProducerCallback(producer, props, expect));
 };

@@ -34,7 +34,7 @@ enum ProducerStates {
 export class Producer implements ProducerInstance {
   private state: ProducerStates = ProducerStates.UNMOUNTED;
   private db: DatastoreInstance;
-  private args: StructOperation;
+  private props: StructOperation;
   private fn: ProducerFn;
   private external: ExternalProps;
   private graph: Graph;
@@ -49,7 +49,7 @@ export class Producer implements ProducerInstance {
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
     this.id = shortid.generate();
-    this.args = config.args;
+    this.props = config.props;
     this.fn = config.fn;
     this.external = context.props || {};
     this.debug = context.debug || false;
@@ -58,7 +58,7 @@ export class Producer implements ProducerInstance {
     this.graph = new Graph(
       this.db,
       this.external,
-      this.args,
+      this.props,
       this.fnWrapper.bind(this),
       this.keepReferences
     );
@@ -77,13 +77,13 @@ export class Producer implements ProducerInstance {
           acc[x] = `[[get.${stringifyPath(op.path)}]]`;
           const value = val.value;
           //TODO: add includes, length
-          val.value = (...args: any[]) => {
-            const result = value.apply(null, args);
-            let argsValue = "";
-            if (args.length > 0) {
-              argsValue = JSON.stringify(args);
+          val.value = (...props: any[]) => {
+            const result = value.apply(null, props);
+            let propsValue = "";
+            if (props.length > 0) {
+              propsValue = JSON.stringify(props);
             }
-            console.log(`${loc}:${x}.value(${argsValue}) ->`, result);
+            console.log(`${loc}:${x}.value(${propsValue}) ->`, result);
             return result;
           };
         } else if (isEqual(symbol, UpdateOperationSymbol)) {

@@ -9,25 +9,25 @@ independently on-need basis.
 
 1. `@c11/engine.macro`
 
-  `@c11/engine.macro` is the core of Engine. It contains all the magic that
-  makes Engine so productive. Every engine app depends on this package.
+`@c11/engine.macro` is the core of Engine. It contains all the magic that
+makes Engine so productive. Every engine app depends on this package.
 
-  Engine uses [Babel Macros](https://github.com/kentcdodds/babel-plugin-macros)
-  defined in this package to save us from a lot of boilerplate.
+Engine uses [Babel Macros](https://github.com/kentcdodds/babel-plugin-macros)
+defined in this package to save us from a lot of boilerplate.
 
 2. `@c11/engine.react`
 
-  Contains react bindings for Engine. `@c11/engine.react` is required for
-  creating React applications which use engine.
+Contains react bindings for Engine. `@c11/engine.react` is required for
+creating React applications which use engine.
 
-  When building Engine applications, most concepts of React translate quite
-  transparently. For example, Engine [view](/docs/api/view)s are equivalent to
-  React components, view props are equivalent to react props etc.
+When building Engine applications, most concepts of React translate quite
+transparently. For example, Engine [view](/docs/api/view)s are equivalent to
+React components, view props are equivalent to react props etc.
 
 3. `@c11/enine.cli`
 
-  Provides a neat [CLI](/docs/cli) to build Engine apps.
+Provides a neat [CLI](/docs/cli) to build Engine apps.
 
 4. `@c11/engine.test`
 
-  Helper utilities for [testing Engine apps](/docs/testing) using Jest
+Helper utilities for [testing Engine apps](/docs/testing) using Jest

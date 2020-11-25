@@ -1,6 +1,5 @@
 {
   "name": "@c11/engine.template-react",
-  "private": true,
   "version": "4.0.0-alpha.12",
   "license": "MIT",
   "keywords": [

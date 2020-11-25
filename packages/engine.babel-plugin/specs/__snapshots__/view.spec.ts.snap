@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel-plugin-engine should add the import statement only once: should add the import statement only once 1`] = `
+
+const foo: view = ({ foo = observe.foo }) => { }
+const bar: view = ({ foo = observe.foo }) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewEngine } from "engineViewLibrary";
+const foo = viewEngine({
+  props: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  meta: {},
+  fn: ({ foo: foo }) => {},
+});
+const bar = viewEngine({
+  props: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  meta: {},
+  fn: ({ foo: foo }) => {},
+});
+
+
+`;
+
+exports[`babel-plugin-engine should compile a view: should compile a view 1`] = `
+
+const foo: view = ({ foo = observe.foo }) => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewEngine } from "engineViewLibrary";
+const foo = viewEngine({
+  props: {
+    type: "STRUCT",
+    value: {
+      foo: {
+        type: "OBSERVE",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+        ],
+      },
+    },
+    meta: {},
+  },
+  meta: {},
+  fn: ({ foo: foo }) => {},
+});
+
+
+`;
+
+exports[`babel-plugin-engine should support empty arguments: should support empty arguments 1`] = `
+
+const foo: view = () => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewEngine } from "engineViewLibrary";
+const foo = viewEngine({
+  props: {
+    type: "STRUCT",
+    value: {},
+    meta: {},
+  },
+  meta: {},
+  fn: ({}) => {},
+});
+
+
+`;

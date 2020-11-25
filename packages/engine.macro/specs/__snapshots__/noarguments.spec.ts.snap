@@ -16,7 +16,7 @@ function _objectDestructuringEmpty(obj) {
 }
 
 var foo = (0, _engineView.view)({
-  args: {
+  props: {
     type: "STRUCT",
     value: {},
   },

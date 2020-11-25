@@ -2,17 +2,17 @@ import { ProducerConfig } from "@c11/engine.types";
 
 export const validateResults = (
   producer: ProducerConfig,
-  mockMap: object,
-  expectations: expectations
+  mockMap: any,
+  expectations: any
 ) => {
-  const args = producer.args.value;
-  const keys = Object.keys(args);
+  const props = producer.props.value;
+  const keys = Object.keys(props);
 
   producer.fn(mockMap);
   jest.runAllTimers();
 
   keys.forEach((key: string) => {
-    switch (args[key].type) {
+    switch (props[key].type) {
       case "UPDATE":
         if (expectations[key]) {
           Object.keys(expectations[key]).forEach((verb) => {

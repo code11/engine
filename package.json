@@ -15,7 +15,7 @@
   },
   "author": {
     "name": "Constantin Dumitrescu",
-    "email": "constantin.dumitrescu@code11.com"
+    "email": "dum.constantin@gmail.com"
   },
   "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
   "resolutions": {

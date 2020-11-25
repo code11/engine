@@ -1,5 +1,4 @@
 node_modules
-test
 src/**.js
 .idea/*
 
@@ -13,3 +12,4 @@ package-lock.json
 *.bkp
 dist
 .DS_Store
+TODO

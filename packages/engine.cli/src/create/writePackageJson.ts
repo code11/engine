@@ -2,11 +2,15 @@ import { writeFile } from "fs";
 import { promisify } from "util";
 import { JSONSchemaForNPMPackageJsonFiles } from "@schemastore/package";
 import { CreateTemplateTarget } from "../state";
+import { performance } from "perf_hooks";
 
 const pWriteFile = promisify(writeFile);
 
 type props = {
   _writeFile: typeof pWriteFile;
+  _now: typeof performance.now;
+  isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];
+  isTemplateCopyReady: State["create"]["flags"]["isTemplateCopyReady"];
   target: State["create"]["templateConfig"]["target"];
   packageConfig: Get<State["create"]["templateConfig"]["package"]>;
   getScripts: Get<State["config"]["scripts"][CreateTemplateTarget]>;
@@ -17,6 +21,9 @@ type props = {
 
 export const writePackageJson: producer = async ({
   _writeFile = pWriteFile,
+  _now = performance.now,
+  isTemplateCopyReady = observe.create.flags.isTemplateCopyReady,
+  isTemplateConfigReady = observe.create.flags.isTemplateConfigReady,
   target = observe.create.templateConfig.target,
   packageConfig = get.create.templateConfig.package,
   getScripts = get.config.scripts[arg.target],
@@ -24,7 +31,7 @@ export const writePackageJson: producer = async ({
   getTargetPath = get.create.config.targetPackageJsonPath,
   flag = update.create.flags.isPackageJsonReady,
 }: props) => {
-  if (!target) {
+  if (!isTemplateCopyReady || !isTemplateConfigReady || !target) {
     return;
   }
 
@@ -32,8 +39,6 @@ export const writePackageJson: producer = async ({
   const name = appName.value();
   const targetPath = getTargetPath.value();
   const config = packageConfig.value();
-
-  console.log("scripts", scripts);
 
   if (!scripts || !name || !targetPath) {
     throw new Error("Missing values");
@@ -57,5 +62,5 @@ export const writePackageJson: producer = async ({
   };
 
   await _writeFile(targetPath, JSON.stringify(packageJson, null, " "), "utf-8");
-  flag.set(true);
+  flag.set(_now());
 };

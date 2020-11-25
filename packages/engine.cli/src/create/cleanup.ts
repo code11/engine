@@ -1,20 +1,25 @@
 import { rmdir } from "fs";
 import { promisify } from "util";
+import { performance } from "perf_hooks";
 
 const pRmdir = promisify(rmdir);
 
 type props = {
   _rmdir: typeof pRmdir;
-  isReady: State["create"]["flags"]["isDependencyInstallReady"];
+  _now: typeof performance.now;
+  isSetupReady: State["create"]["flags"]["isSetupReady"];
   getTmpPath: Get<State["create"]["config"]["tmpPath"]>;
+  flag: Update<State["create"]["flags"]["isCleanupReady"]>;
 };
 
 export const cleanup: producer = async ({
   _rmdir = pRmdir,
-  isReady = observe.create.flags.isDependencyInstallReady,
+  _now = performance.now,
+  isSetupReady = observe.create.flags.isSetupReady,
   getTmpPath = get.create.config.tmpPath,
+  flag = update.create.flags.isCleanupReady,
 }: props) => {
-  if (!isReady) {
+  if (!isSetupReady) {
     return;
   }
   const tmpPath = getTmpPath.value();
@@ -23,5 +28,5 @@ export const cleanup: producer = async ({
   }
 
   await _rmdir(tmpPath, { recursive: true });
-  console.log("clean up done");
+  flag.set(_now());
 };

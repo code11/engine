@@ -1,0 +1,27 @@
+{
+  "name": "@c11/engine.babel-plugin",
+  "version": "4.0.0-alpha.15",
+  "description": "Compile engine keywords into code",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --clear-cache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test:update": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
+    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/babel-plugin-engine/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
+  },
+  "author": {
+    "name": "Constantin Dumitrescu",
+    "email": "dum.constantin@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-syntax-typescript": "^7.12.1",
+    "@babel/types": "^7.12.6",
+    "@c11/engine.types": "4.0.0-alpha.10",
+    "babel-plugin-tester": "^10.0.0",
+    "prettier": "^2.1.2"
+  },
+  "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae"
+}

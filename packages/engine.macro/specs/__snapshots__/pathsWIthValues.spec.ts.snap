@@ -29,7 +29,7 @@ var obj = {
   },
 };
 var a = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {

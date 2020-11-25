@@ -23,7 +23,7 @@ const result: producer = ({
 
 var SectionId = {};
 var result = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {

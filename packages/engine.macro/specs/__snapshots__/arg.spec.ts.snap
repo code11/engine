@@ -15,7 +15,7 @@ const result: producer = ({
 "use strict";
 
 var result = {
-  args: {
+  props: {
     type: "STRUCT",
     value: {
       a1: {

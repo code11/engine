@@ -37,21 +37,21 @@ export const config: producer = async ({
     scripts: {
       [CreateTemplateTarget.NODE]: {
         target: CreateTemplateTarget.NODE,
-        packageName: "@c11/engine.cli-service-node",
-        binName: "engine-node-scripts",
+        packageName: "@c11/engine.service-node",
+        binName: "engine-service-node",
         version:
           (result.devDependencies &&
-            result.devDependencies["@c11/engine.cli-service-node"]) ||
-          "",
+            result.devDependencies["@c11/engine.service-node"]) ||
+          "latest",
       },
       [CreateTemplateTarget.WEB]: {
         target: CreateTemplateTarget.WEB,
-        packageName: "@c11/engine.cli-service-web",
-        binName: "engine-web-scripts",
+        packageName: "@c11/engine.service-web",
+        binName: "engine-service-web",
         version:
           (result.devDependencies &&
-            result.devDependencies["@c11/engine.cli-service-web"]) ||
-          "4.0.0-alpha.9",
+            result.devDependencies["@c11/engine.service-web"]) ||
+          "latest",
       },
     },
   });

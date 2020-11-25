@@ -2,8 +2,13 @@ import React from "react";
 import shortid from "shortid";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
-import { ViewConfig, ViewInstance, StructOperation } from "@c11/engine.types";
-import { ProducerInstance } from "@c11/engine.types";
+import {
+  ProducerFn,
+  ViewConfig,
+  ViewInstance,
+  StructOperation,
+} from "@c11/engine.types";
+import type { ProducerInstance, ProducerData } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
 
@@ -35,26 +40,37 @@ import type { RenderContext } from "./render";
  */
 
 interface SampleState {}
-export function view({ args, fn, meta }: ViewConfig) {
+
+export type ViewFn<ExternalProps = {}> = (
+  props: ProducerData
+) => React.ReactElement<ExternalProps> | null;
+
+export type ViewExtra = {
+  producers?: ProducerFn[];
+};
+
+export type View<ExternalProps = {}> = ViewFn<ExternalProps> & ViewExtra;
+
+export function view({ props, fn, meta }: ViewConfig) {
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
     isComponentMounted: boolean = false;
-    args: StructOperation;
+    viewProps: StructOperation;
     producers: ProducerInstance[];
     isStateReady = false;
     ref: any;
     instance: ViewInstance;
-    constructor(props: BaseProps, context: RenderContext) {
-      super(props, context);
+    constructor(externalProps: BaseProps, context: RenderContext) {
+      super(externalProps, context);
       const viewContext = {
-        props,
+        props: externalProps,
         keepReferences: ["external.children"],
         ...context.config,
       };
-      this.args = args;
+      this.viewProps = props;
       this.ref = React.createRef();
       const viewProducer = {
-        args,
+        props,
         fn: this.updateData.bind(this),
         meta,
       };
