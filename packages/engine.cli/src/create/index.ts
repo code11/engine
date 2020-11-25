@@ -10,3 +10,4 @@ export { cleanup } from "./cleanup";
 export { writeTsConfig } from "./writeTsConfig";
 export { writeGitIgnore } from "./writeGitIgnore";
 export { isSetupReady } from "./isSetupReady";
+export { done } from "./done";

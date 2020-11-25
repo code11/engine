@@ -34,7 +34,7 @@ export const installDependencies: producer = async ({
   });
 
   install.stderr.on("data", (data) => {
-    console.error(`stderr: ${data}`);
+    // console.error(`stderr: ${data}`);
   });
 
   install.on("close", (code) => {
