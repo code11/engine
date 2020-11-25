@@ -6,6 +6,10 @@ testProducer({
   producer: greeting,
   props: {
     name: "foo",
+    item: {
+      a: "this is a",
+      b: "this is b",
+    },
   },
   expect: {
     greeting: {

@@ -42,7 +42,7 @@ import type { RenderContext } from "./render";
 interface SampleState {}
 
 export type ViewFn<ExternalProps = {}> = (
-  props: ProducerData
+  props: any
 ) => React.ReactElement<ExternalProps> | null;
 
 export type ViewExtra = {

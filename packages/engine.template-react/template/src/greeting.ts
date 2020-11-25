@@ -1,4 +1,9 @@
+type props = {
+  name: State["name"];
+  greeting: Update<State["greeting"]>;
+};
+
 export const greeting: producer = ({
   name = observe.name,
   greeting = update.greeting,
-}) => greeting.set(`Hello ${name}!`);
+}: props) => greeting.set(`Hello ${name}!`);

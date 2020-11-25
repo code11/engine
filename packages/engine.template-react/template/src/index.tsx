@@ -6,6 +6,10 @@ import "./global";
 engine({
   state: {
     name: "John Doe",
+    item: {
+      a: "this is a",
+      b: "this is b",
+    },
   },
   use: [
     renderReact(<App />, "#app", {
