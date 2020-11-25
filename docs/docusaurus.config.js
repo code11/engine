@@ -1,6 +1,6 @@
 module.exports = {
   title: "Code11 Engine",
-  tagline: "Next Generation applications built at lightening speed 🚀",
+  tagline: "Next Generation applications built at lightning speed 🚀",
   url: "https://code11.github.io",
   baseUrl: "/engine/",
   onBrokenLinks: "throw",

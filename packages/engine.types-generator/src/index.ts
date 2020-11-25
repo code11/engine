@@ -1,7 +1,7 @@
 import * as Babel from "@babel/core";
 import { parse, traverse, types as t } from "@babel/core";
 import { EngineKeywords, StructOperation } from "@c11/engine.types";
-import { paramParser } from "@c11/babel-plugin-engine";
+import { paramParser } from "@c11/engine.babel-plugin";
 
 const compileParams = (params: StructOperation) => {
   /*

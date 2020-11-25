@@ -36,7 +36,7 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
-    "@c11/babel-plugin-engine": "4.0.0-alpha.15",
+    "@c11/engine.babel-plugin": "4.0.0-alpha.15",
     "@schemastore/package": "^0.0.6",
     "@c11/engine.service-web": "4.0.0-alpha.15"
   },

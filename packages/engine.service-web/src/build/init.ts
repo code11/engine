@@ -93,7 +93,7 @@ export const init: producer = ({
                   {
                     plugins: [
                       [
-                        "@c11/babel-plugin-engine",
+                        "@c11/engine.babel-plugin",
                         {
                           viewLibrary: "@c11/engine.react",
                         },

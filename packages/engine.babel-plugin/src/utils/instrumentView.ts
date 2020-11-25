@@ -23,7 +23,7 @@ export const instrumentView = (
 
   if (!config.viewLibrary) {
     throw path.buildCodeFrameError(`Configuration error. Add a view library to you babel config, example:
-"plugins": ["@c11/babel-plugin-engine", { "viewLibrary": "@c11/engine.react" }]
+"plugins": ["@c11/engine.babel-plugin", { "viewLibrary": "@c11/engine.react" }]
     `);
   }
 

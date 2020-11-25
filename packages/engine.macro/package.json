@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.12.1",
-    "@c11/babel-plugin-engine": "4.0.0-alpha.15",
+    "@c11/engine.babel-plugin": "4.0.0-alpha.15",
     "@c11/engine.types": "4.0.0-alpha.10",
     "@types/babel-plugin-macros": "^2.8.3",
     "babel-plugin-tester": "^10.0.0",

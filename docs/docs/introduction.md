@@ -29,12 +29,12 @@ gradually evolve over time without any friction or constraints.
 Engine is built with keeping real-world, evolving requirements in mind, and all
 the challenges that come with it.
 
-#### Dumb as a brick Views
+#### Simple views
 
 > A view is just another representation of some data
 
-[View](/docs/api/view)s are bricks of an Engine, and they should be as
-dumb as bricks. A view does not do anything except:
+[View](/docs/api/view)s should be as simple as possible.
+A view does not do anything except:
 
 1. Render the view it is supposed to display
 2. Change the data it is supposed to represent
@@ -50,12 +50,13 @@ associated with it.
 
 #### Reactive Computations
 
-Dumb components, plain data, and computations capable of reacting to changes
+Components, plain data, and computations capable of reacting to changes
 (called [producers](/docs/api/producer)) to the data makes an Engine app.
 
 Engine apps are reactive. They start with:
+
 - an initial state (which can be empty as well)
-- declare dumb views that represent some part(s) of state e.g a
+- declare views that represent some part(s) of state e.g a
   `TodoListItem` component which needs a `TodoItem` object from state
 - declare computations that depend on some part(s) of state, e.g a `doneCounter`
   function which depends on all `TodoItems` in state to count number of done

@@ -1,5 +1,5 @@
 {
-  "name": "@c11/babel-plugin-engine",
+  "name": "@c11/engine.babel-plugin",
   "version": "4.0.0-alpha.15",
   "description": "Compile engine keywords into code",
   "main": "dist/index.js",

@@ -4,5 +4,5 @@
     "@babel/preset-env",
     "@babel/preset-react"
   ],
-  "plugins": ["@c11/babel-plugin-engine", "@babel/plugin-proposal-class-properties"]
+  "plugins": ["@c11/engine.babel-plugin", "@babel/plugin-proposal-class-properties"]
 }

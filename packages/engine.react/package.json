@@ -28,7 +28,7 @@
     "shortid": "^2.2.16"
   },
   "devDependencies": {
-    "@c11/babel-plugin-engine": "4.0.0-alpha.15",
+    "@c11/engine.babel-plugin": "4.0.0-alpha.15",
     "@c11/engine": "4.0.0-alpha.15",
     "@c11/engine.macro": "4.0.0-alpha.15",
     "@testing-library/jest-dom": "^5.11.5",
