@@ -1,9 +1,9 @@
 type external = {
-  name: string;
+  name: keyof State["item"];
 };
 
 type props = {
-  item: State["item"]["a"];
+  item: State["item"][keyof State["item"]];
 };
 
 export const Component: view<external> = ({

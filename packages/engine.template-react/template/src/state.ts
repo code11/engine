@@ -1,7 +1,7 @@
 export type State = {
   name: string;
-  greeting?: string;
-  item?: {
+  greeting: string;
+  item: {
     [k: string]: string;
   };
 };

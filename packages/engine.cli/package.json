@@ -43,6 +43,7 @@
   "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae",
   "engineConfig": {},
   "dependencies": {
+    "@babel/core": "^7.12.9",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/runtime": "^7.12.5",
     "@c11/engine": "4.0.0-alpha.17",
