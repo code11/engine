@@ -5,7 +5,7 @@ import {
   ProducerMeta,
 } from "./producer";
 
-export type ViewFn = (data: ProducerData) => JSX.Element;
+export type ViewFn = (data: ProducerData | any) => JSX.Element | any;
 
 export interface RenderConfig {
   element: any;

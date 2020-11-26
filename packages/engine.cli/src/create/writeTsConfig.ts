@@ -1,7 +1,6 @@
 import { writeFile } from "fs";
 import { promisify } from "util";
 import { performance } from "perf_hooks";
-import { ProducerData } from "@c11/engine.types";
 
 const pWriteFile = promisify(writeFile);
 
@@ -12,10 +11,6 @@ type props = {
   isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];
   tsConfigPath: Get<State["create"]["config"]["targetTsConfigPath"]>;
   flag: Update<State["create"]["flags"]["isTsConfigReady"]>;
-};
-
-const foo: ProducerData = {
-  bar: promisify(writeFile),
 };
 
 export const writeTsConfig: producer = async ({

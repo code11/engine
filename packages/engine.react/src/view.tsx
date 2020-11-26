@@ -8,7 +8,7 @@ import {
   ViewInstance,
   StructOperation,
 } from "@c11/engine.types";
-import type { ProducerInstance, ProducerData } from "@c11/engine.types";
+import type { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
 
