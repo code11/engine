@@ -36,6 +36,9 @@ export const writeTsConfig: producer = async ({
       target: "es5",
       moduleResolution: "node",
       module: "commonjs",
+      paths: {
+        "src/*": ["*"],
+      },
       declaration: true,
       inlineSourceMap: true,
       experimentalDecorators: true,

@@ -1,6 +1,7 @@
 import webpack, { Configuration } from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import { command } from "@c11/engine.service-web/src/setup";
 
 type props = {
   _webpack: typeof webpack;
@@ -12,8 +13,10 @@ type props = {
   distPath: Get<State["config"]["distPath"]>;
   publicIndexPath: Get<State["config"]["publicIndexPath"]>;
   nodeModulesPath: Get<State["config"]["nodeModulesPath"]>;
+  commandPath: Get<State["config"]["commandPath"]>;
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
+  publicPath: Get<State["config"]["publicPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
 };
 
@@ -25,10 +28,12 @@ export const init: producer = ({
   entryPath = get.config.entryPath,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
+  commandPath = get.config.commandPath,
   packagePath = get.config.packagePath,
   nodeModulesPath = get.config.nodeModulesPath,
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
+  publicPath = get.config.publicPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
 }: props) => {
   if (!trigger) {
@@ -43,6 +48,7 @@ export const init: producer = ({
       path: distPath.value(),
     },
     resolve: {
+      modules: [nodeModulesPath.value(), commandPath.value()],
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     resolveLoader: {
@@ -51,7 +57,11 @@ export const init: producer = ({
     module: {
       rules: [
         {
-          test: /\.(png|jpg|gif|webp|svg)$/,
+          test: /\.svg$/,
+          use: ["@svgr/webpack", "url-loader"],
+        },
+        {
+          test: /\.(png|jpg|gif|webp)$/,
           use: [
             {
               loader: "file-loader",
@@ -165,11 +175,16 @@ export const init: producer = ({
       }),
       new _HtmlWebpackPlugin({
         template: publicIndexPath.value(),
+        templateParameters: {
+          PUBLIC_URL: "",
+        },
       }),
     ],
   } as Configuration;
 
-  const server = new _WebpackDevServer(_webpack(config));
+  const server = new _WebpackDevServer(_webpack(config), {
+    contentBase: publicPath.value(),
+  });
 
   server.listen(8081, "0.0.0.0");
 };

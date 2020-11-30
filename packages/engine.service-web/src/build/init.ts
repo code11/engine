@@ -55,7 +55,11 @@ export const init: producer = ({
     module: {
       rules: [
         {
-          test: /\.(png|jpg|gif|webp|svg)$/,
+          test: /\.svg$/,
+          use: ["@svgr/webpack", "url-loader"],
+        },
+        {
+          test: /\.(png|jpg|gif|webp)$/,
           use: [
             {
               loader: "file-loader",
