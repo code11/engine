@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.25](https://github.com/code11/engine/compare/v4.0.0-alpha.24...v4.0.0-alpha.25) (2020-12-01)
+
+**Note:** Version bump only for package @c11/engine.template-react
+
+
+
+
+
 # [4.0.0-alpha.22](https://github.com/code11/engine/compare/v4.0.0-alpha.21...v4.0.0-alpha.22) (2020-11-30)
 
 **Note:** Version bump only for package @c11/engine.template-react
