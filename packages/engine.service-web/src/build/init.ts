@@ -13,6 +13,7 @@ type props = {
   packagePath: Get<State["config"]["packagePath"]>;
   distPath: Get<State["config"]["distPath"]>;
   publicIndexPath: Get<State["config"]["publicIndexPath"]>;
+  commandPath: Get<State["config"]["commandPath"]>;
   nodeModulesPath: Get<State["config"]["nodeModulesPath"]>;
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
@@ -28,6 +29,7 @@ export const init: producer = ({
   entryPath = get.config.entryPath,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
+  commandPath = get.config.commandPath,
   packagePath = get.config.packagePath,
   nodeModulesPath = get.config.nodeModulesPath,
   overrideModulesPath = get.config.overrideModulesPath,
@@ -47,6 +49,7 @@ export const init: producer = ({
       filename: "[name].[contenthash:8].js",
     },
     resolve: {
+      modules: [nodeModulesPath.value(), commandPath.value()],
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     resolveLoader: {
