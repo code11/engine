@@ -2,9 +2,11 @@ import webpack, { Configuration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { copy } from "fs-extra";
 
 type props = {
   _webpack: typeof webpack;
+  _copy: typeof copy;
   _HtmlWebpackPlugin: typeof HtmlWebpackPlugin;
   _BundleAnalyzerPlugin: typeof BundleAnalyzerPlugin;
   _MiniCssExtractPlugin: typeof MiniCssExtractPlugin;
@@ -14,14 +16,16 @@ type props = {
   distPath: Get<State["config"]["distPath"]>;
   publicIndexPath: Get<State["config"]["publicIndexPath"]>;
   commandPath: Get<State["config"]["commandPath"]>;
+  publicPath: Get<State["config"]["publicPath"]>;
   nodeModulesPath: Get<State["config"]["nodeModulesPath"]>;
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
 };
 
-export const init: producer = ({
+export const init: producer = async ({
   _webpack = webpack,
+  _copy = copy,
   _HtmlWebpackPlugin = HtmlWebpackPlugin,
   _BundleAnalyzerPlugin = BundleAnalyzerPlugin,
   _MiniCssExtractPlugin = MiniCssExtractPlugin,
@@ -29,6 +33,7 @@ export const init: producer = ({
   entryPath = get.config.entryPath,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
+  publicPath = get.config.publicPath,
   commandPath = get.config.commandPath,
   packagePath = get.config.packagePath,
   nodeModulesPath = get.config.nodeModulesPath,
@@ -218,6 +223,11 @@ export const init: producer = ({
       },
     },
   } as Configuration;
+
+  await _copy(publicPath.value(), distPath.value(), {
+    dereference: true,
+    filter: (file) => file !== publicIndexPath.value(),
+  });
 
   _webpack(config, (err, stats) => {
     if (err) {
