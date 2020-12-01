@@ -185,6 +185,9 @@ export const init: producer = ({
       }),
       new _HtmlWebpackPlugin({
         template: publicIndexPath.value(),
+        templateParameters: {
+          PUBLIC_URL: "",
+        },
       }),
       new _MiniCssExtractPlugin({
         filename: "[name].css",
