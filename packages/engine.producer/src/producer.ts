@@ -17,7 +17,7 @@ import isNumber from "lodash/isNumber";
 import isBoolean from "lodash/isBoolean";
 import isNil from "lodash/isNil";
 import isRegExp from "lodash/isRegExp";
-import shortid from "shortid";
+import { nanoid } from "nanoid";
 import { Graph } from "./graph";
 import { UpdateOperationSymbol } from "./graph/updateOperation";
 import { GetOperationSymbol } from "./graph/getOperation";
@@ -48,7 +48,7 @@ export class Producer implements ProducerInstance {
   id: string;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
-    this.id = shortid.generate();
+    this.id = nanoid();
     this.props = config.props;
     this.fn = config.fn;
     this.external = context.props || {};

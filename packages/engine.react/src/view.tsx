@@ -1,5 +1,5 @@
 import React from "react";
-import shortid from "shortid";
+import { nanoid } from "nanoid";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
 import {
@@ -80,7 +80,7 @@ export function view({ props, fn, meta }: ViewConfig) {
         this.producers.push(context.module.addProducer(x, viewContext));
       });
       this.instance = {
-        id: shortid.generate(),
+        id: nanoid(),
         producers: this.producers,
       };
       // context.addView(this.instance);

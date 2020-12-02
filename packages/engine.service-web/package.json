@@ -30,8 +30,8 @@
     "tsc": "tsc --project tsconfig.json --listFiles",
     "build": "babel src --out-dir dist --extensions \".ts\" && chmod +x dist/index.js",
     "run:start": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn start",
-    "run:build": "yarn build && chmod +x dist/index.js && cd ../engine.cli-service-web-test && yarn build",
-    "run:test": "yarn build && chmod +x dist/index.js && cd ../engine.cli-service-web-test && yarn test",
+    "run:build": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn build",
+    "run:test": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn test",
     "test": "echo \"jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
