@@ -40,8 +40,10 @@ test("Should propagate changes in props", async (done) => {
     state: defaultState,
     use: [renderReact(<Parent />, rootEl)],
   }).start();
+
   jest.runAllTimers();
   await flushPromises();
+
   waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     const button = getByTestId(document.body, "set-foo");

@@ -48,7 +48,7 @@ export const init: producer = ({
       path: distPath.value(),
     },
     resolve: {
-      modules: [nodeModulesPath.value(), commandPath.value()],
+      modules: ["node_modules", commandPath.value()],
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     resolveLoader: {
@@ -184,6 +184,7 @@ export const init: producer = ({
 
   const server = new _WebpackDevServer(_webpack(config), {
     contentBase: publicPath.value(),
+    hot: true,
   });
 
   server.listen(8081, "0.0.0.0");

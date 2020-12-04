@@ -33,7 +33,7 @@ test("Should mount and unmount producers attached to a component", async (done) 
   }) => {
     bar.set(propValue);
   };
-  Component.producers = [prodA];
+  Component.producers([prodA]);
 
   const Parent: view = ({ shouldMount = observe.shouldMountChild }) => (
     <div>{shouldMount && <Component propName="foo"></Component>}</div>

@@ -21,7 +21,8 @@
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.react/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
-    "react": "^16"
+    "react": "^16",
+    "nanoid": "^3.1.20"
   },
   "dependencies": {
     "@c11/engine.types": "4.0.0-alpha.21",

@@ -46,6 +46,7 @@ export class Producer implements ProducerInstance {
     executionCount: 0,
   };
   id: string;
+  sourceId: string;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
     this.id = nanoid();
@@ -54,6 +55,7 @@ export class Producer implements ProducerInstance {
     this.external = context.props || {};
     this.debug = context.debug || false;
     this.meta = config.meta || {};
+    this.sourceId = `${config.meta?.absoluteFilePath}:${config.meta?.name}`;
     this.keepReferences = context.keepReferences || [];
     this.graph = new Graph(
       this.db,

@@ -28,7 +28,9 @@ export const instrumentProducer = (
 
   const parsedParam = paramParser(babel, param);
   let metaProps = {};
-  if (process.env.NODE_ENV === "development") {
+  if (
+    !(process.env.NODE_ENV == "production" || process.env.NODE_ENV == "test")
+  ) {
     metaProps = extractMeta(babel, state, path);
   }
 

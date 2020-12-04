@@ -20,6 +20,7 @@ export interface ViewConfig {
 export type RootElement = HTMLElement | null;
 export interface ViewInstance {
   id: string;
+  sourceId: string;
   producers: ProducerInstance[];
 }
 export interface RenderInstance {

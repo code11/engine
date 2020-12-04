@@ -129,6 +129,7 @@ export interface ProducerConfig {
 
 export interface ProducerInstance {
   id: string;
+  sourceId: string;
   mount: () => void;
   unmount: () => void;
   updateExternal: (props: ProducerContext["props"]) => this;
