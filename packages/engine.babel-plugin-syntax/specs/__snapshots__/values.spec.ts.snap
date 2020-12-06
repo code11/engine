@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel-plugin-engine should keep constants: should keep constants 1`] = `
+
+const SectionId = {}
+const result: producer = ({
+  a1 = '123',
+  a2 = {
+    foo: 123
+  },
+  a3 = function () { return false },
+  a4 = () => {},
+  a5 = /123/,
+  a6 = null,
+  a7 = undefined,
+  a8 = SectionId.foo,
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const SectionId = {};
+const result = {
+  fn: ({
+    a1: a1,
+    a2: a2,
+    a3: a3,
+    a4: a4,
+    a5: a5,
+    a6: a6,
+    a7: a7,
+    a8: a8,
+  }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+      a2: {
+        type: "STRUCT",
+        value: {
+          foo: {
+            type: "VALUE",
+            value: {
+              type: "CONST",
+              value: 123,
+            },
+          },
+        },
+      },
+      a3: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: function () {
+            return false;
+          },
+        },
+      },
+      a4: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: () => {},
+        },
+      },
+      a5: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: /123/,
+        },
+      },
+      a6: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: null,
+        },
+      },
+      a7: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: undefined,
+        },
+      },
+      a8: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: SectionId.foo,
+        },
+      },
+    },
+  },
+  type: "producer",
+};
+
+
+`;
+
+exports[`babel-plugin-engine should support expressions: should support expressions 1`] = `
+
+const result: producer = ({
+  a1 = get.foo || '123' && '123',
+}) => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const result = {
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "FUNC",
+        value: {
+          params: [
+            {
+              type: "GET",
+              value: "value",
+            },
+          ],
+          fn: "fn",
+        },
+      },
+    },
+  },
+  type: "producer",
+};
+
+
+`;
+
+exports[`babel-plugin-engine should support nesting: should support nesting 1`] = `
+
+const result: producer = ({
+  a1 = {
+    val1: {
+      bar: 123,
+    },
+    val2: get.foo
+  }
+}) => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const result = {
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "STRUCT",
+        value: {
+          val1: {
+            type: "STRUCT",
+            value: {
+              bar: {
+                type: "VALUE",
+                value: {
+                  type: "CONST",
+                  value: 123,
+                },
+              },
+            },
+          },
+          val2: {
+            type: "GET",
+            path: [
+              {
+                type: "CONST",
+                value: "foo",
+              },
+            ],
+          },
+        },
+      },
+    },
+  },
+  type: "producer",
+};
+
+
+`;

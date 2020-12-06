@@ -94,16 +94,17 @@ export const init: producer = ({
               options: {
                 cacheDirectory: true,
                 comments: false,
-                minified: true,
+                minified: false,
                 presets: [
                   {
                     plugins: [
                       [
-                        "@c11/engine.babel-plugin",
+                        "@c11/engine.babel-plugin-syntax",
                         {
                           viewLibrary: "@c11/engine.react",
                         },
                       ],
+                      "@c11/engine.babel-plugin-hmr",
                     ],
                   },
                   "@babel/preset-typescript",

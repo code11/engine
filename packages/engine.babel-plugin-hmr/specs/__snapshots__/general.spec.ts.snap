@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@c11/engine.babel-plugin-hmr should add module.hot.accept() to producer only once: should add module.hot.accept() to producer only once 1`] = `
+
+const result: producer = ({
+  a1 = '123',
+}) => { }
+const result2: producer = ({
+  a1 = '123',
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const result = {
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+    },
+  },
+  type: "producer",
+};
+const result2 = {
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+    },
+  },
+  type: "producer",
+};
+
+
+`;
+
+exports[`@c11/engine.babel-plugin-hmr should add module.hot.accept() to producer: should add module.hot.accept() to producer 1`] = `
+
+const result: producer = ({
+  a1 = '123',
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const result = {
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+    },
+  },
+  type: "producer",
+};
+
+
+`;
+
+exports[`@c11/engine.babel-plugin-hmr should add module.hot.accept() to view only once: should add module.hot.accept() to view only once 1`] = `
+
+const result: view = ({
+  a1 = '123',
+}) => { }
+const result2: view = ({
+  a1 = '123',
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewEngine } from "@c11/engine.react";
+const result = viewEngine({
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+    },
+  },
+  type: "view",
+});
+const result2 = viewEngine({
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+    },
+  },
+  type: "view",
+});
+
+
+`;
+
+exports[`@c11/engine.babel-plugin-hmr should add module.hot.accept() to view: should add module.hot.accept() to view 1`] = `
+
+export const result: view = ({
+  a1 = '123',
+}) => { }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewEngine } from "@c11/engine.react";
+export const result = viewEngine({
+  fn: ({ a1: a1 }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a1: {
+        type: "VALUE",
+        value: {
+          type: "CONST",
+          value: "123",
+        },
+      },
+    },
+  },
+  type: "view",
+});
+
+
+`;

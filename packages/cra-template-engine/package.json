@@ -24,7 +24,7 @@
     "template.json"
   ],
   "dependencies": {
-    "@c11/engine": "4.0.0-alpha.26",
+    "@c11/engine.runtime": "4.0.0-alpha.26",
     "@c11/engine.db": "4.0.0-alpha.21",
     "@c11/engine.types": "4.0.0-alpha.21"
   },

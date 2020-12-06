@@ -105,7 +105,7 @@ export const init: producer = async ({
                   {
                     plugins: [
                       [
-                        "@c11/engine.babel-plugin",
+                        "@c11/engine.babel-plugin-syntax",
                         {
                           viewLibrary: "@c11/engine.react",
                         },

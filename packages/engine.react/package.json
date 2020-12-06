@@ -24,12 +24,13 @@
     "react": "^16",
     "nanoid": "^3.1.20"
   },
+  "files": ["dist"],
   "dependencies": {
     "@c11/engine.types": "4.0.0-alpha.21",
     "nanoid": "^3.1.20"
   },
   "devDependencies": {
-    "@c11/engine": "4.0.0-alpha.26",
+    "@c11/engine.runtime": "4.0.0-alpha.26",
     "@c11/engine.babel-plugin": "4.0.0-alpha.21",
     "@c11/engine.macro": "4.0.0-alpha.21",
     "@testing-library/jest-dom": "^5.11.5",

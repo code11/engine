@@ -2,7 +2,7 @@ import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
-import { engine } from "@c11/engine";
+import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -27,10 +27,14 @@ test("Expect to call using only get", async (done) => {
     expect(foo).toBeDefined();
     return <div data-testid="foo">{foo.value()}</div>;
   };
-  engine({
+
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Component />, rootEl)],
-  }).start();
+  });
+
+  app.start();
+
   jest.runAllTimers();
   await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
-import { engine, producers } from "@c11/engine";
+import { engine, producers } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -29,10 +29,14 @@ test.skip("Simple load of a react component", async () => {
   };
 
   Component.producers = [prodA];
-  engine({
+
+  const app = engine({
     use: [renderReact(<Component />, rootEl), producers([testProducer])],
     state: defaultState,
   });
+
+  app.start();
+
   jest.runAllTimers();
   await flushPromises();
   // expect(engine.getProducers().length).toBe(3);

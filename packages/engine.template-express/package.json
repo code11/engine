@@ -13,7 +13,7 @@
     "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
   },
   "dependencies": {
-    "@c11/engine": "4.0.0-alpha.26",
+    "@c11/engine.runtime": "4.0.0-alpha.26",
     "@c11/engine.types": "4.0.0-alpha.21"
   },
   "devDependencies": {

@@ -13,6 +13,7 @@ export interface RenderConfig {
 }
 
 export interface ViewConfig {
+  sourceId: string;
   meta: ProducerMeta;
   props: StructOperation;
   fn: ViewFn;

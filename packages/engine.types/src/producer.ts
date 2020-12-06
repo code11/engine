@@ -122,7 +122,9 @@ export interface ProducerMeta {
 }
 
 export interface ProducerConfig {
-  meta: ProducerMeta;
+  sourceId?: string;
+  buildId?: string;
+  meta?: ProducerMeta;
   props: StructOperation;
   fn: ProducerFn;
 }

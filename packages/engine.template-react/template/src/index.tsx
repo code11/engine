@@ -1,9 +1,9 @@
-import { engine } from "@c11/engine";
+import { engine } from "@c11/engine.runtime";
 import { renderReact } from "@c11/engine.react";
 import { App } from "./App";
 import "./global";
 
-engine({
+const app = engine({
   state: {
     name: "John Doe",
     item: {
@@ -16,7 +16,9 @@ engine({
       debug: process.env.NODE_ENV === "development",
     }),
   ],
-}).start();
+});
+
+app.start();
 
 // Each renderer can have a state where it stores if it finished rendering/mounting/etc
 // This can be used to hook-up processes for export for example

@@ -1,16 +1,24 @@
 import { MacroProducerType } from "./macro";
-import { ProducerContext, ProducerInstance } from "./producer";
+import { ProducerConfig, ProducerInstance } from "./producer";
+import { ViewConfig } from "./view";
 
 export type ExternalProducerContext = {
   debug?: boolean;
 };
 
+export type UpdateSourceFn = (config: ProducerConfig | ViewConfig) => void;
+
+export type UnsubscribeSourceUpdateFn = () => void;
+
 export type ModuleContext = {
+  onSourceUpdate: (
+    sourceId: string,
+    cb: UpdateSourceFn
+  ) => UnsubscribeSourceUpdateFn;
   addProducer: (
     config: MacroProducerType,
     context?: ExternalProducerContext
   ) => ProducerInstance;
-  removeProducers: () => void;
 };
 
 export type EngineModuleInstance = {
@@ -19,7 +27,6 @@ export type EngineModuleInstance = {
 
 export type EngineModuleSource = {
   bootstrap?: () => void | Promise<void>;
-  update?: () => void | Promise<void>;
   mount: (context: ModuleContext) => void | Promise<void>;
   unmount: (context: ModuleContext) => void | Promise<void>;
 };

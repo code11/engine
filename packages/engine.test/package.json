@@ -20,7 +20,7 @@
     "react": "^16"
   },
   "dependencies": {
-    "@c11/engine": "4.0.0-alpha.26",
+    "@c11/engine.runtime": "4.0.0-alpha.26",
     "@c11/engine.react": "4.0.0-alpha.26",
     "@c11/engine.types": "4.0.0-alpha.21",
     "jsdom-screenshot": "^4.0.0"

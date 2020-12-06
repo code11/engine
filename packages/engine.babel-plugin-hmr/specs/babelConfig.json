@@ -1,0 +1,7 @@
+{
+  "babelrc": false,
+  "plugins": [
+    "@babel/plugin-syntax-typescript",
+    ["@c11/engine.babel-plugin-syntax", { "viewLibrary": "@c11/engine.react" }]
+  ]
+}

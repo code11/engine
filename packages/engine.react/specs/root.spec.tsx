@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
-import { engine } from "@c11/engine";
+import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -25,10 +25,14 @@ test.skip("Calling engine.getRoot() should return the root element in which the 
   const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
-  engine({
+
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Component />, rootEl)],
   });
+
+  app.start();
+
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);
 });
@@ -43,10 +47,14 @@ test.skip("Should support root as a function", () => {
   const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
-  engine({
+
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Component />, () => rootEl)],
-  }).start();
+  });
+
+  app.start();
+
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);
 });
@@ -61,10 +69,14 @@ test.skip("Should support root as a function that returns a promise", () => {
   const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
-  engine({
+
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Component />, Promise.resolve(rootEl))],
   });
+
+  app.start();
+
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);
 });
@@ -79,10 +91,14 @@ test.skip("Should support root as a promise", () => {
   const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
-  engine({
+
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Component />, Promise.resolve(rootEl))],
   });
+
+  app.start();
+
   jest.runAllTimers();
   // expect(engine.getRoot()).toBe(rootEl);
 });

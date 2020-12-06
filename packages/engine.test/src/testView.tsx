@@ -1,5 +1,5 @@
 import React from "react";
-import { engine } from "@c11/engine";
+import { engine } from "@c11/engine.runtime";
 import { renderReact } from "@c11/engine.react";
 import { generateImage } from "jsdom-screenshot";
 import { ViewFn } from "@c11/engine.react";
@@ -27,10 +27,12 @@ export const testView = async ({ name, state, view, props }: testViewProps) => {
     document.body.appendChild(root);
     const View = view;
 
-    engine({
+    const app = engine({
       state,
       use: [renderReact(<View {...props} />, root)],
-    }).start();
+    });
+
+    app.start();
 
     jest.runAllTimers();
 

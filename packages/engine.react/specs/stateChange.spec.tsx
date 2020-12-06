@@ -2,7 +2,7 @@ import React from "react";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
-import { engine, producers } from "@c11/engine";
+import { engine, producers } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -31,10 +31,14 @@ test("Simple load of a react component and work with producers", async (done) =>
   const prod: producer = ({ baz = observe.baz, bam = update.bam }) => {
     bam.set(baz);
   };
-  engine({
+
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Component />, rootEl), producers([prod])],
-  }).start();
+  });
+
+  app.start();
+
   jest.runAllTimers();
   await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {

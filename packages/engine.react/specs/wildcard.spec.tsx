@@ -2,7 +2,7 @@ import React from "react";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
-import { engine, producers, wildcard } from "@c11/engine";
+import { engine, producers, wildcard } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -34,10 +34,14 @@ test.skip("should support wildcard", async (done) => {
   const fooUpdater: producer = ({ value = update.foo.xyz.name }) => {
     value.set("321");
   };
-  engine({
+
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Component />, rootEl), producers([fooUpdater])],
-  }).start();
+  });
+
+  app.start();
+
   jest.runAllTimers();
   await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {

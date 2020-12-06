@@ -72,42 +72,34 @@ const cache: InstanceCache = {};
 // TODO: Create a production and development view - there too many overlaps now
 
 export function view(config: ViewConfig) {
-  const sourceId = `${config.meta?.absoluteFilePath}:${config.meta?.name}`;
-
-  if (cache[sourceId]) {
-    Object.keys(cache[sourceId].instances).forEach((x) => {
-      cache[sourceId].instances[x].replaceView(config);
-    });
-  } else {
-    cache[sourceId] = {
-      producers: [],
-      instances: {},
-    };
-  }
-
+  const sourceId = config.sourceId;
+  let producers: ProducerConfig[] = [];
+  let setProducers: RenderContext["setProducers"];
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
     fn: any;
     isComponentMounted: boolean = false;
     viewProps: StructOperation;
-    producers: ProducerInstance[] = [];
+    producers: { [k: string]: ProducerInstance } = {};
     isStateReady = false;
     viewProducer: ProducerInstance;
     viewContext: ExternalProducerContext;
     ref: any;
     id: string;
     static producers(newProducers: ProducerConfig[]) {
-      Object.keys(cache[sourceId].instances).forEach(function (x) {
-        cache[sourceId].instances[x].replaceProducers(newProducers);
-      });
-      cache[sourceId].producers = newProducers;
+      producers = newProducers;
+      // TODO: should throw an error if the same producer is used twice
+      // check using sourceId in development
+      if (setProducers) {
+        setProducers(sourceId, newProducers);
+      }
     }
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
       const viewContext = {
         props: externalProps,
         keepReferences: ["external.children"],
-        ...context.config,
+        debug: context.debug,
       };
       this.viewContext = viewContext;
       this.viewProps = config.props;
@@ -119,16 +111,18 @@ export function view(config: ViewConfig) {
         meta: config.meta,
       };
       this.id = nanoid();
-      this.viewProducer = context.module.addProducer(viewProducer, viewContext);
-      cache[sourceId].producers.forEach((x: any) => {
-        this.producers.push(context.module.addProducer(x, viewContext));
+      this.viewProducer = context.addProducer(viewProducer, viewContext, {
+        viewId: this.id,
+        viewSourceId: sourceId,
       });
-      this.state = {};
-      this.context = context;
-    }
-    componentDidMount() {
-      if (this.context.config.debug && !cache[sourceId].instances[this.id]) {
-        cache[sourceId].instances[this.id] = {
+      if (sourceId) {
+        const updatedProducers = context.getProducers(sourceId);
+        if (updatedProducers) {
+          producers = updatedProducers;
+        }
+        setProducers = context.setProducers;
+        context.registerView(sourceId, config);
+        context.subscribeViewInstance(sourceId, this.id, {
           replaceView: (newConfig) => {
             this.fn = newConfig.fn;
             this.viewProducer.unmount();
@@ -137,34 +131,76 @@ export function view(config: ViewConfig) {
               fn: this.updateData.bind(this),
               meta: newConfig.meta,
             };
-            this.viewProducer = this.context.module.addProducer(
+            this.viewProducer = this.context.addProducer(
               viewProducer,
-              this.viewContext
+              this.viewContext,
+              {
+                viewId: this.id,
+                viewSourceId: sourceId,
+              }
             );
             this.viewProducer.mount();
           },
+          replaceProducer: (id, config) => {
+            if (this.producers[id]) {
+              const producer = this.producers[id];
+              delete this.producers[id];
+              producer.unmount();
+            }
+            this.producers[id] = this.context.addProducer(
+              config,
+              this.viewContext,
+              {
+                viewId: this.id,
+                viewSourceId: sourceId,
+              }
+            );
+            if (this.isComponentMounted) {
+              this.producers[id].mount();
+            }
+          },
           replaceProducers: (newProducers) => {
-            this.producers.forEach((x) => x.unmount());
-            this.producers = [];
+            Object.keys(this.producers).forEach((x) => {
+              const producer = this.producers[x];
+              delete this.producers[x];
+              producer.unmount();
+            });
+            this.producers = {};
             newProducers.forEach((x) => {
-              const producer = this.context.module.addProducer(
-                x,
-                this.viewContext
-              );
-              producer.mount();
-              this.producers.push(producer);
+              const producer = this.context.addProducer(x, this.viewContext, {
+                viewId: this.id,
+                viewSourceId: sourceId,
+              });
+              if (this.isComponentMounted) {
+                producer.mount();
+              }
+              const producerId = x.sourceId || nanoid();
+              this.producers[producerId] = producer;
             });
           },
-        };
+        });
       }
+      producers.forEach((x: any) => {
+        const id = x.sourceId || nanoid();
+        this.producers[id] = context.addProducer(x, viewContext, {
+          viewId: this.id,
+          viewSourceId: sourceId,
+        });
+      });
+      this.state = {};
+      this.context = context;
+    }
+    componentDidMount() {
       this.isComponentMounted = true;
-      this.producers.forEach((x) => x.mount());
+      Object.values(this.producers).forEach((x) => x.mount());
       this.viewProducer.mount();
     }
     componentWillUnmount() {
+      if (sourceId) {
+        this.context.removeViewInstance(sourceId, this.id);
+      }
       this.isComponentMounted = false;
-      delete cache[sourceId].instances[this.id];
-      this.producers.forEach((x) => x.unmount());
+      Object.values(this.producers).forEach((x) => x.unmount());
       this.viewProducer.unmount();
     }
     updateData(data: any) {
@@ -182,7 +218,7 @@ export function view(config: ViewConfig) {
     }
     render() {
       // TODO: anyway of knowing if the props changed?
-      this.producers.forEach((x) => {
+      Object.values(this.producers).forEach((x) => {
         x.updateExternal(this.props);
       });
       this.viewProducer.updateExternal(this.props);

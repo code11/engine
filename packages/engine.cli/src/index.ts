@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-import { engine, producers } from "@c11/engine";
+import { engine, producers } from "@c11/engine.runtime";
 import * as create from "./create";
 import * as setup from "./setup";
 import "./global";
 
-engine({
+const app = engine({
   use: [producers(Object.values(create)), producers(Object.values(setup))],
-}).start();
+});
+
+app.start();

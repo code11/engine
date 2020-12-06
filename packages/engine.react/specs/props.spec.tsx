@@ -2,7 +2,7 @@ import React from "react";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderReact } from "../src";
-import { engine } from "@c11/engine";
+import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -36,10 +36,12 @@ test("Should propagate changes in props", async (done) => {
     return <Child foo={foo} />;
   };
 
-  engine({
+  const app = engine({
     state: defaultState,
     use: [renderReact(<Parent />, rootEl)],
-  }).start();
+  });
+
+  app.start();
 
   jest.runAllTimers();
   await flushPromises();

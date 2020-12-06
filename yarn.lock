@@ -986,6 +986,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@c11/engine.babel-plugin@4.0.0-alpha.21":
+  version "4.0.0-alpha.21"
+  resolved "https://registry.yarnpkg.com/@c11/engine.babel-plugin/-/engine.babel-plugin-4.0.0-alpha.21.tgz#8395c8f2aa545b472c9219d12916eb0b603f27f4"
+  integrity sha512-s65o3eNsGlsovWJPqH+fOhEmIYOa3PTf09TArnDw0vY9lv5HEyx2MvVsQmzvpyBuZNAOYbxH5Xg4ij6uerAg+A==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
