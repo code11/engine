@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.runtime",
-  "version": "4.0.0-alpha.26",
+  "version": "4.0.0-alpha.27",
   "description": "A runtime for engine applications",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -15,9 +15,9 @@
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "dependencies": {
-    "@c11/engine.db": "4.0.0-alpha.21",
-    "@c11/engine.producer": "4.0.0-alpha.26",
-    "@c11/engine.types": "4.0.0-alpha.21",
+    "@c11/engine.db": "4.0.0-alpha.27",
+    "@c11/engine.producer": "4.0.0-alpha.27",
+    "@c11/engine.types": "4.0.0-alpha.27",
     "nanoid": "^3.1.20"
   },
   "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae"
