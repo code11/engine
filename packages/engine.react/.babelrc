@@ -4,5 +4,5 @@
     ["@babel/preset-env", { "targets": {"node": "current"}}],
     "@babel/preset-react"
   ],
-  "plugins": [["@c11/engine.babel-plugin", { "viewLibrary": "../src"}], "@babel/plugin-proposal-class-properties"]
+  "plugins": [["@c11/engine.babel-plugin-syntax", { "viewLibrary": "../src"}], "@babel/plugin-proposal-class-properties"]
 }

@@ -29,7 +29,7 @@
     "@c11/engine.types": "4.0.0-alpha.21"
   },
   "devDependencies": {
-    "@c11/engine.babel-plugin": "4.0.0-alpha.21"
+    "@c11/engine.macro": "4.0.0-alpha.21"
   },
   "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae"
 }

@@ -17,6 +17,6 @@
     "@c11/engine.types": "4.0.0-alpha.21"
   },
   "devDependencies": {
-    "@c11/engine.babel-plugin": "4.0.0-alpha.21"
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.26"
   }
 }

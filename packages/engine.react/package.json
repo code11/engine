@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@c11/engine.runtime": "4.0.0-alpha.26",
-    "@c11/engine.babel-plugin": "4.0.0-alpha.21",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.26",
     "@c11/engine.macro": "4.0.0-alpha.21",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",

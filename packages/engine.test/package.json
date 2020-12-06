@@ -30,7 +30,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
-    "@c11/engine.babel-plugin": "4.0.0-alpha.21",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.26",
     "@testing-library/react": "^11.1.0",
     "@types/jest": "^26.0.15",
     "@types/jsdom-screenshot": "^3.2.0",
