@@ -122,6 +122,9 @@ export function view(config: ViewConfig) {
         }
         setProducers = context.setProducers;
         context.registerView(sourceId, config);
+        if (!updatedProducers) {
+          context.setProducers(sourceId, producers);
+        }
         context.subscribeViewInstance(sourceId, this.id, {
           replaceView: (newConfig) => {
             this.fn = newConfig.fn;

@@ -54,7 +54,7 @@ export const init: producer = async ({
       filename: "[name].[contenthash:8].js",
     },
     resolve: {
-      modules: [nodeModulesPath.value(), commandPath.value()],
+      modules: ["node_modules", commandPath.value()],
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     resolveLoader: {
