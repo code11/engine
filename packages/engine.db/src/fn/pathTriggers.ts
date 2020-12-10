@@ -2,6 +2,36 @@ import flatten from "lodash/flattenDeep";
 import uniq from "uniq";
 import decomposePath from "./decomposePath";
 
+const shouldUpdate = (source: string, path: string): boolean => {
+  let result = false;
+
+  if (
+    path.substr(0, source.length) === source ||
+    source.substr(0, path.length) === path
+  ) {
+    result = true;
+  }
+
+  return result;
+};
+
+const isNestedDynamic = (db: any, source: string, path: string): boolean => {
+  return Object.keys(db.dynamic.fullDeps).some((x) => {
+    if (path.substr(0, x.length) === x) {
+      return db.dynamic.fullDeps[x].some((y) => {
+        return source.substr(0, y.length) === y;
+      });
+    }
+  });
+};
+
+const isWildcardTrigger = (source: string, path: string): boolean => {
+  if (!source.includes("*")) {
+    return false;
+  }
+  return source.substr(0, path.length) === source;
+};
+
 function pathTriggers(db: any, path: any) {
   let trigger: any[] = [];
 
@@ -10,9 +40,26 @@ function pathTriggers(db: any, path: any) {
   //@ts-ignore
   parts.push(path);
 
-  parts.forEach((y) => {
-    if (db.updates.triggers[y]) {
-      trigger.push(db.updates.triggers[y]);
+  parts.forEach((x) => {
+    if (db.updates.triggers[x]) {
+      db.updates.triggers[x].forEach((y) => {
+        if (db.dynamic.staticDeps[path]) {
+          const paths = db.dynamic.staticDeps[path];
+          paths.forEach((z) => {
+            if (shouldUpdate(y, z)) {
+              trigger.push(y);
+            }
+          });
+        } else if (shouldUpdate(path, y)) {
+          trigger.push(y);
+        } else if (isNestedDynamic(db, path, y)) {
+          trigger.push(y);
+        } else if (isWildcardTrigger(x, y)) {
+          trigger.push(y);
+        } else {
+          // console.log("[excluding]", y, "for", path);
+        }
+      });
     }
   });
 
@@ -21,7 +68,11 @@ function pathTriggers(db: any, path: any) {
 
   Object.keys(db.updates.triggers).forEach((x) => {
     if (x.search(reg) !== -1) {
-      trigger.push(db.updates.triggers[x]);
+      db.updates.triggers[x].forEach((y) => {
+        // if (shouldUpdate(path, y)) {
+        trigger.push(y);
+        // }
+      });
     }
   });
 
@@ -36,6 +87,8 @@ function pathTriggers(db: any, path: any) {
   trigger.push(path);
 
   trigger = uniq(trigger);
+
+  // console.log("triggering", trigger);
 
   return trigger;
 }
