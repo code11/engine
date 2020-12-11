@@ -7,7 +7,7 @@ import merge from "lodash/merge";
 import splitPath from "./splitPath";
 import decomposePath from "./decomposePath";
 import clone from "../fn/clone";
-import triggerListener from "./triggerListener";
+import { triggerListenerFn } from "./triggerListener";
 import pathTriggers from "./pathTriggers";
 
 function clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, path) {
@@ -115,17 +115,17 @@ function applyPatch(db, patch, shouldClone) {
     // @TODO: Implement both path && from in a function
     parts = splitPath(xPath);
     obj = db.static;
-    let prevState
-    let prevPart
+    let prevState;
+    let prevPart;
     for (j = 0, lenj = parts.length - 1; j < lenj; j += 1) {
       part = parts[j];
       path += "/" + part;
-      let initialState = obj
+      let initialState = obj;
 
       if (!obj[part] && x.op === "add") {
         if (!isPlainObject(obj)) {
-          prevState[prevPart] = {}
-          obj = prevState[prevPart]
+          prevState[prevPart] = {};
+          obj = prevState[prevPart];
         }
         obj[part] = {};
         obj = obj[part];
@@ -139,8 +139,8 @@ function applyPatch(db, patch, shouldClone) {
         }
       }
 
-      prevState = initialState
-      prevPart = part
+      prevState = initialState;
+      prevPart = part;
       delete cachePaths[path];
       clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, path);
     }
@@ -212,8 +212,8 @@ function applyPatch(db, patch, shouldClone) {
         } else if (isPlainObject(obj)) {
           obj[last] = shouldClone ? clone(xValue) : xValue;
         } else {
-          prevState[prevPart] = {}
-          obj = prevState[prevPart]
+          prevState[prevPart] = {};
+          obj = prevState[prevPart];
           obj[last] = shouldClone ? clone(xValue) : xValue;
         }
         break;
@@ -265,13 +265,28 @@ function applyPatch(db, patch, shouldClone) {
 
   patch.forEach((x) => {
     //@ts-ignore
-    trigger = trigger.concat(pathTriggers(db, x.path));
+    trigger = trigger.concat(pathTriggers(db, x.path, x.value));
   });
 
   trigger = flatten(trigger);
 
-  trigger.map((x) => {
-    triggerListener(db, x, patch);
+  const fns = trigger.reduce((acc, x) => {
+    let fns = db.updates.fns[x];
+    if (fns) {
+      Object.keys(fns).forEach((y) => {
+        if (!acc[y]) {
+          acc[y] = {
+            path: x,
+            fn: fns[y],
+          };
+        }
+      });
+    }
+    return acc;
+  }, {});
+
+  Object.keys(fns).forEach((x) => {
+    triggerListenerFn(db, fns[x].path, x, patch);
   });
 
   return {

@@ -56,4 +56,10 @@ function triggerListener(db, path, patch = []) {
   }
 }
 
+export function triggerListenerFn(db, path, fnId, patch) {
+  setImmediate(() => {
+    callNode(db, path, fnId, patch);
+  });
+}
+
 export default triggerListener;

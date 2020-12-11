@@ -23,6 +23,7 @@ test("should call a listener using a wildcard", () => {
     val3 = value;
   });
   const value = { name: "123" };
+  // console.log(JSON.stringify(db.db, null, " "));
   db.patch([{ op: "add", path: "/items/byId/xyz", value: { name: "123" } }]);
   jest.runAllTimers();
   expect(val1).toEqual(value.name);

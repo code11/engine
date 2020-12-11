@@ -25,14 +25,53 @@ const isNestedDynamic = (db: any, source: string, path: string): boolean => {
   });
 };
 
-const isWildcardTrigger = (source: string, path: string): boolean => {
-  if (!source.includes("*")) {
-    return false;
+const isValueInWildcard = (value: any = {}, parts: string[] = []): boolean => {
+  let val = value;
+  for (let i = 0; i < parts.length - 1; i += 1) {
+    if (!val[parts[i]]) {
+      return false;
+    }
+    val = val[parts[i]];
   }
-  return source.substr(0, path.length) === source;
+  return true;
 };
 
-function pathTriggers(db: any, path: any) {
+const isWildcardTrigger = (
+  source: string,
+  path: string,
+  value: any
+): boolean => {
+  if (!path.includes("*")) {
+    return false;
+  }
+  const sourceParts = source.split("/");
+  sourceParts.shift();
+  const pathParts = path.split("/");
+  pathParts.shift();
+
+  for (let i = 0; i < pathParts.length - 1; i += 1) {
+    let part = pathParts[i];
+    if (part === "*") {
+      if (
+        i === sourceParts.length - 1 &&
+        pathParts.length > sourceParts.length
+      ) {
+        const result = isValueInWildcard(
+          value,
+          pathParts.splice(i + 1, pathParts.length - 1)
+        );
+        return result;
+      } else {
+        return true;
+      }
+    } else if (sourceParts[i] !== part) {
+      return false;
+    }
+  }
+  return true;
+};
+
+function pathTriggers(db: any, path: any, value: any = undefined) {
   let trigger: any[] = [];
 
   let parts = decomposePath(path);
@@ -54,10 +93,10 @@ function pathTriggers(db: any, path: any) {
           trigger.push(y);
         } else if (isNestedDynamic(db, path, y)) {
           trigger.push(y);
-        } else if (isWildcardTrigger(x, y)) {
+        } else if (isWildcardTrigger(path, y, value)) {
           trigger.push(y);
         } else {
-          // console.log("[excluding]", y, "for", path);
+          // console.log("[excluding]", x, "for", y, "and", path);
         }
       });
     }
@@ -69,9 +108,7 @@ function pathTriggers(db: any, path: any) {
   Object.keys(db.updates.triggers).forEach((x) => {
     if (x.search(reg) !== -1) {
       db.updates.triggers[x].forEach((y) => {
-        // if (shouldUpdate(path, y)) {
         trigger.push(y);
-        // }
       });
     }
   });
@@ -87,8 +124,6 @@ function pathTriggers(db: any, path: any) {
   trigger.push(path);
 
   trigger = uniq(trigger);
-
-  // console.log("triggering", trigger);
 
   return trigger;
 }
