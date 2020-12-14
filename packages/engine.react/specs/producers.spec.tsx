@@ -65,12 +65,14 @@ test("Should mount and unmount producers attached to a component", async (done) 
   jest.runAllTimers();
   await flushPromises();
 
-  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
+  waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(bar).toBe("123");
     mountFn(false);
     jest.runAllTimers();
+    await flushPromises();
     fooFn("321");
     jest.runAllTimers();
+    await flushPromises();
     expect(bar).toBe("123");
     done();
   });

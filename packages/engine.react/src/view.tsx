@@ -77,6 +77,7 @@ export function view(config: ViewConfig) {
   let setProducers: RenderContext["setProducers"];
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
+    stateUpdate: any = {};
     fn: any;
     isComponentMounted: boolean = false;
     viewProps: StructOperation;
@@ -190,7 +191,7 @@ export function view(config: ViewConfig) {
           viewSourceId: sourceId,
         });
       });
-      this.state = {};
+      this.state = { data: {} };
       this.context = context;
     }
     componentDidMount() {
@@ -199,25 +200,39 @@ export function view(config: ViewConfig) {
       this.viewProducer.mount();
     }
     componentWillUnmount() {
+      this.isComponentMounted = false;
       if (sourceId) {
         this.context.removeViewInstance(sourceId, this.id);
       }
-      this.isComponentMounted = false;
       Object.values(this.producers).forEach((x) => x.unmount());
       this.viewProducer.unmount();
     }
     updateData(data: any) {
+      // only keep the latest data
+      this.stateUpdate = {
+        data,
+        done: false,
+      };
+
       if (!this.isComponentMounted) {
         return;
       }
 
-      this.setState({
-        data,
+      setImmediate(() => {
+        if (!this.isComponentMounted) {
+          return;
+        }
+        if (!this.isStateReady) {
+          this.isStateReady = true;
+        }
+        if (this.stateUpdate.done) {
+          return;
+        }
+        this.stateUpdate.done = true;
+        this.setState({
+          data: this.stateUpdate.data,
+        });
       });
-
-      if (!this.isStateReady) {
-        this.isStateReady = true;
-      }
     }
     render() {
       // TODO: anyway of knowing if the props changed?

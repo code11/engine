@@ -21,12 +21,14 @@ import { ComputeType, computeOperation } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { funcOperation } from "./funcOperation";
 import { updateListeners } from "./updateListeners";
+import { getStaticProps } from "./getStaticProps";
 import { wildcard } from "../wildcard";
 
 export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
   private prevData: any;
+  private staticProps: any;
   db: DatastoreInstance;
   props: any;
   data: GraphData = {};
@@ -44,7 +46,10 @@ export class Graph {
     this.props = props;
     this.structure = struct;
     this.db = db;
+    // TODO: Provide a way to test reference for equality in order to keep the
+    // comparison optimizations.
     this.keepReferences = keepReferences;
+    this.staticProps = getStaticProps(this.keepReferences, props);
     this.computeOrder = resolveOrder(struct);
     this.cb = cb;
   }
@@ -70,10 +75,15 @@ export class Graph {
     if (!props) {
       return;
     }
-    if (isEqual(props, this.props)) {
+
+    const staticProps = getStaticProps(this.keepReferences, props);
+
+    if (isEqual(staticProps, this.staticProps)) {
       return;
     }
+
     this.props = props;
+    this.staticProps = staticProps;
 
     Object.keys(props).forEach((x) => {
       const id = `external.${x}`;
@@ -89,6 +99,7 @@ export class Graph {
         );
       }
     });
+
     setImmediate(() => {
       this.data = this.compute();
       this.update();
