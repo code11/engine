@@ -45,6 +45,7 @@ export const init: producer = ({
     devtool: "eval-source-map",
     entry: entryPath.value(),
     output: {
+      publicPath: "/",
       path: distPath.value(),
     },
     resolve: {
@@ -184,6 +185,9 @@ export const init: producer = ({
   } as Configuration;
 
   const server = new _WebpackDevServer(_webpack(config), {
+    historyApiFallback: {
+      index: "index.html",
+    },
     contentBase: publicPath.value(),
     hot: true,
   });
