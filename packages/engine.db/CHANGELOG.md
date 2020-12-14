@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.28](https://github.com/code11/engine/compare/v4.0.0-alpha.27...v4.0.0-alpha.28) (2020-12-14)
+
+
+### Bug Fixes
+
+* **engine.db:** ensure only interested & unique listeners are set and called ([751a122](https://github.com/code11/engine/commit/751a122bd1f11dfd20335324ea61e3684b97e164))
+* **engine.db:** ensure path triggers only occur on required paths ([62ba16f](https://github.com/code11/engine/commit/62ba16f9713d41a87feb2eb8cae477901879220d))
+
+
+
+
+
 # [4.0.0-alpha.27](https://github.com/code11/engine/compare/v4.0.0-alpha.26...v4.0.0-alpha.27) (2020-12-06)
 
 **Note:** Version bump only for package @c11/engine.db
