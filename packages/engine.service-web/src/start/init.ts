@@ -1,7 +1,6 @@
 import webpack, { Configuration } from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import { command } from "@c11/engine.service-web/src/setup";
 
 type props = {
   _webpack: typeof webpack;
@@ -18,9 +17,10 @@ type props = {
   replacerPath: Get<State["config"]["replacerPath"]>;
   publicPath: Get<State["config"]["publicPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
+  tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
 };
 
-export const init: producer = ({
+export const init: producer = async ({
   _webpack = webpack,
   _WebpackDevServer = WebpackDevServer,
   _HtmlWebpackPlugin = HtmlWebpackPlugin,
@@ -35,9 +35,21 @@ export const init: producer = ({
   replacerPath = get.config.replacerPath,
   publicPath = get.config.publicPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
+  tailwindConfigPath = get.config.tailwindConfigPath,
 }: props) => {
   if (!trigger) {
     return;
+  }
+
+  let tailwindConfig = {};
+  try {
+    tailwindConfig = require(tailwindConfigPath.value());
+  } catch (e) {
+    if (e.code === "MODULE_NOT_FOUND") {
+      console.log("ok - not found");
+    } else {
+      throw e;
+    }
   }
 
   const config = {
@@ -137,6 +149,19 @@ export const init: producer = ({
               loader: "css-loader",
               options: { modules: false, importLoaders: 1 },
             },
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  config: false,
+                  plugins: [
+                    "postcss-import",
+                    ["tailwindcss", { config: tailwindConfig }],
+                    ["postcss-preset-env", { stage: 1 }],
+                  ],
+                },
+              },
+            },
           ],
         },
         {
@@ -156,10 +181,11 @@ export const init: producer = ({
               loader: "postcss-loader",
               options: {
                 postcssOptions: {
+                  config: false,
                   plugins: [
-                    require("postcss-import"),
-                    require("tailwindcss"),
-                    require("postcss-preset-env")({ stage: 1 }),
+                    "postcss-import",
+                    ["tailwindcss", { config: tailwindConfig }],
+                    ["postcss-preset-env", { stage: 1 }],
                   ],
                 },
               },

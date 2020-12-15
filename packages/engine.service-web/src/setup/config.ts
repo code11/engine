@@ -38,6 +38,7 @@ export const config: producer = async ({
   const publicPath = _resolve(commandPath, "public");
   const distPath = _resolve(commandPath, "dist");
   const publicIndexPath = _resolve(publicPath, "index.html");
+  const tailwindConfigPath = _resolve(commandPath, "tailwind.js");
   config.set({
     name: result.name,
     version: result.version,
@@ -52,5 +53,6 @@ export const config: producer = async ({
     overrideModulesPath,
     replacerPath,
     packageNodeModulesPath,
+    tailwindConfigPath,
   });
 };

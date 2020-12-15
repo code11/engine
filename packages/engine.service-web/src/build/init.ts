@@ -21,6 +21,7 @@ type props = {
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
+  tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
 };
 
 export const init: producer = async ({
@@ -40,9 +41,21 @@ export const init: producer = async ({
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
+  tailwindConfigPath = get.config.tailwindConfigPath,
 }: props) => {
   if (!trigger) {
     return;
+  }
+
+  let tailwindConfig = {};
+  try {
+    tailwindConfig = require(tailwindConfigPath.value());
+  } catch (e) {
+    if (e.code === "MODULE_NOT_FOUND") {
+      console.log("ok - not found");
+    } else {
+      throw e;
+    }
   }
 
   const config = {
@@ -146,6 +159,19 @@ export const init: producer = async ({
               loader: "css-loader",
               options: { modules: false, importLoaders: 1 },
             },
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  config: false,
+                  plugins: [
+                    "postcss-import",
+                    ["tailwindcss", { config: tailwindConfig }],
+                    ["postcss-preset-env", { stage: 1 }],
+                  ],
+                },
+              },
+            },
           ],
         },
         {
@@ -169,10 +195,11 @@ export const init: producer = async ({
               loader: "postcss-loader",
               options: {
                 postcssOptions: {
+                  config: false,
                   plugins: [
-                    require("postcss-import"),
-                    require("tailwindcss"),
-                    require("postcss-preset-env")({ stage: 1 }),
+                    "postcss-import",
+                    ["tailwindcss", { config: tailwindConfig }],
+                    ["postcss-preset-env", { stage: 1 }],
                   ],
                 },
               },

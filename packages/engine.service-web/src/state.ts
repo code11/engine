@@ -15,6 +15,7 @@ export type State = {
     overrideModulesPath: Path;
     replacerPath: Path;
     packageNodeModulesPath: Path;
+    tailwindConfigPath: Path;
   };
   test: {
     flags: {};
