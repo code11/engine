@@ -1,8 +1,10 @@
-import React from "react";
+import React, { isValidElement } from "react";
 import { nanoid } from "nanoid";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
 import {
+  GraphNodeType,
+  ValueSerializer,
   ProducerFn,
   ViewConfig,
   ViewInstance,
@@ -69,6 +71,22 @@ type InstanceCache = {
 
 const cache: InstanceCache = {};
 
+const circular = () => {
+  const seen = new WeakSet();
+  return (key: string, value: any) => {
+    if (key.startsWith("_")) {
+      return;
+    }
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
 // TODO: Create a production and development view - there too many overlaps now
 
 export function view(config: ViewConfig) {
@@ -97,9 +115,26 @@ export function view(config: ViewConfig) {
     }
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
+      const childrenSerializer: ValueSerializer = {
+        type: GraphNodeType.EXTERNAL,
+        name: "children",
+        serializer: (value) => {
+          if (
+            value instanceof Array &&
+            value.includes((x: any) => !isValidElement(x))
+          ) {
+            return;
+          } else if (!isValidElement(value)) {
+            return;
+          }
+          const result = JSON.stringify(value, circular());
+          return result;
+        },
+      };
       const viewContext = {
         props: externalProps,
         keepReferences: ["external.children"],
+        serializers: [childrenSerializer],
         debug: context.debug,
       };
       this.viewContext = viewContext;
@@ -204,7 +239,10 @@ export function view(config: ViewConfig) {
       if (sourceId) {
         this.context.removeViewInstance(sourceId, this.id);
       }
-      Object.values(this.producers).forEach((x) => x.unmount());
+      Object.values(this.producers).forEach((x) => {
+        x.unmount();
+      });
+
       this.viewProducer.unmount();
     }
     updateData(data: any) {

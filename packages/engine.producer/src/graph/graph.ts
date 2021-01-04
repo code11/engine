@@ -4,6 +4,7 @@ import cloneDeep from "clone-deep";
 import isFunction from "lodash/isFunction";
 import isEqual from "lodash/isEqual";
 import {
+  ValueSerializer,
   StructOperation,
   OperationTypes,
   GraphData,
@@ -28,18 +29,22 @@ export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
   private prevData: any;
-  private staticProps: any;
+  private serializedProps: any;
+  private nonSerializedProps: any;
+  private destroyed = false;
   db: DatastoreInstance;
   props: any;
   data: GraphData = {};
   cb: Function;
   keepReferences: string[];
+  serializers: ValueSerializer[];
   constructor(
     db: DatastoreInstance,
     props: any,
     op: StructOperation,
     cb: Function,
-    keepReferences: string[]
+    keepReferences: string[],
+    serializers: ValueSerializer[]
   ) {
     const struct = merge(getInternalNodes(op), getExternalNodes(props));
     resolveDependencies(struct);
@@ -49,11 +54,11 @@ export class Graph {
     // TODO: Provide a way to test reference for equality in order to keep the
     // comparison optimizations.
     this.keepReferences = keepReferences;
-    this.staticProps = getStaticProps(this.keepReferences, props);
+    this.serializers = serializers;
     this.computeOrder = resolveOrder(struct);
     this.cb = cb;
   }
-  compute() {
+  private compute() {
     const data = this.computeOrder.reduce((acc, x) => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
@@ -72,18 +77,105 @@ export class Graph {
   }
 
   updateExternal(props: any) {
+    if (this.destroyed) {
+      return;
+    }
+
     if (!props) {
       return;
     }
 
-    const staticProps = getStaticProps(this.keepReferences, props);
+    const serializedProps = Object.keys(props).reduce((acc, x) => {
+      const result = this.serializers.reduce((acc, y) => {
+        if (y.type && y.type !== GraphNodeType.EXTERNAL) {
+          return acc;
+        }
 
-    if (isEqual(staticProps, this.staticProps)) {
+        if (y.name && y.name !== x) {
+          return acc;
+        }
+
+        let specificity = 1;
+        if (y.type === GraphNodeType.EXTERNAL) {
+          specificity += 1;
+        }
+
+        if (y.name === x) {
+          specificity += 1;
+        }
+        if (y.instanceof && props[x] instanceof y.instanceof) {
+          specificity += 1;
+        }
+
+        const value = y.serializer(props[x]);
+        if (value === undefined) {
+          return acc;
+        }
+
+        if (acc.specificity && acc.specificity > specificity) {
+          return acc;
+        }
+
+        if (acc.specificity === specificity) {
+          console.warn(
+            "serializer conflict, deep equality will be used instead for",
+            x
+          );
+          return {};
+        }
+
+        acc = {
+          specificity,
+          value,
+        };
+
+        return acc;
+      }, {} as { specificity?: number; value?: any });
+
+      if (result.value) {
+        acc[x] = result.value;
+      }
+
+      return acc;
+    }, {} as { [k: string]: any });
+
+    const nonSerializedProps = Object.keys(props).reduce((acc, x) => {
+      if (!serializedProps[x]) {
+        acc[x] = props[x];
+      }
+      return acc;
+    }, {} as { [k: string]: any });
+
+    // console.log("---");
+    // console.log(props);
+    // console.log(serializedProps, this.serializedProps);
+    // console.log(nonSerializedProps, this.nonSerializedProps);
+
+    if (
+      isEqual(serializedProps, this.serializedProps) &&
+      isEqual(nonSerializedProps, this.nonSerializedProps)
+    ) {
+      // console.log("NOT passed");
       return;
     }
 
+    // console.log("passed");
+
+    // Serializers should be order by specificity
+    // The most specific serializer is one that targets type and name
+    // matchers
+
+    // If the serialization fails then the value is ignored from the serialization
+    // check and a later deep equality is done
+
+    // serialize what props can be serialized
+    // test to see if these are the same
+    // then deeply test all other values
+
+    this.serializedProps = serializedProps;
+    this.nonSerializedProps = nonSerializedProps;
+
     this.props = props;
-    this.staticProps = staticProps;
 
     Object.keys(props).forEach((x) => {
       const id = `external.${x}`;
@@ -105,7 +197,11 @@ export class Graph {
       this.update();
     });
   }
-  update() {
+
+  private update() {
+    if (this.destroyed) {
+      return;
+    }
     let data = this.data;
     if (data) {
       const refs = this.keepReferences.reduce((acc, x) => {
@@ -162,6 +258,10 @@ export class Graph {
   }
 
   destroy() {
+    if (this.destroyed) {
+      return;
+    }
+    this.destroyed = true;
     this.computeOrder.forEach((x) => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
@@ -171,6 +271,7 @@ export class Graph {
       }
     });
   }
+
   listen() {
     this.data = this.compute();
     this.update();

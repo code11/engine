@@ -1,4 +1,5 @@
 import { DatastoreInstance } from "./db";
+import { GraphNodeType } from "./graph";
 import { ViewInstance } from "./view";
 
 export enum OperationTypes {
@@ -144,6 +145,7 @@ export interface ProducerContext {
   db: DatastoreInstance;
   props?: ExternalProps;
   keepReferences?: string[];
+  serializers?: ValueSerializer[];
   debug?: boolean;
   addView?: (view: ViewInstance) => void;
 }
@@ -179,3 +181,10 @@ export type GetPath<T> = any;
 export type Prop = any;
 export type Param = any;
 export type Arg = any;
+
+export type ValueSerializer = {
+  type?: GraphNodeType;
+  name?: string;
+  instanceof?: any;
+  serializer: (value: any) => void | string;
+};

@@ -7,6 +7,7 @@ import {
   ExternalProps,
   StructOperation,
   ProducerMeta,
+  ValueSerializer,
 } from "@c11/engine.types";
 import isFunction from "lodash/isFunction";
 import isEqual from "lodash/isEqual";
@@ -41,6 +42,7 @@ export class Producer implements ProducerInstance {
   private debug: boolean;
   private keepReferences: string[];
   private meta: ProducerMeta;
+  private serializers: ValueSerializer[];
   private results: any[] = [];
   private stats = {
     executionCount: 0,
@@ -57,12 +59,14 @@ export class Producer implements ProducerInstance {
     this.meta = config.meta || {};
     this.sourceId = `${config.meta?.absoluteFilePath}:${config.meta?.name}`;
     this.keepReferences = context.keepReferences || [];
+    this.serializers = context.serializers || [];
     this.graph = new Graph(
       this.db,
       this.external,
       this.props,
       this.fnWrapper.bind(this),
-      this.keepReferences
+      this.keepReferences,
+      this.serializers
     );
   }
   private fnWrapper(params: { [k: string]: any }) {
