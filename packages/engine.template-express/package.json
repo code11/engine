@@ -1,7 +1,7 @@
 {
   "name": "@c11/engine.template-express",
   "private": true,
-  "version": "4.0.0-alpha.28",
+  "version": "4.0.0-alpha.31",
   "license": "MIT",
   "keywords": [
     "template"
@@ -13,10 +13,10 @@
     "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
   },
   "dependencies": {
-    "@c11/engine.runtime": "4.0.0-alpha.28",
-    "@c11/engine.types": "4.0.0-alpha.27"
+    "@c11/engine.runtime": "4.0.0-alpha.31",
+    "@c11/engine.types": "4.0.0-alpha.31"
   },
   "devDependencies": {
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.27"
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.31"
   }
 }

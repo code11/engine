@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.31](https://github.com/code11/engine/compare/v4.0.0-alpha.30...v4.0.0-alpha.31) (2021-01-04)
+
+
+### Performance Improvements
+
+* **engine.react:** add serializers to detect changes faster ([2d5fc90](https://github.com/code11/engine/commit/2d5fc903a755eb3cf078c2aa5cbc16c10487d24a))
+
+
+
+
+
 # [4.0.0-alpha.28](https://github.com/code11/engine/compare/v4.0.0-alpha.27...v4.0.0-alpha.28) (2020-12-14)
 
 **Note:** Version bump only for package @c11/engine.producer
