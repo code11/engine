@@ -214,12 +214,18 @@ export class Render implements RenderInstance {
       rootEl = document.querySelector(this.container);
     } else if (this.container instanceof Function) {
       rootEl = this.container();
+      if (typeof rootEl === "string") {
+        rootEl = document.querySelector(rootEl);
+      }
     } else {
       rootEl = this.container;
     }
 
     if (rootEl instanceof Promise) {
       rootEl.then((x) => {
+        if (typeof x === "string") {
+          x = document.querySelector(x);
+        }
         this.render(x);
       });
     } else {
@@ -229,7 +235,7 @@ export class Render implements RenderInstance {
   }
 }
 
-export const renderReact = (
+export const render = (
   element: any,
   container: any,
   config: ModuleConfig = {}

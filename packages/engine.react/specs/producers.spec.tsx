@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine, producers } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -54,10 +54,7 @@ test("Should mount and unmount producers attached to a component", async (done) 
 
   const app = engine({
     state: defaultState,
-    use: [
-      renderReact(<Parent />, rootEl),
-      producers([syncBar, setMount, setFoo]),
-    ],
+    use: [render(<Parent />, rootEl), producers([syncBar, setMount, setFoo])],
   });
 
   app.start();

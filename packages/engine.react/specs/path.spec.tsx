@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine, producers, path } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -38,7 +38,7 @@ test("should support path operations", async (done) => {
 
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Component path2={path2} />, rootEl)],
+    use: [render(<Component path2={path2} />, rootEl)],
   });
 
   app.start();
@@ -89,7 +89,7 @@ test("should support path operations with multiple components", async (done) => 
   };
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Component path={path1} />, rootEl), producers([sync])],
+    use: [render(<Component path={path1} />, rootEl), producers([sync])],
   });
 
   app.start();

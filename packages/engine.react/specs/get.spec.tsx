@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -30,7 +30,7 @@ test("Expect to call using only get", async (done) => {
 
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Component />, rootEl)],
+    use: [render(<Component />, rootEl)],
   });
 
   app.start();

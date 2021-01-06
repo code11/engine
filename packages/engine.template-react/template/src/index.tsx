@@ -1,5 +1,5 @@
 import { engine } from "@c11/engine.runtime";
-import { renderReact } from "@c11/engine.react";
+import { render } from "@c11/engine.react";
 import { App } from "./App";
 import "./global";
 
@@ -12,7 +12,7 @@ const app = engine({
     },
   },
   use: [
-    renderReact(<App />, "#app", {
+    render(<App />, "#app", {
       debug: process.env.NODE_ENV === "development",
     }),
   ],

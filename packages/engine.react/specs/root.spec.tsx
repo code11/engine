@@ -1,7 +1,8 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
+import { waitFor, getByTestId } from "@testing-library/react";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -15,90 +16,64 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test.skip("Calling engine.getRoot() should return the root element in which the application is mounted", () => {
+test("should support various root element formats", async () => {
   const defaultState = {
     foo: "123",
   };
-  const rootEl = document.createElement("div");
-  rootEl.setAttribute("id", "root");
-  document.body.appendChild(rootEl);
-  const Component: view = ({ foo = observe.foo }) => {
-    return <div data-testid="foo">{foo}</div>;
+
+  const addRoot = (id: string) => {
+    const rootEl = document.createElement("div");
+    rootEl.setAttribute("id", id);
+    document.body.appendChild(rootEl);
+    return rootEl;
   };
 
+  const component = (id: string) => {
+    const Component: view = ({ foo = observe.foo }) => {
+      return <div data-testid={id}>{foo}</div>;
+    };
+    return Component;
+  };
+
+  const testComponent = async (id: string) => {
+    return waitFor(() => getByTestId(document.body, id)).then((x) => {
+      expect(x.innerHTML).toBe("123");
+    });
+  };
+
+  const ComponentA = component("componentA");
+  const ComponentB = component("componentB");
+  const ComponentC = component("componentC");
+  const ComponentD = component("componentD");
+  const ComponentE = component("componentE");
+  const ComponentF = component("componentF");
+  const ComponentG = component("componentG");
+
+  addRoot("componentD");
+  addRoot("componentE");
+  addRoot("componentF");
+  addRoot("componentG");
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Component />, rootEl)],
+    use: [
+      render(<ComponentA />, addRoot("componentA")),
+      render(<ComponentB />, () => addRoot("componentB")),
+      render(<ComponentC />, () => Promise.resolve(addRoot("componentC"))),
+      render(<ComponentD />, "#componentD"),
+      render(<ComponentE />, () => "#componentE"),
+      render(<ComponentF />, Promise.resolve("#componentF")),
+      render(<ComponentG />, () => Promise.resolve("#componentG")),
+    ],
   });
 
   app.start();
 
   jest.runAllTimers();
-  // expect(engine.getRoot()).toBe(rootEl);
-});
-
-test.skip("Should support root as a function", () => {
-  const defaultState = {
-    foo: "123",
-  };
-  const rootEl = document.createElement("div");
-  rootEl.setAttribute("id", "root");
-  document.body.appendChild(rootEl);
-  const Component: view = ({ foo = observe.foo }) => {
-    return <div data-testid="foo">{foo}</div>;
-  };
-
-  const app = engine({
-    state: defaultState,
-    use: [renderReact(<Component />, () => rootEl)],
-  });
-
-  app.start();
-
-  jest.runAllTimers();
-  // expect(engine.getRoot()).toBe(rootEl);
-});
-
-test.skip("Should support root as a function that returns a promise", () => {
-  const defaultState = {
-    foo: "123",
-  };
-  const rootEl = document.createElement("div");
-  rootEl.setAttribute("id", "root");
-  document.body.appendChild(rootEl);
-  const Component: view = ({ foo = observe.foo }) => {
-    return <div data-testid="foo">{foo}</div>;
-  };
-
-  const app = engine({
-    state: defaultState,
-    use: [renderReact(<Component />, Promise.resolve(rootEl))],
-  });
-
-  app.start();
-
-  jest.runAllTimers();
-  // expect(engine.getRoot()).toBe(rootEl);
-});
-
-test.skip("Should support root as a promise", () => {
-  const defaultState = {
-    foo: "123",
-  };
-  const rootEl = document.createElement("div");
-  rootEl.setAttribute("id", "root");
-  document.body.appendChild(rootEl);
-  const Component: view = ({ foo = observe.foo }) => {
-    return <div data-testid="foo">{foo}</div>;
-  };
-
-  const app = engine({
-    state: defaultState,
-    use: [renderReact(<Component />, Promise.resolve(rootEl))],
-  });
-
-  app.start();
-
-  jest.runAllTimers();
-  // expect(engine.getRoot()).toBe(rootEl);
+  await flushPromises();
+  await testComponent("componentA");
+  await testComponent("componentB");
+  await testComponent("componentC");
+  await testComponent("componentE");
+  await testComponent("componentF");
+  await testComponent("componentG");
 });

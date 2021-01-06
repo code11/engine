@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -38,7 +38,7 @@ test("Should propagate changes in props", async (done) => {
 
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Parent />, rootEl)],
+    use: [render(<Parent />, rootEl)],
   });
 
   app.start();

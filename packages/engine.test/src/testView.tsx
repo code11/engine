@@ -1,6 +1,6 @@
 import React from "react";
 import { engine } from "@c11/engine.runtime";
-import { renderReact } from "@c11/engine.react";
+import { render } from "@c11/engine.react";
 import { generateImage } from "jsdom-screenshot";
 import { ViewFn } from "@c11/engine.react";
 
@@ -29,7 +29,7 @@ export const testView = async ({ name, state, view, props }: testViewProps) => {
 
     const app = engine({
       state,
-      use: [renderReact(<View {...props} />, root)],
+      use: [render(<View {...props} />, root)],
     });
 
     app.start();

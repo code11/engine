@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine, producers } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -34,7 +34,7 @@ test("Simple load of a react component and work with producers", async (done) =>
 
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Component />, rootEl), producers([prod])],
+    use: [render(<Component />, rootEl), producers([prod])],
   });
 
   app.start();

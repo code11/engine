@@ -1,2 +1,2 @@
-export { renderReact } from "./render";
+export { render } from "./render";
 export { view, View, ViewFn } from "./view";

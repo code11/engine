@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine, producers, wildcard } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -37,7 +37,7 @@ test.skip("should support wildcard", async (done) => {
 
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Component />, rootEl), producers([fooUpdater])],
+    use: [render(<Component />, rootEl), producers([fooUpdater])],
   });
 
   app.start();

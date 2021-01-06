@@ -6,7 +6,7 @@ import {
   getNodeText,
 } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { renderReact } from "../src";
+import { render } from "../src";
 import { engine, producers } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -59,7 +59,7 @@ test("should detect children change", async (done) => {
 
   const app = engine({
     state: defaultState,
-    use: [renderReact(<Parent />, rootEl), producers([changer])],
+    use: [render(<Parent />, rootEl), producers([changer])],
   });
 
   app.start();
