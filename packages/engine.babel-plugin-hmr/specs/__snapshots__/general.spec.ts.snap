@@ -12,7 +12,7 @@ const result2: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = {
-  fn: ({ a1: a1 }) => {},
+  fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
     value: {
@@ -28,7 +28,7 @@ const result = {
   type: "producer",
 };
 const result2 = {
-  fn: ({ a1: a1 }) => {},
+  fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
     value: {
@@ -56,7 +56,7 @@ const result: producer = ({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = {
-  fn: ({ a1: a1 }) => {},
+  fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
     value: {
@@ -88,7 +88,7 @@ const result2: view = ({
 
 import { view as viewEngine } from "@c11/engine.react";
 const result = viewEngine({
-  fn: ({ a1: a1 }) => {},
+  fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
     value: {
@@ -104,7 +104,7 @@ const result = viewEngine({
   type: "view",
 });
 const result2 = viewEngine({
-  fn: ({ a1: a1 }) => {},
+  fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
     value: {
@@ -133,7 +133,7 @@ export const result: view = ({
 
 import { view as viewEngine } from "@c11/engine.react";
 export const result = viewEngine({
-  fn: ({ a1: a1 }) => {},
+  fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
     value: {

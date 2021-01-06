@@ -4,7 +4,7 @@ import { StructOperation, OperationTypes } from "@c11/engine.types";
 import { pathOperationCompiler } from "./pathOperationCompiler";
 import { funcOperationCompiler } from "./funcOperationCompiler";
 import { valueOperationCompiler } from "./valueOperationCompiler";
-import { rawObjectCompiler } from "./rawObjectCompiler";
+import { constructorOperationCompiler } from "./constructorOperationCompiler";
 
 export const structOperationCompiler = (
   babel: typeof Babel,
@@ -31,6 +31,8 @@ export const structOperationCompiler = (
         result = structOperationCompiler(babel, op);
       } else if (op.type === OperationTypes.VALUE) {
         result = valueOperationCompiler(babel, op);
+      } else if (op.type === OperationTypes.CONSTRUCTOR) {
+        result = constructorOperationCompiler(babel, op);
       } else {
         throw new Error(`Operation ${op} not supported`);
       }

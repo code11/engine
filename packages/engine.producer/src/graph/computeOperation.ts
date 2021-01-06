@@ -10,6 +10,7 @@ import { valueOperation } from "./valueOperation";
 import { updateOperation } from "./updateOperation";
 import { getOperation } from "./getOperation";
 import { funcOperation } from "./funcOperation";
+import { constructorOperation } from "./constructorOperation";
 
 export enum ComputeType {
   PATH = "PATH",
@@ -44,7 +45,8 @@ export const computeOperation = (
     result.value = getOperation(db, structure, node.op);
   } else if (node.op.type === OperationTypes.FUNC) {
     result.value = funcOperation(db, structure, node.op);
+  } else if (node.op.type === OperationTypes.CONSTRUCTOR) {
+    result.value = constructorOperation(db, structure, node);
   }
-
   return result;
 };

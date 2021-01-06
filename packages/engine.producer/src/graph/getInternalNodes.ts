@@ -29,6 +29,7 @@ export const getInternalNodes = (op: Operation, ns: string = "internal") => {
       isDependedBy: [],
       removeListener: undefined,
       removeFuncListeners: {},
+      listenersFromConstructors: {},
     };
     graph[ns] = node;
   }

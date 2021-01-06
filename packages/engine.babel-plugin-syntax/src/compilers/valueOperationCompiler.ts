@@ -1,6 +1,6 @@
 import type * as Babel from "@babel/core";
 import type { ObjectExpression } from "@babel/types";
-import { ValueTypes, ValueOperation } from "@c11/engine.types";
+import { ValueTypes, ValueOperation, OperationTypes } from "@c11/engine.types";
 
 export const valueOperationCompiler = (
   babel: typeof Babel,
