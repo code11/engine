@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.32](https://github.com/code11/engine/compare/v4.0.0-alpha.31...v4.0.0-alpha.32) (2021-01-06)
+
+
+### Features
+
+* **engine.producer:** add support for constructors for get, observe and update operations ([#107](https://github.com/code11/engine/issues/107)) ([69690da](https://github.com/code11/engine/commit/69690dad57d197c676f235d9582929934d41bd14))
+
+
+
+
+
 # [4.0.0-alpha.31](https://github.com/code11/engine/compare/v4.0.0-alpha.30...v4.0.0-alpha.31) (2021-01-04)
 
 **Note:** Version bump only for package @c11/engine.babel-plugin-hmr

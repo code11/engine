@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.producer",
-  "version": "4.0.0-alpha.31",
+  "version": "4.0.0-alpha.32",
   "description": "A programming engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -22,12 +22,12 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.31",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.32",
     "@types/clone-deep": "^4.0.1",
     "@types/nanoid": "^2.1.0"
   },
   "dependencies": {
-    "@c11/engine.types": "4.0.0-alpha.31",
+    "@c11/engine.types": "4.0.0-alpha.32",
     "clone-deep": "^4.0.1",
     "lodash": "^4.17.20",
     "nanoid": "^3.1.20"
