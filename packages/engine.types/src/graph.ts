@@ -26,6 +26,9 @@ export interface GraphInternalNode extends GraphNode {
   path: string | undefined;
   dependsOn: string[];
   removeListener: RemoveListener | undefined;
+  listenersFromConstructors: {
+    [k: string]: RemoveListener;
+  };
   listener?: (value: any, patch: Patch[], shouldUpdate?: boolean) => void;
   removeFuncListeners: {
     [key: number]: RemoveListener;

@@ -8,7 +8,7 @@ export const paramsCompiler = (
 ): ObjectPattern[] => {
   const t = babel.types;
   const properties = Object.keys(struct.value).reduce((acc, x) => {
-    acc.push(t.objectProperty(t.identifier(x), t.identifier(x)));
+    acc.push(t.objectProperty(t.identifier(x), t.identifier(x), false, true));
     return acc;
   }, [] as ObjectProperty[]);
   const result = [t.objectPattern(properties)];

@@ -9,7 +9,7 @@ const bar: view = ({ foo = observe.foo }) => { }
 
 import { view as viewEngine } from "engineViewLibrary";
 const foo = viewEngine({
-  fn: ({ foo: foo }) => {},
+  fn: ({ foo }) => {},
   props: {
     type: "STRUCT",
     value: {
@@ -27,7 +27,7 @@ const foo = viewEngine({
   type: "view",
 });
 const bar = viewEngine({
-  fn: ({ foo: foo }) => {},
+  fn: ({ foo }) => {},
   props: {
     type: "STRUCT",
     value: {
@@ -56,7 +56,7 @@ const foo: view = ({ foo = observe.foo }) => {}
 
 import { view as viewEngine } from "engineViewLibrary";
 const foo = viewEngine({
-  fn: ({ foo: foo }) => {},
+  fn: ({ foo }) => {},
   props: {
     type: "STRUCT",
     value: {

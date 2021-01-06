@@ -268,6 +268,11 @@ export class Graph {
         if (node.removeListener) {
           node.removeListener();
         }
+        if (node.listenersFromConstructors) {
+          Object.values(node.listenersFromConstructors).forEach((x) => {
+            x();
+          });
+        }
       }
     });
   }

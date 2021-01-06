@@ -1,8 +1,9 @@
 import type * as Babel from "@babel/core";
-import type {
+import {
   ObjectProperty,
   LogicalExpression,
   AssignmentPattern,
+  isIdentifier,
 } from "@babel/types";
 import {
   Operation,
@@ -182,6 +183,18 @@ export const processParamValue = (
   if (valueNode && Values[valueNode.type]) {
     return Values[valueNode.type](babel, valueNode);
   } else {
-    return constValue({ __node__: valueNode });
+    if (
+      isIdentifier(valueNode) &&
+      (valueNode.name === PathType.GET ||
+        valueNode.name === PathType.OBSERVE ||
+        valueNode.name === PathType.UPDATE)
+    ) {
+      return {
+        type: OperationTypes.CONSTRUCTOR,
+        value: valueNode.name,
+      };
+    } else {
+      return constValue({ __node__: valueNode });
+    }
   }
 };

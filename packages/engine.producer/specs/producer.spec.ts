@@ -719,6 +719,36 @@ test("should not call more than once with same data", () => {
   expect(fn).toBeCalledTimes(1);
 });
 
+test("should support constructors for get, observe and update", () => {
+  const fn = jest.fn();
+  const a: producer = ({ _get = get, _update = update }) => {
+    _update(path.foo).set(_get(path.bar).value());
+  };
+  const b: producer = ({ _observe = observe }) => {
+    _observe(path.foo, (x) => {
+      if (!x) {
+        return;
+      }
+      fn(x);
+    });
+  };
+  const DB = db({
+    bar: "123",
+  });
+  const ctx = {
+    db: DB,
+    props: {},
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  const instB = new Producer(b, ctx);
+  instA.mount();
+  instB.mount();
+  jest.runAllTimers();
+  expect(fn).toBeCalledTimes(1);
+  expect(fn.mock.calls[0][0]).toBe("123");
+});
+
 /*
 test("should allow args composition", () => {
   const state = {

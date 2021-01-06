@@ -126,5 +126,14 @@ pluginTester({
       `,
       snapshot: true,
     },
+    "should support constructors": {
+      code: `
+      const result: producer = ({
+        _get = get,
+        _update = update,
+        _observe = observe
+      }) => { }`,
+      snapshot: true,
+    },
   },
 });

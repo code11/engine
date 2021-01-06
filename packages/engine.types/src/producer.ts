@@ -1,5 +1,6 @@
 import { DatastoreInstance } from "./db";
 import { GraphNodeType } from "./graph";
+import { PathType } from "./macro";
 import { ViewInstance } from "./view";
 
 export enum OperationTypes {
@@ -10,6 +11,7 @@ export enum OperationTypes {
   FUNC = "FUNC",
   STRUCT = "STRUCT",
   VALUE = "VALUE",
+  CONSTRUCTOR = "CONSTRUCTOR",
 }
 
 export enum ValueTypes {
@@ -54,7 +56,10 @@ export interface GetOperation extends BaseOperation {
   type: OperationTypes.GET;
   path: InvokableValue[];
 }
-
+export interface ConstructorOperation extends BaseOperation {
+  type: OperationTypes.CONSTRUCTOR;
+  value: PathType.OBSERVE | PathType.GET | PathType.UPDATE;
+}
 export interface UpdateOperation extends BaseOperation {
   type: OperationTypes.UPDATE;
   path: InvokableValue[];
@@ -93,7 +98,8 @@ export type Operation =
   | UpdateOperation
   | FuncOperation
   | StructOperation
-  | ValueOperation;
+  | ValueOperation
+  | ConstructorOperation;
 
 export interface ProducerProps {
   [key: string]: Operation;
