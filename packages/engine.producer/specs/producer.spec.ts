@@ -1,6 +1,6 @@
 import db from "@c11/engine.db";
 import { Producer } from "../src";
-import { path } from "../src/path";
+import { isPath, path } from "../src/path";
 import { wildcard } from "../src/wildcard";
 import "./global";
 
@@ -747,6 +747,11 @@ test("should support constructors for get, observe and update", () => {
   jest.runAllTimers();
   expect(fn).toBeCalledTimes(1);
   expect(fn.mock.calls[0][0]).toBe("123");
+});
+
+test("should test paths for validity using isPath", () => {
+  expect(isPath(path.foo)).toBe(true);
+  expect(isPath("foo")).toBe(false);
 });
 
 /*
