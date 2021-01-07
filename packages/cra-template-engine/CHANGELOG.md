@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.34](https://github.com/code11/engine/compare/v4.0.0-alpha.33...v4.0.0-alpha.34) (2021-01-07)
+
+**Note:** Version bump only for package cra-template-engine
+
+
+
+
+
 # [4.0.0-alpha.32](https://github.com/code11/engine/compare/v4.0.0-alpha.31...v4.0.0-alpha.32) (2021-01-06)
 
 **Note:** Version bump only for package cra-template-engine

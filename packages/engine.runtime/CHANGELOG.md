@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.34](https://github.com/code11/engine/compare/v4.0.0-alpha.33...v4.0.0-alpha.34) (2021-01-07)
+
+
+### Features
+
+* **engine.producer:** add isPath fn to producer and engine.runtime ([e458032](https://github.com/code11/engine/commit/e458032870dbc5771de89f5460462cf65a1cd5bb))
+
+
+
+
+
 # [4.0.0-alpha.32](https://github.com/code11/engine/compare/v4.0.0-alpha.31...v4.0.0-alpha.32) (2021-01-06)
 
 **Note:** Version bump only for package @c11/engine.runtime
