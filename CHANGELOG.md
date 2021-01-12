@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.35](https://github.com/code11/engine/compare/v4.0.0-alpha.34...v4.0.0-alpha.35) (2021-01-12)
+
+
+### Bug Fixes
+
+* **engine.producer:** updateListener now updates the correct data from the graph instance ([87e2c86](https://github.com/code11/engine/commit/87e2c8647daae344802ff6656d22e178bbbcb278))
+
+
+
+
+
 # [4.0.0-alpha.34](https://github.com/code11/engine/compare/v4.0.0-alpha.33...v4.0.0-alpha.34) (2021-01-07)
 
 
