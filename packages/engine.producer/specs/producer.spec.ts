@@ -754,6 +754,36 @@ test("should test paths for validity using isPath", () => {
   expect(isPath("foo")).toBe(false);
 });
 
+test("should update external values when args are used", () => {
+  let _name;
+  const a: producer = ({
+    trigger = observe.trigger,
+    a = arg.trigger.name,
+    b = arg.a,
+  }) => {
+    _name = b;
+  };
+  const b: producer = ({ trigger = update.trigger }) => {
+    trigger.set({
+      name: "bar",
+    });
+  };
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: {},
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  const instB = new Producer(b, ctx);
+  instA.mount();
+  instA.updateExternal({});
+  jest.runAllTimers();
+  instB.mount();
+  jest.runAllTimers();
+  expect(_name).toBe("bar");
+});
+
 /*
 test("should allow args composition", () => {
   const state = {

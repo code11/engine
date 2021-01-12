@@ -35,7 +35,7 @@ export const pathListener = (
     node.fromPatch = patch;
     set(_this.data, node.nesting, node.value);
 
-    updateListeners(_this, update, db, data, structure, node);
+    updateListeners(_this, update, db, _this.data, structure, node);
 
     if (!shouldUpdate) {
       update();

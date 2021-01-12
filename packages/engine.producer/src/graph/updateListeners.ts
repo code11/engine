@@ -32,6 +32,12 @@ export const updateListeners = (
     updatedNode
   );
 
+  // TODO:
+  // - this should be called only if needed
+  // - moved in the update section from graph in order to call
+  //   right before the producer function
+  // - if the next listeners/dependencies need values then
+  //   the computation needs to be done there
   Object.values(structure).forEach((x) => {
     if (x === updatedNode) {
       return;
@@ -61,7 +67,7 @@ export const updateListeners = (
       if (node.path) {
         node.removeListener = db.on(
           node.path,
-          pathListener(_this, update, db, data, structure, node)
+          pathListener(_this, update, db, _this.data, structure, node)
         );
         if (hasWildcard(node.path)) {
           return;
