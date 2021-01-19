@@ -65,6 +65,7 @@ export const init: producer = async ({
     output: {
       path: distPath.value(),
       filename: "[name].[contenthash:8].js",
+      publicPath: "/",
     },
     resolve: {
       modules: ["node_modules", commandPath.value()],
