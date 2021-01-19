@@ -33,13 +33,18 @@ export const installDependencies: producer = async ({
     // console.log(`stdout: ${data}`);
   });
 
-  install.stderr.on("data", (data) => {
-    // console.error(`stderr: ${data}`);
+  const stderr: any[] = [];
+
+  install.stderr.on("data", (chunk) => {
+    stderr.push(chunk);
   });
 
   install.on("close", (code) => {
     if (code !== 0) {
-      throw new Error("Could not install dependencies");
+      console.error(
+        `Encountered an error code ${code} while installing dependencies`
+      );
+      throw new Error(Buffer.concat(stderr).toString());
     }
     flag.set(_now());
   });

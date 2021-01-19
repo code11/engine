@@ -8,4 +8,4 @@ export const App: view = ({ greeting = observe.greeting }) => (
   </div>
 );
 
-App.producers = [greeting];
+App.producers([greeting]);
