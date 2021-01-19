@@ -25,7 +25,7 @@ export const installDependencies: producer = async ({
     throw new Error("Missing values");
   }
 
-  const install = _spawn("yarn", ["install"], {
+  const install = _spawn("npm", ["install"], {
     cwd: targetPath,
   });
 

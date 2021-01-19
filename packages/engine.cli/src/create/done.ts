@@ -13,7 +13,7 @@ export const done: producer = ({
 Your Engine application is ready.
 cd to your folder and run:
 
-yarn start
+npm start
 
 `);
 };
