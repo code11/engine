@@ -915,6 +915,23 @@ test("should not allow alterning data to skew prev and current data equality", (
   expect(calls).toBe(2);
 });
 
+test("should trigger an empty producer", () => {
+  let calls = 0;
+  const a: producer = () => {
+    calls += 1;
+  };
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  expect(calls).toBe(1);
+});
+
 // Add test that checks that references are kept
 
 /*

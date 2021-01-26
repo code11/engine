@@ -37,6 +37,7 @@ export class Graph {
   private serializedProps: any;
   private nonSerializedProps: any;
   private destroyed = false;
+  private isFirstCall = true;
   db: DatastoreInstance;
   props: ExternalProps;
   data: GraphData = {};
@@ -186,9 +187,11 @@ export class Graph {
       }, {});
     }
 
-    if (isDataEqual(this.prevData, data)) {
+    if (!this.isFirstCall && isDataEqual(this.prevData, data)) {
       return;
     }
+
+    this.isFirstCall = false;
 
     this.prevData = data;
 
