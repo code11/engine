@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.39](https://github.com/code11/engine/compare/v4.0.0-alpha.38...v4.0.0-alpha.39) (2021-01-26)
+
+
+### Bug Fixes
+
+* **engine.producer:** various fixes for cloning, data updates and callbacks ([1ef31fc](https://github.com/code11/engine/commit/1ef31fc64e7450db3bfbf29049e97b3fca12ba6d))
+
+
+
+
+
 # [4.0.0-alpha.32](https://github.com/code11/engine/compare/v4.0.0-alpha.31...v4.0.0-alpha.32) (2021-01-06)
 
 **Note:** Version bump only for package @c11/engine.db

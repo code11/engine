@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.test",
-  "version": "4.0.0-alpha.35",
+  "version": "4.0.0-alpha.39",
   "description": "A test lib for the engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -20,8 +20,8 @@
     "react": "^16"
   },
   "dependencies": {
-    "@c11/engine.react": "4.0.0-alpha.35",
-    "@c11/engine.runtime": "4.0.0-alpha.35",
+    "@c11/engine.react": "4.0.0-alpha.39",
+    "@c11/engine.runtime": "4.0.0-alpha.39",
     "@c11/engine.types": "4.0.0-alpha.32",
     "jsdom-screenshot": "^4.0.0"
   },
