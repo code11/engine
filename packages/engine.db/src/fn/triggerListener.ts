@@ -18,6 +18,8 @@ function callNode(db, path, i, patch = []) {
   const replacer = (key, value) => {
     if (isPlainObject(value) || isArray(value) || value !== Object(value)) {
       return value;
+    } else if (typeof value === "symbol" || value instanceof Symbol) {
+      return value.toString();
     }
     return undefined;
   };

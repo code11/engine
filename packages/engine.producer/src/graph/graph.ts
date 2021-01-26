@@ -4,6 +4,7 @@ import cloneDeep from "clone-deep";
 import isFunction from "lodash/isFunction";
 import isEqual from "lodash/isEqual";
 import {
+  ExternalProps,
   ValueSerializer,
   StructOperation,
   OperationTypes,
@@ -12,6 +13,7 @@ import {
   GraphNodeType,
   ValueTypes,
   DatastoreInstance,
+  ProducerData,
 } from "@c11/engine.types";
 import { resolveDependencies } from "./resolveDependencies";
 import { getExternalNodes } from "./getExternalNodes";
@@ -24,38 +26,45 @@ import { funcOperation } from "./funcOperation";
 import { updateListeners } from "./updateListeners";
 import { getStaticProps } from "./getStaticProps";
 import { wildcard } from "../wildcard";
+import { serializeProps } from "./serializeProps";
+import { isDataEqual } from "./isDataEqual";
+import { cloneCbData } from "./cloneCbData";
 
 export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
-  private prevData: any;
+  private prevData: ProducerData;
   private serializedProps: any;
   private nonSerializedProps: any;
   private destroyed = false;
   db: DatastoreInstance;
-  props: any;
+  props: ExternalProps;
   data: GraphData = {};
   cb: Function;
   keepReferences: string[];
   serializers: ValueSerializer[];
   constructor(
     db: DatastoreInstance,
-    props: any,
+    props: ExternalProps = {},
     op: StructOperation,
     cb: Function,
     keepReferences: string[],
-    serializers: ValueSerializer[]
+    serializers: ValueSerializer[] = []
   ) {
     const struct = merge(getInternalNodes(op), getExternalNodes(props));
     resolveDependencies(struct);
     this.props = props;
     this.structure = struct;
     this.db = db;
+    this.prevData = {};
     // TODO: Provide a way to test reference for equality in order to keep the
     // comparison optimizations.
     this.keepReferences = keepReferences;
     this.serializers = serializers;
     this.computeOrder = resolveOrder(struct);
+    const serializationResult = serializeProps(props, serializers);
+    this.serializedProps = serializationResult.serialized;
+    this.nonSerializedProps = serializationResult.nonSerialized;
     this.cb = cb;
   }
   private compute() {
@@ -76,7 +85,7 @@ export class Graph {
     return data;
   }
 
-  updateExternal(props: any) {
+  updateExternal(props: ExternalProps = {}) {
     if (this.destroyed) {
       return;
     }
@@ -85,95 +94,23 @@ export class Graph {
       return;
     }
 
-    const serializedProps = Object.keys(props).reduce((acc, x) => {
-      const result = this.serializers.reduce((acc, y) => {
-        if (y.type && y.type !== GraphNodeType.EXTERNAL) {
-          return acc;
-        }
+    const serializationResult = serializeProps(props, this.serializers);
 
-        if (y.name && y.name !== x) {
-          return acc;
-        }
-
-        let specificity = 1;
-        if (y.type === GraphNodeType.EXTERNAL) {
-          specificity += 1;
-        }
-
-        if (y.name === x) {
-          specificity += 1;
-        }
-        if (y.instanceof && props[x] instanceof y.instanceof) {
-          specificity += 1;
-        }
-
-        const value = y.serializer(props[x]);
-        if (value === undefined) {
-          return acc;
-        }
-
-        if (acc.specificity && acc.specificity > specificity) {
-          return acc;
-        }
-
-        if (acc.specificity === specificity) {
-          console.warn(
-            "serializer conflict, deep equality will be used instead for",
-            x
-          );
-          return {};
-        }
-
-        acc = {
-          specificity,
-          value,
-        };
-
-        return acc;
-      }, {} as { specificity?: number; value?: any });
-
-      if (result.value) {
-        acc[x] = result.value;
-      }
-
-      return acc;
-    }, {} as { [k: string]: any });
-
-    const nonSerializedProps = Object.keys(props).reduce((acc, x) => {
-      if (!serializedProps[x]) {
-        acc[x] = props[x];
-      }
-      return acc;
-    }, {} as { [k: string]: any });
-
-    // console.log("---");
-    // console.log(props);
-    // console.log(serializedProps, this.serializedProps);
-    // console.log(nonSerializedProps, this.nonSerializedProps);
+    // console.log(
+    //   serializationResult,
+    //   this.serializedProps,
+    //   this.nonSerializedProps
+    // );
 
     if (
-      isEqual(serializedProps, this.serializedProps) &&
-      isEqual(nonSerializedProps, this.nonSerializedProps)
+      isEqual(serializationResult.serialized, this.serializedProps) &&
+      isEqual(serializationResult.nonSerialized, this.nonSerializedProps)
     ) {
-      // console.log("NOT passed");
       return;
     }
 
-    // console.log("passed");
-
-    // Serializers should be order by specificity
-    // The most specific serializer is one that targets type and name
-    // matchers
-
-    // If the serialization fails then the value is ignored from the serialization
-    // check and a later deep equality is done
-
-    // serialize what props can be serialized
-    // test to see if these are the same
-    // then deeply test all other values
-
-    this.serializedProps = serializedProps;
-    this.nonSerializedProps = nonSerializedProps;
+    this.serializedProps = serializationResult.serialized;
+    this.nonSerializedProps = serializationResult.nonSerialized;
 
     this.props = props;
 
@@ -249,12 +186,14 @@ export class Graph {
       }, {});
     }
 
-    const currentData = data;
-    if (isEqual(this.prevData, data)) {
+    if (isDataEqual(this.prevData, data)) {
       return;
     }
-    this.prevData = currentData;
-    this.cb.call(null, data);
+
+    this.prevData = data;
+
+    this.cb.call(null, cloneCbData(data, this.keepReferences, this.structure));
+    // this.cb.call(null, data);
   }
 
   destroy() {

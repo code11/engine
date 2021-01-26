@@ -1,5 +1,8 @@
 import db from "@c11/engine.db";
+import { GraphNodeType } from "@c11/engine.types";
 import { Producer } from "../src";
+import { GetOperationSymbol } from "../src/graph/getOperation";
+import { UpdateOperationSymbol } from "../src/graph/updateOperation";
 import { isPath, path } from "../src/path";
 import { wildcard } from "../src/wildcard";
 import "./global";
@@ -436,6 +439,7 @@ test("should support path values to be used", () => {
   expect(observeVal).toEqual({ value: "321" });
   expect(getVal).toEqual("321");
 });
+
 test("should support Empty path values to be used", () => {
   const state = {
     test: "123",
@@ -783,6 +787,135 @@ test("should update external values when args are used", () => {
   jest.runAllTimers();
   expect(_name).toBe("bar");
 });
+
+test("should trigger producer only once on initial external props update", () => {
+  let calls = 0;
+  const a: producer = ({
+    data = update.data,
+    bar = {
+      bam: get.baz,
+    },
+  }) => {
+    calls += 1;
+  };
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  instA.updateExternal({});
+  jest.runAllTimers();
+  expect(calls).toBe(1);
+});
+
+test("should test using a external props serializer", () => {
+  let calls = 0;
+  const a: producer = ({ foo }) => {
+    calls += 1;
+  };
+  const DB = db({});
+
+  const mock = jest.fn((x) => {
+    if (x === "bar") {
+      return "bam";
+    }
+    return x;
+  });
+
+  const serializer = {
+    type: GraphNodeType.EXTERNAL,
+    name: "foo",
+    serializer: mock,
+  };
+  const ctx = {
+    db: DB,
+    props: {
+      foo: "baz",
+    },
+    debug: false,
+    serializers: [serializer],
+  };
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  instA.updateExternal({
+    foo: "bam",
+  });
+  jest.runAllTimers();
+  instA.updateExternal({
+    foo: "bar",
+  });
+  jest.runAllTimers();
+  expect(mock.mock.calls.length).toBe(3);
+  expect(mock.mock.calls[0][0]).toBe("baz");
+  expect(mock.mock.calls[1][0]).toBe("bam");
+  expect(calls).toBe(2);
+});
+
+test("should call when operations are stored on state", () => {
+  let calls = 0;
+  const a: producer = ({ data = { value: observe.foo } }) => {
+    calls += 1;
+  };
+  const b: producer = ({ data = update.foo, b = update.b }) => {
+    data.set(b);
+  };
+  const c: producer = ({ data = update.foo, c = update.c }) => {
+    data.set(c);
+  };
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  const instB = new Producer(b, ctx);
+  const instC = new Producer(c, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  instB.mount();
+  jest.runAllTimers();
+  instC.mount();
+  jest.runAllTimers();
+  expect(calls).toBe(3);
+});
+
+test("should not allow alterning data to skew prev and current data equality", () => {
+  let calls = 0;
+  const a: producer = ({
+    data = {
+      foo: observe.foo,
+    },
+  }) => {
+    data.foo = 321;
+    calls += 1;
+  };
+  const b: producer = ({ data = update.foo }) => {
+    data.set(321);
+  };
+  const DB = db({
+    foo: 123,
+  });
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  const instB = new Producer(b, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  instB.mount();
+  jest.runAllTimers();
+  expect(calls).toBe(2);
+});
+
+// Add test that checks that references are kept
 
 /*
 test("should allow args composition", () => {
