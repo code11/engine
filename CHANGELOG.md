@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.40](https://github.com/code11/engine/compare/v4.0.0-alpha.39...v4.0.0-alpha.40) (2021-01-26)
+
+
+### Bug Fixes
+
+* **engine.producer:** ensure that first call always gets made ([8802a03](https://github.com/code11/engine/commit/8802a0313ba4662ce84b3657dcb6fc13a7e5a542))
+
+
+
+
+
 # [4.0.0-alpha.39](https://github.com/code11/engine/compare/v4.0.0-alpha.38...v4.0.0-alpha.39) (2021-01-26)
 
 
