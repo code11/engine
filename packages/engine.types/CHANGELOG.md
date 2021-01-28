@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.41](https://github.com/code11/engine/compare/v4.0.0-alpha.13...v4.0.0-alpha.41) (2021-01-28)
+
+
+### Features
+
+* **engine.producer:** add support for constructors for get, observe and update operations ([#107](https://github.com/code11/engine/issues/107)) ([69690da](https://github.com/code11/engine/commit/69690dad57d197c676f235d9582929934d41bd14))
+
+
+### Performance Improvements
+
+* **engine.react:** add serializers to detect changes faster ([2d5fc90](https://github.com/code11/engine/commit/2d5fc903a755eb3cf078c2aa5cbc16c10487d24a))
+
+
+
+
+
 # [4.0.0-alpha.32](https://github.com/code11/engine/compare/v4.0.0-alpha.31...v4.0.0-alpha.32) (2021-01-06)
 
 

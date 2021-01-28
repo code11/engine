@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.41](https://github.com/code11/engine/compare/v4.0.0-alpha.13...v4.0.0-alpha.41) (2021-01-28)
+
+
+### Bug Fixes
+
+* **engine.db:** ensure only interested & unique listeners are set and called ([751a122](https://github.com/code11/engine/commit/751a122bd1f11dfd20335324ea61e3684b97e164))
+* **engine.db:** ensure path triggers only occur on required paths ([62ba16f](https://github.com/code11/engine/commit/62ba16f9713d41a87feb2eb8cae477901879220d))
+* **engine.producer:** ensure that first call always gets made ([8802a03](https://github.com/code11/engine/commit/8802a0313ba4662ce84b3657dcb6fc13a7e5a542))
+* **engine.producer:** updateListener now updates the correct data from the graph instance ([87e2c86](https://github.com/code11/engine/commit/87e2c8647daae344802ff6656d22e178bbbcb278))
+* **engine.producer:** various fixes for cloning, data updates and callbacks ([1ef31fc](https://github.com/code11/engine/commit/1ef31fc64e7450db3bfbf29049e97b3fca12ba6d))
+
+
+### Features
+
+* **engine.producer:** add isPath fn to producer and engine.runtime ([e458032](https://github.com/code11/engine/commit/e458032870dbc5771de89f5460462cf65a1cd5bb))
+* **engine.producer:** add support for constructors for get, observe and update operations ([#107](https://github.com/code11/engine/issues/107)) ([69690da](https://github.com/code11/engine/commit/69690dad57d197c676f235d9582929934d41bd14))
+* **engine.redner:** add adaptor and make several fixes for engine.producer props ([caea09e](https://github.com/code11/engine/commit/caea09e585dc1a6f230f583af6f61a9bb63c7bc2))
+
+
+### Performance Improvements
+
+* **engine.react:** add serializers to detect changes faster ([2d5fc90](https://github.com/code11/engine/commit/2d5fc903a755eb3cf078c2aa5cbc16c10487d24a))
+
+
+
+
+
 # [4.0.0-alpha.40](https://github.com/code11/engine/compare/v4.0.0-alpha.39...v4.0.0-alpha.40) (2021-01-26)
 
 

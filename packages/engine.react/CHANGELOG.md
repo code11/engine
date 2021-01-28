@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.41](https://github.com/code11/engine/compare/v4.0.0-alpha.13...v4.0.0-alpha.41) (2021-01-28)
+
+
+### Bug Fixes
+
+* **engine.producer:** ensure that first call always gets made ([8802a03](https://github.com/code11/engine/commit/8802a0313ba4662ce84b3657dcb6fc13a7e5a542))
+* **engine.producer:** various fixes for cloning, data updates and callbacks ([1ef31fc](https://github.com/code11/engine/commit/1ef31fc64e7450db3bfbf29049e97b3fca12ba6d))
+
+
+### Features
+
+* **engine.redner:** add adaptor and make several fixes for engine.producer props ([caea09e](https://github.com/code11/engine/commit/caea09e585dc1a6f230f583af6f61a9bb63c7bc2))
+
+
+### Performance Improvements
+
+* **engine.react:** add serializers to detect changes faster ([2d5fc90](https://github.com/code11/engine/commit/2d5fc903a755eb3cf078c2aa5cbc16c10487d24a))
+
+
+
+
+
 # [4.0.0-alpha.40](https://github.com/code11/engine/compare/v4.0.0-alpha.39...v4.0.0-alpha.40) (2021-01-26)
 
 

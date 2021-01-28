@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.react",
-  "version": "4.0.0-alpha.40",
+  "version": "4.0.0-alpha.41",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -27,12 +27,12 @@
     "dist"
   ],
   "dependencies": {
-    "@c11/engine.types": "4.0.0-alpha.32",
+    "@c11/engine.types": "4.0.0-alpha.41",
     "nanoid": "^3.1.20"
   },
   "devDependencies": {
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.32",
-    "@c11/engine.runtime": "4.0.0-alpha.40",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.41",
+    "@c11/engine.runtime": "4.0.0-alpha.41",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@types/nanoid": "^2.1.0",

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.41](https://github.com/code11/engine/compare/v4.0.0-alpha.13...v4.0.0-alpha.41) (2021-01-28)
+
+
+### Bug Fixes
+
+* **engine.db:** ensure only interested & unique listeners are set and called ([751a122](https://github.com/code11/engine/commit/751a122bd1f11dfd20335324ea61e3684b97e164))
+* **engine.db:** ensure path triggers only occur on required paths ([62ba16f](https://github.com/code11/engine/commit/62ba16f9713d41a87feb2eb8cae477901879220d))
+* **engine.producer:** various fixes for cloning, data updates and callbacks ([1ef31fc](https://github.com/code11/engine/commit/1ef31fc64e7450db3bfbf29049e97b3fca12ba6d))
+
+
+
+
+
 # [4.0.0-alpha.39](https://github.com/code11/engine/compare/v4.0.0-alpha.38...v4.0.0-alpha.39) (2021-01-26)
 
 
