@@ -932,6 +932,25 @@ test("should trigger an empty producer", () => {
   expect(calls).toBe(1);
 });
 
+test("should update props that were not specified initially", () => {
+  let _name;
+  const a: producer = ({ name }) => {
+    _name = name;
+  };
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  instA.updateExternal({ name: "foo" });
+  jest.runAllTimers();
+  expect(_name).toBe("foo");
+});
+
 // Add test that checks that references are kept
 
 /*

@@ -14,6 +14,7 @@ import {
   ValueTypes,
   DatastoreInstance,
   ProducerData,
+  GraphExternalNode,
 } from "@c11/engine.types";
 import { resolveDependencies } from "./resolveDependencies";
 import { getExternalNodes } from "./getExternalNodes";
@@ -52,7 +53,8 @@ export class Graph {
     keepReferences: string[],
     serializers: ValueSerializer[] = []
   ) {
-    const struct = merge(getInternalNodes(op), getExternalNodes(props));
+    const internalNodes = getInternalNodes(op);
+    const struct = merge(internalNodes, getExternalNodes(internalNodes, props));
     resolveDependencies(struct);
     this.props = props;
     this.structure = struct;

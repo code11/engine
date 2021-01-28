@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ViewProvider } from "./context";
+import { nanoid } from "nanoid";
 import {
   RenderInstance,
   RootElement,
@@ -12,15 +12,17 @@ import {
   ProducerInstance,
   ExternalProducerContext,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { ViewProvider } from "./context";
 
-type ModuleConfig = {
+export type ModuleConfig = {
   debug?: boolean;
+  updateProps?: (props: any) => void;
 };
 
 type ProducerConfigs = {
   [k: string]: ProducerConfig;
 };
+
 export type RenderContext = {
   debug: boolean;
   addProducer: (
@@ -44,6 +46,7 @@ type RenderConfig = {
   debug: boolean;
   container: any;
   element: any;
+  updateProps?: any;
 };
 
 type InstanceApi = {
@@ -71,6 +74,36 @@ type AddProducerOpts = {
   viewId: string;
 };
 
+const wrapper = ({ Element, updateProps }: any) => {
+  return class Wrapper extends React.Component {
+    isMounted = false;
+    nextState: any;
+    constructor(props: any) {
+      super(props);
+      if (updateProps) {
+        updateProps(this.updateProps.bind(this));
+      }
+      this.state = {};
+    }
+    componentDidMount() {
+      this.isMounted = true;
+      if (this.nextState) {
+        this.setState(this.nextState);
+      }
+    }
+    updateProps(props: any) {
+      if (!this.isMounted) {
+        this.nextState = props;
+      } else {
+        this.setState(props);
+      }
+    }
+    render() {
+      return React.cloneElement(Element, { ...this.state });
+    }
+  };
+};
+
 export class Render implements RenderInstance {
   private element: any;
   private container: any;
@@ -79,12 +112,14 @@ export class Render implements RenderInstance {
   private context: RenderContext;
   private moduleContext: ModuleContext;
   private cache: RenderCache = {};
+  private updateProps: (cb: (props: any) => void) => void;
 
   constructor(config: RenderConfig) {
     this.debug = config.debug || false;
     this.element = config.element;
     this.container = config.container;
     this.moduleContext = config.moduleContext;
+    this.updateProps = config.updateProps;
     this.context = {
       debug: this.debug,
       addProducer: this.addProducer.bind(this),
@@ -197,8 +232,14 @@ export class Render implements RenderInstance {
 
   private render(rootEl: HTMLElement) {
     this.root = rootEl;
+    const Wrapper = wrapper({
+      Element: this.element,
+      updateProps: this.updateProps,
+    });
     ReactDOM.render(
-      <ViewProvider value={this.context}>{this.element}</ViewProvider>,
+      <ViewProvider value={this.context}>
+        <Wrapper />
+      </ViewProvider>,
       rootEl
     );
   }
@@ -248,6 +289,7 @@ export const render = (
         element,
         container,
         debug: config.debug || false,
+        updateProps: config.updateProps,
         moduleContext,
       });
 

@@ -4,19 +4,35 @@ import {
   GraphNodeType,
 } from "@c11/engine.types";
 
-export const getExternalNodes = (external: any) => {
-  const graph: GraphStructure = Object.keys(external).reduce((acc, x) => {
-    const id = `external.${x}`;
-    const node: GraphExternalNode = {
-      id,
-      nesting: x,
-      nestingPath: [x],
-      type: GraphNodeType.EXTERNAL,
-      value: external[x],
-      isDependedBy: [],
-    };
-    acc[id] = node;
-    return acc;
-  }, {} as GraphStructure);
-  return graph;
+export const getExternalNodes = (internalNodes: GraphStructure, props: any) => {
+  const externalNodes = Object.entries(internalNodes).reduce(
+    (acc, [key, value]) => {
+      if (value.type === GraphNodeType.INTERNAL && value.dependsOn) {
+        const external = value.dependsOn
+          .filter((x) => x.indexOf("external.") === 0)
+          .map((x) => {
+            const parts = x.split(".");
+            return `${parts[0]}.${parts[1]}`;
+          });
+        external.forEach((x) => {
+          if (!acc[x]) {
+            const parts = x.split(".");
+            const name = parts[1];
+            const node: GraphExternalNode = {
+              id: x,
+              nesting: name,
+              nestingPath: [name],
+              type: GraphNodeType.EXTERNAL,
+              value: props[name],
+              isDependedBy: [],
+            };
+            acc[x] = node;
+          }
+        });
+      }
+      return acc;
+    },
+    {} as any
+  );
+  return externalNodes;
 };
