@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.42](https://github.com/code11/engine/compare/v4.0.0-alpha.41...v4.0.0-alpha.42) (2021-01-29)
+
+
+### Bug Fixes
+
+* **engine.react:** change react prop isMounted to isAlreadyMounted ([c36ec65](https://github.com/code11/engine/commit/c36ec65bf724048a1165e06c7f1123ea29a68f8e))
+
+
+
+
+
 # [4.0.0-alpha.41](https://github.com/code11/engine/compare/v4.0.0-alpha.13...v4.0.0-alpha.41) (2021-01-28)
 
 
