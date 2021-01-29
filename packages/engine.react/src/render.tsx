@@ -76,7 +76,7 @@ type AddProducerOpts = {
 
 const wrapper = ({ Element, updateProps }: any) => {
   return class Wrapper extends React.Component {
-    isMounted = false;
+    isAlreadyMounted = false;
     nextState: any;
     constructor(props: any) {
       super(props);
@@ -86,13 +86,13 @@ const wrapper = ({ Element, updateProps }: any) => {
       this.state = {};
     }
     componentDidMount() {
-      this.isMounted = true;
+      this.isAlreadyMounted = true;
       if (this.nextState) {
         this.setState(this.nextState);
       }
     }
     updateProps(props: any) {
-      if (!this.isMounted) {
+      if (!this.isAlreadyMounted) {
         this.nextState = props;
       } else {
         this.setState(props);
