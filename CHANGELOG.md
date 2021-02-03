@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.43](https://github.com/code11/engine/compare/v4.0.0-alpha.42...v4.0.0-alpha.43) (2021-02-03)
+
+
+### Bug Fixes
+
+* **engine.service-web:** add missing babel plugin ([5a6eff4](https://github.com/code11/engine/commit/5a6eff4bf6716956537a04b2f6c60bc3b3243aa0))
+
+
+
+
+
 # [4.0.0-alpha.42](https://github.com/code11/engine/compare/v4.0.0-alpha.41...v4.0.0-alpha.42) (2021-01-29)
 
 
