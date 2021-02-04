@@ -189,19 +189,19 @@ export class Graph {
       }, {});
     }
 
-    // if (
-    //   !this.isFirstCall &&
-    //   isDataEqual(this.prevData, data, this.serializers)
-    // ) {
-    //   return;
-    // }
+    if (
+      !this.isFirstCall &&
+      isDataEqual(this.prevData, data, this.serializers)
+    ) {
+      return;
+    }
 
     this.isFirstCall = false;
 
     this.prevData = data;
 
-    // this.cb.call(null, cloneCbData(data, this.keepReferences, this.structure));
-    this.cb.call(null, data);
+    this.cb.call(null, cloneCbData(data, this.keepReferences, this.structure));
+    // this.cb.call(null, data);
   }
 
   destroy() {
