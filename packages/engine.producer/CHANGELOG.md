@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.45](https://github.com/code11/engine/compare/v4.0.0-alpha.44...v4.0.0-alpha.45) (2021-02-04)
+
+
+### Bug Fixes
+
+* **engine.producer:** change data equality check to a simple stringify with reducer ([fb90dee](https://github.com/code11/engine/commit/fb90dee55d5f860c9fb179d2a8ea28adb37d9300))
+
+
+
+
+
 # [4.0.0-alpha.44](https://github.com/code11/engine/compare/v4.0.0-alpha.43...v4.0.0-alpha.44) (2021-02-04)
 
 
