@@ -1,7 +1,7 @@
 {
   "name": "@c11/engine.template-express",
   "private": true,
-  "version": "4.0.0-alpha.41",
+  "version": "4.0.0-alpha.44",
   "license": "MIT",
   "keywords": [
     "template"
@@ -13,7 +13,7 @@
     "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
   },
   "dependencies": {
-    "@c11/engine.runtime": "4.0.0-alpha.41",
+    "@c11/engine.runtime": "4.0.0-alpha.44",
     "@c11/engine.types": "4.0.0-alpha.41"
   },
   "devDependencies": {
