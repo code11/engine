@@ -1,4 +1,4 @@
-import { ProducerData } from "@c11/engine.types";
+import { ProducerData, ValueSerializer } from "@c11/engine.types";
 import isEqual from "lodash/isEqual";
 import isFunction from "lodash/isFunction";
 import isObject from "lodash/isObject";
@@ -9,10 +9,16 @@ import { UpdateOperationSymbol } from "./updateOperation";
 
 const removeOperations = (
   data: ProducerData,
+  serializers: ValueSerializer[],
   result: any = {},
   set = new WeakSet()
 ) => {
-  if (isObject(data)) {
+  let serializer = serializers.find((x) => {
+    return x.instanceof && data instanceof x.instanceof === true;
+  });
+  if (serializer) {
+    result = serializer.serializer(data);
+  } else if (isObject(data)) {
     Object.entries(data).forEach(([key, value]) => {
       if (
         value &&
@@ -39,7 +45,12 @@ const removeOperations = (
             result[key] = value;
           } else {
             set.add(value);
-            result[key] = removeOperations(value, result[key], set);
+            result[key] = removeOperations(
+              value,
+              serializers,
+              result[key],
+              set
+            );
           }
         } else {
           result[key] = value;
@@ -53,9 +64,13 @@ const removeOperations = (
   return result;
 };
 
-export const isDataEqual = (prevData: ProducerData, data: ProducerData) => {
-  const rawPrevData = removeOperations(prevData);
-  const rawData = removeOperations(data);
+export const isDataEqual = (
+  prevData: ProducerData,
+  data: ProducerData,
+  serializers: ValueSerializer[]
+) => {
+  const rawPrevData = removeOperations(prevData, serializers);
+  const rawData = removeOperations(data, serializers);
 
   const result = isEqual(rawPrevData, rawData);
 

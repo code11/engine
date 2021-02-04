@@ -1,4 +1,5 @@
 import "setimmediate";
+import { nanoid } from "nanoid";
 import getNode from "./getNode";
 import err from "./err";
 import isPlainObject from "lodash/isPlainObject";
@@ -21,7 +22,7 @@ function callNode(db, path, i, patch = []) {
     } else if (typeof value === "symbol" || value instanceof Symbol) {
       return value.toString();
     }
-    return undefined;
+    return nanoid();
   };
   let cacheTest = JSON.stringify(val, replacer);
 
