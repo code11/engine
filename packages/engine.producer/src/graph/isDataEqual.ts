@@ -1,5 +1,8 @@
 import { ProducerData, ValueSerializer } from "@c11/engine.types";
+import { nanoid } from "nanoid";
+import isPlainObject from "lodash/isPlainObject";
 import isEqual from "lodash/isEqual";
+import isArray from "lodash/isArray";
 import isFunction from "lodash/isFunction";
 import isObject from "lodash/isObject";
 import { GetOperationSymbol } from "./getOperation";
@@ -69,10 +72,19 @@ export const isDataEqual = (
   data: ProducerData,
   serializers: ValueSerializer[]
 ) => {
-  const rawPrevData = removeOperations(prevData, serializers);
-  const rawData = removeOperations(data, serializers);
-
-  const result = isEqual(rawPrevData, rawData);
+  // const rawPrevData = removeOperations(prevData, serializers);
+  // const rawData = removeOperations(data, serializers);
+  // const result = isEqual(rawPrevData, rawData);
+  const replacer = (key: string, value: unknown) => {
+    if (isPlainObject(value) || isArray(value) || value !== Object(value)) {
+      return value;
+    } else if (typeof value === "symbol" || value instanceof Symbol) {
+      return value.toString();
+    }
+    return nanoid();
+  };
+  const result =
+    JSON.stringify(prevData, replacer) === JSON.stringify(data, replacer);
 
   return result;
 };

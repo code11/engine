@@ -698,7 +698,7 @@ test("#40: setting nested paths issue", () => {
   });
 });
 
-test.skip("should not call more than once with same data", () => {
+test("should not call more than once with same data", () => {
   const fn = jest.fn();
   const a: producer = ({ foo = update.foo }) => {
     foo.set({
