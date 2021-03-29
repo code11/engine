@@ -36,3 +36,38 @@ bar = Observe[Arg.foo.baz]
 - Add Array methods for modifying arrays to the Update operation
 
 - Wildcard observe's can be parallelized!
+
+Store all triggers with their respective timestamp as the key and the data (or lack of) as the body
+
+start = update.foo.triggers.start[param.time]
+
+start.set({ foo: 123 }, { time: now()})
+start.set({}, { time: now()})
+
+then the listeners for triggers can be:
+
+const startTrigger: producer = ({
+id = Wildcard,
+trigger = observe.foo.triggers.start[arg.id]
+updateTrigger = update.foo.triggers.start[arg.id]
+}) => {
+if (!trigger) [
+return
+]
+updateTrigger.remove()
+}
+
+const trigger = (path, logic) => {
+const result: producer = ({
+id = Wildcard,
+trigger = observe[path][arg.id],
+updateTrigger = update[path][arg.id]
+}) => {
+if (!trigger) {
+return
+}
+}
+
+}
+
+if observe, etc are not transformed initially and are just proxies - that means they can be reused at runtime
