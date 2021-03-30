@@ -18,13 +18,22 @@
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-syntax-typescript": "^7.12.1",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-typescript": "^7.13.0",
     "@babel/types": "^7.12.6",
     "@c11/engine.types": "4.0.0-alpha.41",
+    "@types/babel__core": "^7.1.14",
+    "@types/jest": "^26.0.22",
+    "@types/lodash": "^4.14.168",
     "@types/nanoid": "^2.1.0",
+    "@types/node": "^14.14.37",
     "babel-plugin-tester": "^10.0.0",
-    "prettier": "^2.1.2"
+    "jest": "^26.6.3",
+    "prettier": "^2.1.2",
+    "typescript": "^4.2.3"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "nanoid": "^3.1.20"
   }
 }

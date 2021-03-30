@@ -4,15 +4,9 @@
   "license": "MIT",
   "private": true,
   "keywords": [],
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": [
-      "**/types",
-      "**/producer"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "author": {
     "name": "Constantin Dumitrescu",
     "email": "dum.constantin@gmail.com"
@@ -22,11 +16,11 @@
     "@types/react": "^16.9.55"
   },
   "scripts": {
-    "clean": "lerna clean --yes && rm -rf packages/*/dist",
+    "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules",
     "build:engine": "lerna run --scope=@c11/engine* build",
     "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
-    "build": "lerna run build",
-    "test": "jest --clear-cache && lerna run --concurrency 1 test",
+    "build": "yarn workspaces foreach -t run build",
+    "test": "jest --clear-cache && yarn workspaces foreach run test",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
     "release": "yarn clean && yarn build && yarn test",
@@ -53,14 +47,15 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
+    "@babel/core": "^7.13.14",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
     "@babel/types": "^7.12.1",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.164",
+    "@types/node": "^14.14.37",
     "babel-jest": "^26.6.1",
     "babel-plugin-macros": "^2.8.0",
     "commitizen": "^4.2.2",
@@ -76,9 +71,5 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "csstype": "^3.0.5",
-    "postcss-import": "^13.0.0"
   }
 }

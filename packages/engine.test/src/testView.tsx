@@ -1,7 +1,7 @@
 import React from "react";
 import { engine } from "@c11/engine.runtime";
 import { render } from "@c11/engine.react";
-import { generateImage } from "jsdom-screenshot";
+// import { generateImage } from "jsdom-screenshot";
 import { ViewFn } from "@c11/engine.react";
 
 type testViewProps = {
@@ -36,9 +36,9 @@ export const testView = async ({ name, state, view, props }: testViewProps) => {
 
     jest.runAllTimers();
 
-    const screenshot = await generateImage();
+    // const screenshot = await generateImage();
     //@ts-ignore
-    expect(screenshot).toMatchImageSnapshot();
+    // expect(screenshot).toMatchImageSnapshot();
 
     jest.useRealTimers();
   });

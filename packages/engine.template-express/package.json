@@ -6,17 +6,5 @@
   "keywords": [
     "template"
   ],
-  "description": "The base template for Engine apps.",
-  "scripts": {
-    "test": "echo \"no tests available for this package\" ",
-    "build": "echo \"no build available for this package\" ",
-    "publish:local": "npm unpublish --force --registry http://localhost:4873 @c11/engine.templates-app && npm publish --registry http://localhost:4873"
-  },
-  "dependencies": {
-    "@c11/engine.runtime": "4.0.0-alpha.45",
-    "@c11/engine.types": "4.0.0-alpha.41"
-  },
-  "devDependencies": {
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.41"
-  }
+  "description": "The base template for Engine apps."
 }

@@ -36,7 +36,9 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
-    "@schemastore/package": "^0.0.6"
+    "@babel/cli": "^7.13.14",
+    "@schemastore/package": "^0.0.6",
+    "@types/node": "^14.14.37"
   },
   "dependencies": {
     "@babel/core": "^7.12.7",
@@ -45,11 +47,10 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
-    "@c11/engine.babel-plugin-hmr": "4.0.0-alpha.41",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.41",
-    "@c11/engine.react": "4.0.0-alpha.45",
-    "@c11/engine.runtime": "4.0.0-alpha.45",
-    "@c11/engine.test": "4.0.0-alpha.45",
+    "@c11/engine.babel-plugin-hmr": "workspace:packages/engine.babel-plugin-hmr",
+    "@c11/engine.babel-plugin-syntax": "workspace:packages/engine.babel-plugin-syntax",
+    "@c11/engine.react": "workspace:packages/engine.react",
+    "@c11/engine.runtime": "workspace:packages/engine.runtime",
     "@svgr/webpack": "^5.5.0",
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
     "@types/react": "^16.9.56",
