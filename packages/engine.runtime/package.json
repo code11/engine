@@ -15,9 +15,9 @@
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "dependencies": {
-    "@c11/engine.db": "workspace:packages/engine.db",
-    "@c11/engine.producer": "workspace:packages/engine.producer",
-    "@c11/engine.types": "workspace:packages/engine.types",
+    "@c11/engine.db": "4.0.0-alpha.44",
+    "@c11/engine.producer": "4.0.0-alpha.45",
+    "@c11/engine.types": "4.0.0-alpha.41",
     "nanoid": "^3.1.20"
   },
   "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae",
@@ -26,7 +26,7 @@
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
-    "@c11/engine.babel-plugin-syntax": "workspace:packages/engine.babel-plugin-syntax",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.41",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
     "jest": "^26.6.3",
