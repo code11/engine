@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.46](https://github.com/code11/engine/compare/v4.0.0-alpha.43...v4.0.0-alpha.46) (2021-03-31)
+
+
+### Bug Fixes
+
+* **engine.producer:** comment changes related to data check before calling a producer ([b9bf3c3](https://github.com/code11/engine/commit/b9bf3c3ab21b3d45bd000d1550b3c25334b4ed19))
+
+
+
+
+
 # [4.0.0-alpha.44](https://github.com/code11/engine/compare/v4.0.0-alpha.43...v4.0.0-alpha.44) (2021-02-04)
 
 
