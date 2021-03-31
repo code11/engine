@@ -21,7 +21,7 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
     "@babel/types": "^7.12.6",
-    "@c11/engine.types": "workspace:packages/engine.types",
+    "@c11/engine.types": "4.0.0-alpha.41",
     "@types/babel__core": "^7.1.14",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",
