@@ -18,10 +18,10 @@
     "@babel/core": "^7.12.3",
     "@babel/plugin-syntax-typescript": "^7.12.1",
     "@babel/types": "^7.12.6",
-    "@c11/engine.types": "4.0.0-alpha.41",
+    "@c11/engine.types": "workspace:packages/engine.types",
     "prettier": "^2.1.2"
   },
   "dependencies": {
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.41"
+    "@c11/engine.babel-plugin-syntax": "workspace:packages/engine.babel-plugin-syntax"
   }
 }
