@@ -35,7 +35,7 @@ jobs:
         run: |
           yarn install --immutable --skip-builds
 
-  buildtest:
+  build:
     name: Build Packages
     runs-on: ubuntu-latest
     needs: prepare-yarn-cache
@@ -44,16 +44,21 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: "*"
-      - run: npm install -g yarn
-      - run: yarn install
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-
       - run: yarn build
-      - uses: actions/upload-artifact@v2
-      - run: yarn test
 
   test:
     name: Test Packages
     runs-on: ubuntu-latest
-    needs: buildtest
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
