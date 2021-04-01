@@ -21,6 +21,7 @@
     "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
+    "test": "yarn workspaces foreach run test",
     "release": "yarn clean && yarn build && yarn test",
     "version:lerna": "lerna version --conventional-commits --exact --no-push",
     "publish": "lerna publish from-package",

@@ -51,6 +51,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable --skip-builds
       - run: yarn build
-      - run: yarn test
+      - run: yarn run test
       - name: Upload coverage report
         uses: codecov/codecov-action@v1
