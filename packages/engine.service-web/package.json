@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.service-web",
-  "version": "4.0.0-alpha.46",
+  "version": "4.0.0-alpha.47",
   "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {
@@ -47,10 +47,10 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@c11/engine.babel-plugin-hmr": "4.0.0-alpha.46",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.46",
-    "@c11/engine.react": "4.0.0-alpha.46",
-    "@c11/engine.runtime": "4.0.0-alpha.46",
+    "@c11/engine.babel-plugin-hmr": "4.0.0-alpha.47",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.47",
+    "@c11/engine.react": "4.0.0-alpha.47",
+    "@c11/engine.runtime": "4.0.0-alpha.47",
     "@svgr/webpack": "^5.5.0",
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
     "@types/react": "^16.14.5",
