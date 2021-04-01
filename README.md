@@ -1,5 +1,8 @@
 # Code11 Engine
 
+[![push](https://github.com/code11/engine/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/code11/engine/actions)
+[![codecov](https://codecov.io/gh/code11/engine/branch/master/graph/badge.svg?token=K3UZLXWOEK)](https://codecov.io/gh/code11/engine)
+
 Engine is a meta-framework for creating web applications.
 
 Engine keenly focuses on developer productivity while allowing creating robust
