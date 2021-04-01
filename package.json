@@ -19,8 +19,6 @@
     "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules",
     "build:engine": "lerna run --scope=@c11/engine* build",
     "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
-    "build": "yarn workspaces foreach -t run build",
-    "test": "jest --clear-cache && yarn workspaces foreach run test",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
     "release": "yarn clean && yarn build && yarn test",
