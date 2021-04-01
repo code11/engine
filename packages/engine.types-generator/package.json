@@ -15,11 +15,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/plugin-syntax-typescript": "^7.12.1",
-    "@babel/types": "^7.12.6",
+    "@babel/core": "^7.13.14",
+    "@babel/plugin-syntax-typescript": "^7.12.13",
+    "@babel/types": "^7.13.14",
     "@c11/engine.types": "4.0.0-alpha.46",
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.46"

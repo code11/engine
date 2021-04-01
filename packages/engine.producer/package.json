@@ -22,27 +22,27 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.13",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.14",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
     "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.46",
     "@types/clone-deep": "^4.0.1",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^14.14.37",
     "jest": "^26.6.3",
-    "typescript": "^4.0.5"
+    "typescript": "^4.2.3"
   },
   "dependencies": {
     "@c11/engine.db": "4.0.0-alpha.46",
     "@c11/engine.types": "4.0.0-alpha.46",
     "clone-deep": "^4.0.1",
-    "lodash": "^4.17.20",
-    "nanoid": "^3.1.20"
+    "lodash": "^4.17.21",
+    "nanoid": "^3.1.22"
   },
   "gitHead": "96608493e3aad487b4c4d3813fa3246305ff48ae",
   "engineConfig": {}
