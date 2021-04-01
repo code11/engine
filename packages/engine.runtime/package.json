@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "test:simple": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom='[\"packages/engine.runtime/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
+    "test": "jest --config ../../jest.config.js --coverageDirectory='packages/engine.runtime/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.runtime/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "dependencies": {
     "@c11/engine.db": "4.0.0-alpha.46",

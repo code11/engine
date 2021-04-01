@@ -8,7 +8,7 @@
     "build": "tsc",
     "test:simple": "jest --clear-cache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/*",
     "test:update": "jest --clear-cache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
-    "test": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom='[\"packages/engine.babel-plugin-hmr/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
+    "test": "jest --config ../../jest.config.js --coverageDirectory='packages/engine.babel-plugin-hmr/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.babel-plugin-hmr/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "author": {
     "name": "Constantin Dumitrescu",
