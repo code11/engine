@@ -18,8 +18,8 @@
   "scripts": {
     "build:declaration": "tsc --project tsconfig.build.json",
     "build": "tsc",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
+    "test:simple": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom='[\"packages/engine.producer/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",

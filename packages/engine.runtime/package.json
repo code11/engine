@@ -11,8 +11,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
+    "test:simple": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom='[\"packages/engine.runtime/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "dependencies": {
     "@c11/engine.db": "4.0.0-alpha.46",

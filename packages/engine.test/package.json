@@ -14,7 +14,7 @@
     "build": "echo \"tsc\"",
     "test": "echo \"jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
     "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\"",
-    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --runTestsByPath   ./src/**"
+    "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom='[\"packages/engine.runtime/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
     "react": ">=16"

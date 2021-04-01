@@ -15,8 +15,8 @@
   "scripts": {
     "build:declaration": "tsc --project tsconfig.build.json",
     "build": "tsc",
-    "test": "jest --clear-cache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/**/*",
-    "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --collectCoverage --runTestsByPath ./specs/**/*"
+    "test:simple": "jest --clear-cache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/**/*",
+    "test": "jest --clear-cache && NODE_ENV=test jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom='[\"packages/engine.db/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/**/*"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
