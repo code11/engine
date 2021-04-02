@@ -52,7 +52,7 @@
     "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/runtime": "^7.13.10",
     "@c11/engine.runtime": "4.0.0-alpha.47",
-    "commander": "^6.2.1",
+    "commander": "^7.2.0",
     "find-root": "^1.1.0",
     "ncp": "^2.0.0",
     "pacote": "^11.3.1"
