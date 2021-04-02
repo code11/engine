@@ -1359,7 +1359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@c11/engine.babel-plugin-hmr@4.0.0-alpha.46, @c11/engine.babel-plugin-hmr@workspace:packages/engine.babel-plugin-hmr":
+"@c11/engine.babel-plugin-hmr@4.0.0-alpha.47, @c11/engine.babel-plugin-hmr@workspace:packages/engine.babel-plugin-hmr":
   version: 0.0.0-use.local
   resolution: "@c11/engine.babel-plugin-hmr@workspace:packages/engine.babel-plugin-hmr"
   dependencies:
@@ -1368,7 +1368,7 @@ __metadata:
     "@babel/preset-env": ^7.13.12
     "@babel/preset-typescript": ^7.13.0
     "@babel/types": ^7.13.14
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
     "@types/babel__core": ^7.1.14
     "@types/babel__preset-env": ^7.9.1
     "@types/jest": ^26.0.22
@@ -1381,7 +1381,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.babel-plugin-syntax@4.0.0-alpha.46, @c11/engine.babel-plugin-syntax@workspace:packages/engine.babel-plugin-syntax":
+"@c11/engine.babel-plugin-syntax@4.0.0-alpha.47, @c11/engine.babel-plugin-syntax@workspace:packages/engine.babel-plugin-syntax":
   version: 0.0.0-use.local
   resolution: "@c11/engine.babel-plugin-syntax@workspace:packages/engine.babel-plugin-syntax"
   dependencies:
@@ -1390,7 +1390,7 @@ __metadata:
     "@babel/preset-env": ^7.13.12
     "@babel/preset-typescript": ^7.13.0
     "@babel/types": ^7.13.14
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.types": 4.0.0-alpha.47
     "@types/babel__core": ^7.1.14
     "@types/jest": ^26.0.22
     "@types/lodash": ^4.14.168
@@ -1416,12 +1416,12 @@ __metadata:
     "@babel/preset-env": ^7.13.12
     "@babel/preset-typescript": ^7.13.0
     "@babel/runtime": ^7.13.10
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.runtime": 4.0.0-alpha.46
-    "@c11/engine.service-web": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.runtime": 4.0.0-alpha.47
+    "@c11/engine.service-web": 4.0.0-alpha.47
     "@schemastore/package": ^0.0.6
     "@types/babel__preset-env": ^7.9.1
-    commander: ^6.2.1
+    commander: ^7.2.0
     find-root: ^1.1.0
     ncp: ^2.0.0
     pacote: ^11.3.1
@@ -1430,7 +1430,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.db@4.0.0-alpha.46, @c11/engine.db@workspace:packages/engine.db":
+"@c11/engine.db@4.0.0-alpha.47, @c11/engine.db@workspace:packages/engine.db":
   version: 0.0.0-use.local
   resolution: "@c11/engine.db@workspace:packages/engine.db"
   dependencies:
@@ -1438,7 +1438,7 @@ __metadata:
     "@babel/plugin-proposal-class-properties": ^7.13.0
     "@babel/preset-env": ^7.13.12
     "@babel/preset-typescript": ^7.13.0
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.types": 4.0.0-alpha.47
     "@types/babel__core": ^7.1.14
     "@types/jest": ^26.0.22
     "@types/node": ^14.14.37
@@ -1454,7 +1454,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.macro@4.0.0-alpha.46, @c11/engine.macro@workspace:packages/engine.macro":
+"@c11/engine.macro@4.0.0-alpha.47, @c11/engine.macro@workspace:packages/engine.macro":
   version: 0.0.0-use.local
   resolution: "@c11/engine.macro@workspace:packages/engine.macro"
   dependencies:
@@ -1464,8 +1464,8 @@ __metadata:
     "@babel/preset-react": ^7.13.13
     "@babel/preset-typescript": ^7.13.0
     "@babel/types": ^7.13.14
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.types": 4.0.0-alpha.47
     "@types/babel-plugin-macros": ^2.8.4
     "@types/babel__core": ^7.1.14
     "@types/babel__preset-env": ^7.9.1
@@ -1485,7 +1485,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.producer@4.0.0-alpha.46, @c11/engine.producer@workspace:packages/engine.producer":
+"@c11/engine.producer@4.0.0-alpha.47, @c11/engine.producer@workspace:packages/engine.producer":
   version: 0.0.0-use.local
   resolution: "@c11/engine.producer@workspace:packages/engine.producer"
   dependencies:
@@ -1495,9 +1495,9 @@ __metadata:
     "@babel/preset-env": ^7.13.12
     "@babel/preset-react": ^7.13.13
     "@babel/preset-typescript": ^7.13.0
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.db": 4.0.0-alpha.46
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.db": 4.0.0-alpha.47
+    "@c11/engine.types": 4.0.0-alpha.47
     "@types/clone-deep": ^4.0.1
     "@types/jest": ^26.0.22
     "@types/lodash": ^4.14.168
@@ -1513,7 +1513,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.react@4.0.0-alpha.46, @c11/engine.react@workspace:packages/engine.react":
+"@c11/engine.react@4.0.0-alpha.47, @c11/engine.react@workspace:packages/engine.react":
   version: 0.0.0-use.local
   resolution: "@c11/engine.react@workspace:packages/engine.react"
   dependencies:
@@ -1522,15 +1522,15 @@ __metadata:
     "@babel/preset-env": ^7.13.12
     "@babel/preset-react": ^7.13.13
     "@babel/preset-typescript": ^7.13.0
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.runtime": 4.0.0-alpha.46
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.runtime": 4.0.0-alpha.47
+    "@c11/engine.types": 4.0.0-alpha.47
     "@testing-library/jest-dom": ^5.11.10
     "@testing-library/react": ^11.2.6
     "@types/nanoid": ^2.1.0
     "@types/node": ^14.14.37
-    "@types/react": ^16.14.5
-    "@types/react-dom": ^16.9.12
+    "@types/react": ^17.0.3
+    "@types/react-dom": ^17.0.3
     jest: ^26.6.3
     nanoid: ^3.1.22
     react: ^17.0.2
@@ -1541,7 +1541,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.runtime@4.0.0-alpha.46, @c11/engine.runtime@workspace:packages/engine.runtime":
+"@c11/engine.runtime@4.0.0-alpha.47, @c11/engine.runtime@workspace:packages/engine.runtime":
   version: 0.0.0-use.local
   resolution: "@c11/engine.runtime@workspace:packages/engine.runtime"
   dependencies:
@@ -1549,10 +1549,10 @@ __metadata:
     "@babel/plugin-proposal-class-properties": ^7.13.0
     "@babel/preset-env": ^7.13.12
     "@babel/preset-typescript": ^7.13.0
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.db": 4.0.0-alpha.46
-    "@c11/engine.producer": 4.0.0-alpha.46
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.db": 4.0.0-alpha.47
+    "@c11/engine.producer": 4.0.0-alpha.47
+    "@c11/engine.types": 4.0.0-alpha.47
     "@types/jest": ^26.0.22
     "@types/node": ^14.14.37
     jest: ^26.6.3
@@ -1561,7 +1561,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.service-web@4.0.0-alpha.46, @c11/engine.service-web@workspace:packages/engine.service-web":
+"@c11/engine.service-web@4.0.0-alpha.47, @c11/engine.service-web@workspace:packages/engine.service-web":
   version: 0.0.0-use.local
   resolution: "@c11/engine.service-web@workspace:packages/engine.service-web"
   dependencies:
@@ -1572,15 +1572,15 @@ __metadata:
     "@babel/preset-env": ^7.13.12
     "@babel/preset-react": ^7.13.13
     "@babel/preset-typescript": ^7.13.0
-    "@c11/engine.babel-plugin-hmr": 4.0.0-alpha.46
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.react": 4.0.0-alpha.46
-    "@c11/engine.runtime": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-hmr": 4.0.0-alpha.47
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.react": 4.0.0-alpha.47
+    "@c11/engine.runtime": 4.0.0-alpha.47
     "@schemastore/package": ^0.0.6
     "@svgr/webpack": ^5.5.0
     "@teamsupercell/typings-for-css-modules-loader": ^2.5.1
     "@types/node": ^14.14.37
-    "@types/react": ^16.14.5
+    "@types/react": ^17.0.3
     autoprefixer: ^10.2.5
     babel-loader: ^8.2.2
     babel-plugin-module-rewrite: ^0.2.0
@@ -1589,14 +1589,14 @@ __metadata:
     file-loader: ^6.2.0
     find-root: ^1.1.0
     fs-extra: ^9.1.0
-    html-webpack-plugin: ^4.5.2
+    html-webpack-plugin: ^5.3.1
     init-pkg-json: ^1.0.0
     mini-css-extract-plugin: ^1.4.0
     ncp: ^2.0.0
     pacote: ^11.3.1
     postcss: ^8.2.9
-    postcss-import: ^13.0.0
-    postcss-loader: ^4.2.0
+    postcss-import: ^14.0.1
+    postcss-loader: ^5.2.0
     postcss-preset-env: ^6.7.0
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -1604,7 +1604,7 @@ __metadata:
     svg-inline-loader: ^0.8.2
     tailwindcss: ^2.0.4
     url-loader: ^4.1.1
-    webpack: ^5.28.0
+    webpack: ^5.30.0
     webpack-bundle-analyzer: ^4.4.0
     webpack-dev-server: ^3.11.2
   bin:
@@ -1632,10 +1632,10 @@ __metadata:
     "@babel/preset-env": ^7.13.12
     "@babel/preset-react": ^7.13.13
     "@babel/preset-typescript": ^7.13.0
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.react": 4.0.0-alpha.46
-    "@c11/engine.runtime": 4.0.0-alpha.46
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.react": 4.0.0-alpha.47
+    "@c11/engine.runtime": 4.0.0-alpha.47
+    "@c11/engine.types": 4.0.0-alpha.47
     "@types/jest": ^26.0.22
     "@types/node": ^14.14.37
     "@types/react": ^17.0.3
@@ -1643,7 +1643,7 @@ __metadata:
     babel-plugin-macros: ^3.0.1
     jest: ^26.6.3
     jest-transform-file: ^1.1.1
-    react: ^16.14.0
+    react: ^17.0.2
     typescript: ^4.2.3
   peerDependencies:
     react: ">=16"
@@ -1657,18 +1657,18 @@ __metadata:
     "@babel/core": ^7.13.14
     "@babel/plugin-syntax-typescript": ^7.12.13
     "@babel/types": ^7.13.14
-    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.46
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.47
+    "@c11/engine.types": 4.0.0-alpha.47
     prettier: ^2.2.1
   languageName: unknown
   linkType: soft
 
-"@c11/engine.types@4.0.0-alpha.46, @c11/engine.types@workspace:packages/engine.types":
+"@c11/engine.types@4.0.0-alpha.47, @c11/engine.types@workspace:packages/engine.types":
   version: 0.0.0-use.local
   resolution: "@c11/engine.types@workspace:packages/engine.types"
   dependencies:
-    "@types/react": ^16.14.5
-    "@types/react-dom": ^16.9.12
+    "@types/react": ^17.0.3
+    "@types/react-dom": ^17.0.3
     react: ^17.0.2
     react-dom: ^17.0.2
     typescript: ^4.2.3
@@ -3241,13 +3241,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/anymatch@npm:*":
-  version: 1.3.1
-  resolution: "@types/anymatch@npm:1.3.1"
-  checksum: 1647865e528a168f66f57a077e9651c10a4c172b656cc3686fddf176555d42ca0a1647bfc626ea2fceb68fc7701426ab708224be1762b4a5216fe8368ffdba3c
-  languageName: node
-  linkType: hard
-
 "@types/aria-query@npm:^4.2.0":
   version: 4.2.1
   resolution: "@types/aria-query@npm:4.2.1"
@@ -3503,12 +3496,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^16.9.12":
-  version: 16.9.12
-  resolution: "@types/react-dom@npm:16.9.12"
+"@types/react-dom@npm:^17.0.3":
+  version: 17.0.3
+  resolution: "@types/react-dom@npm:17.0.3"
   dependencies:
-    "@types/react": ^16
-  checksum: 49745de25f49e3fff8e8dbc5751b3845ab3e5f732d03d89d5818148aa2dda1b002d8ddc7dc8976684c5dd9671cdbff8c270ea9f5c05c1349f65d233aaf135f25
+    "@types/react": "*"
+  checksum: 9314c91a985f153591e1e74aef3d63d8b22e098069773f32745bf0733740a49802731761a46da8788a7d3dd2c21346036f12c2c24627630e5a6210b120a650e6
   languageName: node
   linkType: hard
 
@@ -3530,24 +3523,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-list-map@npm:*":
-  version: 0.1.2
-  resolution: "@types/source-list-map@npm:0.1.2"
-  checksum: 191f0e3b056b481e7a0bbb38f3d5b54b015556e38075726ca2637a35d3694df85cd16761b1b188729ac687a55aec3cbc2b07033ac090bcc13efe09ad10a3e935
-  languageName: node
-  linkType: hard
-
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.0
   resolution: "@types/stack-utils@npm:2.0.0"
   checksum: 662312302e07685c99a1c45c6753eb997b31d2af66e646c5937f62d593a63a111289503d0b06a8d1e6f3922b67fc2ed94889d84653a08861a7fee67b81ce5b92
-  languageName: node
-  linkType: hard
-
-"@types/tapable@npm:^1, @types/tapable@npm:^1.0.5":
-  version: 1.0.7
-  resolution: "@types/tapable@npm:1.0.7"
-  checksum: af30bb7429d590c7df1f3f5b8ef55fcf2c5498cd2d972c40b0ee543a2e7c3df988b5ac29e231b22b09b712ea1df3dbf3eb145dcbbd43544534cbfb0f1cebdfac
   languageName: node
   linkType: hard
 
@@ -3560,44 +3539,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uglify-js@npm:*":
-  version: 3.13.0
-  resolution: "@types/uglify-js@npm:3.13.0"
-  dependencies:
-    source-map: ^0.6.1
-  checksum: 1815a3628aeed41212ae411728267a29e99a309f0cff4d84f90bc7188125be0996d81ca4e7c747751f598749edad426a4c1fe9d78df2110022ca24455d45ca43
-  languageName: node
-  linkType: hard
-
 "@types/uniq@npm:0.0.27":
   version: 0.0.27
   resolution: "@types/uniq@npm:0.0.27"
   checksum: 286fb74103025a3856c7b2be7f2fa35565ff002572da651824d136d0ada154523e16be90232783dd62c3381d30d5050e139c64369c27f313a9fc2728f668d07a
-  languageName: node
-  linkType: hard
-
-"@types/webpack-sources@npm:*":
-  version: 2.1.0
-  resolution: "@types/webpack-sources@npm:2.1.0"
-  dependencies:
-    "@types/node": "*"
-    "@types/source-list-map": "*"
-    source-map: ^0.7.3
-  checksum: 26aba8ae682529be737eff726dcf08019460b180e9d22e80925e65240c908312096067b5547ac3dcb6d7b383a4bf0473eb68d0fd4ff483b17f3147fefce149af
-  languageName: node
-  linkType: hard
-
-"@types/webpack@npm:^4.41.8":
-  version: 4.41.27
-  resolution: "@types/webpack@npm:4.41.27"
-  dependencies:
-    "@types/anymatch": "*"
-    "@types/node": "*"
-    "@types/tapable": ^1
-    "@types/uglify-js": "*"
-    "@types/webpack-sources": "*"
-    source-map: ^0.6.0
-  checksum: 5e10ad206accc6a9ec3dbea1b79625d441dc2d93cad61daa8ba77eea0a7b659f7ca605078ec06189e9b7eb48fa244b6cfc617771e8fc579cdd9b26546e8c3120
   languageName: node
   linkType: hard
 
@@ -5264,10 +5209,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^6.0.0, commander@npm:^6.2.0, commander@npm:^6.2.1":
+"commander@npm:^6.0.0, commander@npm:^6.2.0":
   version: 6.2.1
   resolution: "commander@npm:6.2.1"
   checksum: 47856aae6f194404122e359d8463e5e1a18f7cbab26722ce69f1379be8514bd49a160ef81a983d3d2091e3240022643354101d1276c797dcdd0b5bfc3c3f04a3
+  languageName: node
+  linkType: hard
+
+"commander@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "commander@npm:7.2.0"
+  checksum: bdc0eca5e25cd24af8440163d3c9a996785bbac4b49a590365699cdc1ed08cefbac8f268153208ab2bc5dc3cb1d3fb573fd1590c681e36e371342186bd331a4c
   languageName: node
   linkType: hard
 
@@ -5696,10 +5648,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cra-template-engine@workspace:packages/cra-template-engine"
   dependencies:
-    "@c11/engine.db": 4.0.0-alpha.46
-    "@c11/engine.macro": 4.0.0-alpha.46
-    "@c11/engine.runtime": 4.0.0-alpha.46
-    "@c11/engine.types": 4.0.0-alpha.46
+    "@c11/engine.db": 4.0.0-alpha.47
+    "@c11/engine.macro": 4.0.0-alpha.47
+    "@c11/engine.runtime": 4.0.0-alpha.47
+    "@c11/engine.types": 4.0.0-alpha.47
   languageName: unknown
   linkType: soft
 
@@ -6119,7 +6071,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"define-properties@npm:^1.1.2, define-properties@npm:^1.1.3":
+"define-properties@npm:^1.1.3":
   version: 1.1.3
   resolution: "define-properties@npm:1.1.3"
   dependencies:
@@ -7907,22 +7859,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:^4.5.2":
-  version: 4.5.2
-  resolution: "html-webpack-plugin@npm:4.5.2"
+"html-webpack-plugin@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "html-webpack-plugin@npm:5.3.1"
   dependencies:
     "@types/html-minifier-terser": ^5.0.0
-    "@types/tapable": ^1.0.5
-    "@types/webpack": ^4.41.8
     html-minifier-terser: ^5.0.1
-    loader-utils: ^1.2.3
     lodash: ^4.17.20
     pretty-error: ^2.1.1
-    tapable: ^1.1.3
-    util.promisify: 1.0.0
+    tapable: ^2.0.0
   peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 5896c2ac5c230e148e7de8079bb83cf45c3553d57ff644b921846e2e4241ad9c4ac5baed2737c801e0f1929e95333c3c135a7d471079ea32cdeee056f44eedde
+    webpack: ^5.20.0
+  checksum: 2d744cf3144686cc4b786dac8fbbce3733dd1825a99efea2f289b54e47201f8431df56114d72eb87cf4f78aa8dede6ea5ee09904313dbd72209dc3a43a804b51
   languageName: node
   linkType: hard
 
@@ -9732,7 +9680,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.1.0, loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
+"loader-utils@npm:^1.1.0, loader-utils@npm:^1.4.0":
   version: 1.4.0
   resolution: "loader-utils@npm:1.4.0"
   dependencies:
@@ -9872,7 +9820,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.1.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -11804,16 +11752,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss-import@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "postcss-import@npm:13.0.0"
+"postcss-import@npm:^14.0.1":
+  version: 14.0.1
+  resolution: "postcss-import@npm:14.0.1"
   dependencies:
     postcss-value-parser: ^4.0.0
     read-cache: ^1.0.0
     resolve: ^1.1.7
   peerDependencies:
     postcss: ^8.0.0
-  checksum: a91fead97fdd8b3d8ae116f31f9cb2680a786596421c3a711f0db956f32ebaf2ff233f08128d3d1c14eab82c4cf80e6f8448542810c3b76b2fb10ef0e558a9fa
+  checksum: e903063ed17358988174f637a8b951de47e72a3d68e4a45e363c261943cc1e7efe78e9db4f13166ad3cf176f3e4b9f51f3192d3894f192bbef57871f94dd0cc5
   languageName: node
   linkType: hard
 
@@ -11848,19 +11796,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "postcss-loader@npm:4.2.0"
+"postcss-loader@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "postcss-loader@npm:5.2.0"
   dependencies:
     cosmiconfig: ^7.0.0
     klona: ^2.0.4
-    loader-utils: ^2.0.0
-    schema-utils: ^3.0.0
     semver: ^7.3.4
   peerDependencies:
     postcss: ^7.0.0 || ^8.0.1
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 685a54e5768171d27ada47f304b7a375ac5ec768844e70238bb88089636494efa29ec082525efaac889f7dfac0fbea55cf0f4680c12597b7b80cabf442390c46
+    webpack: ^5.0.0
+  checksum: 669232a256aa44a08f37122f7645a4979f8ec9f87c387596e4970c39da96d1ae12cec077e915314d09262dcd584fc12592920298b21b1b6cbb562adadc3ce516
   languageName: node
   linkType: hard
 
@@ -12227,17 +12173,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2":
-  version: 15.7.2
-  resolution: "prop-types@npm:15.7.2"
-  dependencies:
-    loose-envify: ^1.4.0
-    object-assign: ^4.1.1
-    react-is: ^16.8.1
-  checksum: a440dd406c5cf53bf39f3e898d2c65178511d34ca3c8c789b30c177992408b9e4273969726b274719aa69ccce5ab34b2fd8caa60b90f23cd2e910cdcf682de52
-  languageName: node
-  linkType: hard
-
 "proto-list@npm:~1.2.1":
   version: 1.2.4
   resolution: "proto-list@npm:1.2.4"
@@ -12425,28 +12360,10 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.8.1":
-  version: 16.13.1
-  resolution: "react-is@npm:16.13.1"
-  checksum: 11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
-  languageName: node
-  linkType: hard
-
 "react-is@npm:^17.0.1":
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 3eff23f410d40ab9bc5177f147a92c7f42c356a21ecea340e0554566956d67e5e1ba56f26cc7fa22339ac3c7151744177bd6305eaa26d3cbf15f354358c9d9b6
-  languageName: node
-  linkType: hard
-
-"react@npm:^16.14.0":
-  version: 16.14.0
-  resolution: "react@npm:16.14.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    prop-types: ^15.6.2
-  checksum: 2769580b22952a52de3b5b2ea0f09cb904030b762d759739f49ab4da0b1f550e5c087ce3728c4be90f423d09481e0c075483c0c30b1ea9c549445c8b12020fd3
   languageName: node
   linkType: hard
 
@@ -14196,14 +14113,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"tapable@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "tapable@npm:1.1.3"
-  checksum: b2c2ab20260394b867fd249d8b6ab3e4645e00f9cce16b558b0de5a86291ef05f536f578744549d1618c9032c7f99bc1d6f68967e4aa11cb0dca4461dc4714bc
-  languageName: node
-  linkType: hard
-
-"tapable@npm:^2.1.1, tapable@npm:^2.2.0":
+"tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.0":
   version: 2.2.0
   resolution: "tapable@npm:2.2.0"
   checksum: f8ed725aedb3d777bf908ff06c02d1a2108667d3e64af87dd45354ac8de67e7e4fe1a567e215057fb1a2a5437b31d80cc5e5ddbb8327f7280afd4494967a9a93
@@ -14902,16 +14812,6 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
-"util.promisify@npm:1.0.0":
-  version: 1.0.0
-  resolution: "util.promisify@npm:1.0.0"
-  dependencies:
-    define-properties: ^1.1.2
-    object.getownpropertydescriptors: ^2.0.3
-  checksum: 0dffbe1af61c9c034b5e7b411461e46c17c788d855fb02bcbf96cd0f603c086eb83160a3c878c4d69bede9a42118a7ce2b3cc05ed5a235e1c1c04c93bd5608e7
-  languageName: node
-  linkType: hard
-
 "util.promisify@npm:~1.0.0":
   version: 1.0.1
   resolution: "util.promisify@npm:1.0.1"
@@ -15185,9 +15085,9 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.28.0":
-  version: 5.28.0
-  resolution: "webpack@npm:5.28.0"
+"webpack@npm:^5.30.0":
+  version: 5.30.0
+  resolution: "webpack@npm:5.30.0"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.46
@@ -15217,7 +15117,7 @@ typescript@^4.2.3:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: bb1948e6a2039499284f231b1b71e69414e673cd086e55db118f112a18c4a7979c93b607bea4429fc63034babf2b2d21d2f4ba1ee620f1dda614e485848972e3
+  checksum: 133845a1a94b1c24339ee0aef5b961fd513868ad93b875c7c9a670dac2388aeae238519ace48c283453f52ccbb0159a211043db1cd17a38b12279546aa05ce44
   languageName: node
   linkType: hard
 
