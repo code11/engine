@@ -11,10 +11,14 @@
     "serve": "docusaurus serve"
   },
   "dependencies": {
+    "@babel/runtime": "^7.14.0",
     "@docusaurus/core": "^2.0.0-alpha.61",
     "@docusaurus/preset-classic": "^2.0.0-alpha.61",
     "@mdx-js/react": "^1.5.8",
+    "chalk": "^4.1.1",
     "clsx": "^1.1.1",
+    "lodash": "^4.17.21",
+    "lodash.flatmap": "^4.5.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
@@ -29,5 +33,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4",
+    "@types/lodash.flatmap": "^4"
   }
 }
