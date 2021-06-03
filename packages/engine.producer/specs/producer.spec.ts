@@ -994,6 +994,16 @@ test("should detect changes with object instances", () => {
   expect(ref.getValue()).toBe("bam");
 });
 
+test("should support Passthrough operation", () => {
+  const val = {
+    foo: 123,
+  };
+  const struct: producer = (props) => {
+    expect(props).toBe(val);
+  };
+  run(struct, {}, val);
+});
+
 // Add test that checks that references are kept
 
 /*

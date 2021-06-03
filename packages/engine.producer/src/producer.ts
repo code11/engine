@@ -8,6 +8,8 @@ import {
   StructOperation,
   ProducerMeta,
   ValueSerializer,
+  PassthroughOperation,
+  OperationTypes,
 } from "@c11/engine.types";
 import isFunction from "lodash/isFunction";
 import isEqual from "lodash/isEqual";
@@ -23,6 +25,7 @@ import { Graph } from "./graph";
 import { UpdateOperationSymbol } from "./graph/updateOperation";
 import { GetOperationSymbol } from "./graph/getOperation";
 import { stringifyPath } from "./graph/stringifyPath";
+import { PassthroughGraph } from './graph/passthroughGraph'
 
 enum ProducerStates {
   MOUNTED,
@@ -35,10 +38,10 @@ enum ProducerStates {
 export class Producer implements ProducerInstance {
   private state: ProducerStates = ProducerStates.UNMOUNTED;
   private db: DatastoreInstance;
-  private props: StructOperation;
+  private props: StructOperation | PassthroughOperation;
   private fn: ProducerFn;
   private external: ExternalProps;
-  private graph: Graph;
+  private graph: Graph | PassthroughGraph;
   private debug: boolean;
   private keepReferences: string[];
   private meta: ProducerMeta;
@@ -60,14 +63,24 @@ export class Producer implements ProducerInstance {
     this.sourceId = `${config.meta?.absoluteFilePath}:${config.meta?.name}`;
     this.keepReferences = context.keepReferences || [];
     this.serializers = context.serializers || [];
-    this.graph = new Graph(
-      this.db,
-      this.external,
-      this.props,
-      this.fnWrapper.bind(this),
-      this.keepReferences,
-      this.serializers
-    );
+
+    if (this.props.type === OperationTypes.STRUCT) {
+      this.graph = new Graph(
+        this.db,
+        this.external,
+        this.props,
+        this.fnWrapper.bind(this),
+        this.keepReferences,
+        this.serializers
+      );
+    } else if (this.props.type === OperationTypes.PASSTHROUGH) {
+      this.graph = new PassthroughGraph(
+        this.external,
+        this.fnWrapper.bind(this)
+      );
+    } else {
+      throw new Error(`Not recogonized operation type ${this.props}`);
+    }
   }
   private fnWrapper(params: { [k: string]: any }) {
     this.stats.executionCount += 1;
