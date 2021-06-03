@@ -4,10 +4,6 @@ title: prop
 sidebar_label: prop
 ---
 
-```ts
-import { prop } from "@c11/engine.macro"
-```
-
 ## Overview
 
 `prop` gives access to props given to the [view](/docs/api/view)s, so that they

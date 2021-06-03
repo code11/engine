@@ -3,11 +3,6 @@ id: get
 title: get
 sidebar_label: get
 ---
-
-```ts
-import { get } from "@c11/engine.macro"
-```
-
 ## Overview
 
 `get` provides the ability to get values from the global state at a later time,

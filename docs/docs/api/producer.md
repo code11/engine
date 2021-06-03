@@ -4,10 +4,6 @@ title: producer
 sidebar_label: producer
 ---
 
-```ts
-import { producer } from "@c11/engine.macro"
-```
-
 ## Overview
 
 A `producer` is simply a function that gets executed when something interesting

@@ -24,23 +24,20 @@ Engine packages on [packages](packages) page.
 ## Instantiate
 
 To create an Engine app, an instance of the `Engine` class from
-`@c11/engine.macro` need to be created. This goes in `src/index.ts` of a
+`@c11/engine.runtime` need to be created. This goes in `src/index.ts` of a
 an app (created with engine CLI):
 
 ```tsx
-import React from "react";
-import { Engine } from "@c11/engine.react";
+import { engine } from "@c11/engine.runtime";
+import { render } from "@c11/engine.react";
 import "./index.css";
 import App from "./App";
 
-const engine = new Engine({
-  view: {
-    element: <App />,
-    root: "#root"
-  }
+const app = engine({
+  use: [render(<App />, '#root')]
 });
 
-engine.start();
+app.start();
 ```
 
 Creating an `Engine` instance takes care of mounting our application. It is
@@ -53,16 +50,13 @@ Engine react applications are pretty much written like any other React
 application, with few differences:
 
 1. Only functional react components can become Engine [view](/docs/api/view)s
-2. React components need to be labeled with `view` macro
+2. React components need to be labeled with `view` 
 3. State dependencies of a view are declared in its arguments (also called
    "header" of the view)
 
 For example:
 
 ```tsx
-import React from "react";
-import { view, observe, update, producer } from "@c11/engine.macro";
-
 const greeter: producer = ({
   name = observe.name,
   updateGreeting = update.greeting

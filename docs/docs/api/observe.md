@@ -4,10 +4,6 @@ title: observe
 sidebar_label: observe
 ---
 
-```ts
-import { observe } from "@c11/engine.macro"
-```
-
 ## Overview
 
 `observe` gives the ability to observe values from global state. To get a "live"

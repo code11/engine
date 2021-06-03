@@ -4,10 +4,6 @@ title: view
 sidebar_label: view
 ---
 
-```ts
-import { view } from "@c11/engine.macro"
-```
-
 ## Overview
 `view` creates Engine views, which render HTML in browser. `view` can use Engine
 operators [observe](/docs/api/observe), [get](/docs/api/get), and

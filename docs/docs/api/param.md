@@ -4,10 +4,6 @@ title: param
 sidebar_label: param
 ---
 
-```ts
-import { param } from "@c11/engine.macro"
-```
-
 ## Overview
 `param` allow using runtime values from the view/producer to create new paths.
 

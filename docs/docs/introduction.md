@@ -2,6 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
+slug: /
 ---
 
 ### What is the Code<sup>11</sup> Engine?

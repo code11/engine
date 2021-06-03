@@ -5,7 +5,7 @@ sidebar_label: wildcard
 ---
 
 ```ts
-import { wildcard } from "@c11/engine.macro"
+import { wildcard } from "@c11/engine.runtime"
 ```
 
 ## Overview

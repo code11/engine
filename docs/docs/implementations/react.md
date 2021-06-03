@@ -11,34 +11,33 @@ sidebar_label: React
 ## Installation
 
 ```bash
-npm install @c11/engine.react @c11/engine.macro
+npm install @c11/engine.react 
 ```
 
 ## Setup
 
 ```tsx
-import React from 'react'
-import { view, producer, observe, update } from '@c11/engine.macro'
-import { Engine } from '@c11/engine.react'
+import { render, component } from '@c11/engine.react'
+import { engine } from '@c11/engine.runtime'
 
-const App: view = ({
+const Greeting: view = ({
   greeting = observe.greeting
 }) => <div>{greeting}</div>
 
-const greeting: producer = ({
+const hello: producer = ({
   name = observe.name,
   greeting = update.greeting
 }) => greeting.set(`Hello ${name}!`)
 
-App.producers = [greeting]
+const App = component(Greeting, [hello])
 
-const engine = new Engine({
+const app = engine({
   state: {
     name: "John Doe"
   },
-  view: {
-    component: <App />,
-    root: "#root"
-  }
+  use: [render(<App />, '#root')]
 });
+
+app.start();
+
 ```

@@ -5,14 +5,14 @@ sidebar_label: path
 ---
 
 ```ts
-import { path } from "@c11/engine.macro"
+import { path } from "@c11/engine.runtime"
 ```
 
 ## Overview
 
-`path` allow a parent view to give an arbitrary path to a child view at runtime.
+`path` allow the creation of paths during runtime.
 
-It differs from rest of the path-composition operators in its usage. path don't
+It differs from rest of the path-composition operators in its usage. `path` doesn't
 go in the header of a producer or view, but is instead used for accessing values
 in the state.
 

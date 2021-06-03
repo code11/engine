@@ -68,7 +68,6 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          homePageId: "introduction",
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: "https://github.com/code11/engine/edit/master/docs/",
         },

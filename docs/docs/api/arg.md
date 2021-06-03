@@ -4,10 +4,6 @@ title: arg
 sidebar_label: arg
 ---
 
-```ts
-import { arg } from "@c11/engine.macro"
-```
-
 ## Overview
 
 `arg` allows referring to other arguments in the header of a
