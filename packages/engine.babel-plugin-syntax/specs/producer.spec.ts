@@ -24,12 +24,20 @@ pluginTester({
       `,
       snapshot: true,
     },
+    "should support simple prop params": {
+      code: `
+        const foo: producer = ({ prop }) => {}
+      `,
+      snapshot: true,
+    },
+    "should support props arguments for passthrough": {
+      code: `
+        const foo: producer = (props) => {}
+      `,
+      snapshot: true,
+    },
     "should throw if not given an arrow function": {
       code: `const foo: producer = 123`,
-      error: true,
-    },
-    "should throw if not function param is not an object": {
-      code: `const foo: producer = (foo) => {}`,
       error: true,
     },
     "should throw an error if it is not invoked with an arrow function": {

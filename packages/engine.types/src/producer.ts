@@ -12,6 +12,7 @@ export enum OperationTypes {
   STRUCT = "STRUCT",
   VALUE = "VALUE",
   CONSTRUCTOR = "CONSTRUCTOR",
+  PASSTHROUGH = "PASSTHROUGH",
 }
 
 export enum ValueTypes {
@@ -86,6 +87,9 @@ export interface StructOperation extends BaseOperation {
     [key: string]: Operation;
   };
 }
+export interface PassthroughOperation extends BaseOperation {
+  type: OperationTypes.PASSTHROUGH;
+}
 
 export interface ValueOperation extends BaseOperation {
   type: OperationTypes.VALUE;
@@ -99,7 +103,8 @@ export type Operation =
   | FuncOperation
   | StructOperation
   | ValueOperation
-  | ConstructorOperation;
+  | ConstructorOperation
+  | PassthroughOperation;
 
 export interface ProducerProps {
   [key: string]: Operation;
@@ -132,7 +137,7 @@ export interface ProducerConfig {
   sourceId?: string;
   buildId?: string;
   meta?: ProducerMeta;
-  props: StructOperation;
+  props: StructOperation | PassthroughOperation;
   fn: ProducerFn;
 }
 

@@ -85,10 +85,54 @@ const foo: view = () => {}
 
 import { view as viewEngine } from "engineViewLibrary";
 const foo = viewEngine({
-  fn: ({}) => {},
+  fn: () => {},
+  props: {
+    type: "PASSTHROUGH",
+  },
+  type: "view",
+});
+
+
+`;
+
+exports[`babel-plugin-engine should support props arguments for passthrough: should support props arguments for passthrough 1`] = `
+
+const foo: view = (props) => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewEngine } from "engineViewLibrary";
+const foo = viewEngine({
+  fn: (props) => {},
+  props: {
+    type: "PASSTHROUGH",
+  },
+  type: "view",
+});
+
+
+`;
+
+exports[`babel-plugin-engine should support simple prop params: should support simple prop params 1`] = `
+
+const foo: view = ({ prop }) => {}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewEngine } from "engineViewLibrary";
+const foo = viewEngine({
+  fn: ({ prop }) => {},
   props: {
     type: "STRUCT",
-    value: {},
+    value: {
+      prop: {
+        type: "VALUE",
+        value: {
+          type: "EXTERNAL",
+          path: ["prop"],
+        },
+      },
+    },
   },
   type: "view",
 });

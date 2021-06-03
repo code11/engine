@@ -38,10 +38,6 @@ pluginTester({
       code: `const foo: view = 123`,
       error: true,
     },
-    "should throw if the function param is not an object": {
-      code: `const foo: view = (foo) => {}`,
-      error: true,
-    },
     "should throw if the variable declaration is an object pattern": {
       code: `const { foo }: view = () => {}`,
       error: true,
@@ -49,6 +45,18 @@ pluginTester({
     "should support empty arguments": {
       code: `
         const foo: view = () => {}
+      `,
+      snapshot: true,
+    },
+    "should support simple prop params": {
+      code: `
+        const foo: view = ({ prop }) => {}
+      `,
+      snapshot: true,
+    },
+    "should support props arguments for passthrough": {
+      code: `
+        const foo: view = (props) => {}
       `,
       snapshot: true,
     },

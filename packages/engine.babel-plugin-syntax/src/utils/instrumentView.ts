@@ -1,7 +1,11 @@
 import type * as Babel from "@babel/core";
 import { EngineKeywords } from "@c11/engine.types";
 import { paramParser } from "../parsers";
-import { structOperationCompiler, paramsCompiler } from "../compilers";
+import {
+  passthroughOperationCompiler,
+  structOperationCompiler,
+  paramsCompiler,
+} from "../compilers";
 import { Messages } from "../messages";
 import { addNamedImport } from "./addNamedImport";
 import { PluginConfig } from "../plugin";
@@ -31,13 +35,18 @@ export const instrumentView = (
   const fn = node.init as Babel.types.ArrowFunctionExpression;
   const param = fn.params[0];
 
-  if (param && !t.isObjectPattern(param)) {
+  if (param && !(t.isObjectPattern(param) || t.isIdentifier(param))) {
     throw path.buildCodeFrameError(Messages.INVALID_FUNCTION_PARAM);
   }
 
-  const parsedParam = paramParser(babel, param);
-  fn.params = paramsCompiler(babel, parsedParam);
-  const props = structOperationCompiler(babel, parsedParam);
+  let props;
+  if (t.isObjectPattern(param)) {
+    const parsedParam = paramParser(babel, param);
+    fn.params = paramsCompiler(babel, parsedParam);
+    props = structOperationCompiler(babel, parsedParam);
+  } else {
+    props = passthroughOperationCompiler(babel);
+  }
   const metaProps = extractMeta(babel, state, path);
   const sourceId = `${metaProps.absoluteFilePath}:${metaProps.name}`;
   const buildId = nanoid();
