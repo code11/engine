@@ -1,7 +1,7 @@
 import React from "react";
 import { engine } from "@c11/engine.runtime";
 import { EngineConfig } from "@c11/engine.types";
-import { ModuleConfig, render } from "./render";
+import { ModuleConfig, render } from "@c11/engine.react";
 
 type ComponentProps = {
   [k: string]: any;

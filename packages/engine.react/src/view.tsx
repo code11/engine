@@ -113,6 +113,7 @@ export function view(config: ViewConfig) {
         setProducers(sourceId, newProducers);
       }
     }
+    static isView = true;
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
       const childrenSerializer: ValueSerializer = {

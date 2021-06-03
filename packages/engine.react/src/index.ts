@@ -1,3 +1,2 @@
-export { render } from "./render";
-export { adaptor } from "./adaptor";
+export { ModuleConfig, render } from "./render";
 export { view, View, ViewFn } from "./view";
