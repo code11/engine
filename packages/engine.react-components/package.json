@@ -24,7 +24,8 @@
     "@c11/engine.react": "4.0.0-alpha.48",
     "@c11/engine.runtime": "4.0.0-alpha.48",
     "@c11/engine.types": "4.0.0-alpha.48",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "nanoid": "^3.1.23"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",

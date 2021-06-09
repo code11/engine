@@ -39,6 +39,7 @@ export type RenderContext = {
   setProducers: (sourceId: string, producers: ProducerConfig[]) => void;
   getProducers: (sourceId: string) => ProducerConfig[] | void;
   registerView: (sourceId: string, config: ViewConfig) => void;
+  getRoot: () => RootElement;
 };
 
 type RenderConfig = {
@@ -128,6 +129,7 @@ export class Render implements RenderInstance {
       setProducers: this.setProducers.bind(this),
       registerView: this.registerView.bind(this),
       getProducers: this.getProducers.bind(this),
+      getRoot: this.getRoot.bind(this),
     };
   }
 
@@ -170,9 +172,8 @@ export class Render implements RenderInstance {
         (producerConfig) =>
           this.updateProducer(producerSourceId, producerConfig)
       );
-      this.cache[opts.viewSourceId].unsubscribeProducers[
-        producerSourceId
-      ] = unsubscribeProducer;
+      this.cache[opts.viewSourceId].unsubscribeProducers[producerSourceId] =
+        unsubscribeProducer;
     }
     const instance = this.moduleContext.addProducer(config, context);
     return instance;
