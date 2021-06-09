@@ -25,13 +25,13 @@ export type State<Data = { [k: string]: any }> = {
   id: string;
   name: string;
   createdAt: Timestamp;
-  parentProcessId: Process["id"];
+  processId: Process["id"];
   childProcesses: {
     [k: string]: Timestamp;
   };
   status: {
     isFrozen: boolean;
-    isActive: boolean;
+    isReady: boolean;
   };
   data: Data;
 };
@@ -67,25 +67,39 @@ export const process = (
       }
       return (
         <div data-state-id={stateId}>
-          <State {...props} stateId={stateId} />
+          <State {...props} stateId={stateId} processId={processId}/>
         </div>
       );
     };
 
-    const initializer: producer = ({
+    const onEntry: producer = ({
+      _now = performance.now.bind(performance),
       stateId,
       state = update.state[prop.stateId],
     }) => {
       state.set({
-        parentProcessId: processId
-        stateId,
+        name: activeState,
+        processId,
+        id: stateId,
+        createdAt: _now(),
+        childProcesses: {},
+        data: {},
+        status: {
+          isFrozen: false,
+          isReady: true
+        }
       });
-      // creates the state etc
     };
 
-    const WrapperComponent = component(WrapperView, initializer);
+    const onExit: producer = ({ state = update.state[prop.stateId]}) => {
+      return () => {
+        state.remove()
+      }
+    }
 
-    return Wrapper;
+    const WrapperComponent = component(WrapperView, [onEntry, onExit]);
+
+    return WrapperComponent;
   };
 
   return class Process extends React.Component {
@@ -96,6 +110,7 @@ export const process = (
       super(props);
       this.processId = processId;
       this.processRef = React.createRef();
+      // selector -> set isFrozen together with the activeState change
     }
     componentDidMount() {
       let el = this.processRef.current as HTMLElement | null;

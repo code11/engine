@@ -53,13 +53,13 @@ test("should support component()", async (done) => {
     baz.set(foo);
   };
 
-  const selector: producer = ({ data, set }) => {
+  const selector: producer = ({ stateId, processId, setState, data = observe.process[prop.processId].data}) => {
     if (!data.value()) {
-      set(State.ONE);
+      setState(State.ONE);
     } else if (data.value("foo")) {
-      set(State.TWO);
+      setState(State.TWO);
     } else {
-      set(State.THREE);
+      setState(State.THREE);
     }
   };
 
