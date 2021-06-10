@@ -16,6 +16,23 @@ import type { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
 
+export const childrenSerializer: ValueSerializer = {
+  type: GraphNodeType.EXTERNAL,
+  name: "children",
+  serializer: (value) => {
+    if (
+      value instanceof Array &&
+      value.includes((x: any) => !isValidElement(x))
+    ) {
+      return;
+    } else if (!isValidElement(value)) {
+      return;
+    }
+    const result = JSON.stringify(value, circular());
+    return result;
+  },
+};
+
 // TopLevel{
 //   ErrorManagement,
 //   propsManagement
@@ -116,22 +133,7 @@ export function view(config: ViewConfig) {
     static isView = true;
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
-      const childrenSerializer: ValueSerializer = {
-        type: GraphNodeType.EXTERNAL,
-        name: "children",
-        serializer: (value) => {
-          if (
-            value instanceof Array &&
-            value.includes((x: any) => !isValidElement(x))
-          ) {
-            return;
-          } else if (!isValidElement(value)) {
-            return;
-          }
-          const result = JSON.stringify(value, circular());
-          return result;
-        },
-      };
+
       const viewContext = {
         props: externalProps,
         keepReferences: ["external.children"],

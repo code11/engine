@@ -17,15 +17,11 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support component()", async (done) => {
+test("should support process()", async (done) => {
   const fooValue = "123";
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-
-  type StateA = State<{
-    foo: string;
-  }>;
 
   enum StateIds {
     ONE = "ONE",
@@ -33,58 +29,79 @@ test("should support component()", async (done) => {
     THREE = "THREE",
   }
 
-  const A: view = ({
-    foo,
-    bar = get.bar,
-    stateId,
-    data = observe.state[prop.stateId],
+  const A: view = ({ name = observe.state[prop.stateId].name }) => {
+    return <div data-testid="A">{name}</div>;
+  };
+
+  enum StateBIds {
+    ONEB = "ONEB",
+  }
+
+  const C: view = ({ name = observe.state[prop.stateId].name }) => {
+    console.log("running c");
+    return <div data-testid="C">{name}</div>;
+  };
+
+  const selectorB: producer = ({
+    processId,
+    state = update.process[prop.processId].activeState,
   }) => {
-    expect(foo).toBe(fooValue);
-    return <div data-testid="bar">{bar.value()}</div>;
+    console.log("called selector B", processId);
+    state.set(StateBIds.ONEB);
   };
-  const B: view = ({ foo, baz = get.baz }) => {
-    return <div data-testid="baz">{baz.value()}</div>;
-  };
-  const p1: producer = ({ foo, bar = update.bar }) => {
-    expect(foo).toBe(fooValue);
-    bar.set(foo);
-  };
-  const p2: producer = ({ foo, baz = update.baz }) => {
-    baz.set(foo);
-  };
-
-  const selector: producer = ({ stateId, processId, setState, data = observe.process[prop.processId].data}) => {
-    if (!data.value()) {
-      setState(State.ONE);
-    } else if (data.value("foo")) {
-      setState(State.TWO);
-    } else {
-      setState(State.THREE);
-    }
-  };
-
-  const Component = process(
+  const ProcessB = process(
     {
-      [State.ONE]: A,
-      [State.TWO]: B,
-      [State.THREE]: B,
+      [StateBIds.ONEB]: C,
+    },
+    selectorB
+  );
+
+  const B: view = () => {
+    return (
+      <div data-testid="B">
+        <ProcessB />
+      </div>
+    );
+  };
+  // const p1: producer = ({ foo, bar = update.bar }) => {
+
+  // };
+  // const p2: producer = ({ foo, baz = update.baz }) => {
+  //   baz.set(foo);
+  // };
+
+  let setState;
+  const selector: producer = ({
+    state = update.process[prop.processId].activeState,
+  }) => {
+    setState = state.set.bind(state);
+  };
+
+  const ProcessA = process(
+    {
+      [StateIds.ONE]: A,
+      [StateIds.TWO]: B,
     },
     selector
   );
 
   const app = engine({
-    use: [render(<Component />, rootEl)],
+    use: [render(<ProcessA />, rootEl)],
   });
 
   app.start();
-
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "bar")).then((x) => {
-    expect(x.innerHTML).toBe(fooValue);
-    waitFor(() => getByTestId(document.body, "baz")).then((x) => {
-      expect(x.innerHTML).toBe(fooValue);
-      done();
+  expect(setState).toBeDefined();
+  setState(StateIds.ONE);
+  waitFor(() => getByTestId(document.body, "A")).then(async (x) => {
+    expect(x.innerHTML).toBe(StateIds.ONE);
+    setState(StateIds.TWO);
+    waitFor(() => getByTestId(document.body, "B")).then(async (x) => {
+      waitFor(() => getByTestId(document.body, "C")).then(async (x) => {
+        expect(x.innerHTML).toBe(StateBIds.ONEB);
+        done();
+      });
     });
   });
 });

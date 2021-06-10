@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "echo \"package should be used as is - without build\"",
-    "test:simple": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test:simple": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/process*",
     "test": "jest --config ../../jest.config.js --coverageDirectory='packages/engine.react-components/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react-components/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
