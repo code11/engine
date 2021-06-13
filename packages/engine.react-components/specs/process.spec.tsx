@@ -30,7 +30,6 @@ test("should support process()", async (done) => {
   }
 
   const A: view = ({ stateId, name = observe.state[prop.stateId].name }) => {
-    console.log('called view A', stateId)
     return <div data-testid="A">{name}</div>;
   };
 
@@ -38,7 +37,7 @@ test("should support process()", async (done) => {
     ONEB = "ONEB",
   }
 
-  const C: view = ({ name = observe.state[prop.stateId].name }) => {
+  const C: view = ({ name = observe.state[prop.stateId].name}) => {
     return <div data-testid="C">{name}</div>;
   };
 
@@ -85,7 +84,8 @@ test("should support process()", async (done) => {
   });
 
   app.start();
-  jest.runAllTimers();
+
+jest.runAllTimers();
   await flushPromises();
   expect(setState).toBeDefined();
   setState(StateIds.ONE);
