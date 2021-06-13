@@ -33,7 +33,7 @@ export const component = (...args: any[]) => {
   const elements = flattenDeep(args);
   const views = elements.filter((x: unknown) => isView(x));
   const producers = elements.filter((x: unknown) => isProducer(x));
-  const Component: view = (props: unknown) => {
+  const Component: view = (props) => {
     return (
       <>
         {views.map((X: typeof React.Component, i) => (

@@ -46,9 +46,7 @@ const StateComponent: view = ({
   processId,
   activeState = observe.process[prop.processId].activeState,
 }) => {
-  // console.log(states, activeState);
   if (!states || !states[activeState]) {
-    // console.error("component could not load states");
     return;
   }
 

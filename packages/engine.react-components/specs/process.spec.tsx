@@ -29,7 +29,8 @@ test("should support process()", async (done) => {
     THREE = "THREE",
   }
 
-  const A: view = ({ name = observe.state[prop.stateId].name }) => {
+  const A: view = ({ stateId, name = observe.state[prop.stateId].name }) => {
+    console.log('called view A', stateId)
     return <div data-testid="A">{name}</div>;
   };
 
@@ -38,7 +39,6 @@ test("should support process()", async (done) => {
   }
 
   const C: view = ({ name = observe.state[prop.stateId].name }) => {
-    console.log("running c");
     return <div data-testid="C">{name}</div>;
   };
 
@@ -46,7 +46,6 @@ test("should support process()", async (done) => {
     processId,
     state = update.process[prop.processId].activeState,
   }) => {
-    console.log("called selector B", processId);
     state.set(StateBIds.ONEB);
   };
   const ProcessB = process(
@@ -63,15 +62,10 @@ test("should support process()", async (done) => {
       </div>
     );
   };
-  // const p1: producer = ({ foo, bar = update.bar }) => {
-
-  // };
-  // const p2: producer = ({ foo, baz = update.baz }) => {
-  //   baz.set(foo);
-  // };
 
   let setState;
   const selector: producer = ({
+    processId,
     state = update.process[prop.processId].activeState,
   }) => {
     setState = state.set.bind(state);
@@ -84,6 +78,7 @@ test("should support process()", async (done) => {
     },
     selector
   );
+
 
   const app = engine({
     use: [render(<ProcessA />, rootEl)],
