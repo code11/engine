@@ -16,21 +16,21 @@ jobs:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      # - uses: actions/cache@v2
-      #   id: yarn-cache
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: yarn-${{ hashFiles('yarn.lock') }}
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('yarn.lock') }}
       - name: Check Yarn dedupe
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: |
           yarn dedupe --check
-      - name: Check or update Yarn cache
-        env:
-          YARN_ENABLE_SCRIPTS: false
-          YARN_NODE_LINKER: pnp
-        run: |
-          yarn install --immutable --skip-builds
+      # - name: Check or update Yarn cache
+      #   env:
+      #     YARN_ENABLE_SCRIPTS: false
+      #     YARN_NODE_LINKER: pnp
+      #   run: |
+      #     yarn install --immutable --skip-builds
 
 
   build:
