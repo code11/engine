@@ -2,8 +2,7 @@
   "name": "@c11/engine.react-components",
   "version": "4.0.0-alpha.48",
   "description": "A set of components and utilities for react apps",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "src/index.ts",
   "license": "MIT",
   "author": {
     "name": "Constantin Dumitrescu",
