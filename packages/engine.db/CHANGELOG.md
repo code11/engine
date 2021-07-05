@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.49](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.49) (2021-07-05)
+
+
+### Bug Fixes
+
+* **db:** allow non-json rfc paths ([b99dc2e](https://github.com/code11/engine/commit/b99dc2ec9095ebf2ee13e94be09c1947fc6718c2))
+* **db:** disallow paths with a wildcard ([0ad62a8](https://github.com/code11/engine/commit/0ad62a8efc81450d36b66ba91c1640696e1fc5c5))
+
+
+
+
+
 # [4.0.0-alpha.48](https://github.com/code11/engine/compare/v4.0.0-alpha.47...v4.0.0-alpha.48) (2021-04-02)
 
 **Note:** Version bump only for package @c11/engine.db
