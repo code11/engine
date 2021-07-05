@@ -16,14 +16,14 @@
     "@types/react": "^16.9.55"
   },
   "scripts": {
-    "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules",
+    "clean": "rm -r packages/*/dist && rm -r packages/*/node_modules",
     "build:engine": "lerna run --scope=@c11/engine* build",
     "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
     "test": "yarn workspaces foreach run test",
     "merge:coverage": "istanbul-merge --out coverage/coverage-final.json \"packages/**/coverage/**.json\"",
-    "release": "yarn clean && yarn build && yarn test",
+    "release": "yarn build && yarn test",
     "version:lerna": "lerna version --conventional-commits --exact --no-push",
     "publish": "lerna publish from-package",
     "publish:local": "lerna publish from-package --registry http://localhost:4873",
