@@ -60,8 +60,6 @@ export function process(states: {
     [k: string]: React.Component | ProducerConfig | ViewOrProducer;
   },
   selector: ProducerConfig) {
-    const processId = nanoid()
-    const createdAt = performance.now()
     let updatePath: any
     let prevStateId: string
     let parentId: string | undefined | null;
@@ -69,6 +67,8 @@ export function process(states: {
     let updatedProcess = false
 
     const ProcessComponent: view = ({
+      processId,
+      createdAt,
       activeState = observe.process[prop.processId].activeState,
       _get = get,
       _update = update
@@ -120,6 +120,7 @@ export function process(states: {
         },
       })
       _update(path.process[processId].activeStateId).set(stateId)
+      // TODO: give the state data, setData, etc
       return <div data-state-id={stateId}><State stateId={stateId} processId={processId} /></div>
     }
 
@@ -133,6 +134,11 @@ export function process(states: {
         }
     }
 
-    return () => <div ref={updateParent}><ProcessComponent processId={processId} /></div>
+    // TODO: provide
+    return () => {
+      const processId = nanoid()
+      const createdAt = performance.now()
+      return <div ref={updateParent}><ProcessComponent processId={processId} createdAt={createdAt} /></div>
+    }
 }
 

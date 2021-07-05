@@ -78,7 +78,6 @@ test("should support process()", async (done) => {
     selector
   );
 
-
   const app = engine({
     use: [render(<ProcessA />, rootEl)],
   });
