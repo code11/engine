@@ -24,6 +24,9 @@ test("Simple load of a react component", async (done) => {
   const Component: view = ({ foo = observe.foo }) => {
     return <div data-testid="foo">{foo}</div>;
   };
+
+  expect(Component.displayName).not.toBeUndefined();
+
   const app = engine({
     state: defaultState,
     use: [render(<Component />, rootEl)],

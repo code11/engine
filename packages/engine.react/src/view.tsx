@@ -112,7 +112,7 @@ export function view(config: ViewConfig) {
   let setProducers: RenderContext["setProducers"];
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
     static contextType = ViewContext;
-    static displayName = `${config.meta?.relativeFilePath}->${config.meta?.name}:${config.meta?.location.start.line}`;
+    static displayName = `${config.meta?.relativeFilePath}::${config.meta?.name}:${config.meta?.location?.start.line}`;
     stateUpdate: any = {};
     fn: any;
     isComponentMounted: boolean = false;
