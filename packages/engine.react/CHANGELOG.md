@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.50](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.50) (2021-07-06)
+
+
+### Features
+
+* **engine.react:** add displayName for easier debug ([6febecf](https://github.com/code11/engine/commit/6febecf39c4b855bb346a8fd73bee9ab43f6bf2b))
+
+
+
+
+
 # [4.0.0-alpha.49](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.49) (2021-07-05)
 
 

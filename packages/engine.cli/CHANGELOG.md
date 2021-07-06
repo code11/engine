@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.50](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.50) (2021-07-06)
+
+
+### Bug Fixes
+
+* **engine.cli:** fix commander usage after update ([91654d5](https://github.com/code11/engine/commit/91654d5b2e5da7605ea46821def3a5a34ab2456f))
+
+
+
+
+
 # [4.0.0-alpha.49](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.49) (2021-07-05)
 
 **Note:** Version bump only for package @c11/engine.cli
