@@ -1,13 +1,13 @@
-import commander from "commander";
+import { Command } from "commander";
 
 type props = {
-  _commander: typeof commander;
+  _command: typeof Command;
   version: State["config"]["version"];
   startCreate: Update<State["create"]["triggers"]["start"]>;
 };
 
 export const command: producer = ({
-  _commander = commander,
+  _command = Command,
   version = observe.config.version,
   startCreate = update.create.triggers.start,
 }: props) => {
@@ -15,9 +15,11 @@ export const command: producer = ({
     return;
   }
 
-  _commander.version(version).usage("<command> [options]");
+  const program = new _command();
 
-  _commander
+  program.version(version).usage("<command> [options]");
+
+  program
     .command("create <app-name>")
     .description("Create a new engine project")
     .option(
@@ -26,7 +28,7 @@ export const command: producer = ({
       "@c11/engine.template-react"
       // "cra-template-engine"
     )
-    .action((name: string, cmd: commander.Command) => {
+    .action((name: string, options, cmd) => {
       const opts = cmd.opts();
       startCreate.set({
         name,
@@ -34,5 +36,5 @@ export const command: producer = ({
       });
     });
 
-  _commander.parse(process.argv);
+  program.parse(process.argv);
 };
