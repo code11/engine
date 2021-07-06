@@ -127,6 +127,7 @@ export const init: producer = async ({
                 plugins: [
                   "babel-plugin-react-require",
                   "@babel/plugin-proposal-class-properties",
+                  "@babel/plugin-transform-runtime",
                   // [
                   //   "babel-plugin-module-rewrite",
                   //   {
