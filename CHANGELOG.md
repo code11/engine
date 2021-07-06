@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.51](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.51) (2021-07-06)
+
+
+### Bug Fixes
+
+* **db:** allow non-json rfc paths ([b99dc2e](https://github.com/code11/engine/commit/b99dc2ec9095ebf2ee13e94be09c1947fc6718c2))
+* **db:** disallow paths with a wildcard ([0ad62a8](https://github.com/code11/engine/commit/0ad62a8efc81450d36b66ba91c1640696e1fc5c5))
+* **engine.cli:** fix commander usage after update ([91654d5](https://github.com/code11/engine/commit/91654d5b2e5da7605ea46821def3a5a34ab2456f))
+* **engine.service-web:** add transform-runtime to provide polyfills ([4a3140a](https://github.com/code11/engine/commit/4a3140a705e5972fb8c525947144cd7139a3df84))
+
+
+### Features
+
+* **engine.react:** add displayName for easier debug ([6febecf](https://github.com/code11/engine/commit/6febecf39c4b855bb346a8fd73bee9ab43f6bf2b))
+* **producer:** add support for passthrough operation ([0239dd8](https://github.com/code11/engine/commit/0239dd8fa69c52561b45a590742e534be9fefc3e))
+* **syntax:** add passthrough capabilities ([b6e0fba](https://github.com/code11/engine/commit/b6e0fba8883b352a5c8bac1d513412c05fac7809))
+
+
+
+
+
 # [4.0.0-alpha.50](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.50) (2021-07-06)
 
 

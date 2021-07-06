@@ -1,7 +1,9 @@
 {
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "npmClient": "yarn",
-  "version": "4.0.0-alpha.50",
+  "version": "4.0.0-alpha.51",
   "useWorkspaces": true,
   "changelogPreset": "angular"
 }

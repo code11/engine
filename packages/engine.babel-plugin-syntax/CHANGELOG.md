@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.51](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.51) (2021-07-06)
+
+
+### Features
+
+* **syntax:** add passthrough capabilities ([b6e0fba](https://github.com/code11/engine/commit/b6e0fba8883b352a5c8bac1d513412c05fac7809))
+
+
+
+
+
 # [4.0.0-alpha.50](https://github.com/code11/engine/compare/v4.0.0-alpha.46...v4.0.0-alpha.50) (2021-07-06)
 
 
