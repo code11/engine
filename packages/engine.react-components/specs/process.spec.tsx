@@ -37,7 +37,7 @@ test("should support process()", async (done) => {
     ONEB = "ONEB",
   }
 
-  const C: view = ({ name = observe.state[prop.stateId].name}) => {
+  const C: view = ({ name = observe.state[prop.stateId].name }) => {
     return <div data-testid="C">{name}</div>;
   };
 
@@ -65,9 +65,11 @@ test("should support process()", async (done) => {
   let setState;
   const selector: producer = ({
     processId,
+    foo,
     state = update.process[prop.processId].activeState,
   }) => {
     setState = state.set.bind(state);
+    foo();
   };
 
   const ProcessA = process(
@@ -84,7 +86,7 @@ test("should support process()", async (done) => {
 
   app.start();
 
-jest.runAllTimers();
+  jest.runAllTimers();
   await flushPromises();
   expect(setState).toBeDefined();
   setState(StateIds.ONE);
