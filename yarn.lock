@@ -1537,6 +1537,41 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@c11/engine.patterns@workspace:packages/engine.patterns":
+  version: 0.0.0-use.local
+  resolution: "@c11/engine.patterns@workspace:packages/engine.patterns"
+  dependencies:
+    "@babel/cli": ^7.14.3
+    "@babel/core": ^7.13.14
+    "@babel/plugin-proposal-class-properties": ^7.13.0
+    "@babel/plugin-transform-runtime": ^7.14.3
+    "@babel/preset-env": ^7.13.12
+    "@babel/preset-react": ^7.13.13
+    "@babel/preset-typescript": ^7.13.0
+    "@babel/runtime": ^7.14.0
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.51
+    "@c11/engine.react": 4.0.0-alpha.51
+    "@c11/engine.runtime": 4.0.0-alpha.51
+    "@c11/engine.types": 4.0.0-alpha.51
+    "@testing-library/jest-dom": ^5.11.10
+    "@testing-library/react": ^11.2.6
+    "@types/babel__plugin-transform-runtime": ^7
+    "@types/lodash": ^4.14.168
+    "@types/node": ^14.14.37
+    "@types/react": ^17.0.3
+    "@types/react-dom": ^17.0.3
+    http-status-codes: ^2.1.4
+    jest: ^26.6.3
+    lodash: ^4.17.21
+    nanoid: ^3.1.23
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    typescript: ^4.2.3
+  peerDependencies:
+    react: ">=17"
+  languageName: unknown
+  linkType: soft
+
 "@c11/engine.producer@4.0.0-alpha.51, @c11/engine.producer@workspace:packages/engine.producer":
   version: 0.0.0-use.local
   resolution: "@c11/engine.producer@workspace:packages/engine.producer"
@@ -8130,6 +8165,13 @@ fsevents@^1.2.7:
     jsprim: ^1.2.2
     sshpk: ^1.7.0
   checksum: d28227eed37cb0dae0e76c46b2a5e611c678808433e5642238f17dba7f2c9c8f8d1646122d57ec1a110ecc7e8b9f5b7aa0462f1e2a5fa3b41f2fca5a69af7edf
+  languageName: node
+  linkType: hard
+
+"http-status-codes@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "http-status-codes@npm:2.1.4"
+  checksum: 7cd5b1c88e25541f6a2ec57dec257295ca5c7d996c8cb1d9d55cce84b63712978a94e649575f6ffac33b975101d4ef3e4f07c7e4e764b0290832a5a8419409a7
   languageName: node
   linkType: hard
 

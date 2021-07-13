@@ -1,0 +1,8 @@
+{
+  "presets": [
+    "@babel/preset-typescript",
+    ["@babel/preset-env", { "targets": {"node": "current"}}],
+    "@babel/preset-react"
+  ],
+  "plugins": [["@c11/engine.babel-plugin-syntax", { "viewLibrary": "@c11/engine.react" }],  "@babel/plugin-proposal-class-properties"]
+}
