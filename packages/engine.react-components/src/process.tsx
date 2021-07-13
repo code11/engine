@@ -55,6 +55,7 @@ type ProcessComponentType = {
   activeState: string;
   _get: GetPath<any>;
   _update: UpdatePath<any>;
+  propsList: any;
 };
 
 type StateProps = {
@@ -75,6 +76,7 @@ export function process(
   let updatedProcess = false;
 
   const ProcessComponent: view = ({
+    propsList,
     processId,
     createdAt,
     activeState = observe.process[prop.processId].activeState,
@@ -131,25 +133,24 @@ export function process(
     // TODO: give the state data, setData, etc
     return (
       <div data-state-id={stateId}>
-        <State stateId={stateId} processId={processId} />
+        <State {...propsList} stateId={stateId} processId={processId} />
       </div>
     );
   };
 
   // @ts-ignore
-  selector.props.value.foo = {
-    type: "VALUE",
-    value: {
-      type: "CONST",
-      value: (value: string) => {
-        console.log("a", updatePath);
-        setTimeout(() => {
-          console.log("r", updatePath);
-        }, 1000);
-      },
-    },
-  };
-  console.log(JSON.stringify(selector.props, null, " "));
+
+  //   type: "VALUE",
+  //   value: {
+  //     type: "CONST",
+  //     value: (value: string) => {
+  //       console.log("a", updatePath);
+  //       setTimeout(() => {
+  //         console.log("r", updatePath);
+  //       }, 1000);
+  //     },
+  //   },
+  // };
   ProcessComponent.producers([selector]);
 
   const updateParent = (
@@ -169,14 +170,18 @@ export function process(
     }
   };
 
-  return () => {
+  return (props) => {
     const processId = nanoid();
     const createdAt = performance.now();
     return (
       <div
         ref={(el: HTMLElement | null) => updateParent(el, processId, createdAt)}
       >
-        <ProcessComponent processId={processId} createdAt={createdAt} />
+        <ProcessComponent
+          propsList={props}
+          processId={processId}
+          createdAt={createdAt}
+        />
       </div>
     );
   };
