@@ -29,7 +29,12 @@ test("should support process()", async (done) => {
     THREE = "THREE",
   }
 
-  const A: view = ({ stateId, name = observe.state[prop.stateId].name }) => {
+  const A: view = ({
+    bar,
+    stateId,
+    name = observe.state[prop.stateId].name,
+  }) => {
+    expect(bar).toBe("123");
     return <div data-testid="A">{name}</div>;
   };
 
@@ -65,11 +70,9 @@ test("should support process()", async (done) => {
   let setState;
   const selector: producer = ({
     processId,
-    foo,
     state = update.process[prop.processId].activeState,
   }) => {
     setState = state.set.bind(state);
-    foo();
   };
 
   const ProcessA = process(
@@ -81,7 +84,7 @@ test("should support process()", async (done) => {
   );
 
   const app = engine({
-    use: [render(<ProcessA />, rootEl)],
+    use: [render(<ProcessA bar="123" />, rootEl)],
   });
 
   app.start();
