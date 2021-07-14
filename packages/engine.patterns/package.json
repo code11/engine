@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "echo \"package should be used as is - without build\"",
-    "test": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test": "echo \"jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.react-components/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react-components/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
