@@ -14,7 +14,7 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.react-components/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react-components/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
-    "react": ">=17"
+    "react": ">=16"
   },
   "files": [
     "src"
