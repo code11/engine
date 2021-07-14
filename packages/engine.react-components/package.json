@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.react-components",
-  "version": "4.0.0-alpha.53",
+  "version": "4.0.0-alpha.54",
   "description": "A set of components and utilities for react apps",
   "main": "src/index.ts",
   "license": "MIT",
