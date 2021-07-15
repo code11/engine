@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.producer",
-  "version": "4.0.0-alpha.51",
+  "version": "4.0.0-alpha.57",
   "description": "A programming engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,7 +28,7 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.51",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.57",
     "@types/clone-deep": "^4.0.1",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",

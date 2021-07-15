@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.57](https://github.com/code11/engine/compare/v4.0.0-alpha.56...v4.0.0-alpha.57) (2021-07-15)
+
+
+### Bug Fixes
+
+* **engine.babel-plugin-syntax:** generate unique ids for view imports ([9f119fd](https://github.com/code11/engine/commit/9f119fdfa766e99c58556f119852f0d102c983b5))
+
+
+
+
+
 # [4.0.0-alpha.56](https://github.com/code11/engine/compare/v4.0.0-alpha.55...v4.0.0-alpha.56) (2021-07-15)
 
 
