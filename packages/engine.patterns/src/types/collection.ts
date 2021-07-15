@@ -11,5 +11,6 @@ export namespace Collection {
     count: number;
     ids: CollectionItem["id"][];
     actions: Commands;
+    order: CollectionItem["id"][];
   };
 }
