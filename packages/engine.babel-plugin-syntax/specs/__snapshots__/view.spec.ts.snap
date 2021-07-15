@@ -7,8 +7,8 @@ const bar: view = ({ foo = observe.foo }) => { }
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as viewEngine } from "engineViewLibrary";
-const foo = viewEngine({
+import { view as viewRandomId } from "engineViewLibrary";
+const foo = viewRandomId({
   fn: ({ foo }) => {},
   props: {
     type: "STRUCT",
@@ -26,7 +26,7 @@ const foo = viewEngine({
   },
   type: "view",
 });
-const bar = viewEngine({
+const bar = viewRandomId({
   fn: ({ foo }) => {},
   props: {
     type: "STRUCT",
@@ -54,8 +54,8 @@ const foo: view = ({ foo = observe.foo }) => {}
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as viewEngine } from "engineViewLibrary";
-const foo = viewEngine({
+import { view as viewRandomId } from "engineViewLibrary";
+const foo = viewRandomId({
   fn: ({ foo }) => {},
   props: {
     type: "STRUCT",
@@ -83,13 +83,37 @@ const foo: view = () => {}
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as viewEngine } from "engineViewLibrary";
-const foo = viewEngine({
+import { view as viewRandomId } from "engineViewLibrary";
+const foo = viewRandomId({
   fn: () => {},
   props: {
     type: "PASSTHROUGH",
   },
   type: "view",
+});
+
+
+`;
+
+exports[`babel-plugin-engine should support imports from other engine packages: should support imports from other engine packages 1`] = `
+
+import { process } from "@c11/engine.react-components"
+const foo: view = (props) => {}
+const bar = process({ a: foo })
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { view as viewRandomId } from "engineViewLibrary";
+import { process } from "@c11/engine.react-components";
+const foo = viewRandomId({
+  fn: (props) => {},
+  props: {
+    type: "PASSTHROUGH",
+  },
+  type: "view",
+});
+const bar = process({
+  a: foo,
 });
 
 
@@ -101,8 +125,8 @@ const foo: view = (props) => {}
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as viewEngine } from "engineViewLibrary";
-const foo = viewEngine({
+import { view as viewRandomId } from "engineViewLibrary";
+const foo = viewRandomId({
   fn: (props) => {},
   props: {
     type: "PASSTHROUGH",
@@ -119,8 +143,8 @@ const foo: view = ({ prop }) => {}
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as viewEngine } from "engineViewLibrary";
-const foo = viewEngine({
+import { view as viewRandomId } from "engineViewLibrary";
+const foo = viewRandomId({
   fn: ({ prop }) => {},
   props: {
     type: "STRUCT",

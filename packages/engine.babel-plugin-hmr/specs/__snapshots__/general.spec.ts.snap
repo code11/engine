@@ -86,8 +86,8 @@ const result2: view = ({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as viewEngine } from "@c11/engine.react";
-const result = viewEngine({
+import { view as tsvpxypjng } from "@c11/engine.react";
+const result = tsvpxypjng({
   fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
@@ -103,7 +103,7 @@ const result = viewEngine({
   },
   type: "view",
 });
-const result2 = viewEngine({
+const result2 = tsvpxypjng({
   fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
@@ -131,8 +131,8 @@ export const result: view = ({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as viewEngine } from "@c11/engine.react";
-export const result = viewEngine({
+import { view as czfpsbvifk } from "@c11/engine.react";
+export const result = czfpsbvifk({
   fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",

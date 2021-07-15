@@ -8,6 +8,14 @@ pluginTester({
   plugin,
   babelOptions: { filename: __filename, ...config },
   formatResult: (result: any) => {
+    const results = result.match(
+      /import\s+\{\s*view\s+as\s+([a-z]+)\s*\}\sfrom\s['"]engineViewLibrary['"];?/,
+      "foo"
+    );
+    if (results && results[1]) {
+      const id = results[1];
+      result = result.replace(new RegExp(id, "g"), "viewRandomId");
+    }
     return prettier.format(result, {
       parser: "babel",
     });

@@ -16,6 +16,12 @@ pluginTester({
   },
   pluginName: "babel-plugin-engine",
   formatResult: (result: any) => {
+    const results = result.match(
+      /import\s+\{\s*view\s+as\s+([a-z]+)\s*\}\sfrom\s['"]engineViewLibrary['"];?/,
+      "foo"
+    );
+    const id = results[1];
+    result = result.replace(new RegExp(id, "g"), "viewRandomId");
     return prettier.format(result, {
       parser: "babel",
     });
@@ -57,6 +63,14 @@ pluginTester({
     "should support props arguments for passthrough": {
       code: `
         const foo: view = (props) => {}
+      `,
+      snapshot: true,
+    },
+    "should support imports from other engine packages": {
+      code: `
+        import { process } from "@c11/engine.react-components"
+        const foo: view = (props) => {}
+        const bar = process({ a: foo })
       `,
       snapshot: true,
     },

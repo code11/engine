@@ -1,4 +1,7 @@
 import type * as Babel from "@babel/core";
+import { customAlphabet } from "nanoid";
+
+const nanoid = customAlphabet("abcdefghijklmnopqrstuvxyz", 10);
 
 export const addNamedImport = (
   babel: typeof Babel,
@@ -13,8 +16,9 @@ export const addNamedImport = (
     return result;
   });
 
-  let alias = `${exportName}Engine`;
+  let alias; // `${exportName}Engine`;
   if (!path) {
+    alias = nanoid();
     const newNode = t.importDeclaration(
       [t.importSpecifier(t.identifier(alias), t.identifier(exportName))],
       t.stringLiteral(moduleName)
@@ -36,10 +40,15 @@ export const addNamedImport = (
       return false;
     });
     if (!exportedVariable) {
+      alias = nanoid();
       node.specifiers.push(
         t.importSpecifier(t.identifier(alias), t.identifier(exportName))
       );
+    } else {
+      alias = exportedVariable.local.name;
     }
+  } else {
+    throw new Error("unknown situation encounted when generating view import");
   }
 
   return alias;
