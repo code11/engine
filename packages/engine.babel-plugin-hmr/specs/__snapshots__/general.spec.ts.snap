@@ -86,8 +86,8 @@ const result2: view = ({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as tsvpxypjng } from "@c11/engine.react";
-const result = tsvpxypjng({
+import { view as viewRandomId } from "@c11/engine.react";
+const result = viewRandomId({
   fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
@@ -103,7 +103,7 @@ const result = tsvpxypjng({
   },
   type: "view",
 });
-const result2 = tsvpxypjng({
+const result2 = viewRandomId({
   fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
@@ -131,8 +131,8 @@ export const result: view = ({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { view as czfpsbvifk } from "@c11/engine.react";
-export const result = czfpsbvifk({
+import { view as viewRandomId } from "@c11/engine.react";
+export const result = viewRandomId({
   fn: ({ a1 }) => {},
   props: {
     type: "STRUCT",
