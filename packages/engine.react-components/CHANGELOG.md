@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.60](https://github.com/code11/engine/compare/v4.0.0-alpha.59...v4.0.0-alpha.60) (2021-07-19)
+
+
+### Bug Fixes
+
+* **engine.react-components:** make deps as peerDependencies ([520b3d9](https://github.com/code11/engine/commit/520b3d9bc1c32c33182e624bc4890e7fc733c71c))
+
+
+
+
+
 # [4.0.0-alpha.59](https://github.com/code11/engine/compare/v4.0.0-alpha.58...v4.0.0-alpha.59) (2021-07-19)
 
 **Note:** Version bump only for package @c11/engine.react-components
