@@ -124,7 +124,7 @@ export function view(config: ViewConfig) {
     ref: any;
     id: string;
     static producers(newProducers: ProducerConfig[]) {
-      producers = newProducers;
+      producers = producers.concat(newProducers);
       // TODO: should throw an error if the same producer is used twice
       // check using sourceId in development
       if (setProducers) {

@@ -1,7 +1,10 @@
 import type * as Babel from "@babel/core";
 import { customAlphabet } from "nanoid";
 
-const nanoid = customAlphabet("abcdefghijklmnopqrstuvxyz", 10);
+const nanoid = customAlphabet(
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
+  15
+);
 
 export const addNamedImport = (
   babel: typeof Babel,

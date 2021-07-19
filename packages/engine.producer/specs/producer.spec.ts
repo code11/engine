@@ -1004,6 +1004,28 @@ test("should support Passthrough operation", () => {
   run(struct, {}, val);
 });
 
+test("should support maintain operations in callback", () => {
+  const state = {
+    data: {
+      foo: 123,
+    },
+  };
+  const props = {
+    id: "foo",
+  };
+  const struct: producer = ({ data = update.data[prop.id] }) => {
+    return () => {
+      console.log("removed foo");
+      data.remove();
+    };
+  };
+  const { db, producer } = run(struct, state, props);
+  jest.runAllTimers();
+  producer.unmount();
+  jest.runAllTimers();
+  expect(db.get("/data/foo")).toBe(undefined);
+});
+
 // Add test that checks that references are kept
 
 /*

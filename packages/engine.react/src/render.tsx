@@ -224,11 +224,11 @@ export class Render implements RenderInstance {
     if (!this.cache[sourceId]) {
       throw new Error("cannot find source id");
     }
-    this.cache[sourceId].producers = producers.reduce((acc, x) => {
+
+    for (let x of producers) {
       const id = x.sourceId || nanoid();
-      acc[id] = x;
-      return acc;
-    }, {} as ProducerConfigs);
+      this.cache[sourceId].producers[id] = x;
+    }
   }
 
   private render(rootEl: HTMLElement) {

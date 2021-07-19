@@ -9,7 +9,7 @@ pluginTester({
   babelOptions: { filename: __filename, ...config },
   formatResult: (result: any) => {
     const results = result.match(
-      /import\s+\{\s*view\s+as\s+([a-z]+)\s*\}\sfrom\s['"]@c11\/engine\.react['"];?/,
+      /import\s+\{\s*view\s+as\s+([a-zA-Z_]+)\s*\}\sfrom\s['"]@c11\/engine\.react['"];?/,
       "foo"
     );
     if (results && results[1]) {

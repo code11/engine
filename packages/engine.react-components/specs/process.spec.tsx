@@ -3,7 +3,7 @@ import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
 import { process, State, Process } from "../src";
-import { engine } from "@c11/engine.runtime";
+import { engine, producers } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
@@ -46,10 +46,15 @@ test("should support process()", async (done) => {
     return <div data-testid="C">{name}</div>;
   };
 
+  let _childProcesses2;
+  let _processId2;
   const selectorB: producer = ({
     processId,
+    childProcesses = get.process[prop.processId],
     state = update.process[prop.processId].activeState,
   }) => {
+    _processId2 = processId;
+    _childProcesses2 = childProcesses;
     state.set(StateBIds.ONEB);
   };
   const ProcessB = process(
@@ -68,11 +73,26 @@ test("should support process()", async (done) => {
   };
 
   let setState;
+  let _childProcesses1;
+  let _processId1;
+  let _processes;
+  let _states;
+  let _get;
   const selector: producer = ({
     processId,
+    processes = get.process,
+    states = get.state,
+    goo = get,
+    childProcesses = get.process[prop.processId],
     state = update.process[prop.processId].activeState,
   }) => {
+    _get = goo;
+    _processes = processes;
+    _processId1 = processId;
+    _childProcesses1 = childProcesses;
+    _states = states;
     setState = state.set.bind(state);
+    setState(StateIds.ONE);
   };
 
   const ProcessA = process(
@@ -83,23 +103,41 @@ test("should support process()", async (done) => {
     selector
   );
 
+  const WrapperComponent: view = ({ flag = observe.flag }) => {
+    if (flag) {
+      return <div data-testid="D">D</div>;
+    }
+    return <ProcessA bar="123" />;
+  };
+
+  let _flag;
+  const changer: producer = ({ flag = update.flag }) => {
+    _flag = flag;
+  };
+
   const app = engine({
-    use: [render(<ProcessA bar="123" />, rootEl)],
+    use: [render(<WrapperComponent />, rootEl), producers([changer])],
   });
 
   app.start();
 
   jest.runAllTimers();
   await flushPromises();
-  expect(setState).toBeDefined();
-  setState(StateIds.ONE);
   waitFor(() => getByTestId(document.body, "A")).then(async (x) => {
     expect(x.innerHTML).toBe(StateIds.ONE);
     setState(StateIds.TWO);
     waitFor(() => getByTestId(document.body, "B")).then(async (x) => {
       waitFor(() => getByTestId(document.body, "C")).then(async (x) => {
         expect(x.innerHTML).toBe(StateBIds.ONEB);
-        done();
+        _flag.set(true);
+        waitFor(() => getByTestId(document.body, "D")).then(async (x) => {
+          jest.runAllTimers();
+          await flushPromises();
+          expect(x.innerHTML).toBe("D");
+          expect(_processes.value()).toEqual({});
+          expect(_states.value()).toEqual({});
+          done();
+        });
       });
     });
   });

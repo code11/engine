@@ -17,7 +17,7 @@ pluginTester({
   pluginName: "babel-plugin-engine",
   formatResult: (result: any) => {
     const results = result.match(
-      /import\s+\{\s*view\s+as\s+([a-z]+)\s*\}\sfrom\s['"]engineViewLibrary['"];?/,
+      /import\s+\{\s*view\s+as\s+([a-zA-Z_]+)\s*\}\sfrom\s['"]engineViewLibrary['"];?/,
       "foo"
     );
     const id = results[1];

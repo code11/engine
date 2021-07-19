@@ -33,15 +33,29 @@ test("Should mount and unmount producers attached to a component", async (done) 
   }) => {
     bar.set(propValue);
   };
+
+  const prodB: producer = ({
+    propValue = observe[prop.propName],
+    baz = update.baz,
+  }) => {
+    baz.set(propValue);
+  };
+
   Component.producers([prodA]);
+  Component.producers([prodB]);
 
   const Parent: view = ({ shouldMount = observe.shouldMountChild }) => {
     return <div>{shouldMount && <Component propName="foo"></Component>}</div>;
   };
 
   let bar;
-  const syncBar: producer = ({ value = observe.bar }) => {
-    bar = value;
+  let baz;
+  const syncValues: producer = ({
+    valueBar = observe.bar,
+    valueBaz = observe.baz,
+  }) => {
+    bar = valueBar;
+    baz = valueBaz;
   };
   let mountFn;
   const setMount: producer = ({ value = update.shouldMountChild }) => {
@@ -54,7 +68,10 @@ test("Should mount and unmount producers attached to a component", async (done) 
 
   const app = engine({
     state: defaultState,
-    use: [render(<Parent />, rootEl), producers([syncBar, setMount, setFoo])],
+    use: [
+      render(<Parent />, rootEl),
+      producers([syncValues, setMount, setFoo]),
+    ],
   });
 
   app.start();
@@ -64,6 +81,7 @@ test("Should mount and unmount producers attached to a component", async (done) 
 
   waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(bar).toBe("123");
+    expect(baz).toBe("123");
     mountFn(false);
     jest.runAllTimers();
     await flushPromises();

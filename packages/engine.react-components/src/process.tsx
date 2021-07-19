@@ -1,5 +1,6 @@
 import React from "react";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
+
 import {
   ProducerConfig,
   RootElement,
@@ -8,12 +9,17 @@ import {
 } from "@c11/engine.types";
 import { path } from "@c11/engine.runtime";
 
+const nanoid = customAlphabet(
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
+  15
+);
+
 type Timestamp = number;
 
 export type Process = {
   id: string;
   createdAt: Timestamp;
-  parentStateId: State["id"] | null;
+  parentId: State["id"] | null;
   states: State["name"][];
   activeState: State["id"] | null;
   data: any;
@@ -63,6 +69,21 @@ type StateProps = {
   processId: string;
 };
 
+const cleanState: producer = ({ data = update.state[prop.stateId] }) => {
+  return () => {
+    data.remove();
+  };
+};
+
+const cleanProcess: producer = ({
+  processId,
+  data = update.process[param.processId],
+}) => {
+  return () => {
+    data.remove({ processId });
+  };
+};
+
 export function process(
   states: {
     [k: string]: (props: StateProps) => JSX.Element;
@@ -71,9 +92,6 @@ export function process(
 ) {
   let updatePath: any;
   let prevStateId: string;
-  let parentId: string | undefined | null;
-  let updatedParent = false;
-  let updatedProcess = false;
 
   const ProcessComponent: view = ({
     propsList,
@@ -85,15 +103,9 @@ export function process(
   }: ProcessComponentType) => {
     updatePath = _update;
 
-    if (parentId && !updatedParent) {
-      _update(path.states[parentId].childProcesses[processId]).set(createdAt);
-      updatedParent = true;
-    }
-
-    if (!updatedProcess) {
-      _update(path.process[processId]).set({
+    if (!_get(path.process[processId].id).value()) {
+      _update(path.process[processId]).merge({
         id: processId,
-        parentStateId: parentId,
         createdAt: performance.now(),
         activeState: _get(path.process[processId].activeState).value(),
         states: Object.keys(states),
@@ -103,7 +115,6 @@ export function process(
           isTransitioning: false,
         },
       });
-      updatedProcess = true;
     }
 
     if (prevStateId) {
@@ -129,10 +140,32 @@ export function process(
         isReady: true,
       },
     });
+
+    State.producers([cleanState]);
+
     _update(path.process[processId].activeStateId).set(stateId);
+
+    const setParentId = (el: HTMLElement | null) => {
+      if (!el) {
+        return;
+      }
+      const parentId = getParentId(el, null);
+      if (!parentId) {
+        return;
+      }
+      if (!_get(path.process[processId].id).value()) {
+        return;
+      }
+      if (_get(path.process[processId].parentId).value()) {
+        return;
+      }
+      _update(path.process[processId].parentId).set(parentId);
+      _update(path.states[parentId].childProcesses[processId]).set(createdAt);
+    };
+
     // TODO: give the state data, setData, etc
     return (
-      <div data-state-id={stateId}>
+      <div ref={setParentId} data-state-id={stateId}>
         <State {...propsList} stateId={stateId} processId={processId} />
       </div>
     );
@@ -151,38 +184,19 @@ export function process(
   //     },
   //   },
   // };
-  ProcessComponent.producers([selector]);
 
-  const updateParent = (
-    el: HTMLElement | null,
-    processId: string,
-    createdAt: number
-  ) => {
-    if (!el) {
-      return;
-    }
-    parentId = getParentId(el, null);
-    if (parentId && updatePath) {
-      updatePath(path.states[parentId].childProcesses[processId]).set(
-        createdAt
-      );
-      updatedParent = true;
-    }
-  };
+  ProcessComponent.producers([selector, cleanProcess]);
 
-  return (props) => {
+  return (props: any) => {
     const processId = nanoid();
     const createdAt = performance.now();
+
     return (
-      <div
-        ref={(el: HTMLElement | null) => updateParent(el, processId, createdAt)}
-      >
-        <ProcessComponent
-          propsList={props}
-          processId={processId}
-          createdAt={createdAt}
-        />
-      </div>
+      <ProcessComponent
+        propsList={props}
+        processId={processId}
+        createdAt={createdAt}
+      />
     );
   };
 }
