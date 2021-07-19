@@ -14,15 +14,15 @@
     "test:coverage": "jest --clear-cache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.react-components/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react-components/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "@c11/engine.react": "4.0.0-alpha.59",
+    "@c11/engine.runtime": "4.0.0-alpha.59",
+    "@c11/engine.types": "4.0.0-alpha.51"
   },
   "files": [
     "src"
   ],
   "dependencies": {
-    "@c11/engine.react": "4.0.0-alpha.59",
-    "@c11/engine.runtime": "4.0.0-alpha.59",
-    "@c11/engine.types": "4.0.0-alpha.51",
     "lodash": "^4.17.21",
     "nanoid": "^3.1.23"
   },
