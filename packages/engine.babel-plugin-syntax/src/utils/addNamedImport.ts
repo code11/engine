@@ -12,7 +12,7 @@ export const addNamedImport = (
   const t = babel.types;
   const path = program.get("body").find((p) => {
     const result =
-      p.isImportDeclaration() && p.node.source.value.indexOf(moduleName) !== -1;
+      p.isImportDeclaration() && p.node.source.value === moduleName;
     return result;
   });
 
