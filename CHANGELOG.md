@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.59](https://github.com/code11/engine/compare/v4.0.0-alpha.58...v4.0.0-alpha.59) (2021-07-19)
+
+
+### Bug Fixes
+
+* **engine.babel-plugin-syntax:** force exact match for module import ([a772483](https://github.com/code11/engine/commit/a772483344527f8118102cf4d9954e2706eceb05))
+
+
+
+
+
 # [4.0.0-alpha.58](https://github.com/code11/engine/compare/v4.0.0-alpha.54...v4.0.0-alpha.58) (2021-07-19)
 
 
