@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.react-components",
-  "version": "4.0.0-alpha.57",
+  "version": "4.0.0-alpha.58",
   "description": "A set of components and utilities for react apps",
   "main": "src/index.ts",
   "license": "MIT",
@@ -20,8 +20,8 @@
     "src"
   ],
   "dependencies": {
-    "@c11/engine.react": "4.0.0-alpha.57",
-    "@c11/engine.runtime": "4.0.0-alpha.57",
+    "@c11/engine.react": "4.0.0-alpha.58",
+    "@c11/engine.runtime": "4.0.0-alpha.58",
     "@c11/engine.types": "4.0.0-alpha.51",
     "lodash": "^4.17.21",
     "nanoid": "^3.1.23"
@@ -35,7 +35,7 @@
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
     "@babel/runtime": "^7.14.0",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.57",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.58",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@types/babel__plugin-transform-runtime": "^7",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.58](https://github.com/code11/engine/compare/v4.0.0-alpha.54...v4.0.0-alpha.58) (2021-07-19)
+
+
+### Bug Fixes
+
+* separate type exports from values ([31f1ea4](https://github.com/code11/engine/commit/31f1ea4e1ee6444c386d0fbfb58a438aae92f7d7))
+
+
+
+
+
 # [4.0.0-alpha.57](https://github.com/code11/engine/compare/v4.0.0-alpha.56...v4.0.0-alpha.57) (2021-07-15)
 
 **Note:** Version bump only for package @c11/engine.react-components

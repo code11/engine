@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.58](https://github.com/code11/engine/compare/v4.0.0-alpha.54...v4.0.0-alpha.58) (2021-07-19)
+
+
+### Bug Fixes
+
+* separate type exports from values ([31f1ea4](https://github.com/code11/engine/commit/31f1ea4e1ee6444c386d0fbfb58a438aae92f7d7))
+* **engine.babel-plugin-syntax:** generate unique ids for view imports ([9f119fd](https://github.com/code11/engine/commit/9f119fdfa766e99c58556f119852f0d102c983b5))
+
+
+### Features
+
+* **engine.patterns:** add data types and collection order ([b759af6](https://github.com/code11/engine/commit/b759af6fd0798221af1ee8f3e04bf0b451bd6fdb))
+
+
+
+
+
 # [4.0.0-alpha.57](https://github.com/code11/engine/compare/v4.0.0-alpha.56...v4.0.0-alpha.57) (2021-07-15)
 
 
