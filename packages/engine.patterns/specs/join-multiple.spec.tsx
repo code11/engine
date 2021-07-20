@@ -2,7 +2,7 @@ import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
-import { component } from "../src";
+import { join } from "../src";
 import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
@@ -17,7 +17,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support component()", async (done) => {
+test("should support join() with multiple views and producers", async (done) => {
   const fooValue = "123";
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
@@ -37,7 +37,7 @@ test("should support component()", async (done) => {
     baz.set(foo);
   };
 
-  const Component = component(A, B, p1, p2);
+  const Component = join(A, B, p1, p2);
 
   const app = engine({
     use: [render(<Component foo={fooValue} />, rootEl)],

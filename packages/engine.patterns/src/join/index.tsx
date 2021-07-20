@@ -29,21 +29,29 @@ const isProducer = (x: unknown): boolean => {
   }
 };
 
-export const component = (...args: any[]) => {
+export const join = (...args: any[]) => {
   const elements = flattenDeep(args);
   const views = elements.filter((x: unknown) => isView(x));
   const producers = elements.filter((x: unknown) => isProducer(x));
-  const Component: view = (props) => {
-    return (
-      <>
-        {views.map((X: typeof React.Component, i) => (
-          <X {...props} key={i} />
-        ))}
-      </>
-    );
-  };
-
-  Component.producers(producers);
-
-  return Component;
+  if (views.length === 0) {
+    return;
+  } else if (views.length === 1) {
+    const view = views[0];
+    if (producers.length > 0) {
+      view.producers(producers);
+    }
+    return view;
+  } else {
+    const Component: view = (props: unknown) => {
+      return (
+        <>
+          {views.map((X: typeof React.Component, i) => (
+            <X {...props} key={i} />
+          ))}
+        </>
+      );
+    };
+    Component.producers(producers);
+    return Component;
+  }
 };
