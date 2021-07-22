@@ -55,3 +55,32 @@ enum Modes {
 ```
 
 When using an `Enum`, prefer using a string Enum.
+
+### Producers:
+- only one producer per file
+- they should have a descriptive name (camelCase) and the file should have the same name
+- they should do only one thing
+- they should use `get` instead of `observe` if you don’t need that value to retrigger the producer
+- in the folder structure they should stay close to the components that use them. 
+- if there are more than one producer for a component the propper way of **importing** them should be to by creating an `index.js/ts` file in the producers folder and export them all there and in the component write like this
+``` import * as producers from "./producers";
+...
+<Component>.producers(Object.values(producers)); 
+```
+- if you use typescript keep using the types throughout the entire producer (use type casting if needed)
+
+### Components:
+- only one component per file
+- they should have a descriptive name (PascalCase) and the file should have the same name
+- they should do only one thing
+- they should use `get` instead of `observe` if you don’t need that value to retrigger the component
+- the use of layout components is highly encourage (cards, sidebars, navbars)
+- use as few props as posible, they should get their data from the state
+- if they have sub-components they can be put in a `./component` folder on the same level
+- they should be used only for **displaying** data or as **layout component** so they should manipulate the data as litle as posible
+- they can only change the state by:  
+  - triggering a producer (they can even pass simple date to the producers)
+  - they can also change the state directly but the changed data should be at most on the same level in the state hierarchy as the component's data is (e.g. checkbox component)
+- they can have inline style (tailwind or styled-components) and if they use .css that file should be put in the same folder
+- if a component is use in multiple places they should be put in a `generalComponents` upper in the folder hierarchy
+
