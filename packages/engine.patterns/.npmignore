@@ -3,3 +3,5 @@ tsconfig.json
 specs
 .babelrc
 modules.d.ts
+coverage
+
