@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`babel-plugin-engine should keep constants: should keep constants 1`] = `
+exports[`engine.babel-plugin-syntax should keep constants: should keep constants 1`] = `
 
 const SectionId = {}
 const result: producer = ({
@@ -95,7 +95,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support expressions: should support expressions 1`] = `
+exports[`engine.babel-plugin-syntax should support expressions: should support expressions 1`] = `
 
 const result: producer = ({
   a1 = get.foo || '123' && '123',
@@ -128,7 +128,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support nesting: should support nesting 1`] = `
+exports[`engine.babel-plugin-syntax should support nesting: should support nesting 1`] = `
 
 const result: producer = ({
   a1 = {

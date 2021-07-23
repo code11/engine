@@ -1,29 +1,21 @@
 type Timestamp = number;
 
-export type Component = {
+export type Component<States = string[], Data = { [k: string]: any }> = {
   id: string;
   createdAt: Timestamp;
-  parentId: State["id"] | null;
-  states: State["name"][];
-  activeState: State["id"] | null;
-  data: any;
-  status: {
-    isReady: boolean;
-    isTransitioning: boolean;
+  parentId: Component["id"] | null;
+  states: States;
+  activeState: {
+    name: string | null;
+    id: Component["id"] | null;
   };
-};
-
-export type State<Data = { [k: string]: any }> = {
-  id: string;
-  name: string;
-  createdAt: Timestamp;
-  parentId: Component["id"];
+  data: Data;
   children: {
     [k: string]: Timestamp;
   };
   status: {
-    isFrozen: boolean;
     isReady: boolean;
+    isTransitioning: boolean;
+    isFrozen: boolean;
   };
-  data: Data;
 };

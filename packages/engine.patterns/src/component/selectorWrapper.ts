@@ -11,7 +11,13 @@ export const selectorWrapper: producer = ({
 
   const activeState = $activeState.value();
 
+  // console.log("set new state", newState, activeState);
   if (newState === activeState) {
+    return;
+  }
+
+  if (!newState) {
+    // error?
     return;
   }
 

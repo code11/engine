@@ -16,7 +16,7 @@ pluginTester({
       parser: "babel",
     });
   },
-  pluginName: "babel-plugin-engine",
+  pluginName: "engine.babel-plugin-syntax",
   tests: {
     "should compile a producer": {
       code: `

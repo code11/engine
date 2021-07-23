@@ -1,51 +1,33 @@
 import React from "react";
+import { isValidElementType } from "react-is";
+import { isView, isProducer } from "../utils";
 import flattenDeep from "lodash/flattenDeep";
-
-const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
-  obj: X,
-  prop: Y
-): obj is X & Record<Y, unknown> => {
-  return obj.hasOwnProperty(prop);
-};
-
-const isView = (x: unknown): boolean => {
-  return (
-    // @ts-ignore
-    x && typeof x === "function" && typeof x.isView === "boolean" && x.isView
-  );
-};
-
-const isProducer = (x: unknown): boolean => {
-  if (
-    x &&
-    typeof x === "object" &&
-    hasOwnProperty(x, "type") &&
-    typeof x.type === "string" &&
-    x.type === "producer"
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 export const join = (...args: any[]) => {
   const elements = flattenDeep(args);
   const views = elements.filter((x: unknown) => isView(x));
+  const components = elements.filter(
+    (x: unknown) => !isView(x) && isValidElementType(x)
+  );
   const producers = elements.filter((x: unknown) => isProducer(x));
-  if (views.length === 0) {
-    return;
-  } else if (views.length === 1) {
+
+  if (views.length === 0 && components.length === 0 && producers.length === 0) {
+    throw new Error(
+      "Component creation failed using join. Please provide at least view, producer or react component"
+    );
+  }
+  if (views.length === 1 && components.length === 0) {
     const view = views[0];
     if (producers.length > 0) {
       view.producers(producers);
     }
     return view;
   } else {
+    const list = views.concat(components);
     const Component: view = (props: unknown) => {
       return (
         <>
-          {views.map((X: typeof React.Component, i) => (
+          {list.map((X: typeof React.Component, i) => (
             <X {...props} key={i} />
           ))}
         </>

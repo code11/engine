@@ -17,7 +17,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support component() with a single hierarchy", async (done) => {
+test("should support component() with multiple hierarchy", async (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
@@ -70,7 +70,7 @@ test("should support component() with a single hierarchy", async (done) => {
   }
 
   const A: view = () => <div data-testid={Ids.A}>{Ids.A}</div>;
-  const B = () => {
+  const B = (props: unknown) => {
     return (
       <div data-testid={Ids.B}>
         <Child startWith={ChildIds.D} />
@@ -87,9 +87,12 @@ test("should support component() with a single hierarchy", async (done) => {
   };
 
   let _updateParent;
+  let _get;
   const init: producer = ({
+    get = get,
     updateData = update.components[prop.componentId].data,
   }) => {
+    _get = get;
     _updateParent = updateData;
   };
 
@@ -112,13 +115,16 @@ test("should support component() with a single hierarchy", async (done) => {
   await flushPromises();
   waitFor(() => getByTestId(document.body, Ids.A)).then(async (x) => {
     expect(x.innerHTML).toBe(Ids.A);
+
     _updateParent.set({
       loadB: true,
     });
     waitFor(() => getByTestId(document.body, Ids.B)).then(async (x) => {
       waitFor(() => getByTestId(document.body, ChildIds.D)).then(async (x) => {
         expect(x.innerHTML).toBe(ChildIds.D);
+
         _updateChildData({ load: ChildIds.C });
+
         waitFor(() => getByTestId(document.body, ChildIds.C)).then(
           async (x) => {
             expect(x.innerHTML).toBe(ChildIds.C);

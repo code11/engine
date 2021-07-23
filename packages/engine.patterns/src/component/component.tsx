@@ -2,7 +2,7 @@ import { customAlphabet } from "nanoid";
 import { cleanComponent } from "./cleanComponent";
 import { ProducerConfig } from "@c11/engine.types";
 import { join } from "../join";
-import { StateManager } from "./StateManager";
+import { ComponentManager } from "./ComponentManager";
 import { selectorWrapper } from "./selectorWrapper";
 
 const nanoid = customAlphabet(
@@ -24,7 +24,7 @@ export const component = (
   producers: ProducerConfig[] = []
 ) => {
   const Component = join(
-    StateManager,
+    ComponentManager,
     selectorWrapper,
     cleanComponent,
     producers

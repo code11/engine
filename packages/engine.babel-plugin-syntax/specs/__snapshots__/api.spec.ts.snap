@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`babel-plugin-engine should ignore other types: should ignore other types 1`] = `
+exports[`engine.babel-plugin-syntax should ignore other types: should ignore other types 1`] = `
 
 const result: foo = ({
   a1 = '123',
@@ -13,7 +13,7 @@ const result: foo = ({ a1 = "123" }) => {};
 
 `;
 
-exports[`babel-plugin-engine should keep values in paths: should keep values in paths 1`] = `
+exports[`engine.babel-plugin-syntax should keep values in paths: should keep values in paths 1`] = `
 
 const val = "321"
 const obj = {
@@ -153,7 +153,7 @@ const a = {
 
 `;
 
-exports[`babel-plugin-engine should support arg: should support arg 1`] = `
+exports[`engine.babel-plugin-syntax should support arg: should support arg 1`] = `
 
 const result: producer = ({
   a1 = '123',
@@ -205,7 +205,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support constructors: should support constructors 1`] = `
+exports[`engine.babel-plugin-syntax should support constructors: should support constructors 1`] = `
 
 const result: producer = ({
   _get = get,
@@ -240,7 +240,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support get: should support get 1`] = `
+exports[`engine.babel-plugin-syntax should support get: should support get 1`] = `
 
 const result: producer = ({
   a1 = get.foo,
@@ -415,7 +415,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support observe: should support observe 1`] = `
+exports[`engine.babel-plugin-syntax should support observe: should support observe 1`] = `
 
 const result: producer = ({
   a1 = observe.foo,
@@ -522,7 +522,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support prop: should support prop 1`] = `
+exports[`engine.babel-plugin-syntax should support prop: should support prop 1`] = `
 
 const result: producer = ({
   bam,
@@ -574,7 +574,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support update: should support update 1`] = `
+exports[`engine.babel-plugin-syntax should support update: should support update 1`] = `
 
 const result: producer = ({
   a1 = update.foo,
@@ -749,7 +749,7 @@ const result = {
 
 `;
 
-exports[`babel-plugin-engine should support wildcard: should support wildcard 1`] = `
+exports[`engine.babel-plugin-syntax should support wildcard: should support wildcard 1`] = `
 
 const foo: producer = ({
   id = wildcard,

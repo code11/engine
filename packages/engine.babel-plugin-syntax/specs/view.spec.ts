@@ -14,7 +14,7 @@ pluginTester({
   pluginOptions: {
     viewLibrary: "engineViewLibrary",
   },
-  pluginName: "babel-plugin-engine",
+  pluginName: "engine.babel-plugin-syntax",
   formatResult: (result: any) => {
     const results = result.match(
       /import\s+\{\s*view\s+as\s+([a-zA-Z_]+)\s*\}\sfrom\s['"]engineViewLibrary['"];?/,

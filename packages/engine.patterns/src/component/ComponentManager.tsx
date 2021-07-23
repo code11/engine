@@ -2,9 +2,14 @@ import { GetPath, UpdatePath } from "@c11/engine.types";
 import { customAlphabet } from "nanoid";
 import { path } from "@c11/engine.runtime";
 import { join } from "../join";
-import { cleanState } from "./cleanState";
+import { cleanComponent } from "./cleanComponent";
 import { getParentId } from "./getParentId";
-
+const isView = (x: unknown): boolean => {
+  return (
+    // @ts-ignore
+    x && typeof x === "function" && typeof x.isView === "boolean" && x.isView
+  );
+};
 const nanoid = customAlphabet(
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
   15
@@ -20,7 +25,7 @@ type ComponentType = {
   states: any;
 };
 
-export const StateManager: view = ({
+export const ComponentManager: view = ({
   states,
   propsList,
   componentId,
@@ -29,6 +34,9 @@ export const StateManager: view = ({
   _get = get,
   _update = update,
 }: ComponentType) => {
+  // console.log("componentId", componentId);
+  // console.log("Calling component manager");
+  // If the component is not initialized
   if (!_get(path.components[componentId].id).value()) {
     _update(path.components[componentId]).merge({
       id: componentId,
@@ -45,18 +53,27 @@ export const StateManager: view = ({
 
   //TODO: Invalid state
   if (!states[activeState]) {
+    const error = `Cannot transition to active state. "${activeState}" is not in ${Object.keys(
+      states
+    ).join(",")}`;
+    _update(path.components[componentId].error).set(error);
     return;
   }
 
   //TODO: Add onMounted, onUnmounted listeners to populate the state
   // and used for statuses
-  const State = states[activeState]; // join(states[activeState], cleanState);
-  const stateId = nanoid();
+  // console.log("calling active state", activeState);
+  const State = states[activeState];
+  if (isView(State)) {
+    State.producers([cleanComponent]);
+  }
+  // const State = join(states[activeState], cleanComponent);
+  const childComponentId = nanoid();
 
-  _update(path.state[stateId]).set({
+  _update(path.components[childComponentId]).set({
     name: activeState,
     parentId: componentId,
-    id: stateId,
+    id: childComponentId,
     createdAt: performance.now(),
     children: {},
     data: {},
@@ -66,7 +83,7 @@ export const StateManager: view = ({
     },
   });
 
-  _update(path.components[componentId].activeStateId).set(stateId);
+  _update(path.components[componentId].activeStateId).set(childComponentId);
 
   const setParentId = (el: HTMLElement | null) => {
     if (!el) {
@@ -83,7 +100,7 @@ export const StateManager: view = ({
       return;
     }
     _update(path.components[componentId].parentId).set(parentId);
-    _update(path.states[parentId].children[componentId]).set(createdAt);
+    _update(path.components[parentId].children[componentId]).set(createdAt);
   };
 
   //TODO: provide the state with helpers:
@@ -98,9 +115,14 @@ export const StateManager: view = ({
   //TODO: ensure there isn't a conflict between propsList the other "private" information
   //  maybe use an underscore? it would be uncommon for react props to be prefixed with an
   //  underscore
+  // console.log(childComponentId, componentId);
   return (
-    <div ref={setParentId} data-state-id={stateId}>
-      <State {...propsList} stateId={stateId} componentId={componentId} />
+    <div ref={setParentId} data-component-id={childComponentId}>
+      <State
+        {...propsList}
+        componentId={childComponentId}
+        parentId={componentId}
+      />
     </div>
   );
 };
