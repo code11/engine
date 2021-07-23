@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.babel-plugin-syntax",
-  "version": "4.0.0-alpha.61",
+  "version": "4.0.0-alpha.62",
   "description": "Compile engine syntax to js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

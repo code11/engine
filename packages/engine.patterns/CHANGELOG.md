@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.62](https://github.com/code11/engine/compare/v4.0.0-alpha.61...v4.0.0-alpha.62) (2021-07-23)
+
+
+### Bug Fixes
+
+* **engine.patterns:** refactor component and join ([7b361d7](https://github.com/code11/engine/commit/7b361d7ee7cbc538dca58589952dc9ee65687e17))
+
+
+
+
+
 # [4.0.0-alpha.61](https://github.com/code11/engine/compare/v4.0.0-alpha.60...v4.0.0-alpha.61) (2021-07-20)
 
 **Note:** Version bump only for package @c11/engine.patterns
