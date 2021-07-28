@@ -5,6 +5,7 @@ import flattenDeep from "lodash/flattenDeep";
 
 export const join = (...args: any[]) => {
   const elements = flattenDeep(args);
+  //TODO: Expand any object like structures .e.g import * as producers from './producers
   const views = elements.filter((x: unknown) => isView(x));
   const components = elements.filter(
     (x: unknown) => !isView(x) && isValidElementType(x)

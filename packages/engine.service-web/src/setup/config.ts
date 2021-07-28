@@ -38,10 +38,11 @@ export const config: producer = async ({
   const publicPath = _resolve(commandPath, "public");
   const distPath = _resolve(commandPath, "dist");
   const publicIndexPath = _resolve(publicPath, "index.html");
-  const tailwindConfigPath = _resolve(commandPath, "tailwind.js");
+  const tailwindConfigPath = _resolve(commandPath, "tailwind.config.js");
   config.set({
     name: result.name,
     version: result.version,
+    proxy: result.proxy,
     packagePath: root,
     commandPath,
     srcPath,

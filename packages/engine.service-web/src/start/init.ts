@@ -18,6 +18,7 @@ type props = {
   publicPath: Get<State["config"]["publicPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
   tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
+  proxy: Get<State["config"]["proxy"]>;
 };
 
 export const init: producer = async ({
@@ -30,6 +31,7 @@ export const init: producer = async ({
   publicIndexPath = get.config.publicIndexPath,
   commandPath = get.config.commandPath,
   packagePath = get.config.packagePath,
+  proxy = get.config.proxy,
   nodeModulesPath = get.config.nodeModulesPath,
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
@@ -46,7 +48,9 @@ export const init: producer = async ({
     tailwindConfig = require(tailwindConfigPath.value());
   } catch (e) {
     if (e.code === "MODULE_NOT_FOUND") {
-      console.log("ok - not found");
+      console.log(
+        "tailwind.config.js not found. Using default tailwindcss theme."
+      );
     } else {
       throw e;
     }
@@ -98,9 +102,28 @@ export const init: producer = async ({
           ],
         },
         {
-          test: /\.(js|jsx|ts|tsx)$/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           // exclude: fileIsES5(FILE_ENCODING),
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                cacheDirectory: true,
+                comments: false,
+                minified: false,
+                presets: ["@babel/preset-env", "@babel/preset-react"],
+                plugins: [
+                  "babel-plugin-react-require",
+                  "@babel/plugin-proposal-class-properties",
+                  "@babel/plugin-transform-runtime",
+                ],
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(ts|tsx)$/,
           use: [
             {
               loader: "babel-loader",
@@ -200,7 +223,9 @@ export const init: producer = async ({
       // new Webpack.HotModuleReplacementPlugin(),
       // new _webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new _webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+        "process.env.NODE_ENV": JSON.stringify(
+          process.env.NODE_ENV || "development"
+        ),
         "process.env.DEBUG": JSON.stringify(process.env.DEBUG),
       }),
       new _HtmlWebpackPlugin({
@@ -213,6 +238,7 @@ export const init: producer = async ({
   } as Configuration;
 
   const server = new _WebpackDevServer(_webpack(config), {
+    proxy: proxy.value(),
     historyApiFallback: {
       index: "index.html",
     },

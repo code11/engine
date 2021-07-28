@@ -2,6 +2,11 @@ export type Path = string;
 
 export type State = {
   config: {
+    proxy:
+      | string
+      | {
+          [k: string]: string;
+        };
     name: string;
     version: string;
     commandPath: Path;

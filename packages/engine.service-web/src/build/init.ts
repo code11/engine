@@ -105,8 +105,37 @@ export const init: producer = async ({
           ],
         },
         {
-          test: /\.(js|jsx|ts|tsx)$/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
+          // exclude: fileIsES5(FILE_ENCODING),
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                cacheDirectory: true,
+                comments: false,
+                minified: true,
+                presets: ["@babel/preset-env", "@babel/preset-react"],
+                plugins: [
+                  "babel-plugin-react-require",
+                  "@babel/plugin-proposal-class-properties",
+                  "@babel/plugin-transform-runtime",
+                  // [
+                  //   "babel-plugin-module-rewrite",
+                  //   {
+                  //     replaceFunc: replacerPath.value(),
+                  //     replaceHandlerName: "replacer",
+                  //     overrideModulesPath: overrideModulesPath.value(),
+                  //     nodeModulesPath: nodeModulesPath.value(),
+                  //   },
+                  // ],
+                ],
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(ts|tsx)$/,
           // exclude: fileIsES5(FILE_ENCODING),
           use: [
             {
