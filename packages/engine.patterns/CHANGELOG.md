@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.65](https://github.com/code11/engine/compare/v4.0.0-alpha.64...v4.0.0-alpha.65) (2021-07-29)
+
+
+### Bug Fixes
+
+* **engine.patterns:** export only type for component ([3f31524](https://github.com/code11/engine/commit/3f31524b15f2ad342b7d7e9342309af794788eb5))
+
+
+
+
+
 # [4.0.0-alpha.64](https://github.com/code11/engine/compare/v4.0.0-alpha.63...v4.0.0-alpha.64) (2021-07-28)
 
 **Note:** Version bump only for package @c11/engine.patterns
