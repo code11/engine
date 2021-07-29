@@ -1,6 +1,6 @@
 import { customAlphabet } from "nanoid";
 import { cleanComponent } from "./cleanComponent";
-import { ProducerConfig } from "@c11/engine.types";
+import { ProducerFn, ViewInstance } from "@c11/engine.types";
 import { join } from "../join";
 import { ComponentManager } from "./ComponentManager";
 import { selectorWrapper } from "./selectorWrapper";
@@ -21,13 +21,13 @@ type StateProps = {
 
 export const component = (
   states: {
-    [k: string]: (props: StateProps) => JSX.Element;
+    [k: string]: (props: StateProps) => JSX.Element | ViewInstance | null;
   },
   //TODO: add proper type to match states structure
   stateSelector: ({ data }: any) => string,
   //TODO: add support for producers as object map as in
   //  import * as producers from './producers
-  producers: ProducerConfig[] = []
+  producers: ProducerFn[] = []
 ) => {
   const Component = join(
     ComponentManager,
