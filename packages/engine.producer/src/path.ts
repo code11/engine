@@ -2,6 +2,9 @@ import clone from "clone-deep";
 class PathObject {}
 
 function createProxy(path: any[] = [], obj = new PathObject()): any {
+  if (!window.Proxy) {
+    return {}
+  }
   return new Proxy(obj, {
     get(target, prop) {
       if (prop === Symbol.toStringTag) {
