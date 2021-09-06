@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.67](https://github.com/code11/engine/compare/v4.0.0-alpha.54...v4.0.0-alpha.67) (2021-09-06)
+
+
+### Bug Fixes
+
+* **engine.babel-plugin-syntax:** force exact match for module import ([a772483](https://github.com/code11/engine/commit/a772483344527f8118102cf4d9954e2706eceb05))
+* **engine.babel-plugin-syntax:** generate unique ids for view imports ([9f119fd](https://github.com/code11/engine/commit/9f119fdfa766e99c58556f119852f0d102c983b5))
+* **engine.patterns:** export only type for component ([3f31524](https://github.com/code11/engine/commit/3f31524b15f2ad342b7d7e9342309af794788eb5))
+* **engine.patterns:** refactor component and join ([7b361d7](https://github.com/code11/engine/commit/7b361d7ee7cbc538dca58589952dc9ee65687e17))
+* **engine.producer:** if Proxy is not availabe do not attempt to create on ([261f818](https://github.com/code11/engine/commit/261f8180833413b31464f16d7d88fde4eacb2e81))
+* **engine.react-components:** make deps as peerDependencies ([520b3d9](https://github.com/code11/engine/commit/520b3d9bc1c32c33182e624bc4890e7fc733c71c))
+* separate type exports from values ([31f1ea4](https://github.com/code11/engine/commit/31f1ea4e1ee6444c386d0fbfb58a438aae92f7d7))
+
+
+### Features
+
+* **engine.patterns:** add data types and collection order ([b759af6](https://github.com/code11/engine/commit/b759af6fd0798221af1ee8f3e04bf0b451bd6fdb))
+
+
+
+
+
 # [4.0.0-alpha.66](https://github.com/code11/engine/compare/v4.0.0-alpha.65...v4.0.0-alpha.66) (2021-07-29)
 
 **Note:** Version bump only for package engine

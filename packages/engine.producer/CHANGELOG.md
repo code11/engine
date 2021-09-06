@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.67](https://github.com/code11/engine/compare/v4.0.0-alpha.54...v4.0.0-alpha.67) (2021-09-06)
+
+
+### Bug Fixes
+
+* **engine.producer:** if Proxy is not availabe do not attempt to create on ([261f818](https://github.com/code11/engine/commit/261f8180833413b31464f16d7d88fde4eacb2e81))
+
+
+
+
+
 # [4.0.0-alpha.63](https://github.com/code11/engine/compare/v4.0.0-alpha.62...v4.0.0-alpha.63) (2021-07-23)
 
 **Note:** Version bump only for package @c11/engine.producer

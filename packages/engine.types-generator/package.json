@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.types-generator",
-  "version": "4.0.0-alpha.63",
+  "version": "4.0.0-alpha.67",
   "private": true,
   "description": "Produces typescript types for views and producers",
   "main": "dist/index.js",
@@ -22,6 +22,6 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.63"
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.67"
   }
 }
