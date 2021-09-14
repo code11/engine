@@ -26,6 +26,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 const result2 = {
   fn: ({ a1 }) => {},
@@ -42,6 +43,7 @@ const result2 = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -70,6 +72,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -102,6 +105,7 @@ const result = viewRandomId({
     },
   },
   type: "view",
+  buildId: "unique_id",
 });
 const result2 = viewRandomId({
   fn: ({ a1 }) => {},
@@ -118,6 +122,7 @@ const result2 = viewRandomId({
     },
   },
   type: "view",
+  buildId: "unique_id",
 });
 
 
@@ -147,6 +152,7 @@ export const result = viewRandomId({
     },
   },
   type: "view",
+  buildId: "unique_id",
 });
 
 

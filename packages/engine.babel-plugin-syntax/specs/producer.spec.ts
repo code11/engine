@@ -12,6 +12,10 @@ pluginTester({
   plugin,
   babelOptions: { filename: __filename, ...config },
   formatResult: (result: any) => {
+    result = result.replace(
+      /buildId:\s?\"[a-zA-Z_]+\"/g,
+      `buildId:"unique_id"`
+    );
     return prettier.format(result, {
       parser: "babel",
     });

@@ -1,7 +1,10 @@
 import React, { isValidElement } from "react";
-import { nanoid } from "nanoid";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
+import { getParentId } from "./getParentId";
+import { isProducer } from "./isProducer";
+import isPlainObject from "lodash/isPlainObject";
+import isArray from "lodash/isArray";
 import {
   GraphNodeType,
   ValueSerializer,
@@ -11,10 +14,20 @@ import {
   ProducerConfig,
   ExternalProducerContext,
   StructOperation,
+  OperationTypes,
+  UpdateValue,
 } from "@c11/engine.types";
 import type { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
+import { customAlphabet } from "nanoid";
+import { PathType } from "@c11/engine.types";
+import { path } from "@c11/engine.runtime";
+
+const nanoid = customAlphabet(
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
+  15
+);
 
 export const childrenSerializer: ValueSerializer = {
   type: GraphNodeType.EXTERNAL,
@@ -105,7 +118,26 @@ const circular = () => {
 };
 
 // TODO: Create a production and development view - there too many overlaps now
+//TODO: Add viewId on every view - see engine.patterns/component implementation
+//  storing data on a views[viewId] location might be problematic
+//  if the parent will re-render and trigger the re-rendering of the child view
+//  which will receive a new viewId - further exploration is needed
 
+//TODO: update the state for the parent to add the child id link
+//  update.views[parentId].children[viewId]
+
+//TODO: make the above capability plug&play through a flag or a plugin
+//  adding everything on state regarding the lifecycle of the views
+//  might add unnecessary overhead.
+//  also, for easier development capabilities could be split and added
+//  in a bundle
+//  example plugins:
+//  - view recording: record views on state, allocate a viewId, parentId, etc
+//    allow the view hierarchy to be known to the views
+//  - view monitoring: add to the view instance on the state information regarding
+//    isInViewport, isSelected, isFocused, etc
+//  - producer recodring: the same recording as above but for producers and
+//    allocate a producerId which can be used with update.producers[prop.producerId].data
 export function view(config: ViewConfig) {
   const sourceId = config.sourceId;
   let producers: ProducerConfig[] = [];
@@ -120,23 +152,43 @@ export function view(config: ViewConfig) {
     producers: { [k: string]: ProducerInstance } = {};
     isStateReady = false;
     viewProducer: ProducerInstance;
+    viewStateProducer: ProducerInstance;
     viewContext: ExternalProducerContext;
+    _update: ((path: any) => UpdateValue<any, any>) | undefined;
     ref: any;
     id: string;
-    static producers(newProducers: ProducerConfig[]) {
-      producers = producers.concat(newProducers);
+    static producers(
+      newProducers:
+        | ProducerConfig[]
+        | ProducerConfig
+        | { [k: string]: ProducerConfig }
+    ) {
+      let producersList: ProducerConfig[] = [];
+      if (isProducer(newProducers)) {
+        producersList = [newProducers as ProducerConfig];
+      } else if (isPlainObject(newProducers)) {
+        producersList = Object.values(newProducers);
+      } else if (isArray(newProducers)) {
+        producersList = newProducers;
+      }
+      producers = producers.concat(producersList);
       // TODO: should throw an error if the same producer is used twice
       // check using sourceId in development
       if (setProducers) {
-        setProducers(sourceId, newProducers);
+        setProducers(sourceId, producersList);
       }
     }
     static isView = true;
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
 
+      this.id = nanoid();
       const viewContext = {
-        props: externalProps,
+        props: {
+          ...externalProps,
+          _viewId: this.id,
+          _props: externalProps,
+        },
         keepReferences: ["external.children"],
         serializers: [childrenSerializer],
         debug: context.debug,
@@ -150,11 +202,45 @@ export function view(config: ViewConfig) {
         fn: this.updateData.bind(this),
         meta: config.meta,
       };
-      this.id = nanoid();
+      const viewStateProducer = {
+        props: {
+          type: OperationTypes.STRUCT,
+          value: {
+            _update: {
+              type: OperationTypes.CONSTRUCTOR,
+              value: PathType.UPDATE,
+            },
+          },
+        },
+        fn: ({ _update }: any) => {
+          this._update = _update;
+          _update(path.views[this.id]).set({
+            id: this.id,
+            createdAt: performance.now(),
+            data: {},
+          });
+          return () => {
+            _update(path.views[this.id]).remove();
+          };
+        },
+        meta: {
+          ...config.meta,
+          name: "InternalProducer",
+        },
+      };
       this.viewProducer = context.addProducer(viewProducer, viewContext, {
         viewId: this.id,
         viewSourceId: sourceId,
       });
+      this.viewStateProducer = context.addProducer(
+        //@ts-ignore
+        viewStateProducer,
+        viewContext,
+        {
+          viewId: this.id,
+          viewSourceId: sourceId,
+        }
+      );
       if (sourceId) {
         const updatedProducers = context.getProducers(sourceId);
         if (updatedProducers) {
@@ -237,6 +323,7 @@ export function view(config: ViewConfig) {
       this.isComponentMounted = true;
       Object.values(this.producers).forEach((x) => x.mount());
       this.viewProducer.mount();
+      this.viewStateProducer.mount();
     }
     componentWillUnmount() {
       this.isComponentMounted = false;
@@ -248,9 +335,17 @@ export function view(config: ViewConfig) {
       });
 
       this.viewProducer.unmount();
+      this.viewStateProducer.unmount();
     }
     updateData(data: any) {
-      // only keep the latest data
+      // because the view data binding comes from a producer
+      // the data will contain all private props from the
+      // producer which should be deleted from the view
+      // unless it was provided explicitly as a prop
+      if (!this.viewContext.props._producerId) {
+        delete data._producerId;
+      }
+
       this.stateUpdate = {
         data,
         done: false,
@@ -276,6 +371,24 @@ export function view(config: ViewConfig) {
         });
       });
     }
+    onMount() {
+      // const parentId = getParentId(this.ref, null);
+      const root = this.context.getRoot().querySelector(`[data-viewid]`);
+      const view = this.context
+        .getRoot()
+        .querySelector(`[data-viewid="${this.id}"]`);
+
+      if (!root || !view || !this._update) {
+        return;
+      }
+
+      const parentId = getParentId(view, root);
+
+      this._update(path.views[this.id]).merge({
+        rootId: root.getAttribute("data-viewid"),
+        parentId,
+      });
+    }
     render() {
       // TODO: anyway of knowing if the props changed?
       Object.values(this.producers).forEach((x) => {
@@ -285,7 +398,17 @@ export function view(config: ViewConfig) {
       if (!this.isStateReady) {
         return null;
       }
-      return <RenderComponent ref={this.ref} state={this.state} fn={this.fn} />;
+      return (
+        <RenderComponent
+          onMount={() => {
+            this.onMount();
+          }}
+          viewId={this.id}
+          ref={this.ref}
+          state={this.state}
+          fn={this.fn}
+        />
+      );
     }
   };
 }

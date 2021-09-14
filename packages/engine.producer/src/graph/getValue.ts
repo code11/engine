@@ -1,11 +1,28 @@
-import get from "lodash/get";
-import { GraphStructure } from "@c11/engine.types";
+import { GraphStructure, PathSymbol } from "@c11/engine.types";
 
 export const getValue = (
   type: string,
   structure: GraphStructure,
   fullPath: string[]
 ) => {
+  // console.log(type, fullPath);
+  // console.log(structure);
+
+  fullPath = fullPath.map((x) => {
+    if (x.indexOf(PathSymbol.INTERNAL) === 0) {
+      const reg = new RegExp(`^\\${PathSymbol.INTERNAL}`);
+      const path = x.replace(reg, "");
+      const value = getValue("internal", structure, path.split("."));
+      return value;
+    } else if (x.indexOf(PathSymbol.EXTERNAL) === 0) {
+      const reg = new RegExp(`^\\${PathSymbol.EXTERNAL}`);
+      const path = x.replace(reg, "");
+      const value = getValue("external", structure, path.split("."));
+      return value;
+    } else {
+      return x;
+    }
+  });
   const path = [type].concat(fullPath);
   let found = false;
   let node;

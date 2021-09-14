@@ -9,7 +9,12 @@ import { Messages } from "../messages";
 import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
 import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
+
+const nanoid = customAlphabet(
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
+  15
+);
 
 export const instrumentProducer = (
   babel: typeof Babel,
@@ -72,6 +77,7 @@ export const instrumentProducer = (
       t.objectProperty(t.identifier("fn"), fn),
       t.objectProperty(t.identifier("props"), props),
       t.objectProperty(t.identifier("type"), t.stringLiteral("producer")),
+      t.objectProperty(t.identifier("buildId"), t.stringLiteral(buildId)),
     ]);
     node.init = result;
   }

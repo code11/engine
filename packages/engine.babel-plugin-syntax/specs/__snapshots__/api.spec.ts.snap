@@ -148,6 +148,7 @@ const a = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -200,6 +201,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -235,6 +237,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -410,6 +413,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -517,6 +521,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -569,6 +574,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -744,6 +750,7 @@ const result = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 
@@ -808,6 +815,7 @@ const foo = {
     },
   },
   type: "producer",
+  buildId: "unique_id",
 };
 
 

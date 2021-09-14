@@ -3,6 +3,7 @@ import { ProducerConfig, ProducerInstance } from "./producer";
 import { ViewConfig } from "./view";
 
 export type ExternalProducerContext = {
+  props?: any;
   debug?: boolean;
 };
 

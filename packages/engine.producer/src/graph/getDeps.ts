@@ -1,4 +1,9 @@
-import { Operation, OperationTypes, ValueTypes } from "@c11/engine.types";
+import {
+  Operation,
+  OperationTypes,
+  ValueTypes,
+  PathSymbol,
+} from "@c11/engine.types";
 
 export const getDeps = (op: Operation) => {
   let deps: string[] = [];
@@ -8,6 +13,13 @@ export const getDeps = (op: Operation) => {
     op.value.type === ValueTypes.INTERNAL
   ) {
     deps.push("internal." + op.value.path.join("."));
+    op.value.path.forEach((x) => {
+      if (x.indexOf(PathSymbol.EXTERNAL) === 0) {
+        const reg = new RegExp(`^\\${PathSymbol.EXTERNAL}`);
+        const path = x.replace(reg, "");
+        deps.push("external." + path);
+      }
+    });
   }
   if (
     op.type === OperationTypes.VALUE &&

@@ -23,6 +23,8 @@ type ProducerConfigs = {
   [k: string]: ProducerConfig;
 };
 
+//TODO: Copy key={} code to avoid key issue
+
 export type RenderContext = {
   debug: boolean;
   addProducer: (
@@ -248,6 +250,9 @@ export class Render implements RenderInstance {
     return this.root;
   }
   unmount() {
+    if (this.root) {
+      ReactDOM.unmountComponentAtNode(this.root);
+    }
     return this;
   }
   mount() {
@@ -282,11 +287,17 @@ export const render = (
   container: any,
   config: ModuleConfig = {}
 ): EngineModuleSource => {
+  let instance: Render | undefined;
   return {
     bootstrap: () => {},
-    unmount: () => {},
+    unmount: () => {
+      if (instance) {
+        instance.unmount();
+        instance = undefined;
+      }
+    },
     mount: (moduleContext: ModuleContext) => {
-      const instance = new Render({
+      instance = new Render({
         element,
         container,
         debug: config.debug || false,

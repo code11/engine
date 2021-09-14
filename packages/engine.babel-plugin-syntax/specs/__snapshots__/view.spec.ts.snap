@@ -25,6 +25,7 @@ const foo = viewRandomId({
     },
   },
   type: "view",
+  buildId: "unique_id",
 });
 const bar = viewRandomId({
   fn: ({ foo }) => {},
@@ -43,6 +44,7 @@ const bar = viewRandomId({
     },
   },
   type: "view",
+  buildId: "unique_id",
 });
 
 
@@ -72,6 +74,7 @@ const foo = viewRandomId({
     },
   },
   type: "view",
+  buildId: "unique_id",
 });
 
 
@@ -90,6 +93,7 @@ const foo = viewRandomId({
     type: "PASSTHROUGH",
   },
   type: "view",
+  buildId: "unique_id",
 });
 
 
@@ -111,6 +115,7 @@ const foo = viewRandomId({
     type: "PASSTHROUGH",
   },
   type: "view",
+  buildId: "unique_id",
 });
 const bar = process({
   a: foo,
@@ -132,6 +137,7 @@ const foo = viewRandomId({
     type: "PASSTHROUGH",
   },
   type: "view",
+  buildId: "unique_id",
 });
 
 
@@ -159,6 +165,7 @@ const foo = viewRandomId({
     },
   },
   type: "view",
+  buildId: "unique_id",
 });
 
 

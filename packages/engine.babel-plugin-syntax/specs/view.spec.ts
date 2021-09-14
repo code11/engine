@@ -22,6 +22,10 @@ pluginTester({
     );
     const id = results[1];
     result = result.replace(new RegExp(id, "g"), "viewRandomId");
+    result = result.replace(
+      /buildId:\s?\"[a-zA-Z_]+\"/g,
+      `buildId:"unique_id"`
+    );
     return prettier.format(result, {
       parser: "babel",
     });

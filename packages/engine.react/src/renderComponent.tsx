@@ -9,10 +9,20 @@ export class RenderComponent extends React.Component<BaseState> {
   // static getDerivedStateFromError(e: any) {
   //   console.log("error", e);
   // }
+  props: any;
+  constructor(props: any, context: any) {
+    super(props, context);
+    this.props = props;
+  }
+  componentDidMount() {
+    this.props.onMount();
+  }
   render() {
     let el = this.props.fn.call(null, this.props.state.data);
     if (el) {
-      let extraProps;
+      let extraProps = {
+        "data-viewid": this.props.viewId,
+      };
       // extraProps = calculateExtraProps(this.props, el);
       // TODO: if !extraProps just return the initial el without clonning
       return React.cloneElement(el as React.ReactElement, extraProps);

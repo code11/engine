@@ -20,12 +20,17 @@ import isNumber from "lodash/isNumber";
 import isBoolean from "lodash/isBoolean";
 import isNil from "lodash/isNil";
 import isRegExp from "lodash/isRegExp";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import { Graph } from "./graph";
 import { UpdateOperationSymbol } from "./graph/updateOperation";
 import { GetOperationSymbol } from "./graph/getOperation";
 import { stringifyPath } from "./graph/stringifyPath";
-import { PassthroughGraph } from './graph/passthroughGraph'
+import { PassthroughGraph } from "./graph/passthroughGraph";
+
+const nanoid = customAlphabet(
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
+  15
+);
 
 enum ProducerStates {
   MOUNTED,
@@ -35,6 +40,9 @@ enum ProducerStates {
 // TODO: Add Ref.isValid() which can test if data at that location
 // is according to the schema
 
+//TODO: add helpers to producers/views headers e.g.
+//  - _now = performance.now.bind(performance)
+//  - and others
 export class Producer implements ProducerInstance {
   private state: ProducerStates = ProducerStates.UNMOUNTED;
   private db: DatastoreInstance;
@@ -57,7 +65,24 @@ export class Producer implements ProducerInstance {
     this.id = nanoid();
     this.props = config.props;
     this.fn = config.fn;
-    this.external = context.props || {};
+    this.external = {
+      ...context.props,
+    };
+
+    if (
+      !this.external._now &&
+      config.props.type === OperationTypes.STRUCT &&
+      config.props.value._now
+    ) {
+      this.external._now = performance.now.bind(performance);
+    }
+    if (
+      !this.external._producerId &&
+      config.props.type === OperationTypes.STRUCT &&
+      config.props.value._producerId
+    ) {
+      this.external._producerId = this.id;
+    }
     this.debug = context.debug || false;
     this.meta = config.meta || {};
     this.sourceId = `${config.meta?.absoluteFilePath}:${config.meta?.name}`;

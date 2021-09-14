@@ -21,6 +21,12 @@ type props = {
   proxy: Get<State["config"]["proxy"]>;
 };
 
+//TODO: enforce block statement
+
+//TODO: add prefix for relative paths to avoid
+//  nesting e.g.
+//  import { foo } from '../../../foos'
+//  and have import { foo } from 'src/foos'
 export const init: producer = async ({
   _webpack = webpack,
   _WebpackDevServer = WebpackDevServer,
@@ -47,6 +53,9 @@ export const init: producer = async ({
   try {
     tailwindConfig = require(tailwindConfigPath.value());
   } catch (e) {
+    //TODO: error needs to be shown in full. There are errors
+    //  that can occur from the file itself that will propagate here
+    //  and lead to false messages
     if (e.code === "MODULE_NOT_FOUND") {
       console.log(
         "tailwind.config.js not found. Using default tailwindcss theme."
@@ -198,7 +207,9 @@ export const init: producer = async ({
               loader: "css-loader",
               options: {
                 importLoaders: 1,
-                modules: true,
+                modules: {
+                  localIdentName: "[local]--[hash:base64:5]",
+                },
                 sourceMap: true,
               },
             },
@@ -237,6 +248,8 @@ export const init: producer = async ({
     ],
   } as Configuration;
 
+  //TODO: Account for syntax error during HMR in order to avoid
+  //  having to refresh the entire application
   const server = new _WebpackDevServer(_webpack(config), {
     proxy: proxy.value(),
     historyApiFallback: {

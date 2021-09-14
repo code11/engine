@@ -60,9 +60,11 @@ export const updateOperation = (
   const push = (value: any, params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
-      const val = db.get(path);
-      if (!isArray(val)) {
-        // console.error('path is not an array')
+      let val = db.get(path);
+      if (val === undefined) {
+        val = [];
+      } else if (!isArray(val)) {
+        // console.error("path is not an array");
         return;
       }
       val.push(value);

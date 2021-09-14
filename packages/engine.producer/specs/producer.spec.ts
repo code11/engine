@@ -533,12 +533,14 @@ test("should support the full api for the update operation", () => {
     e = update.e,
     f = update.f,
     g = update.g,
+    h = update.h,
   }) => {
     b.set("123");
     c.merge({ foo: "123" });
     d.remove();
     e.push(3);
     f.push(2);
+    h.push("a");
     g.pop();
   };
   const result = run(struct, {
@@ -561,6 +563,7 @@ test("should support the full api for the update operation", () => {
   expect(result.db.get("/e")).toEqual([1, 2, 3]);
   expect(result.db.get("/f")).toBe(1);
   expect(result.db.get("/g")).toEqual([1, 2]);
+  expect(result.db.get("/h")).toEqual(["a"]);
 });
 
 test("should support the full api for the get operation", () => {
@@ -994,12 +997,13 @@ test("should detect changes with object instances", () => {
   expect(ref.getValue()).toBe("bam");
 });
 
-test("should support Passthrough operation", () => {
+test("should support Passthrough operation", (done) => {
   const val = {
     foo: 123,
   };
   const struct: producer = (props) => {
-    expect(props).toBe(val);
+    expect(props).toStrictEqual(val);
+    done();
   };
   run(struct, {}, val);
 });
@@ -1015,7 +1019,6 @@ test("should support maintain operations in callback", () => {
   };
   const struct: producer = ({ data = update.data[prop.id] }) => {
     return () => {
-      console.log("removed foo");
       data.remove();
     };
   };
@@ -1024,6 +1027,54 @@ test("should support maintain operations in callback", () => {
   producer.unmount();
   jest.runAllTimers();
   expect(db.get("/data/foo")).toBe(undefined);
+});
+
+test("should resolve observe with args constat dependencies", (done) => {
+  const state = {
+    foo: {
+      bar: 123,
+    },
+  };
+
+  const struct: producer = ({
+    a = {
+      foo: {
+        baz: {
+          bam: "bar",
+        },
+      },
+    },
+    b = "foo",
+    c = arg.a[arg.b][prop.e.f].bam,
+    d = observe.foo[arg.c],
+  }) => {
+    expect(d).toBe(123);
+    done();
+  };
+
+  run(struct, state, { e: { f: "baz" } });
+});
+
+test("should provide private props", (done) => {
+  const struct: producer = ({ _producerId, _now }) => {
+    expect(_now).toBeDefined();
+    expect(_producerId).toBeDefined();
+    expect(_now()).toEqual(expect.any(Number));
+    expect(_producerId).toEqual(expect.any(String));
+    done();
+  };
+
+  run(struct, {}, {});
+});
+
+test("should allow override of private props", (done) => {
+  const struct: producer = ({ _producerId = 123, _now = 321 }) => {
+    expect(_now).toBe(321);
+    expect(_producerId).toBe(123);
+    done();
+  };
+
+  run(struct, {}, {});
 });
 
 // Add test that checks that references are kept
