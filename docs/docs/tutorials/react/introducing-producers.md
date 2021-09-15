@@ -69,8 +69,7 @@ Update `src/App.tsx` to use `Footer`:
 ```
 
 `Footer` will trust that `pendingCount` is going to be available in the state,
-and that `it'll always contain the correct number of pending todo items. Update
-`src/Footer.tsx` based on this assumption:
+and that `it'll always contain the correct number of pending todo items. Update `src/Footer.tsx` based on this assumption:
 
 ```diff
 + import { view, observe } from "@c11/engine.macro";
@@ -106,7 +105,7 @@ it in `producer`s. Add a `producer` to the Footer. In `src/Footer.tsx`, add
 +   updatePendingCount.set(pendingCount);
 + };
 +
-+ (Footer as any).producers = [pendingCounter];
++ Footer.producers([pendingCounter]);
 
 export default Footer;
 ```

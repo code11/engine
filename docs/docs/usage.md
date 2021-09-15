@@ -34,7 +34,7 @@ import "./index.css";
 import App from "./App";
 
 const app = engine({
-  use: [render(<App />, '#root')]
+  use: [render(<App />, "#root")],
 });
 
 app.start();
@@ -50,7 +50,7 @@ Engine react applications are pretty much written like any other React
 application, with few differences:
 
 1. Only functional react components can become Engine [view](/docs/api/view)s
-2. React components need to be labeled with `view` 
+2. React components need to be labeled with `view`
 3. State dependencies of a view are declared in its arguments (also called
    "header" of the view)
 
@@ -59,7 +59,7 @@ For example:
 ```tsx
 const greeter: producer = ({
   name = observe.name,
-  updateGreeting = update.greeting
+  updateGreeting = update.greeting,
 }) => {
   if (!name) {
     updateGreeting.set("Bye bye");
@@ -71,7 +71,7 @@ const greeter: producer = ({
 const App: view = ({
   name = observe.name,
   greeting = observe.greeting,
-  updateName = update.name
+  updateName = update.name,
 }) => {
   return (
     <>
@@ -80,13 +80,13 @@ const App: view = ({
       </h1>
       <input
         value={name}
-        onChange={e => updateName.set(e.currentTarget.value)}
+        onChange={(e) => updateName.set(e.currentTarget.value)}
       />
     </>
   );
 };
 
-(App as any).producers = [greeter];
+App.producers([greeter]);
 
 export default App;
 ```

@@ -10,6 +10,7 @@ section](/docs/implementations/react).
 
 Let's wrap up by finishing our Todos app. Three last UI elements that left
 putting life in are:
+
 1. Clearing completed Todos
 2. Toggling status of all Todos
 3. Removing a todo item when "X" button in `Todo` is clicked
@@ -56,7 +57,7 @@ const handleClearRequest: producer = ({
   clearRequest = observe.clearRequest,
   updateClearRequest = update.clearRequest,
   getTodosById = get.todosById,
-  updateTodosById = update.todosById
+  updateTodosById = update.todosById,
 }) => {
   if (!clearRequest) {
     return;
@@ -79,8 +80,8 @@ const handleClearRequest: producer = ({
 Add it to `Footer`'s producers:
 
 ```tsx
-- (Footer as any).producers = [pendingCounter];
-+ (Footer as any).producers = [pendingCounter, handleClearRequest];
+-Footer.producers([pendingCounter]);
++Footer.producers([pendingCounter, handleClearRequest]);
 ```
 
 Notice how `handleClearRequest` producer is changing the value that acts as its
@@ -120,7 +121,7 @@ const handleToggleAllRequest: producer = ({
   updateToggleAllRequest = update.toggleAllRequest,
   getTodosById = get.todosById,
   getPendingCount = get.pendingCount,
-  updateTodosById = update.todosById
+  updateTodosById = update.todosById,
 }) => {
   if (!toggleAllRequest) {
     return;
@@ -130,10 +131,10 @@ const handleToggleAllRequest: producer = ({
   const pendingCount = getPendingCount();
 
   const nextTodos = Object.values(todosById)
-    .map(todo => {
+    .map((todo) => {
       return {
         ...todo,
-        status: pendingCount !== 0 ? TodoStatuses.done : TodoStatuses.pending
+        status: pendingCount !== 0 ? TodoStatuses.done : TodoStatuses.pending,
       };
     })
     .reduce((accum, todo) => {
@@ -150,8 +151,8 @@ const handleToggleAllRequest: producer = ({
 Add it to `App`'s producers:
 
 ```diff
-- (App as any).producers = [syncVisibleTodoIds];
-+ (App as any).producers = [syncVisibleTodoIds, handleToggleAllRequest];
+- App.producers([syncVisibleTodoIds]);
++ App.producers([syncVisibleTodoIds, handleToggleAllRequest]);
 ```
 
 ## Removing Todos
@@ -168,4 +169,5 @@ In `src/Todo/View.tsx`,
 -       <button className="destroy" />
 +       <button className="destroy" onClick={() => updateTodo.remove()} />
 ```
+
 </details>

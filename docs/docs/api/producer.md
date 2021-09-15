@@ -17,10 +17,16 @@ producers, even though it is not possible to pass a value directly to the
 producer. producer receives same values as the [view](/docs/api/view) it is
 added to in `prop`s.
 
-
 The syntax is straight forward:
+
 ```ts
-const producer: producer = ({ /* header */ }) => { /* body */ }
+const producer: producer = (
+  {
+    /* header */
+  }
+) => {
+  /* body */
+};
 ```
 
 The **header** is a regular object that uses the Engine API to declare what data
@@ -39,8 +45,8 @@ body.
 <img src='/static/img/producer.jpg' alt='Producer' />
 
 Additionally, the producer function can return a callback for clean-up purposes.
-   This will be called when the producer will be unmounted from the state and thus
-   no longer in operation.
+This will be called when the producer will be unmounted from the state and thus
+no longer in operation.
 
 ## Running a producer
 
@@ -50,16 +56,16 @@ added to `Engine`'s global producers list. e.g `myProducer` can added to a
 `Button` view with:
 
     ```tsx
-    Button.producers = [myProducer];
+    Button.producers([myProducer]);
     ```
 
 `producer`s are executed by Engine on following occasions:
 
-  1. Globally added `producer`s are executed once when engine starts
-  2. `producer`s added to a [view](/docs/api/view)'s `producers` array are
-     executed once every time the view is mounted
-  3. A `producer` is executed every time any of its `observe`d value (also
-     referred to as producer's trigger) is updated.
+1. Globally added `producer`s are executed once when engine starts
+2. `producer`s added to a [view](/docs/api/view)'s `producers` array are
+   executed once every time the view is mounted
+3. A `producer` is executed every time any of its `observe`d value (also
+   referred to as producer's trigger) is updated.
 
 ## Example
 
@@ -79,6 +85,7 @@ const todoCounter: producer = ({
 ```
 
 ## Example with clean-up
+
 ```tsx
 const subscriber: producer = ({
   something = update.something
@@ -136,16 +143,17 @@ the producer should exit if its requirements aren't fulfilled.
 ```ts
 const producer: producer = ({
   description = observe.description,
-  summary = update.summary
+  summary = update.summary,
 }) => {
-  if (!description || !isString(description) ) {
-    return
+  if (!description || !isString(description)) {
+    return;
   }
-  summary.set(description.substr(0, 20))
-}
+  summary.set(description.substr(0, 20));
+};
 ```
 
 Guards can also be used to stop effects from happening (e.g. triggering another system):
+
 ```ts
 import axios from 'axios'
 const producer: producer = ({
@@ -204,9 +212,9 @@ trigger other producers to execute and in turn update the state.
 #### Clean-up
 
 Producers can be long running by subscribing to streams, initiating long calls, using
-   timers, etc. As such, when the `producer` is unmounted from the state, it is the
-   `producer`'s responsability to provide a callback for clean-up purposes. See the
-   example above.
+timers, etc. As such, when the `producer` is unmounted from the state, it is the
+`producer`'s responsability to provide a callback for clean-up purposes. See the
+example above.
 
 ## Best practices
 
@@ -214,6 +222,7 @@ Producers can be long running by subscribing to streams, initiating long calls, 
    the better. It is okay to have many small producers doing one thing each.
 2. All the dependencies of a producers should be passed in the header.
    The following is encouraged to increase the testability and reusability of the producer:
+
    ```ts
    import axios from 'axios'
 

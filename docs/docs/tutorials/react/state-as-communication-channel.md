@@ -45,21 +45,22 @@ import { view, observe, update } from "@c11/engine.macro";
 
 const TodoForm: view = ({
   updateNewTodoTitle = update.newTodo.title,
-  newTodoTitle = observe.newTodo.title
+  newTodoTitle = observe.newTodo.title,
 }) => (
-    <input
-      className="new-todo"
-      placeholder="What needs to be done?"
-      autoFocus={true}
-      value={newTodoTitle || ""}
-      onChange={e => updateNewTodoTitle.set(e.currentTarget.value)}
-    />
-  );
+  <input
+    className="new-todo"
+    placeholder="What needs to be done?"
+    autoFocus={true}
+    value={newTodoTitle || ""}
+    onChange={(e) => updateNewTodoTitle.set(e.currentTarget.value)}
+  />
+);
 
 export default TodoForm;
 ```
 
 Above snippet:
+
 1. Labeled `TodoForm` as `view`, so that it can use [observe](/docs/api/observe)
    and [update](/docs/api/update) in its header
 2. Introduced a new state path `.newTodo.title`
@@ -73,6 +74,7 @@ they contain, and store them at some path in state. All the business logic
 belongs in [producer](/docs/api/producer)s.
 
 Next steps are to:
+
 1. Add event listener for `onKeyDown` in the input
 2. Convert the pressed key to the intent TodoForm want to express, and store it
    in the state
@@ -140,7 +142,7 @@ const addNewTodo: producer = ({
   newTodoIntent = observe.newTodo.intent,
   getTitle = get.newTodo.title,
   updateTodosById = update.todosById,
-  updateNewTodoTitle = update.newTodo.title
+  updateNewTodoTitle = update.newTodo.title,
 }) => {
   if (newTodoIntent !== NewTodoItents.commit) {
     return;
@@ -151,11 +153,11 @@ const addNewTodo: producer = ({
     id,
     title: getTitle(),
     status: TodoStatuses.pending,
-    mode: TodoModes.viewing
+    mode: TodoModes.viewing,
   };
 
   updateTodosById.merge({
-    [id]: newTodo
+    [id]: newTodo,
   });
   updateNewTodoTitle.set(null);
 };
@@ -164,7 +166,7 @@ const addNewTodo: producer = ({
 And add it to the list of `TodoForm`'s producers:
 
 ```diff
-+ (TodoForm as any).producers = [addNewTodo];
++ TodoForm.producers([addNewTodo]);
 
 export default TodoForm;
 ```
@@ -180,6 +182,7 @@ export default TodoForm;
    A `producer` or `view` gets triggered every time anything it `observe`
    changes. `addNewTodo` producer should not get called whenever `newTodo.title`
    changes. It is only interested in changes in `newTodoIntent`
+
 2. Notice that a guard has been added in starting of the producer, which checks
    if state is valid for execution of this producer. This is a common pattern in
    Engine apps, since it recommends creating small, single-responsibility
@@ -192,7 +195,7 @@ created to cancel adding a new todo if user presses Escape key.
 ```tsx
 const cancelAddingTodo: producer = ({
   newTodoIntent = observe.newTodo.intent,
-  updateNewTodoTitle = update.newTodo.title
+  updateNewTodoTitle = update.newTodo.title,
 }) => {
   if (newTodoIntent !== NewTodoItents.discard) {
     return;
@@ -201,13 +204,14 @@ const cancelAddingTodo: producer = ({
   updateNewTodoTitle.set(null);
 };
 ```
+
 Notice it has a guard similar to `addNewTodo`.
 
 Adding it to `TodoForm.producers` will bring it to life:
 
 ```diff
-- (TodoForm as any).producers = [addNewTodo];
-+ (TodoForm as any).producers = [addNewTodo, cancelAddingTodo];
+- TodoForm.producers([addNewTodo]);
++ TodoForm.producers([addNewTodo, cancelAddingTodo]);
 ```
 
 Although new todos are getting added to the state, and "Pending count" in footer
@@ -225,7 +229,7 @@ it**. Add a producer in `src/App.tsx`:
 const syncVisibleTodoIds: producer = ({
   todosById = observe.todosById,
   filter = observe.filter,
-  visibleTodoIds = update.visibleTodoIds
+  visibleTodoIds = update.visibleTodoIds,
 }) => {
   const todoIdsToDisplay = Object.entries(todosById)
     .map(([key, value]) => {
@@ -252,7 +256,7 @@ evolves**. The filter will be set later, when user clicks on "All", "Active" and
 `App`:
 
 ```diff
-(App as any).producers = [syncVisibleTodoIds];
+App.producers([syncVisibleTodoIds]);
 
 export default App;
 ```
@@ -264,7 +268,7 @@ possible filters. In `src/types.tsx`, add:
 export enum TodoFilters {
   all = "all",
   completed = "completed",
-  pending = "pending"
+  pending = "pending",
 }
 ```
 
