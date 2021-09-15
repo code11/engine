@@ -46,7 +46,7 @@ it take control of the app. In the `src/index.tsx` file:
 ```diff
 import React from 'react';
 - import ReactDOM from 'react-dom';
-+ import { Engine } from "@c11/engine.react";
++ import { engine } from "@c11/engine.react";
 import './index.css';
 import App from './App';
 
@@ -56,7 +56,7 @@ import App from './App';
 -   </React.StrictMode>,
 -   document.getElementById("root")
 - );
-+ const engine = new Engine({
++ const engine = engine({
 +   view: {
 +     element: <App />,
 +     root: "#root"
@@ -122,6 +122,7 @@ export default App;
 ```
 
 Replacing the default JSX allows removing some more code that is dead now:
+
 ```sh
 rm src/App.css
 rm public/logo*

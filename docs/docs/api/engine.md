@@ -7,7 +7,7 @@ sidebar_label: Engine
 Engine application are created by invoking **engine** function:
 
 ```ts
-const app = new engine(config: EngineConfig): EngineInstance
+const app = engine(config: EngineConfig): EngineInstance
 ```
 
 ## Configuration
@@ -21,10 +21,11 @@ type EngineConfig = {
     [key: string]: any;
   };
   use: EngineModule[];
-}
+};
 ```
 
 ### `state`
+
 **default:** `{}`
 
 The initial state that will be available to producers and views when the Engine starts.

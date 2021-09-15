@@ -22,7 +22,9 @@ state. State of the app when it has just started up (aka initial state) can be
 given to [Engine](/docs/implementations/react) when it is instantiated:
 
 ```diff
-const engine = new Engine({
+import { engine } from "@c11/engine.runtime";
+
+const app = engine({
   state: {
     initial: { }
   },
@@ -31,6 +33,8 @@ const engine = new Engine({
     root: "#root"
   }
 });
+
+app.start()
 ```
 
 ## Shape of State
@@ -48,10 +52,9 @@ serialized form for network transfer (e.g JSON), to UIs. It is advisable to keep
 them in a consistent representation across different components of our system.
 Doing so builds intuition and confidence in the system.
 
-
 ## Initial state
 
-*Initial state* is the state with which an application is going to start.
+_Initial state_ is the state with which an application is going to start.
 Usually we define some defaults for many of our state data in initial state.
 
 ## State as a communication channel

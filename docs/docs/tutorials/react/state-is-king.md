@@ -9,7 +9,7 @@ initial state) can be given to [Engine](/docs/implementations/react) when it is
 instantiated:
 
 ```diff
-const engine = new Engine({
+const app = engine({
 + state: {
 +   initial: { }
 + },
@@ -30,7 +30,7 @@ file, and add how the `TodoItem` is going to be shaped like:
 ```ts
 export enum TodoStatuses {
   pending = "pending",
-  done = "done"
+  done = "done",
 }
 
 export interface TodoItem {
@@ -49,7 +49,7 @@ Knowledge of the shape of `TodoItem`s allows adding some initial todos the
 application state. In `src/index.tsx`
 
 ```diff
-const engine = new Engine({
+const app = engine({
   state: {
 -   initial: { }
 +   initial: {
