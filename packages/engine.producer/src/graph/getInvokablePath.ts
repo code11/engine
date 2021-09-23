@@ -2,8 +2,9 @@ import {
   GraphStructure,
   UpdateOperation,
   GetOperation,
-  OperationParams
+  OperationParams,
 } from "@c11/engine.types";
+import isArray from "lodash/isArray";
 import { PathSymbol } from "../path";
 import { resolveValue } from "./resolveValue";
 import { wildcard } from "../wildcard";
@@ -16,9 +17,9 @@ export const getInvokablePath = (
   const path = op.path.reduce((acc, x: any) => {
     const value = resolveValue(structure, x, params);
     if (value && value.__symbol__ === PathSymbol) {
-      const expanded = value[Symbol.toPrimitive]();
-      if (expanded) {
-        acc = acc.concat(expanded.split("."));
+      const expanded = value.__expand__();
+      if (isArray(expanded)) {
+        acc = acc.concat(expanded);
       }
     } else {
       if (value === wildcard) {

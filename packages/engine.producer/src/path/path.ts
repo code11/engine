@@ -1,14 +1,14 @@
 import clone from "clone-deep";
-class PathObject {}
+import { PathSymbol } from "./symbol";
+export class PathObject {}
 
 function createProxy(path: any[] = [], obj = new PathObject()): any {
-  if (!window.Proxy) {
-    return {}
-  }
   return new Proxy(obj, {
     get(target, prop) {
       if (prop === Symbol.toStringTag) {
         return true;
+      } else if (prop === "__expand__") {
+        return (hint: any) => path;
       } else if (prop === Symbol.toPrimitive) {
         return (hint: any) => path.join(".");
       } else if (prop === "constructor") {
@@ -24,8 +24,4 @@ function createProxy(path: any[] = [], obj = new PathObject()): any {
   });
 }
 
-export const PathSymbol = Symbol("path");
-
 export const path: any = createProxy();
-
-export const isPath = (path: any) => path && path.__symbol__ === PathSymbol;

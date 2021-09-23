@@ -1,4 +1,5 @@
 import { GraphStructure, ObserveOperation } from "@c11/engine.types";
+import isArray from "lodash/isArray";
 import { isValidPath } from "./isValidPath";
 import { resolveValue } from "./resolveValue";
 import { PathSymbol } from "../path";
@@ -11,9 +12,9 @@ export const observeOperation = (
   const path = op.path.reduce((acc, x: any) => {
     const value = resolveValue(structure, x);
     if (value && value.__symbol__ === PathSymbol) {
-      const expanded = value[Symbol.toPrimitive]();
-      if (expanded) {
-        acc = acc.concat(expanded.split("."));
+      const expanded = value.__expand__();
+      if (isArray(expanded)) {
+        acc = acc.concat(expanded);
       }
     } else {
       if (value === wildcard) {

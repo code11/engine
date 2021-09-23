@@ -1,4 +1,5 @@
 import { GraphStructure, PathSymbol } from "@c11/engine.types";
+import { isPath, PathObject } from "../path";
 
 export const getValue = (
   type: string,
@@ -40,7 +41,15 @@ export const getValue = (
     if (parts.length > 0) {
       let value = parts.reduce((acc, x) => {
         if (acc && x) {
-          acc = acc[x];
+          if (isPath(acc)) {
+            if (acc instanceof PathObject) {
+              acc = acc[x];
+            } else {
+              acc = acc(x);
+            }
+          } else {
+            acc = acc[x];
+          }
         } else {
           acc = void 0;
         }

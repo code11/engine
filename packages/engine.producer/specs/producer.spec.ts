@@ -3,7 +3,7 @@ import { GraphNodeType } from "@c11/engine.types";
 import { Producer } from "../src";
 import { GetOperationSymbol } from "../src/graph/getOperation";
 import { UpdateOperationSymbol } from "../src/graph/updateOperation";
-import { isPath, path } from "../src/path";
+import { isPath, path, pathFn } from "../src/path";
 import { wildcard } from "../src/wildcard";
 import "./global";
 
@@ -440,7 +440,52 @@ test("should support path values to be used", () => {
   expect(getVal).toEqual("321");
 });
 
-test("should support Empty path values to be used", () => {
+test("should support pathFn values to be used", () => {
+  const state = {
+    items: {
+      foo: {
+        bar: {
+          baz: {
+            bam: {
+              value: "123",
+            },
+          },
+        },
+      },
+    },
+  };
+  let observeVal;
+  let getVal;
+  let updateVal;
+  const struct: producer = ({
+    path1,
+    path2,
+    val1 = observe[arg.path1][arg.path2].bam,
+    val2 = get[prop.path1][prop.path2].bam[param.propName],
+    val3 = update[prop.path1][prop.path2.bam.value],
+  }) => {
+    observeVal = val1;
+    getVal = val2.value({ propName: "value" });
+    updateVal = val3;
+  };
+  const propName = "bar";
+  const path1 = pathFn("items");
+  const path2 = pathFn("foo", propName, pathFn("baz"));
+  const props = {
+    path1,
+    path2,
+  };
+  const result = run(struct, state, props);
+  jest.runAllTimers();
+  expect(observeVal).toEqual(state.items.foo.bar.baz.bam);
+  expect(getVal).toEqual(state.items.foo.bar.baz.bam.value);
+  updateVal.set("321");
+  jest.runAllTimers();
+  expect(observeVal).toEqual({ value: "321" });
+  expect(getVal).toEqual("321");
+});
+
+test("should support Empty pathFn values to be used", () => {
   const state = {
     test: "123",
   };
@@ -451,7 +496,7 @@ test("should support Empty path values to be used", () => {
     computedPath = path;
   };
   const props = {
-    path,
+    path: pathFn(),
   };
   const result = run(struct, state, props);
 
@@ -726,13 +771,13 @@ test("should not call more than once with same data", () => {
   expect(fn).toBeCalledTimes(1);
 });
 
-test("should support constructors for get, observe and update", () => {
+test("should support constructors for get, observe and update with pathFn", () => {
   const fn = jest.fn();
   const a: producer = ({ _get = get, _update = update }) => {
-    _update(path.foo).set(_get(path.bar).value());
+    _update(pathFn("foo")).set(_get(pathFn("bar")).value());
   };
   const b: producer = ({ _observe = observe }) => {
-    _observe(path.foo, (x) => {
+    _observe(pathFn("foo"), (x) => {
       if (!x) {
         return;
       }
@@ -756,7 +801,12 @@ test("should support constructors for get, observe and update", () => {
   expect(fn.mock.calls[0][0]).toBe("123");
 });
 
-test("should test paths for validity using isPath", () => {
+test("should test paths with pathFn for validity using isPath", () => {
+  expect(isPath(pathFn("foo"))).toBe(true);
+  expect(isPath("foo")).toBe(false);
+});
+
+test("should test paths with path for validity using isPath", () => {
   expect(isPath(path.foo)).toBe(true);
   expect(isPath("foo")).toBe(false);
 });
