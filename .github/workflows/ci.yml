@@ -30,7 +30,7 @@ jobs:
           YARN_ENABLE_SCRIPTS: false
           YARN_NODE_LINKER: pnp
         run: |
-          yarn install --immutable --skip-builds
+          yarn install --immutable --mode=skip-build
 
 
   build:
