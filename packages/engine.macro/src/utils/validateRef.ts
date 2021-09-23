@@ -19,11 +19,16 @@ export const validateRef = (ref: Babel.NodePath): Result => {
   const result: Result = {
     error: true,
   };
-  const node = ref.parentPath.node;
+  if (!ref) {
+    return result;
+  }
+  const node = ref.parentPath?.node;
   const refNode = ref.node as Identifier;
   const parent = ref.findParent((p) => p.isVariableDeclarator());
   if (!parent) {
-    throw new Error('The producer or view types can only be used with variable declarations e.g. let foo: producer.')
+    throw new Error(
+      "The producer or view types can only be used with variable declarations e.g. let foo: producer."
+    );
   }
   const declaration = parent.node as VariableDeclarator;
   if (!(isTSTypeReference(node) || isTypeAnnotation(node))) {

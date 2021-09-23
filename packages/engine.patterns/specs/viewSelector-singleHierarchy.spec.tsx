@@ -2,14 +2,14 @@ import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
-import { component } from "../src";
-import { engine, producers } from "@c11/engine.runtime";
+import { viewSelector } from "../src";
+import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
 };
 
-jest.useFakeTimers();
+jest.useFakeTimers("legacy");
 
 // @ts-ignore
 
@@ -17,7 +17,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support component() with a single hierarchy", async (done) => {
+test("should support viewSelector() with a single hierarchy", async (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
@@ -32,7 +32,7 @@ test("should support component() with a single hierarchy", async (done) => {
     return Ids.A;
   };
 
-  const Component = component(
+  const Component = viewSelector(
     {
       [Ids.A]: A,
     },

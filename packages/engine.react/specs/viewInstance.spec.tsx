@@ -8,7 +8,7 @@ const flushPromises = () => {
   return new Promise(setImmediate);
 };
 
-jest.useFakeTimers();
+jest.useFakeTimers("legacy");
 
 beforeEach(() => {
   document.body.innerHTML = "";

@@ -2,7 +2,7 @@ import { validateResults } from "./validateResults";
 
 describe("validateResults", () => {
   beforeAll(() => {
-    jest.useFakeTimers();
+    jest.useFakeTimers("legacy");
 
     //no way to remove the extended, but you can overwrite it
     expect.extend({

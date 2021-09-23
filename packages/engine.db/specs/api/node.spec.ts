@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === "test") {
 } else {
   dbFn = require(`${__dirname}/../../dist`);
 }
-const decomposePath = require(`${__dirname}/../../src/fn/decomposePath`)
-  .default;
+const decomposePath =
+  require(`${__dirname}/../../src/fn/decomposePath`).default;
 const splitPath = require(`${__dirname}/../../src/fn/splitPath`).default;
 
 // tests = [tests[tests.length - 1]]

@@ -24,4 +24,5 @@ module.exports = {
       branches: 0,
     },
   },
+  setupFiles: ["<rootDir>/jest.setup.js"],
 };

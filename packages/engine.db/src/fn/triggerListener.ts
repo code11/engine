@@ -32,11 +32,13 @@ function callNode(db, path, i, patch = []) {
       try {
         fn.call(null, val, patch);
       } catch (e) {
-        err(db, "/err/types/on/2", {
-          path: path,
-          error: e.message + " " + e.stack,
-          errObj: e,
-        });
+        if (e instanceof Error) {
+          err(db, "/err/types/on/2", {
+            path: path,
+            error: e.message + " " + e.stack,
+            errObj: e,
+          });
+        }
       }
     })();
   }

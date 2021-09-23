@@ -25,11 +25,11 @@ export const join = (...args: any[]) => {
     return view;
   } else {
     const list = views.concat(components);
-    const Component: view = (props: unknown) => {
+    const Component: view = ({ _props }: unknown) => {
       return (
         <>
           {list.map((X: typeof React.Component, i) => (
-            <X {...props} key={i} />
+            <X {..._props} key={i} />
           ))}
         </>
       );

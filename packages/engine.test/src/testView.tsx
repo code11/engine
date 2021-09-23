@@ -17,7 +17,7 @@ type testViewProps = {
 
 export const testView = async ({ name, state, view, props }: testViewProps) => {
   test(name, async () => {
-    jest.useFakeTimers();
+    jest.useFakeTimers("legacy");
     const root = document.createElement("div");
     const title = document.createElement("h1");
     title.innerHTML = name;

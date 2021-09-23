@@ -2,14 +2,14 @@ import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
-import { component } from "../src";
+import { viewSelector } from "../src";
 import { engine, path } from "@c11/engine.runtime";
 
 const flushPromises = () => {
   return new Promise(setImmediate);
 };
 
-jest.useFakeTimers();
+jest.useFakeTimers("legacy");
 
 // @ts-ignore
 
@@ -17,7 +17,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support component() with multiple hierarchy", async (done) => {
+test("should support viewSelector() with multiple hierarchy", async (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
@@ -36,25 +36,21 @@ test("should support component() with multiple hierarchy", async (done) => {
 
   let _updateChildData;
   const childInit: producer = ({
-    componentId,
     startWith,
-    updateData = update.components[param.componentId].data,
+    updateData = update.views[prop._viewId].data,
   }) => {
     if (!startWith) {
       return;
     }
     _updateChildData = (data) => {
-      updateData.set(data, { componentId });
+      updateData.set(data);
     };
-    updateData.set(
-      {
-        load: startWith,
-      },
-      { componentId }
-    );
+    updateData.set({
+      load: startWith,
+    });
   };
 
-  const Child = component(
+  const Child = viewSelector(
     {
       [ChildIds.C]: C,
       [ChildIds.D]: D,
@@ -90,13 +86,13 @@ test("should support component() with multiple hierarchy", async (done) => {
   let _get;
   const init: producer = ({
     get = get,
-    updateData = update.components[prop.componentId].data,
+    updateData = update.views[prop._viewId].data,
   }) => {
     _get = get;
     _updateParent = updateData;
   };
 
-  const Parent = component(
+  const Parent = viewSelector(
     {
       [Ids.A]: A,
       [Ids.B]: B,

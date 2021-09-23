@@ -62,13 +62,15 @@ const getNode = (db, path, patch = []) => {
         // his function
       }
     } catch (e) {
-      result = defaultValue;
-      e.message += `\n path: ${path}`;
-      e.message += `\n node: ${dynamicParent}`;
-      err(db, "/err/types/node/5", {
-        error: e.message,
-        errObj: e,
-      });
+      if (e instanceof Error) {
+        result = defaultValue;
+        e.message += `\n path: ${path}`;
+        e.message += `\n node: ${dynamicParent}`;
+        err(db, "/err/types/node/5", {
+          error: e.message,
+          errObj: e,
+        });
+      }
     }
 
     if (dynamicChildren) {

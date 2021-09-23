@@ -4,17 +4,13 @@ import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { adaptor } from "../src";
 
-const flushPromises = () => {
-  return new Promise(setImmediate);
-};
-
 jest.useFakeTimers();
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support adaptor functionality", async (done) => {
+test("should support adaptor functionality", (done) => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
@@ -32,7 +28,6 @@ test("should support adaptor functionality", async (done) => {
   };
   ReactDOM.render(<Component2 />, rootEl);
   jest.runAllTimers();
-  await flushPromises();
   waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(parseInt(x.innerHTML)).toBe(123);
     done();

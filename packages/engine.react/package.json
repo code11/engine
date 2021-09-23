@@ -17,8 +17,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test:simple": "jest --clear-cache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test": "jest --config ../../jest.config.js --coverageDirectory='packages/engine.react/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
+    "test:simple": "jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/root*",
+    "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.react/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
+    "test": "yarn run test:coverage"
   },
   "peerDependencies": {
     "react": ">=16"

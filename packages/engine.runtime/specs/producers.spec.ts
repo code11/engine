@@ -4,7 +4,7 @@ const flushPromises = () => {
   return new Promise(setImmediate);
 };
 
-jest.useFakeTimers();
+jest.useFakeTimers("legacy");
 
 test("should remove producers", async () => {
   let testValue;

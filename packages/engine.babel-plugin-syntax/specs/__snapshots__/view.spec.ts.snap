@@ -101,14 +101,14 @@ const foo = viewRandomId({
 
 exports[`engine.babel-plugin-syntax should support imports from other engine packages: should support imports from other engine packages 1`] = `
 
-import { process } from "@c11/engine.react-components"
+import { bam } from "bam-bam"
 const foo: view = (props) => {}
-const bar = process({ a: foo })
+const bar = bam({ a: foo })
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import { view as viewRandomId } from "engineViewLibrary";
-import { process } from "@c11/engine.react-components";
+import { bam } from "bam-bam";
 const foo = viewRandomId({
   fn: (props) => {},
   props: {
@@ -117,7 +117,7 @@ const foo = viewRandomId({
   type: "view",
   buildId: "unique_id",
 });
-const bar = process({
+const bar = bam({
   a: foo,
 });
 

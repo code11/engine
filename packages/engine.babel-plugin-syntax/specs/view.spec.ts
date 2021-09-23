@@ -72,9 +72,9 @@ pluginTester({
     },
     "should support imports from other engine packages": {
       code: `
-        import { process } from "@c11/engine.react-components"
+        import { bam } from "bam-bam"
         const foo: view = (props) => {}
-        const bar = process({ a: foo })
+        const bar = bam({ a: foo })
       `,
       snapshot: true,
     },

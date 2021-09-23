@@ -6,7 +6,7 @@ import { join } from "../src";
 import { engine } from "@c11/engine.runtime";
 
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(setTimeout);
 };
 
 jest.useFakeTimers();
@@ -17,7 +17,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support join() with multiple views and producers", async (done) => {
+test("should support join() with multiple views and producers", (done) => {
   const fooValue = "123";
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
@@ -45,10 +45,13 @@ test("should support join() with multiple views and producers", async (done) => 
 
   app.start();
 
+  flushPromises();
   jest.runAllTimers();
-  await flushPromises();
+  flushPromises();
   waitFor(() => getByTestId(document.body, "bar")).then((x) => {
     expect(x.innerHTML).toBe(fooValue);
+    done();
+    return;
     waitFor(() => getByTestId(document.body, "baz")).then((x) => {
       expect(x.innerHTML).toBe(fooValue);
       done();

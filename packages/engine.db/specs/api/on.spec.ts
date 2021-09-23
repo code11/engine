@@ -2,7 +2,7 @@
 
 // @TODO: Add test when a listener cache returns undefined
 
-jest.useFakeTimers();
+jest.useFakeTimers("legacy");
 
 const isObjectLike = require("lodash/isObjectLike");
 const isArray = require("lodash/isArray");
@@ -17,8 +17,8 @@ if (process.env.NODE_ENV === "test") {
   dbFn = require(`${__dirname}/../../dist`);
 }
 
-const decomposePath = require(`${__dirname}/../../src/fn/decomposePath`)
-  .default;
+const decomposePath =
+  require(`${__dirname}/../../src/fn/decomposePath`).default;
 
 const additionalProps = ["err"];
 

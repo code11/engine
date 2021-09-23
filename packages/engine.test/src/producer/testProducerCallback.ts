@@ -3,7 +3,7 @@ import { validateResults } from "./validateResults";
 
 export const testProducerCallback = (producer, values, expectations) => {
   return () => {
-    jest.useFakeTimers();
+    jest.useFakeTimers("legacy");
 
     const mockMap = mockProps(producer, values);
     validateResults(producer, mockMap, expectations);
