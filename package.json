@@ -5,7 +5,8 @@
   "private": true,
   "keywords": [],
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "author": {
     "name": "Constantin Dumitrescu",

@@ -14,8 +14,12 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: Build
-        run: yarn && yarn run build
+      - name: Install dependencies
+        run: yarn
+        working-directory: docs
+
+      - name: Build documentation
+        run: yarn run build
         working-directory: docs
 
       - name: Deploy
