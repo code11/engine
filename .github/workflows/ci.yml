@@ -50,7 +50,7 @@ jobs:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: yarn-${{ hashFiles('yarn.lock') }}
       - name: Install Dependencies
-        run: yarn install --immutable --skip-builds
+        run: yarn install --immutable --mode=skip-build
       - run: yarn build
       - run: yarn run test
       - name: Upload coverage report
