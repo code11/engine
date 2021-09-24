@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.69](https://github.com/code11/engine/compare/v4.0.0-alpha.66...v4.0.0-alpha.69) (2021-09-24)
+
+
+### Features
+
+* add viewId and producerId support ([894ff08](https://github.com/code11/engine/commit/894ff089149c276e383aefb3ae4d92cd5a8aaade))
+* **engine.service-web:** use the tailwindcss version from the env ([9a86c54](https://github.com/code11/engine/commit/9a86c54d29980c03a66e5ddab3c251ebefe4440f))
+
+
+
+
+
 # [4.0.0-alpha.67](https://github.com/code11/engine/compare/v4.0.0-alpha.54...v4.0.0-alpha.67) (2021-09-06)
 
 **Note:** Version bump only for package @c11/engine.service-web

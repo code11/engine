@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.69](https://github.com/code11/engine/compare/v4.0.0-alpha.66...v4.0.0-alpha.69) (2021-09-24)
+
+
+### Bug Fixes
+
+* **engine.producer:** if Proxy is not availabe do not attempt to create on ([261f818](https://github.com/code11/engine/commit/261f8180833413b31464f16d7d88fde4eacb2e81))
+
+
+### Features
+
+* add viewId and producerId support ([894ff08](https://github.com/code11/engine/commit/894ff089149c276e383aefb3ae4d92cd5a8aaade))
+
+
+
+
+
 # [4.0.0-alpha.67](https://github.com/code11/engine/compare/v4.0.0-alpha.54...v4.0.0-alpha.67) (2021-09-06)
 
 
