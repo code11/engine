@@ -2003,11 +2003,12 @@ __metadata:
     react-dom: ^17.0.2
     style-loader: ^3.2.1
     svg-inline-loader: ^0.8.2
-    tailwindcss: ^2.2.15
     url-loader: ^4.1.1
     webpack: ^5.52.1
     webpack-bundle-analyzer: ^4.4.2
     webpack-dev-server: ^4.2.1
+  peerDependencies:
+    tailwindcss: "*"
   bin:
     engine-service-web: dist/index.js
   languageName: unknown
@@ -18264,7 +18265,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^2.0.4, tailwindcss@npm:^2.2.15":
+"tailwindcss@npm:^2.0.4":
   version: 2.2.15
   resolution: "tailwindcss@npm:2.2.15"
   dependencies:
