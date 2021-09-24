@@ -55,6 +55,7 @@ export const writePackageJson: producer = async ({
     },
     devDependencies: {
       [scripts.packageName]: scripts.version,
+      ...config.devDependencies,
     },
     dependencies: {
       ...config.dependencies,
