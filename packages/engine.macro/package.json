@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.macro",
-  "version": "4.0.0-alpha.69",
+  "version": "4.0.0-alpha.70",
   "description": "Babel macros that define the Engine API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -24,8 +24,8 @@
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
     "@babel/types": "^7.13.14",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.69",
-    "@c11/engine.types": "4.0.0-alpha.69",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.70",
+    "@c11/engine.types": "4.0.0-alpha.70",
     "@types/babel-plugin-macros": "^2.8.4",
     "@types/babel__core": "^7.1.14",
     "@types/babel__preset-env": "^7.9.1",
