@@ -36,5 +36,6 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "nanoid": "^3.1.25"
-  }
+  },
+  "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9"
 }
