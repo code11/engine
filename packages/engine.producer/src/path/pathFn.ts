@@ -2,7 +2,7 @@ import clone from "clone-deep";
 import { PathSymbol } from "./symbol";
 import { isPath } from "./isPath";
 
-const createPath = (...args) => {
+export const pathFn = (...args: any[]) => {
   args = args.reduce((acc, x) => {
     if (isPath(x)) {
       acc = acc.concat(x.__expand__());
@@ -12,7 +12,7 @@ const createPath = (...args) => {
     return acc;
   }, []);
   const current = clone(args);
-  const path = (...newArgs) => {
+  const path = (...newArgs: any[]) => {
     newArgs = newArgs.reduce((acc, x) => {
       if (isPath(x)) {
         acc = acc.concat(x.__expand__());
@@ -22,7 +22,7 @@ const createPath = (...args) => {
       return acc;
     }, []);
     const result = current.concat(newArgs);
-    return createPath(...result);
+    return pathFn(...result);
   };
 
   Object.defineProperty(path, "__symbol__", {
@@ -40,8 +40,4 @@ const createPath = (...args) => {
   });
 
   return path;
-};
-
-export const pathFn = (...args) => {
-  return createPath(...args);
 };

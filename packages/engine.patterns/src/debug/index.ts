@@ -1,4 +1,4 @@
-import { path } from "@c11/engine.runtime";
+import { pathFn } from "@c11/engine.runtime";
 
 export const debug: producer = ({
   getValue = get[param.path],
@@ -7,9 +7,9 @@ export const debug: producer = ({
   const makePath = (str: string) => {
     const parts = str.split(".");
     const result = parts.reduce((acc, x) => {
-      acc = acc[x];
+      acc = acc(x);
       return acc;
-    }, path);
+    }, pathFn);
     return result;
   };
 

@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test:simple": "jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/root*",
+    "test:simple": "jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
     "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.react/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "yarn run test:coverage"
   },

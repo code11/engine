@@ -43,6 +43,7 @@ export const getValue = (
         if (acc && x) {
           if (isPath(acc)) {
             if (acc instanceof PathObject) {
+              //@ts-ignore
               acc = acc[x];
             } else {
               acc = acc(x);

@@ -22,7 +22,7 @@ import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
 import { customAlphabet } from "nanoid";
 import { PathType } from "@c11/engine.types";
-import { path } from "@c11/engine.runtime";
+import { pathFn } from "@c11/engine.runtime";
 
 const nanoid = customAlphabet(
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
@@ -214,13 +214,13 @@ export function view(config: ViewConfig) {
         },
         fn: ({ _update }: any) => {
           this._update = _update;
-          _update(path.views[this.id]).set({
+          _update(pathFn("views", this.id)).set({
             id: this.id,
             createdAt: performance.now(),
             data: {},
           });
           return () => {
-            _update(path.views[this.id]).remove();
+            _update(pathFn("views", this.id)).remove();
           };
         },
         meta: {
@@ -384,7 +384,7 @@ export function view(config: ViewConfig) {
 
       const parentId = getParentId(view, root);
 
-      this._update(path.views[this.id]).merge({
+      this._update(pathFn("views", this.id)).merge({
         rootId: root.getAttribute("data-viewid"),
         parentId,
       });
