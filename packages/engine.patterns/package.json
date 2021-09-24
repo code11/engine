@@ -15,8 +15,8 @@
     "test": "yarn run test:simple"
   },
   "peerDependencies": {
-    "@c11/engine.react": "4.0.0-alpha.68",
-    "@c11/engine.runtime": "4.0.0-alpha.68",
+    "@c11/engine.react": "4.0.0-alpha.69",
+    "@c11/engine.runtime": "4.0.0-alpha.69",
     "@c11/engine.types": "4.0.0-alpha.51",
     "react": ">=17"
   },

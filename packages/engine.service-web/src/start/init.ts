@@ -250,14 +250,17 @@ export const init: producer = async ({
 
   //TODO: Account for syntax error during HMR in order to avoid
   //  having to refresh the entire application
-  const server = new _WebpackDevServer(_webpack(config), {
-    proxy: proxy.value(),
-    historyApiFallback: {
-      index: "index.html",
+  const server = new _WebpackDevServer(
+    {
+      proxy: proxy.value(),
+      historyApiFallback: {
+        index: "index.html",
+      },
+      static: publicPath.value(),
+      hot: true,
     },
-    contentBase: publicPath.value(),
-    hot: true,
-  });
+    _webpack(config)
+  );
 
   server.listen(8081, "0.0.0.0");
 };
