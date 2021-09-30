@@ -13,8 +13,7 @@ Engine strives to build applications with
 
 - Small codebase. Less code, less bugs, more hairs still on head
 - Less work for computer. Only compute what is needed for faster applications
-- Less work for developer. Minimal API which gets out of developers' way. Allows
-  focusing on business problems, not Engine problems
+- Less work for developer. Minimal API which gets out of developers' way.
 
 ## Run
 
