@@ -3,10 +3,9 @@
 [![push](https://github.com/code11/engine/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/code11/engine/actions)
 [![codecov](https://codecov.io/gh/code11/engine/branch/master/graph/badge.svg?token=K3UZLXWOEK)](https://codecov.io/gh/code11/engine)
 
-Engine is a meta-framework for creating web applications.
+Engine is state management and development solution for creating web applications with unprecedented simplicity.
 
-Engine keenly focuses on developer productivity while allowing creating robust
-web applications with unprecedented simplicity.
+You can read more on the [Engine Documentation](https://code11.github.io/engine/docs/) site.
 
 ## Goals
 
@@ -16,9 +15,6 @@ Engine strives to build applications with
 - Less work for computer. Only compute what is needed for faster applications
 - Less work for developer. Minimal API which gets out of developers' way. Allows
   focusing on business problems, not Engine problems
-
-You can read more about the principles behind Engine and more on [Engine
-Documentation](https://code11.github.io/engine/docs/) site.
 
 ## Run
 
@@ -51,7 +47,7 @@ import { view, observe, update, producer } from "@c11/engine.macro";
 
 const greeter: producer = ({
   name = observe.name,
-  updateGreeting = update.greeting
+  updateGreeting = update.greeting,
 }) => {
   if (!name) {
     updateGreeting.set("Bye bye");
@@ -63,7 +59,7 @@ const greeter: producer = ({
 const App: view = ({
   name = observe.name,
   greeting = observe.greeting,
-  updateName = update.name
+  updateName = update.name,
 }) => {
   return (
     <>
@@ -72,7 +68,7 @@ const App: view = ({
       </h1>
       <input
         value={name}
-        onChange={e => updateName.set(e.currentTarget.value)}
+        onChange={(e) => updateName.set(e.currentTarget.value)}
       />
     </>
   );
