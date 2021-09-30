@@ -29,16 +29,12 @@ npm start
 
 ## Build
 
-Engine react applications are pretty much written like any other React
-application, with few differences:
+You can use Engine for building React applications and you won't be needing classes, hooks or
+any other state management libraries.
 
-1. Only functional react components can become Engine
-   [view](https://code11.github.io/engine/docs/api/view)s
-2. React components need to be labeled with `view` macro
-3. State dependencies of a view are declared in its arguments (also called
-   "header" of the view)
+You will pretty much be needing only the JSX aspect of React and a few Engine keywords.
 
-For example:
+Here's an example:
 
 ```tsx
 // app.tsx
