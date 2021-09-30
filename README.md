@@ -42,45 +42,52 @@ application, with few differences:
 For example:
 
 ```tsx
-import React from "react";
-import { view, observe, update, producer } from "@c11/engine.macro";
+// app.tsx
+export const App: view = ({
+  name = observe.name,
+  greeting = observe.greeting,
+  updateName = update.name,
+}) => (
+  <div>
+    <h1>{greeting}</h1>
+    <input
+      value={name}
+      onChange={(e) => updateName.set(e.currentTarget.value)}
+    />
+  </div>
+);
 
 const greeter: producer = ({
   name = observe.name,
   updateGreeting = update.greeting,
 }) => {
   if (!name) {
-    updateGreeting.set("Bye bye");
+    updateGreeting.set("Enter your name below.");
   } else {
-    updateGreeting.set("Hello");
+    updateGreeting.set(`Hello ${name}!`);
   }
 };
 
-const App: view = ({
-  name = observe.name,
-  greeting = observe.greeting,
-  updateName = update.name,
-}) => {
-  return (
-    <>
-      <h1 className="App-header">
-        {greeting} {name}
-      </h1>
-      <input
-        value={name}
-        onChange={(e) => updateName.set(e.currentTarget.value)}
-      />
-    </>
-  );
-};
-
-(App as any).producers = [greeter];
-
-export default App;
+App.producers([greeter]);
 ```
 
-This tiny example demonstrates pretty much all the Engine concepts needed to use
-it!
+```tsx
+// index.tsx
+import { engine } from "@c11/engine.runtime";
+import { render } from "@c11/engine.react";
+import { App } from "./app";
+
+const app = engine({
+  state: {
+    name: "Foo Bar",
+  },
+  use: [render(<App />, "#app")],
+});
+
+app.start();
+```
+
+This tiny example demonstrates pretty much all the Engine concepts!
 
 Components labeled as [view](https://code11.github.io/engine/docs/api/view) can
 [observe](https://code11.github.io/engine/docs/api/observe) anything from state,
@@ -88,9 +95,8 @@ and [update](https://code11.github.io/engine/docs/api/update) anything in the
 state.
 
 Functions labeled as
-[producer](https://code11.github.io/engine/docs/api/producer) behave pretty much
-the same way as `view`s, but don't render anything on screen. Producers are
-where the business logic should live.
+[producer](https://code11.github.io/engine/docs/api/producer) is where the
+business logic should live and use the state to store and read data.
 
 Head over to the [React Quick
 start](https://code11.github.io/engine/docs/tutorials/react/setup) tutorial for
