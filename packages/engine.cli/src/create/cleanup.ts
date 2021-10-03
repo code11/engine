@@ -6,7 +6,7 @@ const pRmdir = promisify(rmdir);
 
 type props = {
   _rmdir: typeof pRmdir;
-  _now: typeof performance.now;
+  _now: number;
   isSetupReady: State["create"]["flags"]["isSetupReady"];
   getTmpPath: Get<State["create"]["config"]["tmpPath"]>;
   flag: Update<State["create"]["flags"]["isCleanupReady"]>;
@@ -14,7 +14,7 @@ type props = {
 
 export const cleanup: producer = async ({
   _rmdir = pRmdir,
-  _now = performance.now,
+  _now,
   isSetupReady = observe.create.flags.isSetupReady,
   getTmpPath = get.create.config.tmpPath,
   flag = update.create.flags.isCleanupReady,

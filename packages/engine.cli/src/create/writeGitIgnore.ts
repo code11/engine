@@ -6,7 +6,7 @@ const pWriteFile = promisify(writeFile);
 
 type props = {
   _writeFile: typeof pWriteFile;
-  _now: typeof performance.now;
+  _now: number;
   isTemplateCopyReady: State["create"]["flags"]["isTemplateCopyReady"];
   isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];
   gitIgnorePath: Get<State["create"]["config"]["targetGitIgnorePath"]>;
@@ -15,7 +15,7 @@ type props = {
 
 export const writeGitIgnore: producer = async ({
   _writeFile = pWriteFile,
-  _now = performance.now,
+  _now,
   isTemplateCopyReady = observe.create.flags.isTemplateCopyReady,
   isTemplateConfigReady = observe.create.flags.isTemplateConfigReady,
   gitIgnorePath = get.create.config.targetGitIgnorePath,

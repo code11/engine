@@ -28,6 +28,7 @@
     "dist"
   ],
   "dependencies": {
+    "@c11/engine.producer": "4.0.0-alpha.70",
     "@c11/engine.runtime": "4.0.0-alpha.70",
     "@c11/engine.types": "4.0.0-alpha.70",
     "lodash": "^4.17.21",

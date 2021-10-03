@@ -2,6 +2,7 @@ import commander from "commander";
 import { performance } from "perf_hooks";
 
 type props = {
+  _now: number;
   _commander: typeof commander;
   version: State["config"]["version"];
   start: Update<State["start"]["triggers"]["init"]>;
@@ -9,6 +10,7 @@ type props = {
 };
 
 export const command: producer = ({
+  _now,
   _commander = commander,
   version = observe.config.version,
   start = update.start.triggers.init,
@@ -26,7 +28,7 @@ export const command: producer = ({
     .action((cmd: commander.Command) => {
       start.set({
         opts: (cmd && cmd.opts && cmd.opts()) || {},
-        timestamp: performance.now(),
+        timestamp: _now(),
       });
     });
 
@@ -36,7 +38,7 @@ export const command: producer = ({
     .action((cmd: commander.Command) => {
       build.set({
         opts: (cmd && cmd.opts && cmd.opts()) || {},
-        timestamp: performance.now(),
+        timestamp: _now(),
       });
     });
 

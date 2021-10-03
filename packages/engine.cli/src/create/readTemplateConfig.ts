@@ -9,8 +9,8 @@ enum CreateTemplateTarget {
 const pReadFile = promisify(readFile);
 
 type props = {
+  _now: number;
   _readFile: typeof pReadFile;
-  _now: typeof performance.now;
   isReady: State["create"]["flags"]["isTemplateDownloadReady"];
   path: Get<State["create"]["config"]["templateConfigFilePath"]>;
   config: Update<State["create"]["templateConfig"]>;
@@ -18,8 +18,8 @@ type props = {
 };
 
 export const readTemplateConfig: producer = async ({
+  _now,
   _readFile = pReadFile,
-  _now = performance.now,
   isReady = observe.create.flags.isTemplateDownloadReady,
   path = get.create.config.templateConfigFilePath,
   config = update.create.templateConfig,

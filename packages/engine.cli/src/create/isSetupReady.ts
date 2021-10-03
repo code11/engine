@@ -1,7 +1,7 @@
 import { performance } from "perf_hooks";
 
 type props = {
-  _now: typeof performance.now;
+  _now: number;
   isDependencyInstallReady: State["create"]["flags"]["isDependencyInstallReady"];
   isTsConfigReady: State["create"]["flags"]["isTsConfigReady"];
   isGitIgnoreReady: State["create"]["flags"]["isGitIgnoreReady"];
@@ -9,7 +9,7 @@ type props = {
 };
 
 export const isSetupReady: producer = ({
-  _now = performance.now,
+  _now,
   isDependencyInstallReady = observe.create.flags.isDependencyInstallReady,
   isTsConfigReady = observe.create.flags.isTsConfigReady,
   isGitIgnoreReady = observe.create.flags.isGitIgnoreReady,

@@ -8,7 +8,7 @@ const pWriteFile = promisify(writeFile);
 
 type props = {
   _writeFile: typeof pWriteFile;
-  _now: typeof performance.now;
+  _now: number;
   isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];
   isTemplateCopyReady: State["create"]["flags"]["isTemplateCopyReady"];
   target: State["create"]["templateConfig"]["target"];
@@ -21,7 +21,7 @@ type props = {
 
 export const writePackageJson: producer = async ({
   _writeFile = pWriteFile,
-  _now = performance.now,
+  _now,
   isTemplateCopyReady = observe.create.flags.isTemplateCopyReady,
   isTemplateConfigReady = observe.create.flags.isTemplateConfigReady,
   target = observe.create.templateConfig.target,

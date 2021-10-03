@@ -1871,6 +1871,7 @@ __metadata:
     "@babel/preset-react": ^7.13.13
     "@babel/preset-typescript": ^7.13.0
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.70
+    "@c11/engine.producer": 4.0.0-alpha.70
     "@c11/engine.runtime": 4.0.0-alpha.70
     "@c11/engine.types": 4.0.0-alpha.70
     "@testing-library/jest-dom": ^5.11.10

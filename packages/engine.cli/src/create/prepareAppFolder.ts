@@ -8,7 +8,7 @@ const pMkdir = promisify(mkdir);
 type props = {
   _readdir: typeof pReaddir;
   _mkdir: typeof pMkdir;
-  _now: typeof performance.now;
+  _now: number;
   targetPath: State["create"]["config"]["targetPath"];
   flag: Update<State["create"]["flags"]["isAppFolderReady"]>;
 };
@@ -16,7 +16,7 @@ type props = {
 export const prepareAppFolder: producer = async ({
   _readdir = pReaddir,
   _mkdir = pMkdir,
-  _now = performance.now,
+  _now,
   targetPath = observe.create.config.targetPath,
   flag = update.create.flags.isAppFolderReady,
 }: props) => {

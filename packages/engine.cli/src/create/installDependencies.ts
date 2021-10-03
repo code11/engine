@@ -3,15 +3,15 @@ import { performance } from "perf_hooks";
 
 type props = {
   _spawn: typeof spawn;
-  _now: typeof performance.now;
+  _now: number;
   isReady: State["create"]["flags"]["isPackageJsonReady"];
   getTargetPath: Get<State["create"]["config"]["targetPath"]>;
   flag: Update<State["create"]["flags"]["isDependencyInstallReady"]>;
 };
 
 export const installDependencies: producer = async ({
+  _now,
   _spawn = spawn,
-  _now = performance.now,
   isReady = observe.create.flags.isPackageJsonReady,
   getTargetPath = get.create.config.targetPath,
   flag = update.create.flags.isDependencyInstallReady,

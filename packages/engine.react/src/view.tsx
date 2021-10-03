@@ -17,6 +17,7 @@ import {
   OperationTypes,
   UpdateValue,
 } from "@c11/engine.types";
+import { now } from "@c11/engine.producer";
 import type { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
@@ -216,7 +217,7 @@ export function view(config: ViewConfig) {
           this._update = _update;
           _update(pathFn("views", this.id)).set({
             id: this.id,
-            createdAt: performance.now(),
+            createdAt: now(),
             data: {},
           });
           return () => {

@@ -2,7 +2,7 @@ import pacote from "pacote";
 import { performance } from "perf_hooks";
 
 type props = {
-  _now: typeof performance.now;
+  _now: number;
   _pacote: typeof pacote;
   templatePath: State["create"]["config"]["templatePath"];
   templateName: State["create"]["config"]["templateName"];
@@ -11,8 +11,8 @@ type props = {
 };
 
 export const downloadTemplate: producer = async ({
+  _now,
   _pacote = pacote,
-  _now = performance.now,
   templatePath = observe.create.config.templatePath,
   templateName = observe.create.config.templateName,
   isReady = observe.create.flags.isAppFolderReady,

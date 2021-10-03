@@ -5,8 +5,8 @@ import { performance } from "perf_hooks";
 const pWriteFile = promisify(writeFile);
 
 type props = {
+  _now: number;
   _writeFile: typeof pWriteFile;
-  _now: typeof performance.now;
   isTemplateCopyReady: State["create"]["flags"]["isTemplateCopyReady"];
   isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];
   tsConfigPath: Get<State["create"]["config"]["targetTsConfigPath"]>;
@@ -14,8 +14,8 @@ type props = {
 };
 
 export const writeTsConfig: producer = async ({
+  _now,
   _writeFile = pWriteFile,
-  _now = performance.now,
   isTemplateCopyReady = observe.create.flags.isTemplateCopyReady,
   isTemplateConfigReady = observe.create.flags.isTemplateConfigReady,
   tsConfigPath = get.create.config.targetTsConfigPath,

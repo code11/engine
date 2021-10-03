@@ -6,7 +6,7 @@ const pNcp = promisify(ncp);
 
 type props = {
   _ncp: typeof pNcp;
-  _now: typeof performance.now;
+  _now: number;
   isReady: State["create"]["flags"]["isTemplateDownloadReady"];
   sandboxPath: State["create"]["config"]["templateSandboxPath"];
   targetPath: State["create"]["config"]["targetPath"];
@@ -15,7 +15,7 @@ type props = {
 
 export const copyTemplate: producer = async ({
   _ncp = pNcp,
-  _now = performance.now,
+  _now,
   isReady = observe.create.flags.isTemplateDownloadReady,
   sandboxPath = observe.create.config.templateSandboxPath,
   targetPath = observe.create.config.targetPath,
