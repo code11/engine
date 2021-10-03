@@ -3,3 +3,4 @@ export { viewSelector } from "./viewSelector";
 export { adaptor } from "./adaptor";
 export { join } from "./join";
 export { isProducer, isView } from "./utils";
+export { debug } from "./debug";
