@@ -22,6 +22,7 @@ import isNil from "lodash/isNil";
 import isRegExp from "lodash/isRegExp";
 import { customAlphabet } from "nanoid";
 import { Graph } from "./graph";
+import { now } from "./now";
 import { UpdateOperationSymbol } from "./graph/updateOperation";
 import { GetOperationSymbol } from "./graph/getOperation";
 import { stringifyPath } from "./graph/stringifyPath";
@@ -40,9 +41,6 @@ enum ProducerStates {
 // TODO: Add Ref.isValid() which can test if data at that location
 // is according to the schema
 
-//TODO: add helpers to producers/views headers e.g.
-//  - _now = performance.now.bind(performance)
-//  - and others
 export class Producer implements ProducerInstance {
   private state: ProducerStates = ProducerStates.UNMOUNTED;
   private db: DatastoreInstance;
@@ -74,7 +72,7 @@ export class Producer implements ProducerInstance {
       config.props.type === OperationTypes.STRUCT &&
       config.props.value._now
     ) {
-      this.external._now = performance.now.bind(performance);
+      this.external._now = now;
     }
     if (
       !this.external._producerId &&
