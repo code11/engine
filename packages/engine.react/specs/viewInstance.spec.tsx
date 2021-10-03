@@ -101,8 +101,10 @@ test("should create a state instance for a view", async (done) => {
     expect(childView2.parentId).toBe(childView.id);
     expect(childView2.rootId).toBe(parentView.id);
 
-    // console.log(parentView, childView, childView2);
+    expect(parentView.children[childView.id]).toBeDefined();
+    expect(childView.children[childView2.id]).toBeDefined();
 
+    // console.log(parentView, childView, childView2);
     app.stop();
 
     jest.runAllTimers();

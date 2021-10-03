@@ -152,6 +152,7 @@ export function view(config: ViewConfig) {
     viewProps: StructOperation;
     producers: { [k: string]: ProducerInstance } = {};
     isStateReady = false;
+    createdAt: number;
     viewProducer: ProducerInstance;
     viewStateProducer: ProducerInstance;
     viewContext: ExternalProducerContext;
@@ -198,6 +199,7 @@ export function view(config: ViewConfig) {
       this.viewProps = config.props;
       this.ref = React.createRef();
       this.fn = config.fn;
+      this.createdAt = now();
       const viewProducer = {
         props: config.props,
         fn: this.updateData.bind(this),
@@ -217,7 +219,7 @@ export function view(config: ViewConfig) {
           this._update = _update;
           _update(pathFn("views", this.id)).set({
             id: this.id,
-            createdAt: now(),
+            createdAt: this.createdAt,
             data: {},
           });
           return () => {
@@ -389,6 +391,10 @@ export function view(config: ViewConfig) {
         rootId: root.getAttribute("data-viewid"),
         parentId,
       });
+
+      this._update(pathFn("views", parentId, "children", this.id)).set(
+        this.createdAt
+      );
     }
     render() {
       // TODO: anyway of knowing if the props changed?
