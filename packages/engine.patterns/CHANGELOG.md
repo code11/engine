@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.74](https://github.com/code11/engine/compare/v4.0.0-alpha.73...v4.0.0-alpha.74) (2021-10-03)
+
+
+### Features
+
+* **engine.patterns:** add debug ([8962201](https://github.com/code11/engine/commit/89622018dc2a7af670ea7bf37f10bedbffad202b))
+
+
+
+
+
 # [4.0.0-alpha.72](https://github.com/code11/engine/compare/v4.0.0-alpha.71...v4.0.0-alpha.72) (2021-10-03)
 
 **Note:** Version bump only for package @c11/engine.patterns
