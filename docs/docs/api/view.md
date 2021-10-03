@@ -53,10 +53,10 @@ type viewInstance = {
   id: string,
   createdAt: number,
   data: object, // used to store view's private/temporary data
-  parentId: string, | null, // the parent view
-  rootId: string, // the root element
+  parentId: string | null, // the parent view or null if it's the root
+  rootId: string, // the root (top-most) view
   children: {
-    [k: string]: number // the ids of the direct children of the view
+    [k: string]: number // the ids of the direct children views of the view
   }
 }
 ```
