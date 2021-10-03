@@ -208,7 +208,7 @@ export const init: producer = async ({
               options: {
                 importLoaders: 1,
                 modules: {
-                  localIdentName: "[local]--[hash:base64:5]",
+                  localIdentName: "[path][name]__[local]--[hash:base64:5]",
                 },
                 sourceMap: true,
               },
