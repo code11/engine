@@ -3,7 +3,7 @@
     "packages/*"
   ],
   "npmClient": "yarn",
-  "version": "4.0.0-alpha.71",
+  "version": "4.0.0-alpha.72",
   "useWorkspaces": true,
   "changelogPreset": "angular"
 }

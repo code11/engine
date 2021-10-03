@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.72](https://github.com/code11/engine/compare/v4.0.0-alpha.71...v4.0.0-alpha.72) (2021-10-03)
+
+
+### Bug Fixes
+
+* **engine.producer:** create a now() util that works on browser/node ([8b5864c](https://github.com/code11/engine/commit/8b5864ccef7f3ca4ced8182a9e16869da1197472))
+
+
+
+
+
 # [4.0.0-alpha.70](https://github.com/code11/engine/compare/v4.0.0-alpha.69...v4.0.0-alpha.70) (2021-09-24)
 
 **Note:** Version bump only for package @c11/engine.producer
