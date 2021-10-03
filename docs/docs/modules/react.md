@@ -1,5 +1,5 @@
 ---
-id: react-module
+id: react
 title: React Module
 sidebar_label: React Module
 ---

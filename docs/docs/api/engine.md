@@ -1,7 +1,7 @@
 ---
 id: engine
-title: Engine
-sidebar_label: Engine
+title: engine
+sidebar_label: engine
 ---
 
 Engine application are created by invoking **engine** function:
@@ -13,7 +13,7 @@ const app = engine(config: EngineConfig): EngineInstance
 ## Configuration
 
 The configuration object contains the [initial state](/docs/concepts/state) of
-the engine app, and [Engine Modules](/docs/api/modules) it is going to use.
+the engine app, and [Engine Modules](/docs/modules/engine) it is going to use.
 
 ```ts
 type EngineConfig = {
@@ -39,7 +39,7 @@ later, after the `app` has been created using `app.use`. Engine modules an app
 uses make most decisiosn about it. Including how the app is going to be
 rendered, e.g as a React app.
 
-[Read more about Engine Modules](/docs/api/modules)
+[Read more about Engine Modules](/docs/modules/engine)
 
 ## Methods
 

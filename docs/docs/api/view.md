@@ -6,35 +6,9 @@ sidebar_label: view
 
 ## Overview
 
-`view` creates Engine views, which render HTML in browser. `view` can use Engine
+`view` creates Engine views, which render HTML in browser and use
 operators [observe](/docs/api/observe), [get](/docs/api/get), and
 [update](/docs/api/update) to interact with global state.
-
-`observe`, `get` and `update` are used in the first object argument of a
-function, also called "header" of the function.
-
-A `view` is just a specialized form of a [producer](/docs/api/producer). All the
-[concepts](/docs/api/producer#parts) and [best
-practices](/docs/api/producer#best-practices) of producers apply for views as
-well.
-
-## Example
-
-For example, a react component that looks like:
-
-```tsx
-const Button = ({ title }) => <button>{title}</button>;
-```
-
-can be converted to an Engine view by labeling it with `view`:
-
-```tsx
-const Button: view = ({ title }) => <button>{title}</button>;
-```
-
-No other change is required. Except the header part of the function, rest of it
-is a normal React component. In the header, Engine operators can be used to
-interact with state. For example:
 
 ```tsx
 const Button: view = ({
@@ -42,37 +16,60 @@ const Button: view = ({
   count = observe.count,
   updateCount = update.count,
 }) => (
-  <button onClick={() => updateCount((count || 0) + 1)}>
+  <button onClick={() => updateCount.set((count || 0) + 1)}>
     {title}: {count}
   </button>
 );
 ```
 
-## `view.producers`
+## Adding producers to a view
 
-A `view` can have one or more producers assigned to it as an array. e.g a
-producer named `myProducer` [producer](/docs/api/producer) can be added to
-`Button` view with:
+A `view` can have one or more producers assigned to it:
 
 ```tsx
-Button.producers([myProducer]);
+Button.producers([myProducer1, myProducer2]);
 ```
 
-`view`s are just specialized [producer](/docs/api/producer)s. Only difference
-between a view and a producer is that a view can:
+Producers that belong to a `view` will be activated when the `view` is mounted
+and deactivated once the view is unmounted.
 
-1. Return JSX which gets rendered as HTML in browser
-2. Have `.producers` property
+These producers will receive all the same props as the view including the special props bellow:
+
+## Special props
+
+Every `view` will receive special props:
+
+- `_viewId` - a string that denotes the view's instance (see next section)
+- `_now` - a function used to generate unique timestamps (microsecond)
+- `_props` - all the external props received by the component
+
+## Instance
+
+Each view once mounted will have a data representation of that instance accesible on the state e.g.:
+`get.views[prop._viewId]`.
+
+```tsx
+type viewInstance = {
+  id: string,
+  createdAt: number,
+  data: object, // used to store view's private/temporary data
+  parentId: string, | null, // the parent view
+  rootId: string, // the root element
+  children: {
+    [k: string]: number // the ids of the direct children of the view
+  }
+}
+```
 
 ## Best practices
 
-Engine recommends that `view`s should contain as little logic as possible.
-Ideally, a view should be completely free from all forms of logic, but can
-contain minimal amount of logic needed to provide a clean API.
+View should contain as little logic as possible.
 
 Instead of performing any logic in view, a producer should be created for the
 view to perform required business logic.
 
-## Instance
+A `view` is just a specialized form of a [producer](/docs/api/producer). All the
+[concepts](/docs/api/producer#parts) and [best
+practices](/docs/api/producer#best-practices) of producers apply for views as
+well.
 
-For debugging pruposes only - Documentation in progress
