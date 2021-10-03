@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.cli",
-  "version": "4.0.0-alpha.73",
+  "version": "4.0.0-alpha.75",
   "description": "A cli for creating and analysing engine applications",
   "main": "dist/index.js",
   "bin": {
@@ -41,7 +41,7 @@
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-typescript": "^7.15.0",
     "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.70",
-    "@c11/engine.service-web": "4.0.0-alpha.73",
+    "@c11/engine.service-web": "4.0.0-alpha.75",
     "@schemastore/package": "^0.0.6",
     "@types/babel__preset-env": "^7.9.2",
     "@types/jest": "^26.0.22",

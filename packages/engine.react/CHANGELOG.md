@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.75](https://github.com/code11/engine/compare/v4.0.0-alpha.74...v4.0.0-alpha.75) (2021-10-03)
+
+
+### Features
+
+* **engine.react:** add children to parent instance ([e842c3c](https://github.com/code11/engine/commit/e842c3c2e85af42877c66190d8071a528a0756d2))
+
+
+
+
+
 # [4.0.0-alpha.72](https://github.com/code11/engine/compare/v4.0.0-alpha.71...v4.0.0-alpha.72) (2021-10-03)
 
 **Note:** Version bump only for package @c11/engine.react
