@@ -24,4 +24,4 @@ function createProxy(path: any[] = [], obj = new PathObject()): any {
   });
 }
 
-export const path: any = createProxy();
+export const path: any = typeof Proxy === "undefined" ? null : createProxy();
