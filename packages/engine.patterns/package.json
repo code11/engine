@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.patterns",
-  "version": "4.0.0-alpha.75",
+  "version": "4.0.0-alpha.76",
   "description": "Engine patterns and their implementation",
   "main": "src/index.ts",
   "license": "MIT",
@@ -39,8 +39,8 @@
     "@babel/preset-typescript": "^7.15.0",
     "@babel/runtime": "^7.15.4",
     "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.70",
-    "@c11/engine.react": "4.0.0-alpha.75",
-    "@c11/engine.runtime": "4.0.0-alpha.72",
+    "@c11/engine.react": "4.0.0-alpha.76",
+    "@c11/engine.runtime": "4.0.0-alpha.76",
     "@c11/engine.types": "4.0.0-alpha.70",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
