@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.76](https://github.com/code11/engine/compare/v4.0.0-alpha.75...v4.0.0-alpha.76) (2021-10-06)
+
+
+### Bug Fixes
+
+* **engine.producer:** ensure that the path proxy will only execute if Proxy exists ([be2999d](https://github.com/code11/engine/commit/be2999d6210ccadce6caf36172911dc2f1f3f7ee))
+
+
+
+
+
 # [4.0.0-alpha.75](https://github.com/code11/engine/compare/v4.0.0-alpha.74...v4.0.0-alpha.75) (2021-10-03)
 
 
