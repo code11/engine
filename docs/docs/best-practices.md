@@ -56,6 +56,36 @@ enum Modes {
 
 When using an `Enum`, prefer using a string Enum.
 
+### Convention for naming variables:
+- `observe`: the final name in the path or an interpretation of that value:
+```ts
+bam = observe.something.bam
+title = observe.article.title
+isFinished = observe.article.finishedWritingInArticle
+```
+
+- `update`: the prefix update + the final name in the path or an interpretation of that value:
+```ts
+updateBam = update.something.bam
+updateTitle = update.article.title
+updateIsFinished = update.article.finishedWritingInArticle
+```
+
+- `get`: the prefix get + the final name in the path or an interpretation of that value:
+```ts
+getBam = get.something.bam
+getTitle = get.article.title
+getIsFinished = get.article.finishedWritingInArticle
+```
+
+- `_` for pseudo-private props:
+```ts
+_viewId
+_producerId
+_now
+```
+
+
 ### Producers:
 - only one producer per file
 - they should have a descriptive name (camelCase) and the file should have the same name
@@ -65,19 +95,19 @@ When using an `Enum`, prefer using a string Enum.
 - if there are more than one producer for a component the propper way of **importing** them should be to by creating an `index.js/ts` file in the producers folder and export them all there and in the component write like this
 ``` import * as producers from "./producers";
 ...
-<Component>.producers(Object.values(producers)); 
+<Component>.producers(producers); 
 ```
 - if you use typescript keep using the types throughout the entire producer (use type casting if needed)
 
-### Components:
+### Components (views):
 - only one component per file
 - they should have a descriptive name (PascalCase) and the file should have the same name
 - they should do only one thing
-- they should use `get` instead of `observe` if you don’t need that value to retrigger the component
+- components' responsability is to be up to date so the there is no use of `get` 
 - the use of layout components is highly encourage (cards, sidebars, navbars)
-- use as few props as posible, they should get their data from the state
+- don't pass down props that contain data that the child component could simply get from the state
 - if they have sub-components they can be put in a `./component` folder on the same level
-- they should be used only for **displaying** data or as **layout component** so they should manipulate the data as litle as posible
+- they should be used only for **displaying** data or as **layout component** so they shouldn't manipulate or process the data.
 - they can only change the state by:  
   - triggering a producer (they can even pass simple date to the producers)
   - they can also change the state directly but the changed data should be at most on the same level in the state hierarchy as the component's data is (e.g. checkbox component)
