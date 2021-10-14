@@ -253,9 +253,7 @@ export const init: producer = async ({
   const server = new _WebpackDevServer(
     {
       proxy: proxy.value(),
-      historyApiFallback: {
-        index: "index.html",
-      },
+      historyApiFallback: true,
       static: publicPath.value(),
       hot: true,
     },
