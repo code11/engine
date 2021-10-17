@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.react",
-  "version": "4.0.0-alpha.77",
+  "version": "4.0.0-alpha.78",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,8 +28,8 @@
     "dist"
   ],
   "dependencies": {
-    "@c11/engine.producer": "4.0.0-alpha.77",
-    "@c11/engine.runtime": "4.0.0-alpha.77",
+    "@c11/engine.producer": "4.0.0-alpha.78",
+    "@c11/engine.runtime": "4.0.0-alpha.78",
     "@c11/engine.types": "4.0.0-alpha.70",
     "lodash": "^4.17.21",
     "nanoid": "^3.1.22"

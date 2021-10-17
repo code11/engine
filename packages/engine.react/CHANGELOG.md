@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.78](https://github.com/code11/engine/compare/v4.0.0-alpha.75...v4.0.0-alpha.78) (2021-10-17)
+
+
+### Bug Fixes
+
+* **engine.react:** enable react hooks in views ([5d45c18](https://github.com/code11/engine/commit/5d45c18e5331fe08bcc877b0d9da07f747e1b3af))
+
+
+
+
+
 # [4.0.0-alpha.77](https://github.com/code11/engine/compare/v4.0.0-alpha.75...v4.0.0-alpha.77) (2021-10-14)
 
 **Note:** Version bump only for package @c11/engine.react
