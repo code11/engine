@@ -411,7 +411,6 @@ export function view(config: ViewConfig) {
             this.onMount();
           }}
           viewId={this.id}
-          ref={this.ref}
           state={this.state}
           fn={this.fn}
         />

@@ -1,33 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BaseState } from "./types";
 // import { calculateExtraProps } from './calculateExtraProps';
 
-export class RenderComponent extends React.Component<BaseState> {
-  // componentDidCatch(error: Error, info: React.ErrorInfo) {
-  //   console.log("Error error", error, info);
-  // }
-  // static getDerivedStateFromError(e: any) {
-  //   console.log("error", e);
-  // }
-  props: any;
-  constructor(props: any, context: any) {
-    super(props, context);
-    this.props = props;
+export const RenderComponent = ({ fn, viewId, state, onMount }: any) => {
+  let extraProps = {
+    "data-viewid": viewId,
+  };
+  useEffect(() => {
+    onMount();
+  }, []);
+  let el = fn.call(null, state.data);
+  if (el) {
+    return React.cloneElement(el, extraProps);
+  } else {
+    return null;
   }
-  componentDidMount() {
-    this.props.onMount();
-  }
-  render() {
-    let el = this.props.fn.call(null, this.props.state.data);
-    if (el) {
-      let extraProps = {
-        "data-viewid": this.props.viewId,
-      };
-      // extraProps = calculateExtraProps(this.props, el);
-      // TODO: if !extraProps just return the initial el without clonning
-      return React.cloneElement(el as React.ReactElement, extraProps);
-    } else {
-      return null;
-    }
-  }
-}
+};
