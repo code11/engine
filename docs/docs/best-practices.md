@@ -97,6 +97,7 @@ _now
 - if you use typescript keep using the types throughout the entire producer (use type casting if needed)
 
 ### Components (views):
+- if you do not interact with the state you don't need a view, use a regular component instead
 - only one component per file
 - they should have a descriptive name (PascalCase) and the file should have the same name
 - they should do only one thing
