@@ -19,7 +19,7 @@
   "scripts": {
     "clean": "rm -r packages/*/dist || true && rm -r packages/*/node_modules || true",
     "build:engine": "lerna run build",
-    "build:engine:dependent": "lerna run --scope=@c11/engine* build --include-filtered-dependencies",
+    "build:engine:dependent": "lerna run build --include-filtered-dependencies",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
     "test": "yarn workspaces foreach run test",
