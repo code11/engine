@@ -20,18 +20,13 @@ import isNumber from "lodash/isNumber";
 import isBoolean from "lodash/isBoolean";
 import isNil from "lodash/isNil";
 import isRegExp from "lodash/isRegExp";
-import { customAlphabet } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import { Graph } from "./graph";
-import { now } from "./now";
+import { now } from "@c11/engine.utils";
 import { UpdateOperationSymbol } from "./graph/updateOperation";
 import { GetOperationSymbol } from "./graph/getOperation";
 import { stringifyPath } from "./graph/stringifyPath";
 import { PassthroughGraph } from "./graph/passthroughGraph";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
 
 enum ProducerStates {
   MOUNTED,
@@ -60,7 +55,7 @@ export class Producer implements ProducerInstance {
   sourceId: string;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
-    this.id = nanoid();
+    this.id = randomId();
     this.props = config.props;
     this.fn = config.fn;
     this.external = {

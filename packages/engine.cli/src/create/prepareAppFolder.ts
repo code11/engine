@@ -8,7 +8,7 @@ const pMkdir = promisify(mkdir);
 type props = {
   _readdir: typeof pReaddir;
   _mkdir: typeof pMkdir;
-  _now: number;
+  _now: () => number;
   targetPath: State["create"]["config"]["targetPath"];
   flag: Update<State["create"]["flags"]["isAppFolderReady"]>;
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { isValidElementType } from "react-is";
-import { isView, isProducer } from "../utils";
+import { isView, isProducer } from "@c11/engine.utils";
 import flattenDeep from "lodash/flattenDeep";
 
 export const join = (...args: any[]) => {

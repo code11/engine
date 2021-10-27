@@ -1,7 +1,7 @@
 import isPlainObject from "lodash/isPlainObject";
 import isArray from "lodash/isArray";
-import { isProducer } from "../utils";
-import { ProducerConfig, ViewInstance } from "@c11/engine.types";
+import { isProducer } from "@c11/engine.utils";
+import { ProducerFn, ProducerConfig, ViewInstance } from "@c11/engine.types";
 
 //TODO: allow creation of simpler components in order
 //  to have the componentId space:
@@ -20,6 +20,7 @@ export const viewSelector = (
   producers:
     | ProducerConfig[]
     | ProducerConfig
+    | ProducerFn
     | { [k: string]: ProducerConfig } = []
 ) => {
   const Component: view = ({

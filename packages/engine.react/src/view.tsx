@@ -2,8 +2,8 @@ import React, { isValidElement } from "react";
 import ViewContext from "./context";
 import { BaseProps, BaseState } from "./types";
 import { getParentId } from "./getParentId";
-import { isProducer } from "./isProducer";
-import isPlainObject from "lodash/isPlainObject";
+import { isProducer, now } from "@c11/engine.utils";
+import isObjectLike from "lodash/isObjectLike";
 import isArray from "lodash/isArray";
 import {
   GraphNodeType,
@@ -17,18 +17,12 @@ import {
   OperationTypes,
   UpdateValue,
 } from "@c11/engine.types";
-import { now } from "@c11/engine.producer";
 import type { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
-import { customAlphabet } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import { PathType } from "@c11/engine.types";
 import { pathFn } from "@c11/engine.runtime";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
 
 export const childrenSerializer: ValueSerializer = {
   type: GraphNodeType.EXTERNAL,
@@ -160,19 +154,20 @@ export function view(config: ViewConfig) {
     ref: any;
     id: string;
     static producers(
-      newProducers:
-        | ProducerConfig[]
-        | ProducerConfig
-        | { [k: string]: ProducerConfig }
+      newProducers: ProducerFn | ProducerFn[] | { [k: string]: ProducerFn }
     ) {
       let producersList: ProducerConfig[] = [];
-      if (isProducer(newProducers)) {
-        producersList = [newProducers as ProducerConfig];
-      } else if (isPlainObject(newProducers)) {
-        producersList = Object.values(newProducers);
-      } else if (isArray(newProducers)) {
-        producersList = newProducers;
+      const receivedProducers: unknown = newProducers;
+      if (isProducer(receivedProducers)) {
+        producersList = [receivedProducers as ProducerConfig];
+      } else if (isArray(receivedProducers)) {
+        producersList = receivedProducers as ProducerConfig[];
+      } else if (isObjectLike(receivedProducers)) {
+        producersList = Object.values(
+          receivedProducers as { [k: string]: ProducerConfig }
+        );
       }
+
       producers = producers.concat(producersList);
       // TODO: should throw an error if the same producer is used twice
       // check using sourceId in development
@@ -184,7 +179,7 @@ export function view(config: ViewConfig) {
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
 
-      this.id = nanoid();
+      this.id = randomId();
       const viewContext = {
         props: {
           ...externalProps,
@@ -306,14 +301,14 @@ export function view(config: ViewConfig) {
               if (this.isComponentMounted) {
                 producer.mount();
               }
-              const producerId = x.sourceId || nanoid();
+              const producerId = x.sourceId || randomId();
               this.producers[producerId] = producer;
             });
           },
         });
       }
       producers.forEach((x: any) => {
-        const id = x.sourceId || nanoid();
+        const id = x.sourceId || randomId();
         this.producers[id] = context.addProducer(x, viewContext, {
           viewId: this.id,
           viewSourceId: sourceId,

@@ -11,12 +11,7 @@ import { addNamedImport } from "./addNamedImport";
 import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
 import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
-import { customAlphabet } from "nanoid";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
+import { randomId } from "@c11/engine.utils";
 
 export const instrumentView = (
   babel: typeof Babel,
@@ -54,7 +49,7 @@ export const instrumentView = (
   }
   const metaProps = extractMeta(babel, state, path);
   const sourceId = `${metaProps.absoluteFilePath}:${metaProps.name}`;
-  const buildId = nanoid();
+  const buildId = randomId();
   const program = path.findParent((p) =>
     p.isProgram()
   ) as Babel.NodePath<Babel.types.Program>;

@@ -19,7 +19,7 @@
     "@c11/engine.db": "4.0.0-alpha.70",
     "@c11/engine.producer": "4.0.0-alpha.78",
     "@c11/engine.types": "4.0.0-alpha.70",
-    "nanoid": "^3.1.25"
+    "@c11/engine.utils": "4.0.0-alpha.78"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9",
   "devDependencies": {

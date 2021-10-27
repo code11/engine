@@ -5,7 +5,7 @@ import { performance } from "perf_hooks";
 const pWriteFile = promisify(writeFile);
 
 type props = {
-  _now: number;
+  _now: () => number;
   _writeFile: typeof pWriteFile;
   isTemplateCopyReady: State["create"]["flags"]["isTemplateCopyReady"];
   isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];

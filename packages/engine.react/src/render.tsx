@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import {
   RenderInstance,
   RootElement,
@@ -228,7 +228,7 @@ export class Render implements RenderInstance {
     }
 
     for (let x of producers) {
-      const id = x.sourceId || nanoid();
+      const id = x.sourceId || randomId();
       this.cache[sourceId].producers[id] = x;
     }
   }

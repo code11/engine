@@ -1,7 +1,7 @@
 import { performance } from "perf_hooks";
 
 type props = {
-  _now: number;
+  _now: () => number;
   isDependencyInstallReady: State["create"]["flags"]["isDependencyInstallReady"];
   isTsConfigReady: State["create"]["flags"]["isTsConfigReady"];
   isGitIgnoreReady: State["create"]["flags"]["isGitIgnoreReady"];

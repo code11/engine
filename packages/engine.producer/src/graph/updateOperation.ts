@@ -4,7 +4,7 @@ import {
   UpdateOperation,
   OperationParams,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import isArray from "lodash/isArray";
 import { getInvokablePath } from "./getInvokablePath";
 
@@ -101,7 +101,7 @@ export const updateOperation = (
     push,
     pop,
     __operation__: {
-      id: nanoid(),
+      id: randomId(),
       symbol: UpdateOperationSymbol,
       path: op.path,
     },

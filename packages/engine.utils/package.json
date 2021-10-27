@@ -1,7 +1,7 @@
 {
-  "name": "@c11/engine.producer",
+  "name": "@c11/engine.utils",
   "version": "4.0.0-alpha.78",
-  "description": "A programming engine",
+  "description": "Utilities for managing engine specific constructs",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "build:declaration": "tsc --project tsconfig.build.json",
     "build": "tsc",
     "test:simple": "jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.producer/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.producer/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
+    "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.producer/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.utils/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "yarn run test:coverage"
   },
   "devDependencies": {
@@ -27,20 +27,21 @@
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.15.0",
     "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.70",
+    "@c11/engine.react": "4.0.0-alpha.78",
     "@types/clone-deep": "^4.0.1",
     "@types/jest": "^26.0.22",
-    "@types/lodash": "^4.14.172",
+    "@types/lodash": "^4.14.170",
     "@types/node": "^16.9.1",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.9",
     "jest": "^26.6.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@c11/engine.db": "4.0.0-alpha.70",
     "@c11/engine.types": "4.0.0-alpha.70",
-    "@c11/engine.utils": "4.0.0-alpha.78",
-    "clone-deep": "^4.0.1",
-    "lodash": "^4.17.21"
-  },
-  "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9",
-  "engineConfig": {}
+    "lodash": "^4.17.21",
+    "nanoid": "^3.1.30"
+  }
 }

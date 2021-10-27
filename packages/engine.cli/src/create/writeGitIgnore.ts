@@ -6,7 +6,7 @@ const pWriteFile = promisify(writeFile);
 
 type props = {
   _writeFile: typeof pWriteFile;
-  _now: number;
+  _now: () => number;
   isTemplateCopyReady: State["create"]["flags"]["isTemplateCopyReady"];
   isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];
   gitIgnorePath: Get<State["create"]["config"]["targetGitIgnorePath"]>;

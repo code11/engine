@@ -9,12 +9,7 @@ import { Messages } from "../messages";
 import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
 import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
-import { customAlphabet } from "nanoid";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
+import { randomId } from "@c11/engine.utils";
 
 export const instrumentProducer = (
   babel: typeof Babel,
@@ -47,7 +42,7 @@ export const instrumentProducer = (
 
   const metaProps = extractMeta(babel, state, path);
   const sourceId = `${metaProps.absoluteFilePath}:${metaProps.name}`;
-  const buildId = nanoid();
+  const buildId = randomId();
 
   if (
     !(process.env.NODE_ENV == "production" || process.env.NODE_ENV == "test")

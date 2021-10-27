@@ -22,7 +22,8 @@
     "test": "yarn run test:coverage"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "files": [
     "dist"
@@ -31,8 +32,8 @@
     "@c11/engine.producer": "4.0.0-alpha.78",
     "@c11/engine.runtime": "4.0.0-alpha.78",
     "@c11/engine.types": "4.0.0-alpha.70",
-    "lodash": "^4.17.21",
-    "nanoid": "^3.1.22"
+    "@c11/engine.utils": "4.0.0-alpha.78",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -44,7 +45,6 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@types/lodash": "^4.14.168",
-    "@types/nanoid": "^2.1.0",
     "@types/node": "^14.14.37",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",

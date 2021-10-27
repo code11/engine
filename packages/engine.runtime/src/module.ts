@@ -10,7 +10,7 @@ import {
   ViewConfig,
   UpdateSourceFn,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 
 type SourceUpdateListeners = {
   [k: string]: {
@@ -36,7 +36,7 @@ export class EngineModule {
   }
 
   private addSourceUpdateListener(sourceId: string, cb: UpdateSourceFn) {
-    const id = nanoid();
+    const id = randomId();
     if (!this.sourceUpdateListeners[sourceId]) {
       this.sourceUpdateListeners[sourceId] = {};
     }

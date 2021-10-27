@@ -2,7 +2,7 @@ import pacote from "pacote";
 import { performance } from "perf_hooks";
 
 type props = {
-  _now: number;
+  _now: () => number;
   _pacote: typeof pacote;
   templatePath: State["create"]["config"]["templatePath"];
   templateName: State["create"]["config"]["templateName"];

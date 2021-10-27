@@ -4,7 +4,7 @@ import {
   GetOperation,
   OperationParams,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import isString from "lodash/isString";
 import isArray from "lodash/isArray";
 import { getInvokablePath } from "./getInvokablePath";
@@ -54,7 +54,7 @@ export const getOperation = (
     includes,
     length,
     __operation__: {
-      id: nanoid(),
+      id: randomId(),
       symbol: GetOperationSymbol,
       path: op.path,
     },

@@ -1,5 +1,5 @@
 import { ProducerData, ValueSerializer } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import isPlainObject from "lodash/isPlainObject";
 import isEqual from "lodash/isEqual";
 import isArray from "lodash/isArray";
@@ -81,7 +81,7 @@ export const isDataEqual = (
     } else if (typeof value === "symbol" || value instanceof Symbol) {
       return value.toString();
     }
-    return nanoid();
+    return randomId();
   };
   const result =
     JSON.stringify(prevData, replacer) === JSON.stringify(data, replacer);

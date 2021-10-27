@@ -8,7 +8,7 @@ const pWriteFile = promisify(writeFile);
 
 type props = {
   _writeFile: typeof pWriteFile;
-  _now: number;
+  _now: () => number;
   isTemplateConfigReady: State["create"]["flags"]["isTemplateConfigReady"];
   isTemplateCopyReady: State["create"]["flags"]["isTemplateCopyReady"];
   target: State["create"]["templateConfig"]["target"];

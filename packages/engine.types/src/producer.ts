@@ -115,7 +115,8 @@ export type ProducerData = {
 };
 
 export type ProducerCb = () => void;
-export type ProducerFn = (props: ProducerData | any) => any | ProducerCb;
+export type ProducerFn = (props: ProducerData) => void | ProducerCb;
+
 export interface ProducerMeta {
   name?: string;
   location?: {
