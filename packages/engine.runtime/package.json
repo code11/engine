@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.runtime",
-  "version": "4.0.0-alpha.79",
+  "version": "4.0.0-alpha.80",
   "description": "A runtime for engine applications",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@c11/engine.db": "4.0.0-alpha.79",
-    "@c11/engine.producer": "4.0.0-alpha.79",
+    "@c11/engine.producer": "4.0.0-alpha.80",
     "@c11/engine.types": "4.0.0-alpha.79",
     "@c11/engine.utils": "4.0.0-alpha.79"
   },

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.80](https://github.com/code11/engine/compare/v4.0.0-alpha.79...v4.0.0-alpha.80) (2021-10-28)
+
+
+### Bug Fixes
+
+* **engine.producer:** ensure extenalProps aren't loaded twice ([23551d1](https://github.com/code11/engine/commit/23551d179a6e38114369d67573ec3a557871dfea))
+
+
+
+
+
 # [4.0.0-alpha.79](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.79) (2021-10-28)
 
 
