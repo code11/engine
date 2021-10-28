@@ -115,7 +115,9 @@ export type ProducerData = {
 };
 
 export type ProducerCb = () => void;
-export type ProducerFn = (props: ProducerData) => void | ProducerCb;
+export type ProducerFn = (
+  props: ProducerData
+) => void | ProducerCb | Promise<void | ProducerCb>;
 
 export interface ProducerMeta {
   name?: string;

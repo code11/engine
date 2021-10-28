@@ -1127,6 +1127,32 @@ test("should allow override of private props", (done) => {
   run(struct, {}, {});
 });
 
+test("should work with async/await", (done) => {
+  const state = {
+    bar: 123,
+  };
+  const foo = (value) => {
+    return new Promise((resolve, reject) => {
+      resolve(value);
+    });
+  };
+  const struct: producer = async ({ bar = observe.bar }) => {
+    if (!bar) {
+      return;
+    }
+    const a = await foo(bar);
+    return () => {
+      expect(a).toBe(123);
+      done();
+    };
+  };
+
+  const { producer } = run(struct, state, {});
+  jest.runAllTimers();
+  producer.unmount();
+  jest.runAllTimers();
+});
+
 // Add test that checks that references are kept
 
 /*

@@ -1336,7 +1336,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-runtime@npm:^7.12.15, @babel/plugin-transform-runtime@npm:^7.15.0":
+"@babel/plugin-transform-runtime@npm:^7.12.15, @babel/plugin-transform-runtime@npm:^7.15.0, @babel/plugin-transform-runtime@npm:^7.15.8":
   version: 7.15.8
   resolution: "@babel/plugin-transform-runtime@npm:7.15.8"
   dependencies:
@@ -1806,18 +1806,22 @@ __metadata:
     "@babel/cli": ^7.15.4
     "@babel/core": ^7.15.5
     "@babel/plugin-proposal-class-properties": ^7.14.5
+    "@babel/plugin-transform-runtime": ^7.15.8
     "@babel/preset-env": ^7.15.6
     "@babel/preset-react": ^7.14.5
     "@babel/preset-typescript": ^7.15.0
+    "@babel/runtime": ^7.15.4
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.79
     "@c11/engine.db": 4.0.0-alpha.79
     "@c11/engine.types": 4.0.0-alpha.79
     "@c11/engine.utils": 4.0.0-alpha.79
+    "@types/babel__plugin-transform-runtime": ^7
     "@types/clone-deep": ^4.0.1
     "@types/jest": ^26.0.22
     "@types/lodash": ^4.14.172
     "@types/node": ^16.9.1
     clone-deep: ^4.0.1
+    is-promise: ^4.0.0
     jest: ^26.6.3
     lodash: ^4.17.21
     typescript: ^4.4.3
@@ -11002,6 +11006,13 @@ fsevents@^1.2.7:
   version: 1.0.1
   resolution: "is-potential-custom-element-name@npm:1.0.1"
   checksum: ced7bbbb6433a5b684af581872afe0e1767e2d1146b2207ca0068a648fb5cab9d898495d1ac0583524faaf24ca98176a7d9876363097c2d14fee6dd324f3a1ab
+  languageName: node
+  linkType: hard
+
+"is-promise@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "is-promise@npm:4.0.0"
+  checksum: 0b46517ad47b00b6358fd6553c83ec1f6ba9acd7ffb3d30a0bf519c5c69e7147c132430452351b8a9fc198f8dd6c4f76f8e6f5a7f100f8c77d57d9e0f4261a8a
   languageName: node
   linkType: hard
 

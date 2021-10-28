@@ -21,6 +21,7 @@ import isBoolean from "lodash/isBoolean";
 import isNil from "lodash/isNil";
 import isRegExp from "lodash/isRegExp";
 import { randomId } from "@c11/engine.utils";
+import isPromise from "is-promise";
 import { Graph } from "./graph";
 import { now } from "@c11/engine.utils";
 import { UpdateOperationSymbol } from "./graph/updateOperation";
@@ -146,8 +147,18 @@ export class Producer implements ProducerInstance {
       console.log(loc, logParams);
     }
     const result = this.fn.call(null, params);
-    if (result !== undefined && isFunction(result)) {
+
+    if (isFunction(result)) {
       this.results.push(result);
+    } else if (isPromise(result)) {
+      result.then((cb) => {
+        if (isFunction(cb)) {
+          if (this.state === ProducerStates.UNMOUNTED) {
+            cb();
+          }
+          this.results.push(cb);
+        }
+      });
     }
   }
   mount() {
