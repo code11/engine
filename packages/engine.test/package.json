@@ -17,7 +17,7 @@
     "test:coverage": "jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom='[\"packages/engine.runtime/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*"
   },
   "peerDependencies": {
-    "react": ">=17"
+    "react": ">=16"
   },
   "dependencies": {
     "@c11/engine.react": "4.0.0-alpha.78",
