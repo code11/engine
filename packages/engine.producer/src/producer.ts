@@ -172,7 +172,7 @@ export class Producer implements ProducerInstance {
     return this;
   }
   updateExternal(props: ProducerContext["props"]) {
-    if (props) {
+    if (props && props !== this.external) {
       this.external = props;
       this.graph.updateExternal(this.external);
     }
