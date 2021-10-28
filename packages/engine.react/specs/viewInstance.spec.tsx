@@ -14,8 +14,6 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-//TODO: Add case with empty params view that results in endless loop
-
 test("should create a state instance for a view", async (done) => {
   const defaultState = {
     foo: "123",
