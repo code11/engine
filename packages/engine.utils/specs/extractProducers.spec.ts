@@ -33,3 +33,14 @@ test("should extract from a nested object", () => {
   });
   expect(result).toHaveLength(3);
 });
+
+test("should dedupe producers", () => {
+  const a: producer = () => {};
+  const result = extractProducers([a, a, [a, a], { a: a }]);
+  expect(result).toHaveLength(1);
+});
+
+test("should return empty", () => {
+  const result = extractProducers();
+  expect(result).toHaveLength(0);
+});

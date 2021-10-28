@@ -1,34 +1,44 @@
-import React from "react";
+import React, { ElementType } from "react";
 import { isValidElementType } from "react-is";
-import { isView, isProducer } from "@c11/engine.utils";
+import {
+  extractViews,
+  extractProducers,
+  isView,
+  isProducer,
+} from "@c11/engine.utils";
+import { View, ViewsList, ProducersList } from "@c11/engine.types";
 import flattenDeep from "lodash/flattenDeep";
 
-export const join = (...args: any[]) => {
+type ProducersAndViews = ViewsList | ProducersList | ElementType;
+
+export const join = (...args: ProducersAndViews[]) => {
+  //@ts-ignore
   const elements = flattenDeep(args);
-  //TODO: Expand any object like structures .e.g import * as producers from './producers
-  const views = elements.filter((x: unknown) => isView(x));
+  const views = extractViews(args);
+  const producers = extractProducers(args);
   const components = elements.filter(
     (x: unknown) => !isView(x) && isValidElementType(x)
-  );
-  const producers = elements.filter((x: unknown) => isProducer(x));
+  ) as ElementType[];
 
   if (views.length === 0 && components.length === 0 && producers.length === 0) {
-    throw new Error(
+    console.error(
       "Component creation failed using join. Please provide at least view, producer or react component"
     );
+    return <></>;
   }
   if (views.length === 1 && components.length === 0) {
     const view = views[0];
     if (producers.length > 0) {
+      //@ts-ignore
       view.producers(producers);
     }
     return view;
   } else {
-    const list = views.concat(components);
-    const Component: view = ({ _props }: unknown) => {
+    const list: (ElementType | View)[] = [...components, ...views];
+    const Component: view = ({ _props }: { _props: unknown }) => {
       return (
         <>
-          {list.map((X: typeof React.Component, i) => (
+          {list.map((X, i) => (
             <X {..._props} key={i} />
           ))}
         </>

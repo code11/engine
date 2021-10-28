@@ -200,3 +200,10 @@ export type ValueSerializer = {
   instanceof?: any;
   serializer: (value: any) => void | string;
 };
+
+export type ProducersList =
+  | undefined
+  | ProducerFn
+  | ProducerFn[]
+  | ProducersList[]
+  | { [k: string]: ProducersList };

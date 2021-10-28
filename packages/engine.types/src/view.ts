@@ -1,11 +1,9 @@
 import {
-  ProducerData,
+  ProducersList,
   StructOperation,
   ProducerInstance,
   ProducerMeta,
 } from "./producer";
-
-export type ViewFn = (data: ProducerData | any) => JSX.Element | any;
 
 export interface RenderConfig {
   element: any;
@@ -14,6 +12,7 @@ export interface RenderConfig {
 
 export interface ViewConfig {
   sourceId: string;
+  buildId: string;
   meta: ProducerMeta;
   props: StructOperation;
   fn: ViewFn;
@@ -29,3 +28,19 @@ export interface RenderInstance {
   mount: () => RenderInstance;
   getRoot: () => RootElement;
 }
+
+export type ViewFn<ExternalProps = {}> = (
+  props: any
+) => React.ReactElement<ExternalProps> | null;
+
+export type ViewExtra = {
+  producers: (producers: ProducersList) => void;
+};
+
+export type View<ExternalProps = {}> = ViewFn<ExternalProps> & ViewExtra;
+
+export type ViewsList =
+  | View
+  | View[]
+  | ViewsList[]
+  | { [k: string]: ViewsList };

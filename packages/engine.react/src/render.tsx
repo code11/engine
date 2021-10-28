@@ -8,7 +8,6 @@ import {
   ModuleContext,
   ProducerConfig,
   ViewConfig,
-  ProducerContext,
   ProducerInstance,
   ExternalProducerContext,
 } from "@c11/engine.types";
@@ -172,7 +171,10 @@ export class Render implements RenderInstance {
       const unsubscribeProducer = this.moduleContext.onSourceUpdate(
         producerSourceId,
         (producerConfig) =>
-          this.updateProducer(producerSourceId, producerConfig)
+          this.updateProducer(
+            producerSourceId,
+            producerConfig as ProducerConfig
+          )
       );
       this.cache[opts.viewSourceId].unsubscribeProducers[producerSourceId] =
         unsubscribeProducer;

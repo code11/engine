@@ -1,5 +1,6 @@
 import { ProducerConfig } from "@c11/engine.types";
 import isObjectLike from "lodash/isObjectLike";
+import uniqBy from "lodash/uniqBy";
 import values from "lodash/values";
 import flattenDeep from "lodash/flattenDeep";
 import { isProducer } from "./isProducer";
@@ -23,6 +24,7 @@ export const extractProducers = (...args: unknown[]): ProducerConfig[] => {
 
   result = flattenDeep(result);
   result = result.filter(isProducer);
+  result = uniqBy(result, "buildId");
 
   return result as ProducerConfig[];
 };

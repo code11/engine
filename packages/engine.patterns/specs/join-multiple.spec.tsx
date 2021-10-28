@@ -50,8 +50,6 @@ test("should support join() with multiple views and producers", (done) => {
   flushPromises();
   waitFor(() => getByTestId(document.body, "bar")).then((x) => {
     expect(x.innerHTML).toBe(fooValue);
-    done();
-    return;
     waitFor(() => getByTestId(document.body, "baz")).then((x) => {
       expect(x.innerHTML).toBe(fooValue);
       done();

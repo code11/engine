@@ -33,3 +33,14 @@ test("should extract from a nested object", () => {
   });
   expect(result).toHaveLength(3);
 });
+
+test("should dedupe views", () => {
+  const a: view = () => {};
+  const result = extractViews([a, [a], { a: a }]);
+  expect(result).toHaveLength(1);
+});
+
+test("should return empty", () => {
+  const result = extractViews();
+  expect(result).toHaveLength(0);
+});

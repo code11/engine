@@ -1,45 +1,27 @@
-import React, { isValidElement } from "react";
-import ViewContext from "./context";
-import { BaseProps, BaseState } from "./types";
-import { getParentId } from "./getParentId";
-import { isProducer, now } from "@c11/engine.utils";
-import isObjectLike from "lodash/isObjectLike";
-import isArray from "lodash/isArray";
+import React from "react";
+import { randomId } from "@c11/engine.utils";
+import { PathType } from "@c11/engine.types";
+import { pathFn } from "@c11/engine.runtime";
+import { now, extractProducers } from "@c11/engine.utils";
 import {
-  GraphNodeType,
-  ValueSerializer,
+  ProducersList,
   ProducerFn,
   ViewConfig,
-  ViewInstance,
   ProducerConfig,
   ExternalProducerContext,
   StructOperation,
   OperationTypes,
   UpdateValue,
+  View,
+  ViewFn,
 } from "@c11/engine.types";
 import type { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
-import { randomId } from "@c11/engine.utils";
-import { PathType } from "@c11/engine.types";
-import { pathFn } from "@c11/engine.runtime";
-
-export const childrenSerializer: ValueSerializer = {
-  type: GraphNodeType.EXTERNAL,
-  name: "children",
-  serializer: (value) => {
-    if (
-      value instanceof Array &&
-      value.includes((x: any) => !isValidElement(x))
-    ) {
-      return;
-    } else if (!isValidElement(value)) {
-      return;
-    }
-    const result = JSON.stringify(value, circular());
-    return result;
-  },
-};
+import ViewContext from "./context";
+import { BaseProps } from "./types";
+import { getParentId } from "./getParentId";
+import { childrenSerializer } from "./childrenSerializer";
 
 // TopLevel{
 //   ErrorManagement,
@@ -70,16 +52,6 @@ export const childrenSerializer: ValueSerializer = {
 
 interface SampleState {}
 
-export type ViewFn<ExternalProps = {}> = (
-  props: any
-) => React.ReactElement<ExternalProps> | null;
-
-export type ViewExtra = {
-  producers?: ProducerFn[];
-};
-
-export type View<ExternalProps = {}> = ViewFn<ExternalProps> & ViewExtra;
-
 type InstanceApi = {
   replaceView: (config: ViewConfig) => void;
   replaceProducers: (producers: ProducerConfig[]) => void;
@@ -96,21 +68,7 @@ type InstanceCache = {
 
 const cache: InstanceCache = {};
 
-const circular = () => {
-  const seen = new WeakSet();
-  return (key: string, value: any) => {
-    if (key.startsWith("_")) {
-      return;
-    }
-    if (typeof value === "object" && value !== null) {
-      if (seen.has(value)) {
-        return;
-      }
-      seen.add(value);
-    }
-    return value;
-  };
-};
+export type { View, ViewFn };
 
 // TODO: Create a production and development view - there too many overlaps now
 //TODO: Add viewId on every view - see engine.patterns/component implementation
@@ -153,29 +111,15 @@ export function view(config: ViewConfig) {
     _update: ((path: any) => UpdateValue<any, any>) | undefined;
     ref: any;
     id: string;
-    static producers(
-      newProducers: ProducerFn | ProducerFn[] | { [k: string]: ProducerFn }
-    ) {
-      let producersList: ProducerConfig[] = [];
-      const receivedProducers: unknown = newProducers;
-      if (isProducer(receivedProducers)) {
-        producersList = [receivedProducers as ProducerConfig];
-      } else if (isArray(receivedProducers)) {
-        producersList = receivedProducers as ProducerConfig[];
-      } else if (isObjectLike(receivedProducers)) {
-        producersList = Object.values(
-          receivedProducers as { [k: string]: ProducerConfig }
-        );
-      }
-
+    static producers(newProducers: ProducersList) {
+      const producersList = extractProducers(newProducers);
       producers = producers.concat(producersList);
-      // TODO: should throw an error if the same producer is used twice
-      // check using sourceId in development
       if (setProducers) {
         setProducers(sourceId, producersList);
       }
     }
     static isView = true;
+    static buildId = config.buildId;
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
 

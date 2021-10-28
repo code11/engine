@@ -1,9 +1,9 @@
 import {
   ModuleContext,
-  ProducerFn,
-  ProducerConfig,
   ProducerInstance,
   UnsubscribeSourceUpdateFn,
+  ProducersList,
+  ProducerConfig,
 } from "@c11/engine.types";
 import { randomId, extractProducers } from "@c11/engine.utils";
 
@@ -19,10 +19,7 @@ type ProducersCache = {
 };
 
 //TODO: Fix list to accept object/arrays/etc
-export const producers = (
-  list: ProducerFn | ProducerFn[] | { [k: string]: ProducerFn },
-  config: Config = {}
-) => {
+export const producers = (list: ProducersList, config: Config = {}) => {
   const producers: ProducersCache = {};
   return {
     mount: (context: ModuleContext) => {
@@ -43,7 +40,10 @@ export const producers = (
               if (producers[sourceId]) {
                 producers[sourceId].instance.unmount();
               }
-              const instance = context.addProducer(config, producerContext);
+              const instance = context.addProducer(
+                config as ProducerConfig,
+                producerContext
+              );
               producers[sourceId].instance = instance;
               instance.mount();
             }

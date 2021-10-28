@@ -16,8 +16,8 @@
     "build:declaration": "tsc --project tsconfig.build.json",
     "build": "tsc",
     "test:simple": "jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test:coverage": "echo \"testing disabled for @c11/engine.utils until the deps issue is solved\"",
-    "test": "yarn run test:coverage"
+    "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --coverageDirectory='packages/engine.utils/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.utils/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
+    "test": "echo \"testing disabled for @c11/engine.utils until the deps issue is solved\""
   },
   "devDependencies": {
     "@babel/cli": "^7.15.4",

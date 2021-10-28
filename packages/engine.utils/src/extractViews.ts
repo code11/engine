@@ -1,10 +1,11 @@
-import { ViewConfig } from "@c11/engine.types";
+import { View } from "@c11/engine.types";
 import isObjectLike from "lodash/isObjectLike";
+import uniqBy from "lodash/uniqBy";
 import values from "lodash/values";
 import flattenDeep from "lodash/flattenDeep";
 import { isView } from "./isView";
 
-export const extractViews = (...args: unknown[]): ViewConfig[] => {
+export const extractViews = (...args: unknown[]): View[] => {
   let result: unknown[] = flattenDeep(args);
 
   result = result.map((x) => {
@@ -23,6 +24,7 @@ export const extractViews = (...args: unknown[]): ViewConfig[] => {
 
   result = flattenDeep(result);
   result = result.filter(isView);
+  result = uniqBy(result, "buildId");
 
-  return result as ViewConfig[];
+  return result as View[];
 };
