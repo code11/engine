@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.82](https://github.com/code11/engine/compare/v4.0.0-alpha.81...v4.0.0-alpha.82) (2021-10-29)
+
+
+### Bug Fixes
+
+* **engine.service-web:** ensure webpack optimization doesn't fail with root modules ([42a7d69](https://github.com/code11/engine/commit/42a7d69553eaf59ba2d396af37e287b6917d061d))
+
+
+
+
+
 # [4.0.0-alpha.81](https://github.com/code11/engine/compare/v4.0.0-alpha.80...v4.0.0-alpha.81) (2021-10-28)
 
 
