@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { copy } from "fs-extra";
+import { randomId } from "@c11/engine.utils";
 
 type props = {
   _webpack: typeof webpack;
@@ -270,9 +271,10 @@ export const init: producer = async ({
             name(module) {
               // get the name. E.g. node_modules/packageName/not/this/part.js
               // or node_modules/packageName
-              const packageName = module.context.match(
+              const parts = module.context.match(
                 /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-              )[1];
+              );
+              const packageName = parts && parts[1] ? parts[1] : randomId();
 
               // npm package names are URL-safe, but some servers don't like @ symbols
               return `npm.${packageName.replace("@", "")}`;

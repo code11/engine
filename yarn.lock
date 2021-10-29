@@ -1895,6 +1895,7 @@ __metadata:
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.81
     "@c11/engine.react": 4.0.0-alpha.81
     "@c11/engine.runtime": 4.0.0-alpha.81
+    "@c11/engine.utils": 4.0.0-alpha.81
     "@schemastore/package": ^0.0.6
     "@svgr/webpack": ^5.5.0
     "@teamsupercell/typings-for-css-modules-loader": ^2.5.1
