@@ -44,6 +44,7 @@ export const config: producer = async ({
     name: result.name,
     version: result.version,
     proxy: result.proxy,
+    webpackPublicPath: result.publicPath,
     packagePath: root,
     commandPath,
     srcPath,

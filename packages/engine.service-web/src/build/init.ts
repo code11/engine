@@ -23,6 +23,7 @@ type props = {
   replacerPath: Get<State["config"]["replacerPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
   tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
+  webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
 };
 
 export const init: producer = async ({
@@ -43,6 +44,7 @@ export const init: producer = async ({
   replacerPath = get.config.replacerPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
   tailwindConfigPath = get.config.tailwindConfigPath,
+  webpackPublicPath = get.config.webpackPublicPath
 }: props) => {
   if (!trigger) {
     return;
@@ -66,7 +68,7 @@ export const init: producer = async ({
     output: {
       path: distPath.value(),
       filename: "[name].[contenthash:8].js",
-      publicPath: "/",
+      publicPath: webpackPublicPath.value() || "/",
     },
     resolve: {
       modules: ["node_modules", commandPath.value()],

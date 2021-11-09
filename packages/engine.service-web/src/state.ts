@@ -9,6 +9,7 @@ export type State = {
         };
     name: string;
     version: string;
+    webpackPublicPath: string;
     commandPath: Path;
     packagePath: Path;
     srcPath: Path;
