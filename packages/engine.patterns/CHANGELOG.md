@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.83](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.83) (2021-11-09)
+
+
+### Bug Fixes
+
+* **engine.patterns:** add clean-up for debug ([9bfe39c](https://github.com/code11/engine/commit/9bfe39c81d6b7392142dc5302a238f44f5e42f7d))
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
 # [4.0.0-alpha.81](https://github.com/code11/engine/compare/v4.0.0-alpha.80...v4.0.0-alpha.81) (2021-10-28)
 
 **Note:** Version bump only for package @c11/engine.patterns

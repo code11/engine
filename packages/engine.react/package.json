@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.react",
-  "version": "4.0.0-alpha.81",
+  "version": "4.0.0-alpha.83",
   "description": "A programming engine for a react environment",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -29,10 +29,10 @@
     "dist"
   ],
   "dependencies": {
-    "@c11/engine.producer": "4.0.0-alpha.81",
-    "@c11/engine.runtime": "4.0.0-alpha.81",
-    "@c11/engine.types": "4.0.0-alpha.81",
-    "@c11/engine.utils": "4.0.0-alpha.81",
+    "@c11/engine.producer": "4.0.0-alpha.83",
+    "@c11/engine.runtime": "4.0.0-alpha.83",
+    "@c11/engine.types": "4.0.0-alpha.83",
+    "@c11/engine.utils": "4.0.0-alpha.83",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.81",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.83",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@types/lodash": "^4.14.168",

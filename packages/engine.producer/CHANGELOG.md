@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.83](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.83) (2021-11-09)
+
+
+### Bug Fixes
+
+* **engine.producer:** ensure cb is called in async producers ([6b69231](https://github.com/code11/engine/commit/6b69231a1d3f716e33e65e8c0e36d7848e68f827))
+* **engine.producer:** ensure extenalProps aren't loaded twice ([23551d1](https://github.com/code11/engine/commit/23551d179a6e38114369d67573ec3a557871dfea))
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
 # [4.0.0-alpha.81](https://github.com/code11/engine/compare/v4.0.0-alpha.80...v4.0.0-alpha.81) (2021-10-28)
 
 
