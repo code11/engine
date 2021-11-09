@@ -44,6 +44,7 @@ export const init: producer = async ({
   replacerPath = get.config.replacerPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
   tailwindConfigPath = get.config.tailwindConfigPath,
+  webpackPublicPath = get.config.webpackPublicPath
 }: props) => {
   if (!trigger) {
     return;
