@@ -1,5 +1,9 @@
 import type * as Babel from "@babel/core";
-import { EngineKeywords } from "@c11/engine.types";
+import {
+  EngineKeywords,
+  OperationTypes,
+  PassthroughOperation,
+} from "@c11/engine.types";
 import { paramParser } from "../parsers";
 import {
   passthroughOperationCompiler,
@@ -12,13 +16,14 @@ import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
 import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
 import { randomId } from "@c11/engine.utils";
+import { InstrumentationOutput } from "../types";
 
 export const instrumentView = (
   babel: typeof Babel,
   config: PluginConfig,
   state: Babel.PluginPass,
   path: Babel.NodePath<Babel.types.VariableDeclarator>
-) => {
+): InstrumentationOutput => {
   const t = babel.types;
   const node = path.node;
 
@@ -40,11 +45,15 @@ export const instrumentView = (
   }
 
   let props;
+  let parsedParam;
   if (t.isObjectPattern(param)) {
-    const parsedParam = paramParser(babel, param);
+    parsedParam = paramParser(babel, param);
     fn.params = paramsCompiler(babel, parsedParam);
     props = structOperationCompiler(babel, parsedParam);
   } else {
+    parsedParam = {
+      type: OperationTypes.PASSTHROUGH,
+    } as PassthroughOperation;
     props = passthroughOperationCompiler(babel);
   }
   const metaProps = extractMeta(babel, state, path);
@@ -59,6 +68,14 @@ export const instrumentView = (
     config.viewLibrary,
     EngineKeywords.VIEW
   );
+
+  const output: InstrumentationOutput = {
+    type: EngineKeywords.VIEW,
+    meta: metaProps,
+    sourceId,
+    buildId,
+    params: parsedParam,
+  };
 
   if (
     !(process.env.NODE_ENV == "production" || process.env.NODE_ENV == "test")
@@ -92,4 +109,6 @@ export const instrumentView = (
     ]);
     node.init = t.callExpression(t.identifier(alias), [result]);
   }
+
+  return output;
 };

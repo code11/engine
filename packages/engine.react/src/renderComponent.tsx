@@ -5,6 +5,7 @@ import { BaseState } from "./types";
 export const RenderComponent = ({ fn, viewId, state, onMount }: any) => {
   let extraProps = {
     "data-viewid": viewId,
+    //TODO: add view name/location for debugging
   };
   useEffect(() => {
     onMount();

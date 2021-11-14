@@ -1153,6 +1153,42 @@ test("should work with async/await", (done) => {
   jest.runAllTimers();
 });
 
+test.only("should keep arg references for path updates in async processes", (done) => {
+  const state = {
+    foo: {
+      bar: "a",
+    },
+    bar: {
+      a: 123,
+    },
+  };
+  const struct: producer = ({
+    foo = observe.foo.bar,
+    updateFoo = update.foo.bar,
+    getFoo = get.foo.bar,
+    updateBar = update.bar[arg.foo],
+  }) => {
+    console.log("second");
+    updateFoo.remove();
+    if (!foo) {
+      return;
+    }
+
+    console.log("first");
+    setTimeout(() => {
+      console.log("third", getFoo.value());
+      updateBar.remove();
+    });
+  };
+
+  const { db, producer } = run(struct, state, {});
+  jest.runAllTimers();
+
+  console.log("final", db.get("/foo"));
+  expect(db.get("/bar/a")).toBeUndefined();
+  done();
+});
+
 // Add test that checks that references are kept
 
 /*

@@ -4,7 +4,7 @@
   "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {
-    "engine-service-web": "dist/index.js"
+    "engine-service-web": "dist/cli.js"
   },
   "typings": "dist/index.d.ts",
   "license": "MIT",

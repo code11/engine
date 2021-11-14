@@ -1,0 +1,33 @@
+{
+ "name": "@c11/engine.dashboard",
+ "private": true,
+ "version": "1.0.0",
+ "scripts": {
+  "start": "engine-service-web start",
+  "test": "engine-service-web test",
+  "build": "engine-service-web build"
+ },
+ "devDependencies": {
+  "@c11/engine.service-web": "4.0.0-alpha.82",
+  "tailwindcss": "^2.2.19"
+ },
+ "dependencies": {
+  "@c11/engine.patterns": "4.0.0-alpha.81",
+  "@c11/engine.types": "4.0.0-alpha.81",
+  "@c11/engine.utils": "4.0.0-alpha.81",
+  "@chakra-ui/icons": "^1.0.17",
+  "@chakra-ui/react": "^1.6.12",
+  "@emotion/react": "^11.5.0",
+  "@emotion/styled": "^11.3.0",
+  "@uiw/react-textarea-code-editor": "^1.4.14",
+  "axios": "^0.24.0",
+  "framer-motion": "^4.1.17",
+  "lodash": "^4.17.21",
+  "prettier": "^2.4.1",
+  "prismjs": "^1.25.0",
+  "react": "^17.0.2",
+  "react-dom": "^17.0.2",
+  "react-json-view": "^1.21.3",
+  "react-simple-code-editor": "^0.11.0"
+ }
+}

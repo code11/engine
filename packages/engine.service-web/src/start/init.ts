@@ -65,6 +65,13 @@ export const init: producer = async ({
     }
   }
 
+  //TODO: if the engine.babel-plugin-syntax has an output flag
+  // then we need to delete the .cache folder from node_modules
+  // in order to trigger babel to recompile all files
+
+  //TODO: add support for json loading using import syntax:
+  // import foo from './something.json'
+
   const config = {
     mode: "development",
     devtool: "eval-source-map",
@@ -260,5 +267,6 @@ export const init: producer = async ({
     _webpack(config)
   );
 
+  //TODO: in case 8081 is busy, try 8082, 8083...
   server.listen(8081, "0.0.0.0");
 };

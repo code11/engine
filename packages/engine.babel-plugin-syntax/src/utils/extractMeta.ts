@@ -5,7 +5,7 @@ export const extractMeta = (
   babel: typeof Babel,
   state: Babel.PluginPass,
   path: Babel.NodePath<Babel.types.VariableDeclarator>
-) => {
+): ProducerMeta => {
   const t = babel.types;
   const node = path.node;
   const result: ProducerMeta = {};

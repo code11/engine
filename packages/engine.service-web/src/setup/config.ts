@@ -11,6 +11,7 @@ type props = {
   _resolve: typeof resolve;
   _readFile: typeof pReadFile;
   _cwd: typeof process.cwd;
+  _dirname: typeof __dirname;
   config: Update<State["config"]>;
 };
 
@@ -19,9 +20,10 @@ export const config: producer = async ({
   _resolve = resolve,
   _readFile = pReadFile,
   _cwd = process.cwd,
+  _dirname = __dirname,
   config = update.config,
 }: props) => {
-  const packageRoot = _findRoot(__dirname);
+  const packageRoot = _findRoot(_dirname);
   const root = _findRoot(_resolve(packageRoot, ".."));
   const packageJson = _resolve(root, "package.json");
   const packageNodeModulesPath = _resolve(root, "node_modules");

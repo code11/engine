@@ -16,6 +16,8 @@ export const addNamedImport = (
 
   let alias; // `${exportName}Engine`;
   if (!path) {
+    // TODO: use babel's uid generation tools instead
+    // https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md#generating-a-uid
     alias = randomId();
     const newNode = t.importDeclaration(
       [t.importSpecifier(t.identifier(alias), t.identifier(exportName))],

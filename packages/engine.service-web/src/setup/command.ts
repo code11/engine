@@ -1,5 +1,4 @@
 import commander from "commander";
-import { performance } from "perf_hooks";
 
 type props = {
   _now: () => number;

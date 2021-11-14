@@ -1,4 +1,6 @@
 import { plugin } from "./plugin";
+export type { OutputStructure, FileOutput } from "./plugin";
+export type { InstrumentationOutput } from "./types";
 export default plugin;
 
 // export {
