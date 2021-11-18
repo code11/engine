@@ -22,6 +22,7 @@ export type State = {
     replacerPath: Path;
     packageNodeModulesPath: Path;
     tailwindConfigPath: Path;
+    port: string | number;
   };
   test: {
     flags: {};

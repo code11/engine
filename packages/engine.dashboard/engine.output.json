@@ -1,0 +1,1019 @@
+{
+ "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx": {
+  "JCuFFBCYKVuKITl": {
+   "type": "view",
+   "meta": {
+    "name": "Element",
+    "location": {
+     "start": {
+      "line": 111,
+      "column": 6
+     },
+     "end": {
+      "line": 167,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/App.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx:Element",
+   "buildId": "JCuFFBCYKVuKITl",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "id": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "id"
+       ]
+      }
+     },
+     "path": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "path"
+       ]
+      }
+     },
+     "filePath": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "id"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "meta"
+       },
+       {
+        "type": "CONST",
+        "value": "relativeFilePath"
+       }
+      ]
+     },
+     "type": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "id"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "type"
+       }
+      ]
+     },
+     "name": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "id"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "meta"
+       },
+       {
+        "type": "CONST",
+        "value": "name"
+       }
+      ]
+     },
+     "params": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "id"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "params"
+       }
+      ]
+     },
+     "updateSelectedElement": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "selectedElement"
+       }
+      ]
+     },
+     "selected": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "selectedElement"
+       }
+      ]
+     }
+    }
+   }
+  },
+  "aETwDkdKVoyuEea": {
+   "type": "view",
+   "meta": {
+    "name": "ElementsSummary",
+    "location": {
+     "start": {
+      "line": 169,
+      "column": 6
+     },
+     "end": {
+      "line": 196,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/App.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx:ElementsSummary",
+   "buildId": "aETwDkdKVoyuEea",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "elements": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "elements"
+       ]
+      }
+     },
+     "isDepsVisible": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "parentId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "isDepsVisible"
+       }
+      ]
+     },
+     "updateIsDepsVisible": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "parentId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "isDepsVisible"
+       }
+      ]
+     }
+    }
+   }
+  },
+  "eMJQwzQVTdHuQdo": {
+   "type": "view",
+   "meta": {
+    "name": "ElementsList",
+    "location": {
+     "start": {
+      "line": 197,
+      "column": 6
+     },
+     "end": {
+      "line": 216,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/App.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx:ElementsList",
+   "buildId": "eMJQwzQVTdHuQdo",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "elements": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "elements"
+       ]
+      }
+     },
+     "path": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "path"
+       ]
+      }
+     },
+     "isDepsVisible": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "parentId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "isDepsVisible"
+       }
+      ]
+     }
+    }
+   }
+  },
+  "MQuPl_VckNbrEDO": {
+   "type": "view",
+   "meta": {
+    "name": "Section",
+    "location": {
+     "start": {
+      "line": 218,
+      "column": 6
+     },
+     "end": {
+      "line": 302,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/App.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx:Section",
+   "buildId": "MQuPl_VckNbrEDO",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "data": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "data"
+       ]
+      }
+     },
+     "path": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "path"
+       ]
+      }
+     },
+     "_viewId": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "_viewId"
+       ]
+      }
+     },
+     "isBodyVisible": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "_viewId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "isBodyVisible"
+       }
+      ]
+     },
+     "updateIsBodyVisible": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "_viewId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "isBodyVisible"
+       }
+      ]
+     }
+    }
+   }
+  },
+  "DDRBiLoU_phyUwY": {
+   "type": "view",
+   "meta": {
+    "name": "ElementDescription",
+    "location": {
+     "start": {
+      "line": 359,
+      "column": 6
+     },
+     "end": {
+      "line": 440,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/App.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx:ElementDescription",
+   "buildId": "DDRBiLoU_phyUwY",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "selectedId": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "selectedElement"
+       },
+       {
+        "type": "CONST",
+        "value": "id"
+       }
+      ]
+     },
+     "path": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "selectedElement"
+       },
+       {
+        "type": "CONST",
+        "value": "path"
+       }
+      ]
+     },
+     "element": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "INTERNAL",
+        "path": [
+         "selectedId"
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  "YsKLYBIbCDycRxF": {
+   "type": "view",
+   "meta": {
+    "name": "App",
+    "location": {
+     "start": {
+      "line": 442,
+      "column": 13
+     },
+     "end": {
+      "line": 475,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/App.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/App.tsx:App",
+   "buildId": "YsKLYBIbCDycRxF",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "data": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "/home/dumco/projects/engine/packages/engine.dashboard/src/producers/processEngineOutput.ts": {
+  "BtaermTNCJtOELw": {
+   "type": "producer",
+   "meta": {
+    "name": "processEngineOutput",
+    "location": {
+     "start": {
+      "line": 37,
+      "column": 13
+     },
+     "end": {
+      "line": 126,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/producers/processEngineOutput.ts",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/producers/processEngineOutput.ts"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/producers/processEngineOutput.ts:processEngineOutput",
+   "buildId": "BtaermTNCJtOELw",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "_engineOutput": {
+      "type": "VALUE",
+      "value": {
+       "type": "CONST",
+       "value": {
+        "__node__": {
+         "type": "Identifier",
+         "start": 888,
+         "end": 900,
+         "loc": {
+          "start": {
+           "line": 38,
+           "column": 18
+          },
+          "end": {
+           "line": 38,
+           "column": 30
+          },
+          "identifierName": "engineOutput"
+         },
+         "name": "engineOutput"
+        }
+       }
+      }
+     },
+     "updateStructureData": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       }
+      ]
+     },
+     "updateStructureElements": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       }
+      ]
+     },
+     "updateStructureRaw": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "raw"
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "/home/dumco/projects/engine/packages/engine.dashboard/src/producers/getCode.ts": {
+  "dNlCbidBHovfZQc": {
+   "type": "producer",
+   "meta": {
+    "name": "getCode",
+    "location": {
+     "start": {
+      "line": 2,
+      "column": 13
+     },
+     "end": {
+      "line": 43,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/packages/engine.dashboard/src/producers/getCode.ts",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "src/producers/getCode.ts"
+   },
+   "sourceId": "/home/dumco/projects/engine/packages/engine.dashboard/src/producers/getCode.ts:getCode",
+   "buildId": "dNlCbidBHovfZQc",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "selectedElement": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "selectedElement"
+       },
+       {
+        "type": "CONST",
+        "value": "id"
+       }
+      ]
+     },
+     "getAbsPath": {
+      "type": "GET",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "INTERNAL",
+        "path": [
+         "selectedElement"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "meta"
+       },
+       {
+        "type": "CONST",
+        "value": "absoluteFilePath"
+       }
+      ]
+     },
+     "getLocation": {
+      "type": "GET",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "INTERNAL",
+        "path": [
+         "selectedElement"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "meta"
+       },
+       {
+        "type": "CONST",
+        "value": "location"
+       }
+      ]
+     },
+     "updateCode": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "INTERNAL",
+        "path": [
+         "selectedElement"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "code"
+       }
+      ]
+     },
+     "getCode": {
+      "type": "GET",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "structure"
+       },
+       {
+        "type": "CONST",
+        "value": "elements"
+       },
+       {
+        "type": "INTERNAL",
+        "path": [
+         "selectedElement"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "code"
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/viewSelector/index.tsx": {
+  "VhRzNEAB_UrAHgz": {
+   "type": "view",
+   "meta": {
+    "name": "Component",
+    "location": {
+     "start": {
+      "line": 20,
+      "column": 8
+     },
+     "end": {
+      "line": 33,
+      "column": 3
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/viewSelector/index.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/viewSelector/index.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/viewSelector/index.tsx:Component",
+   "buildId": "VhRzNEAB_UrAHgz",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "_props": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "_props"
+       ]
+      }
+     },
+     "state": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "_viewId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "state"
+       }
+      ]
+     }
+    }
+   }
+  },
+  "oBAYRIMArNyfjAA": {
+   "type": "producer",
+   "meta": {
+    "name": "selector",
+    "location": {
+     "start": {
+      "line": 35,
+      "column": 8
+     },
+     "end": {
+      "line": 59,
+      "column": 3
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/viewSelector/index.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/viewSelector/index.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/viewSelector/index.tsx:selector",
+   "buildId": "oBAYRIMArNyfjAA",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "data": {
+      "type": "OBSERVE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "_viewId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       }
+      ]
+     },
+     "updateState": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "_viewId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "state"
+       }
+      ]
+     },
+     "getState": {
+      "type": "GET",
+      "path": [
+       {
+        "type": "CONST",
+        "value": "views"
+       },
+       {
+        "type": "EXTERNAL",
+        "path": [
+         "_viewId"
+        ]
+       },
+       {
+        "type": "CONST",
+        "value": "data"
+       },
+       {
+        "type": "CONST",
+        "value": "state"
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/debug/index.ts": {
+  "WqoQyWpQlRTHDez": {
+   "type": "producer",
+   "meta": {
+    "name": "debug",
+    "location": {
+     "start": {
+      "line": 5,
+      "column": 13
+     },
+     "end": {
+      "line": 41,
+      "column": 1
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/debug/index.ts",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/debug/index.ts"
+   },
+   "sourceId": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/debug/index.ts:debug",
+   "buildId": "WqoQyWpQlRTHDez",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "_window": {
+      "type": "VALUE",
+      "value": {
+       "type": "CONST",
+       "value": {
+        "__node__": {
+         "type": "Identifier",
+         "start": 165,
+         "end": 175,
+         "loc": {
+          "start": {
+           "line": 6,
+           "column": 12
+          },
+          "end": {
+           "line": 6,
+           "column": 22
+          },
+          "identifierName": "_windowObj"
+         },
+         "name": "_windowObj"
+        }
+       }
+      }
+     },
+     "getValue": {
+      "type": "GET",
+      "path": [
+       {
+        "type": "INVOKE",
+        "path": [
+         "path"
+        ]
+       }
+      ]
+     },
+     "setValue": {
+      "type": "UPDATE",
+      "path": [
+       {
+        "type": "INVOKE",
+        "path": [
+         "path"
+        ]
+       }
+      ]
+     }
+    }
+   }
+  }
+ },
+ "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/join/index.tsx": {
+  "BnjvIqPSybu_NeN": {
+   "type": "view",
+   "meta": {
+    "name": "Component",
+    "location": {
+     "start": {
+      "line": 38,
+      "column": 10
+     },
+     "end": {
+      "line": 46,
+      "column": 5
+     }
+    },
+    "absoluteFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/join/index.tsx",
+    "absoluteRootPath": "/home/dumco/projects/engine/packages/engine.dashboard",
+    "relativeFilePath": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/join/index.tsx"
+   },
+   "sourceId": "/home/dumco/projects/engine/.yarn/__virtual__/@c11-engine.patterns-virtual-9e62e9d67d/1/packages/engine.patterns/src/join/index.tsx:Component",
+   "buildId": "BnjvIqPSybu_NeN",
+   "params": {
+    "type": "STRUCT",
+    "value": {
+     "_props": {
+      "type": "VALUE",
+      "value": {
+       "type": "EXTERNAL",
+       "path": [
+        "_props"
+       ]
+      }
+     }
+    }
+   }
+  }
+ }
+}

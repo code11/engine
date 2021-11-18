@@ -30,9 +30,6 @@ export const config: producer = async ({
   const replacerPath = _resolve(root, "dist", "utils", "replacer.js");
   const data = await _readFile(packageJson, "utf8");
   const result = JSON.parse(data) as JSONSchemaForNPMPackageJsonFiles;
-  if (!result.name || !result.version) {
-    throw new Error("name and version not found");
-  }
   const commandPath = _cwd();
   const srcPath = _resolve(commandPath, "src");
   const entryPath = _resolve(srcPath, "index.tsx?");
@@ -43,10 +40,11 @@ export const config: producer = async ({
   const publicIndexPath = _resolve(publicPath, "index.html");
   const tailwindConfigPath = _resolve(commandPath, "tailwind.config.js");
   config.set({
-    name: result.name,
-    version: result.version,
-    proxy: result.proxy,
-    webpackPublicPath: result.publicPath,
+    name: result.name || "unknown-app",
+    version: result.version || "unknown-version",
+    proxy: result.proxy || undefined,
+    webpackPublicPath: result.publicPath || "/",
+    port: result.port || "auto",
     packagePath: root,
     commandPath,
     srcPath,

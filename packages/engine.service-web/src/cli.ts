@@ -7,7 +7,7 @@ import * as test from "./test";
 import "./global";
 
 const app = engine({
-  use: [producers(setup), producers(start), producers(build), producers(test)],
+  use: [producers([setup, start, build, test])],
 });
 
 app.start();

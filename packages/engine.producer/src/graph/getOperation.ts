@@ -49,6 +49,12 @@ export const getOperation = (
     }
   };
 
+  //TODO: add an exists method as well
+  // if (getFoo.exists()) { ... }
+  // this should check if the path exists and if the
+  // value is not undefined
+
+
   const operation = {
     value,
     includes,

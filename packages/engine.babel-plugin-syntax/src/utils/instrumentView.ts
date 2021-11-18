@@ -12,11 +12,10 @@ import {
 } from "../compilers";
 import { Messages } from "../messages";
 import { addNamedImport } from "./addNamedImport";
-import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
 import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
 import { randomId } from "@c11/engine.utils";
-import { InstrumentationOutput } from "../types";
+import { PluginConfig, InstrumentationOutput } from "../types";
 
 export const instrumentView = (
   babel: typeof Babel,

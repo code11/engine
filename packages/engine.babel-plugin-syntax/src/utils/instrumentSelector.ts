@@ -1,3 +1,4 @@
+/*
 const Parent: selector = (
   { A, B, C, D },
   { isUserLogged = observe.user.data, isErrorInUser }
@@ -8,3 +9,4 @@ const Parent: selector = (
     return B;
   }
 };
+*/

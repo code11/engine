@@ -1,15 +1,14 @@
 import type * as Babel from "@babel/core";
 import { EngineKeywords } from "@c11/engine.types";
 import { Messages } from "../messages";
-import { PluginConfig } from "../plugin";
-import { InstrumentationOutput } from "../types";
+import { PluginConfig, InstrumentationOutput } from "../types";
 import { instrumentProducer, instrumentView } from "../utils";
 
 export const VariableDeclaratorVisitor =
   (
     babel: typeof Babel,
     config: PluginConfig,
-    done: (output: InstrumentationOutput) => void
+    done?: (output: InstrumentationOutput) => void
   ) =>
   (
     path: Babel.NodePath<Babel.types.VariableDeclarator>,
@@ -43,18 +42,15 @@ export const VariableDeclaratorVisitor =
     } else if (keyword === EngineKeywords.VIEW) {
       instrumentationOutput = instrumentView(babel, config, state, path);
     }
-
-    // console.log(JSON.stringify(output, null, " "));
-
-    if (instrumentationOutput) {
-      done(instrumentationOutput);
-    }
-
     // TOOD: Figure out if keeping the type annotation is more
     // useful for hmr identifing
 
     // The node was transformed so the type annotation
     // can be removed
-    //@ts-ignore
-    path.node.id = t.identifier(path.node.id.name);
+    const temp = path.node.id as { name: string };
+    path.node.id = t.identifier(temp.name);
+
+    if (instrumentationOutput && done) {
+      done(instrumentationOutput);
+    }
   };

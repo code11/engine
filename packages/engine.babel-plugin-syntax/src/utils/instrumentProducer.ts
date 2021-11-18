@@ -6,7 +6,6 @@ import {
   paramsCompiler,
 } from "../compilers";
 import { Messages } from "../messages";
-import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
 import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
 import { randomId } from "@c11/engine.utils";
@@ -15,7 +14,7 @@ import {
   PassthroughOperation,
   OperationTypes,
 } from "@c11/engine.types";
-import { InstrumentationOutput } from "../types";
+import { PluginConfig, InstrumentationOutput } from "../types";
 
 export const instrumentProducer = (
   babel: typeof Babel,

@@ -25,10 +25,11 @@ export const command: producer = ({
     .command("start")
     .description("Start the application")
     .action((cmd: commander.Command) => {
-      start.set({
+      const trigger = {
         opts: (cmd && cmd.opts && cmd.opts()) || {},
         timestamp: _now(),
-      });
+      };
+      start.set(trigger);
     });
 
   _commander

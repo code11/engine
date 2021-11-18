@@ -16,6 +16,7 @@ type props = {
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
   publicPath: Get<State["config"]["publicPath"]>;
+  port: Get<State["config"]["port"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
   tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
   proxy: Get<State["config"]["proxy"]>;
@@ -37,6 +38,7 @@ export const init: producer = async ({
   publicIndexPath = get.config.publicIndexPath,
   commandPath = get.config.commandPath,
   packagePath = get.config.packagePath,
+  port = get.config.port,
   proxy = get.config.proxy,
   nodeModulesPath = get.config.nodeModulesPath,
   overrideModulesPath = get.config.overrideModulesPath,
@@ -91,13 +93,16 @@ export const init: producer = async ({
       rules: [
         {
           test: /\.svg$/,
-          use: ["@svgr/webpack", "url-loader"],
+          use: [
+            require.resolve("@svgr/webpack"),
+            require.resolve("url-loader"),
+          ],
         },
         {
           test: /\.(png|jpg|gif|webp)$/,
           use: [
             {
-              loader: "file-loader",
+              loader: require.resolve("file-loader"),
               options: {
                 name: "[name].[ext]?[hash]",
                 outputPath: "assets",
@@ -109,7 +114,7 @@ export const init: producer = async ({
           test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
           use: [
             {
-              loader: "file-loader",
+              loader: require.resolve("file-loader"),
               options: {
                 name: "[name].[ext]",
                 outputPath: "fonts/",
@@ -123,16 +128,19 @@ export const init: producer = async ({
           // exclude: fileIsES5(FILE_ENCODING),
           use: [
             {
-              loader: "babel-loader",
+              loader: require.resolve("babel-loader"),
               options: {
                 cacheDirectory: true,
                 comments: false,
                 minified: false,
-                presets: ["@babel/preset-env", "@babel/preset-react"],
+                presets: [
+                  require.resolve("@babel/preset-env"),
+                  require.resolve("@babel/preset-react"),
+                ],
                 plugins: [
-                  "babel-plugin-react-require",
-                  "@babel/plugin-proposal-class-properties",
-                  "@babel/plugin-transform-runtime",
+                  require.resolve("babel-plugin-react-require"),
+                  require.resolve("@babel/plugin-proposal-class-properties"),
+                  require.resolve("@babel/plugin-transform-runtime"),
                 ],
               },
             },
@@ -142,7 +150,7 @@ export const init: producer = async ({
           test: /\.(ts|tsx)$/,
           use: [
             {
-              loader: "babel-loader",
+              loader: require.resolve("babel-loader"),
               options: {
                 cacheDirectory: true,
                 comments: false,
@@ -151,22 +159,23 @@ export const init: producer = async ({
                   {
                     plugins: [
                       [
-                        "@c11/engine.babel-plugin-syntax",
+                        require.resolve("@c11/engine.babel-plugin-syntax"),
                         {
                           viewLibrary: "@c11/engine.react",
+                          output: true,
                         },
                       ],
-                      "@c11/engine.babel-plugin-hmr",
+                      require.resolve("@c11/engine.babel-plugin-hmr"),
                     ],
                   },
-                  "@babel/preset-typescript",
-                  "@babel/preset-env",
-                  "@babel/preset-react",
+                  require.resolve("@babel/preset-typescript"),
+                  require.resolve("@babel/preset-env"),
+                  require.resolve("@babel/preset-react"),
                 ],
                 plugins: [
-                  "babel-plugin-react-require",
-                  "@babel/plugin-proposal-class-properties",
-                  "@babel/plugin-transform-runtime",
+                  require.resolve("babel-plugin-react-require"),
+                  require.resolve("@babel/plugin-proposal-class-properties"),
+                  require.resolve("@babel/plugin-transform-runtime"),
                   // [
                   //   "babel-plugin-module-rewrite",
                   //   {
@@ -185,20 +194,23 @@ export const init: producer = async ({
           test: /\.css$/,
           exclude: /\.module\.css$/,
           use: [
-            "style-loader",
+            require.resolve("style-loader"),
             {
-              loader: "css-loader",
+              loader: require.resolve("css-loader"),
               options: { modules: false, importLoaders: 1 },
             },
             {
-              loader: "postcss-loader",
+              loader: require.resolve("postcss-loader"),
               options: {
                 postcssOptions: {
                   config: false,
                   plugins: [
-                    "postcss-import",
-                    ["tailwindcss", { config: tailwindConfig }],
-                    ["postcss-preset-env", { stage: 1 }],
+                    require.resolve("postcss-import"),
+                    [
+                      require.resolve("tailwindcss"),
+                      { config: tailwindConfig },
+                    ],
+                    [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
               },
@@ -208,10 +220,10 @@ export const init: producer = async ({
         {
           test: /\.module.css$/,
           use: [
-            "style-loader",
-            "@teamsupercell/typings-for-css-modules-loader",
+            require.resolve("style-loader"),
+            require.resolve("@teamsupercell/typings-for-css-modules-loader"),
             {
-              loader: "css-loader",
+              loader: require.resolve("css-loader"),
               options: {
                 importLoaders: 1,
                 modules: {
@@ -221,14 +233,17 @@ export const init: producer = async ({
               },
             },
             {
-              loader: "postcss-loader",
+              loader: require.resolve("postcss-loader"),
               options: {
                 postcssOptions: {
                   config: false,
                   plugins: [
-                    "postcss-import",
-                    ["tailwindcss", { config: tailwindConfig }],
-                    ["postcss-preset-env", { stage: 1 }],
+                    require.resolve("postcss-import"),
+                    [
+                      require.resolve("tailwindcss"),
+                      { config: tailwindConfig },
+                    ],
+                    [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
               },
@@ -267,6 +282,5 @@ export const init: producer = async ({
     _webpack(config)
   );
 
-  //TODO: in case 8081 is busy, try 8082, 8083...
-  server.listen(8081, "0.0.0.0");
+  server.listen(port.value(), "0.0.0.0");
 };

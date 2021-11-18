@@ -1,1 +1,1 @@
-export { VariableDeclaratorVisitor } from './VariableDeclarator'
+export { VariableDeclaratorVisitor } from "./VariableDeclarator";
