@@ -165,7 +165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/cli@npm:^7.15.4":
+"@babel/cli@npm:^7.15.4, @babel/cli@npm:^7.16.0":
   version: 7.16.0
   resolution: "@babel/cli@npm:7.16.0"
   dependencies:
@@ -1731,7 +1731,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@c11/engine.dashboard@workspace:packages/engine.dashboard"
   dependencies:
+    "@babel/cli": ^7.16.0
+    "@babel/plugin-proposal-class-properties": ^7.14.5
+    "@babel/plugin-transform-runtime": ^7.15.0
+    "@babel/preset-env": ^7.15.6
+    "@babel/preset-typescript": ^7.15.0
+    "@babel/runtime": ^7.15.4
+    "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.83
     "@c11/engine.patterns": 4.0.0-alpha.83
+    "@c11/engine.runtime": 4.0.0-alpha.83
     "@c11/engine.service-web": 4.0.0-alpha.83
     "@c11/engine.types": 4.0.0-alpha.83
     "@c11/engine.utils": 4.0.0-alpha.83
@@ -1750,6 +1758,8 @@ __metadata:
     react-json-view: ^1.21.3
     react-simple-code-editor: ^0.11.0
     tailwindcss: ^2.2.19
+  bin:
+    engine-dashboard: dist/cli.js
   languageName: unknown
   linkType: soft
 
@@ -5594,7 +5604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^16.11.7, @types/node@npm:^16.9.1":
+"@types/node@npm:*, @types/node@npm:^16.9.1":
   version: 16.11.7
   resolution: "@types/node@npm:16.11.7"
   checksum: 2706403e6efc4aa40fdce8f0b5d9884d5600c3c8610aedc7fa5e7e298d30366f7e8b7296028d52898dca3edef4c3e827b03bf20952c4780f13fa4e79864f7a86
@@ -19535,7 +19545,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.14.2, resolve@^1.18.1, resolve@^1.19.0, resolve@^1.20.0, resolve@^1.3.2":
+"resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.14.2, resolve@^1.18.1, resolve@^1.19.0, resolve@^1.3.2, resolve@npm:^1.12.0, resolve@npm:^1.20.0":
   version: 1.20.0
   resolution: "resolve@npm:1.20.0"
   dependencies:
@@ -19680,9 +19690,7 @@ fsevents@^1.2.7:
     "@babel/preset-typescript": ^7.15.0
     "@babel/types": ^7.15.6
     "@types/eslint": ^8
-    "@types/jest": ^26.0.22
     "@types/lodash": ^4.14.172
-    "@types/node": ^16.11.7
     "@typescript-eslint/eslint-plugin": ^5.4.0
     "@typescript-eslint/parser": ^5.4.0
     babel-jest: ^26.6.3
@@ -21899,8 +21907,8 @@ typescript@^4.4.3:
   linkType: hard
 
 "unified@npm:^10.0.0":
-  version: 10.1.0
-  resolution: "unified@npm:10.1.0"
+  version: 10.1.1
+  resolution: "unified@npm:10.1.1"
   dependencies:
     "@types/unist": ^2.0.0
     bail: ^2.0.0
@@ -21909,7 +21917,7 @@ typescript@^4.4.3:
     is-plain-obj: ^4.0.0
     trough: ^2.0.0
     vfile: ^5.0.0
-  checksum: b7e1d8dcf61d139ff57df1d393b177098a7fa53bddd47dd8c44cdfe983557d653719fd0ba3668a0be89a4a6189907327d56c2d13b21361e3d07b74f51b0d98ef
+  checksum: 5419bd8d9608393bd6637d9b7948fa50b7ecfd1641513293f4af38ac602aadc2b04074c2714191ed5a783a2bffbcb0ee2665fe5367b436a45ee493d264e14e71
   languageName: node
   linkType: hard
 

@@ -2,22 +2,16 @@ import { engine, producers } from "@c11/engine.runtime";
 import { debug } from "@c11/engine.patterns";
 import { render } from "@c11/engine.react";
 import { App } from "./App";
-import * as producerList from './producers'
+import * as producerList from "./producers";
 import "./global";
 
 const app = engine({
-  state: {
-    name: "John Doe",
-    item: {
-      a: "this is a",
-      b: "this is b",
-    },
-  },
+  state: {},
   use: [
     render(<App />, "#app", {
-      debug: false
+      debug: false,
     }),
-    producers([producerList, debug])
+    producers([producerList, debug]),
   ],
 });
 

@@ -3,16 +3,26 @@
  "private": true,
  "version": "1.0.0",
  "scripts": {
-  "start": "engine-service-web start",
   "test": "echo \"engine-service-web test\"",
-  "build": "echo \"engine-service-web build\""
+  "build": "babel src --out-dir dist --extensions \".ts\" && chmod +x dist/index.js"
  },
  "devDependencies": {
   "@c11/engine.service-web": "4.0.0-alpha.83",
   "tailwindcss": "^2.2.19"
  },
+ "bin": {
+  "engine-dashboard": "dist/cli.js"
+ },
  "dependencies": {
+  "@babel/cli": "^7.16.0",
+  "@babel/plugin-proposal-class-properties": "^7.14.5",
+  "@babel/plugin-transform-runtime": "^7.15.0",
+  "@babel/preset-env": "^7.15.6",
+  "@babel/preset-typescript": "^7.15.0",
+  "@babel/runtime": "^7.15.4",
+  "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.83",
   "@c11/engine.patterns": "4.0.0-alpha.83",
+  "@c11/engine.runtime": "4.0.0-alpha.83",
   "@c11/engine.types": "4.0.0-alpha.83",
   "@c11/engine.utils": "4.0.0-alpha.83",
   "@chakra-ui/icons": "^1.0.17",
