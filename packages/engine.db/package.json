@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.db",
-  "version": "4.0.0-alpha.83",
+  "version": "4.0.0-alpha.84",
   "description": "The engine db",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,8 +33,8 @@
     "yamljs": "^0.3.0"
   },
   "dependencies": {
-    "@c11/engine.types": "4.0.0-alpha.83",
-    "@c11/engine.utils": "4.0.0-alpha.83",
+    "@c11/engine.types": "4.0.0-alpha.84",
+    "@c11/engine.utils": "4.0.0-alpha.84",
     "clone-deep": "^4.0.1",
     "lodash": "^4.17.21",
     "setimmediate": "^1.0.5",
