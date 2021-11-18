@@ -23,3 +23,4 @@ TODO
 !.yarn/versions
 .pnp.*
 .scannerwork
+engine.output.json
