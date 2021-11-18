@@ -1,6 +1,5 @@
 {
  "name": "@c11/engine.dashboard",
- "private": true,
  "version": "4.0.0-alpha.84",
  "scripts": {
   "test": "echo \"engine-service-web test\"",
