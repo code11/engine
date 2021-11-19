@@ -20,6 +20,7 @@ type props = {
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
   tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
   proxy: Get<State["config"]["proxy"]>;
+  engineOutput: Get<State["config"]["engineOutput"]>;
 };
 
 //TODO: enforce block statement
@@ -44,6 +45,7 @@ export const init: producer = async ({
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   publicPath = get.config.publicPath,
+  engineOutput = get.config.engineOuput,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
   tailwindConfigPath = get.config.tailwindConfigPath,
 }: props) => {
@@ -162,7 +164,7 @@ export const init: producer = async ({
                         require.resolve("@c11/engine.babel-plugin-syntax"),
                         {
                           viewLibrary: "@c11/engine.react",
-                          output: true,
+                          output: engineOutput.value(),
                         },
                       ],
                       require.resolve("@c11/engine.babel-plugin-hmr"),

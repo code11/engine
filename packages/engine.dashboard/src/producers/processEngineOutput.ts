@@ -2,10 +2,10 @@ import {
   OutputStructure,
   InstrumentationOutput,
 } from "@c11/engine.babel-plugin-syntax";
+import axios from "axios";
 import { OperationTypes, ValueTypes } from "@c11/engine.types";
 import mergeWith from "lodash/mergeWith";
 import isArray from "lodash/isArray";
-import engineOutput from "../engine.output.json";
 
 type StateSection = {
   id?: string;
@@ -34,13 +34,13 @@ function customizer(objValue, srcValue) {
 
 const merge = (a, b) => mergeWith(a, b, customizer);
 
-export const processEngineOutput: producer = ({
-  _engineOutput = engineOutput,
+export const processEngineOutput: producer = async ({
   updateStructureData = update.structure.data,
   updateStructureElements = update.structure.elements,
   updateStructureRaw = update.structure.raw,
 }) => {
-  const output = _engineOutput as OutputStructure;
+  const result = await axios.get(`http://localhost:3000/app-structure`);
+  const output = result.data as OutputStructure;
   // console.log('output is', output)
 
   updateStructureRaw.set(output);

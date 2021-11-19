@@ -8,6 +8,8 @@ const pReadFile = promisify(readFile);
 
 type props = {
   _findRoot: typeof findRoot;
+  startPath: string;
+  trigger: State["triggers"]["config"];
   _resolve: typeof resolve;
   _readFile: typeof pReadFile;
   _cwd: typeof process.cwd;
@@ -16,6 +18,8 @@ type props = {
 };
 
 export const config: producer = async ({
+  trigger = observe.triggers.config,
+  startPath = arg.trigger.path,
   _findRoot = findRoot,
   _resolve = resolve,
   _readFile = pReadFile,
@@ -23,6 +27,9 @@ export const config: producer = async ({
   _dirname = __dirname,
   config = update.config,
 }: props) => {
+  if (!trigger) {
+    return;
+  }
   const packageRoot = _findRoot(_dirname);
   const root = _findRoot(_resolve(packageRoot, ".."));
   const packageJson = _resolve(root, "package.json");
@@ -30,7 +37,7 @@ export const config: producer = async ({
   const replacerPath = _resolve(root, "dist", "utils", "replacer.js");
   const data = await _readFile(packageJson, "utf8");
   const result = JSON.parse(data) as JSONSchemaForNPMPackageJsonFiles;
-  const commandPath = _cwd();
+  const commandPath = startPath || _cwd();
   const srcPath = _resolve(commandPath, "src");
   const entryPath = _resolve(srcPath, "index.tsx?");
   const overrideModulesPath = _resolve(srcPath, "node_modules_overrides");
@@ -45,6 +52,7 @@ export const config: producer = async ({
     proxy: result.proxy || undefined,
     webpackPublicPath: result.publicPath || "/",
     port: result.port || "auto",
+    engineOutput: result.engineOutput === true ? true : false,
     packagePath: root,
     commandPath,
     srcPath,

@@ -8,10 +8,24 @@ import "./global";
 
 let starterFn;
 
-const starter: producer = ({ _now, start = update.start.triggers.init }) => {
-  starterFn = () => {
+const triggerStart: producer = ({
+  _now,
+  version = observe.config.version,
+  start = update.start.triggers.init,
+}) => {
+  if (!version) {
+    return;
+  }
+  start.set({
+    opts: {},
+    timestamp: _now(),
+  });
+};
+
+const triggerConfig: producer = ({ _now, start = update.triggers.config }) => {
+  starterFn = (path) => {
     start.set({
-      opts: {},
+      path,
       timestamp: _now(),
     });
   };
@@ -20,7 +34,8 @@ const starter: producer = ({ _now, start = update.start.triggers.init }) => {
 const app = engine({
   use: [
     producers([
-      starter,
+      triggerConfig,
+      triggerStart,
       config,
       onError,
       startProducers,
@@ -34,10 +49,10 @@ app.start();
 export const start = (path) => {
   if (!starterFn) {
     setTimeout(() => {
-      starterFn();
+      starterFn(path);
     }, 100);
   } else {
-    starterFn();
+    starterFn(path);
   }
   console.log("starting the application", path);
 };

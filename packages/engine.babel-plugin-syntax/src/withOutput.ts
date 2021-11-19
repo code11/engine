@@ -10,7 +10,7 @@ import * as Babel from "@babel/core";
 import { VariableDeclaratorVisitor } from "./visitors";
 
 export const withOutput: PluginType = (babel, state) => {
-  const outputFile = "engine.output.json";
+  const outputFile = ".app-structure.json";
   const cache = new Map<string, FileOutput>();
   let rootPath: string;
   let writeTimeout: NodeJS.Timeout;

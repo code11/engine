@@ -7,6 +7,13 @@ import * as test from "./test";
 import "./global";
 
 const app = engine({
+  state: {
+    triggers: {
+      config: {
+        path: process.cwd(),
+      },
+    },
+  },
   use: [producers([setup, start, build, test])],
 });
 
