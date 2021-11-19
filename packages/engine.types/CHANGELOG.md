@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.86](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.86) (2021-11-19)
+
+
+### Bug Fixes
+
+* **engine.producer:** ensure cb is called in async producers ([6b69231](https://github.com/code11/engine/commit/6b69231a1d3f716e33e65e8c0e36d7848e68f827))
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
 # [4.0.0-alpha.85](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.85) (2021-11-18)
 
 
