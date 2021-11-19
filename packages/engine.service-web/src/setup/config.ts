@@ -32,7 +32,7 @@ export const config: producer = async ({
   }
   const packageRoot = _findRoot(_dirname);
   const root = _findRoot(_resolve(packageRoot, ".."));
-  const packageJson = _resolve(root, "package.json");
+  const packageJson = _resolve(startPath || root, "package.json");
   const packageNodeModulesPath = _resolve(root, "node_modules");
   const replacerPath = _resolve(root, "dist", "utils", "replacer.js");
   const data = await _readFile(packageJson, "utf8");
