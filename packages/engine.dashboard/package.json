@@ -4,6 +4,7 @@
  "description": "A dashboard for visualizing and interacting with the engine instance",
  "scripts": {
   "test": "echo \"engine-service-web test\"",
+  "start": "engine-service-web start",
   "build": "yarn clean && babel cli --out-dir dist --extensions \".ts\" && chmod +x dist/cli.js",
   "clean": "rm -rf ./dist"
  },
