@@ -1,3 +1,3 @@
 export const ViewsTab: view = () => {
-  return <div> foo</div>;
+  return <div>Views hierarchy</div>;
 };

@@ -38,7 +38,7 @@ export const StateTree: view = ({
       (data.elements?.producer?.length || 0) >
     0;
   return (
-    <ListItem ml="0">
+    <ListItem ml="0" key={_viewId}>
       {!isRoot && hasChildren && (
         <Flex mb="2">
           <Tag

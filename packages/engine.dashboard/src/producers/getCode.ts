@@ -5,7 +5,7 @@ export const getCode: producer = ({
     .absoluteFilePath,
 
   getLocation = get.structure.elements[arg.selectedElement].meta.location,
-  updateCode = update.structure.elements[arg.selectedElement].code,
+  updateCode = update.structure.code[arg.selectedElement],
   getCode = get.structure.elements[arg.selectedElement].code,
 }) => {
   if (!selectedElement || getCode.value()) {

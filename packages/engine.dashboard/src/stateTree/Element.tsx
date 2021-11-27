@@ -1,5 +1,5 @@
 import { Box, Text, HStack, Badge } from "@chakra-ui/react";
-import { getFlags } from "./getFlags";
+import { getFlags } from "../fns";
 
 export const Element: view = ({
   id,

@@ -1,40 +1,78 @@
 import { Box, VStack, Text, Badge, Divider } from "@chakra-ui/react";
+
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react";
+
 import { Heading } from "@chakra-ui/react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { OperationTypes } from "@c11/engine.types";
 import { OperationPath } from "./OperationPath";
+import { Dependencies } from "./Dependencies";
+
+const Operations = ({ value, path, id }) => {
+  return (
+    <Accordion allowMultiple allowToggle key={Math.random()}>
+      {Object.entries(value).map(([name, op]) => (
+        <AccordionItem key={Math.random()}>
+          <AccordionButton p="0">
+            <OperationPath
+              key={Math.random()}
+              name={name}
+              op={op}
+              selectedPath={path}
+            />
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel
+            bg="gray.400"
+            p="0"
+            border="1px solid"
+            borderColor="gray.300"
+          >
+            <Dependencies op={op} id={id} />
+          </AccordionPanel>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+};
 
 export const ElementDescription: view = ({
   selectedId = observe.selectedElement.id,
   path = observe.selectedElement.path,
   element = observe.structure.elements[arg.selectedId],
+  code = observe.structure.code[arg.selectedId],
 }) => {
   if (!element) {
     return;
   }
 
-  let code;
   try {
-    code = (prettier as any).format(element.code, {
+    code = (prettier as any).format(code, {
       parser: "typescript",
       plugins: prettierPlugins,
     });
   } catch (e) {
-    code = element.code || "loading code..";
+    code = code || "loading code..";
   }
   return (
     <Box p="4" overflowY="scroll" h="100vh">
       <Box mb="4">
-        <Heading size="sm" mb="2">
-          Details
-        </Heading>
-        <VStack align="stretch" spacing={1}>
+        <VStack align="stretch" spacing={1} bg="gray.400" p="4">
           <Text>
             <Badge color={element.type === "view" ? "green" : "purple"}>
               {element.type}
             </Badge>
           </Text>
-          <Text fontWeight="bold"> {element.meta.name}</Text>
+          <Text fontSize="xl" fontWeight="bold">
+            {" "}
+            {element.meta.name}
+          </Text>
           <Text>{element.meta.relativeFilePath}</Text>
         </VStack>
       </Box>
@@ -42,21 +80,14 @@ export const ElementDescription: view = ({
         <Heading size="sm" mb="2">
           Header
         </Heading>
-        <VStack
-          align="stretch"
-          spacing={0}
-          divider={<Divider borderColor="gray.400" />}
-        >
-          {element.params.type === OperationTypes.STRUCT &&
-            Object.entries(element.params.value).map(([name, op]) => (
-              <OperationPath
-                key={name}
-                name={name}
-                op={op}
-                selectedPath={path}
-              />
-            ))}
-        </VStack>
+
+        {element.params.type === OperationTypes.STRUCT && (
+          <Operations
+            value={element.params.value}
+            path={path}
+            id={selectedId}
+          />
+        )}
       </Box>
       <Box mb="2">
         <Heading size="sm" mb="2">
@@ -75,13 +106,6 @@ export const ElementDescription: view = ({
               "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
           }}
         />
-      </Box>
-      <Box mb="2">
-        <Heading size="sm" mb="2">
-          Depends on
-        </Heading>
-        <Text>Other views & producers</Text>
-        <Text>Other views & producers</Text>
       </Box>
     </Box>
   );

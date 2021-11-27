@@ -1,6 +1,6 @@
-import { Text, Flex } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import { OperationTypes } from "@c11/engine.types";
-import { parseOperation } from "./stateTree/parseOperation";
+import { parseOperation } from "../fns";
 
 export const OperationPath = ({ name, op, selectedPath }) => {
   const path = parseOperation(op);
@@ -16,7 +16,7 @@ export const OperationPath = ({ name, op, selectedPath }) => {
   current.shift();
   const isSelected = selectedPath === current.join(".");
   return (
-    <Flex bg={isSelected && "purple.200"} p="2">
+    <Flex bg={isSelected && "purple.200"} p="2" w="full">
       <Text>{name} =&nbsp;</Text>
       <Text fontWeight="bold" color={colors[type]}>
         {type && type.toLowerCase()}

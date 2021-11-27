@@ -2,7 +2,7 @@ import { Box, Tag, ChakraProvider, List } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { StateTree } from "./stateTree";
-import { ElementDescription } from "./ElementDescription";
+import { ElementDescription } from "./elementDescription";
 import { ViewsTab } from "./ViewsTab";
 import { ProducersTab } from "./ProducersTab";
 
