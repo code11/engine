@@ -23,7 +23,7 @@ export const ElementDescription: view = ({
     code = element.code || "loading code..";
   }
   return (
-    <Box p="4">
+    <Box p="4" overflowY="scroll" h="100vh">
       <Box mb="4">
         <Heading size="sm" mb="2">
           Details

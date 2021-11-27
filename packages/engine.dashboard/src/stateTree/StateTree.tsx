@@ -11,7 +11,7 @@ import { ElementsSummary } from "./ElementsSummary";
 import { ElementsList } from "./ElementsList";
 import { Children } from "./Children";
 
-export const Section: view = ({
+export const StateTree: view = ({
   data,
   path,
   _viewId,

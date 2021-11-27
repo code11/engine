@@ -1,6 +1,6 @@
 import { Text, Flex } from "@chakra-ui/react";
 import { OperationTypes } from "@c11/engine.types";
-import { parseOperation } from "./parseOperation";
+import { parseOperation } from "./stateTree/parseOperation";
 
 export const OperationPath = ({ name, op, selectedPath }) => {
   const path = parseOperation(op);

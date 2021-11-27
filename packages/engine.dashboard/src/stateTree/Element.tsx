@@ -29,7 +29,10 @@ export const Element: view = ({
       borderBottom="solid 1px"
       borderColor="gray.400"
       cursor="pointer"
-      w="xl"
+      _hover={{
+        background: !isElementSelected && "gray.300",
+      }}
+      minW="md"
       py="2"
       onClick={() =>
         updateSelectedElement.set({
@@ -54,7 +57,9 @@ export const Element: view = ({
           {name}
         </Text>
       </HStack>
-      <Text px="2">{filePath}</Text>
+      <Text px="2" fontSize="xs">
+        {filePath}
+      </Text>
     </Box>
   );
 };

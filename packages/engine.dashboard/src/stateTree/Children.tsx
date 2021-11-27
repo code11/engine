@@ -1,5 +1,5 @@
 import { Text, Flex, List } from "@chakra-ui/react";
-import { Section } from "./Section";
+import { StateTree } from "./StateTree";
 
 export const Children = ({ data, path }) => {
   if (!data || Object.keys(data).length === 0) {
@@ -18,7 +18,7 @@ export const Children = ({ data, path }) => {
         .map(([key, value]) => (
           <Flex key={key}>
             <Text color="gray.500">| -&nbsp;</Text>{" "}
-            <Section data={value} path={path} />
+            <StateTree data={value} path={path} />
           </Flex>
         ))}
     </List>

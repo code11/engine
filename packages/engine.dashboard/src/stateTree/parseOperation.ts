@@ -23,7 +23,15 @@ export const parseOperation = (op) => {
           }
           acc.push(name);
         } else {
-          acc.push("[unknown]");
+          if (x.type === ValueTypes.INVOKE) {
+            acc.push(`[param.${x.path.join(".")}]`);
+          } else if (x.type === ValueTypes.EXTERNAL) {
+            acc.push(`[prop.${x.path.join(".")}]`);
+          } else if (x.type === ValueTypes.INTERNAL) {
+            acc.push(`[arg.${x.path.join(".")}]`);
+          } else {
+            acc.push("[unknown]");
+          }
         }
         return acc;
       },
@@ -34,8 +42,14 @@ export const parseOperation = (op) => {
       result = ["prop"];
     } else if (op.value.type === ValueTypes.INTERNAL) {
       result = ["arg"];
-    } else if (op.value.type === ValueTypes.INTERNAL) {
+    } else if (op.value.type === ValueTypes.INVOKE) {
       result = ["param"];
+    } else if (op.value.type === ValueTypes.CONST) {
+      if (op.value.value?.__node__?.name) {
+        result = [op.value.value.__node__.name];
+      } else {
+        result = ["const"];
+      }
     }
     result = result.concat(op.value.path);
   }

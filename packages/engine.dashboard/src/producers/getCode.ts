@@ -22,7 +22,6 @@ export const getCode: producer = ({
         location.start.line - 1,
         location.end.line - 1
       );
-      console.log(lines.length, location, elementLines);
       const body = elementLines.reduce(
         (acc, x) => {
           if (acc.found && x !== "") {

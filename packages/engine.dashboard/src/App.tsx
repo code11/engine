@@ -1,10 +1,16 @@
-import { Box, ChakraProvider, List } from "@chakra-ui/react";
+import { Box, Tag, ChakraProvider, List } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { Section } from "./Section";
+import { StateTree } from "./stateTree";
 import { ElementDescription } from "./ElementDescription";
+import { ViewsTab } from "./ViewsTab";
+import { ProducersTab } from "./ProducersTab";
 
-export const App: view = ({ data = observe.structure.data }) => {
+export const App: view = ({
+  data = observe.structure.data,
+  viewsCount = observe.structure.count.views,
+  producersCount = observe.structure.count.producers,
+}) => {
   if (!data) {
     return;
   }
@@ -12,26 +18,36 @@ export const App: view = ({ data = observe.structure.data }) => {
   return (
     <ChakraProvider>
       <SimpleGrid columns={2}>
-        <Box bg="gray.100">
+        <Box bg="gray.100" h="100vh">
           <Tabs>
             <TabList>
               <Tab>State</Tab>
-              <Tab>Elements</Tab>
+              <Tab>
+                Views <Tag>{viewsCount}</Tag>
+              </Tab>
+              <Tab>
+                Producers <Tag>{producersCount}</Tag>
+              </Tab>
             </TabList>
 
             <TabPanels>
-              <TabPanel>
+              <TabPanel pr="0">
                 <List>
-                  <Section data={data} />
+                  <Box overflowY="scroll" h="92vh">
+                    <StateTree data={data} />
+                  </Box>
                 </List>
               </TabPanel>
-              <TabPanel>
-                <p>Elements</p>
+              <TabPanel pr="0">
+                <ViewsTab />
+              </TabPanel>
+              <TabPanel pr="0">
+                <ProducersTab />
               </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>
-        <Box bg="gray.200">
+        <Box bg="gray.200" borderLeft="solid 1px" borderColor="gray.300">
           <ElementDescription />
         </Box>
       </SimpleGrid>
