@@ -19,7 +19,8 @@
     "@c11/engine.db": "4.0.0-alpha.86",
     "@c11/engine.producer": "4.0.0-alpha.86",
     "@c11/engine.types": "4.0.0-alpha.86",
-    "@c11/engine.utils": "4.0.0-alpha.86"
+    "@c11/engine.utils": "4.0.0-alpha.86",
+    "mitt": "^3.0.0"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9",
   "devDependencies": {

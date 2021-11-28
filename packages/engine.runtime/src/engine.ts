@@ -1,5 +1,5 @@
 import db from "@c11/engine.db";
-import { EngineModule } from "./module";
+import { randomId } from "@c11/engine.utils";
 import {
   EngineApi,
   EngineConfig,
@@ -9,30 +9,38 @@ import {
   ProducerConfig,
   ViewConfig,
 } from "@c11/engine.types";
+import { EngineModule } from "./module";
 
-const updateListeners: any = [];
+const updateListeners: {
+  [k: string]: (sourceId: string, config: ProducerConfig | ViewConfig) => void;
+} = {};
 
 export const update = (config: ProducerConfig | ViewConfig) => {
-  updateListeners.forEach((x: any) => {
+  Object.values(updateListeners).forEach((x: any) => {
     x(config.sourceId, config);
   });
 };
 
+export type EngineContext = {
+  engineId: string;
+  db: DatastoreInstance;
+};
+
 export class Engine implements EngineApi {
+  id: string;
   private db: DatastoreInstance;
   private modules: EngineModule[] = [];
   constructor({ state = {}, use = [] }: EngineConfig) {
+    this.id = randomId();
     this.db = db(state);
     use.forEach((x) => {
       this.use(x);
     });
-    updateListeners.push(
-      (sourceId: string, config: ProducerConfig | ViewConfig) => {
-        this.modules.forEach((x) => {
-          x.update(sourceId, config);
-        });
-      }
-    );
+    updateListeners[this.id] = (sourceId, config) => {
+      this.modules.forEach((x) => {
+        x.update(sourceId, config);
+      });
+    };
   }
 
   state(state: EngineState) {
@@ -42,7 +50,13 @@ export class Engine implements EngineApi {
   }
 
   use(source: EngineModuleSource) {
-    const module = new EngineModule(this.db, source);
+    const module = new EngineModule(
+      {
+        engineId: this.id,
+        db: this.db,
+      },
+      source
+    );
     this.modules.push(module);
   }
 
@@ -56,6 +70,7 @@ export class Engine implements EngineApi {
     this.modules.forEach((x) => {
       x.stop();
     });
+    delete updateListeners[this.id];
   }
 }
 

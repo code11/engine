@@ -11,6 +11,7 @@ import {
   UpdateSourceFn,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
+import { EngineContext } from "./engine";
 
 type SourceUpdateListeners = {
   [k: string]: {
@@ -21,14 +22,16 @@ type SourceUpdateListeners = {
 export class EngineModule {
   private state: EngineModuleState = EngineModuleState.NOT_BOOTSTRAPPED;
   private db: DatastoreInstance;
+  private engineId: string;
   private source: EngineModuleSource;
   private producers: ProducerInstance[] = [];
   private context: ModuleContext;
   private sourceUpdateListeners: SourceUpdateListeners = {};
 
-  constructor(db: DatastoreInstance, module: EngineModuleSource) {
+  constructor(context: EngineContext, module: EngineModuleSource) {
     this.source = module;
-    this.db = db;
+    this.db = context.db;
+    this.engineId = context.engineId;
     this.context = {
       onSourceUpdate: this.addSourceUpdateListener.bind(this),
       addProducer: this.addProducer.bind(this),

@@ -18,7 +18,6 @@ type ProducersCache = {
   };
 };
 
-//TODO: Fix list to accept object/arrays/etc
 export const producers = (list: ProducersList, config: Config = {}) => {
   const producers: ProducersCache = {};
   return {
