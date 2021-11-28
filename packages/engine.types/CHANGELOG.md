@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.90](https://github.com/code11/engine/compare/v4.0.0-alpha.89...v4.0.0-alpha.90) (2021-11-28)
+
+**Note:** Version bump only for package @c11/engine.types
+
+
+
+
+
 # [4.0.0-alpha.86](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.86) (2021-11-19)
 
 
