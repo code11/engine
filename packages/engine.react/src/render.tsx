@@ -10,6 +10,8 @@ import {
   ViewConfig,
   ProducerInstance,
   ExternalProducerContext,
+  ModuleNames,
+  EngineEmitter,
 } from "@c11/engine.types";
 import { ViewProvider } from "./context";
 
@@ -25,6 +27,7 @@ type ProducerConfigs = {
 //TODO: Copy key={} code to avoid key issue
 
 export type RenderContext = {
+  emit: ModuleContext["emit"];
   debug: boolean;
   addProducer: (
     config: ProducerConfig,
@@ -123,6 +126,7 @@ export class Render implements RenderInstance {
     this.moduleContext = config.moduleContext;
     this.updateProps = config.updateProps;
     this.context = {
+      emit: config.moduleContext.emit,
       debug: this.debug,
       addProducer: this.addProducer.bind(this),
       subscribeViewInstance: this.subscribeViewInstance.bind(this),
@@ -291,6 +295,7 @@ export const render = (
 ): EngineModuleSource => {
   let instance: Render | undefined;
   return {
+    name: ModuleNames.REACT_RENDER,
     bootstrap: () => {},
     unmount: () => {
       if (instance) {

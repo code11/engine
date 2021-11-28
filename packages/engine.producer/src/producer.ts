@@ -10,6 +10,7 @@ import {
   ValueSerializer,
   PassthroughOperation,
   OperationTypes,
+  EventNames,
 } from "@c11/engine.types";
 import isFunction from "lodash/isFunction";
 import isEqual from "lodash/isEqual";
@@ -39,7 +40,9 @@ enum ProducerStates {
 
 export class Producer implements ProducerInstance {
   private state: ProducerStates = ProducerStates.UNMOUNTED;
+  private config: ProducerConfig;
   private db: DatastoreInstance;
+  private context: ProducerContext;
   private props: StructOperation | PassthroughOperation;
   private fn: ProducerFn;
   private external: ExternalProps;
@@ -49,6 +52,7 @@ export class Producer implements ProducerInstance {
   private meta: ProducerMeta;
   private serializers: ValueSerializer[];
   private results: any[] = [];
+  private emit: ProducerContext["emit"];
   private stats = {
     executionCount: 0,
   };
@@ -56,7 +60,21 @@ export class Producer implements ProducerInstance {
   sourceId: string;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
+    this.config = config;
     this.id = randomId();
+    this.context = context;
+    const emit: ProducerContext["emit"] = (
+      name,
+      payload = {},
+      context = {}
+    ) => {
+      this.context.emit &&
+        this.context.emit(name, payload, {
+          ...context,
+          producerId: this.id,
+        });
+    };
+    this.emit = emit.bind(this);
     this.props = config.props;
     this.fn = config.fn;
     this.external = {
@@ -146,6 +164,7 @@ export class Producer implements ProducerInstance {
       }, {} as { [k: string]: any });
       console.log(loc, logParams);
     }
+    this.emit(EventNames.PRODUCER_CALLED, params);
     const result = this.fn.call(null, params);
 
     if (isFunction(result)) {
@@ -165,6 +184,10 @@ export class Producer implements ProducerInstance {
     if (this.state === ProducerStates.MOUNTED) {
       return this;
     }
+    this.emit(EventNames.PRODUCER_MOUNTED, {
+      buildId: this.config.buildId,
+      sourceId: this.config.sourceId,
+    });
     this.graph.listen();
     this.state = ProducerStates.MOUNTED;
     return this;
@@ -180,6 +203,7 @@ export class Producer implements ProducerInstance {
         x();
       }
     });
+    this.emit(EventNames.PRODUCER_UNMOUNTED);
     return this;
   }
   updateExternal(props: ProducerContext["props"]) {

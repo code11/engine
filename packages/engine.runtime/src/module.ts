@@ -9,9 +9,11 @@ import {
   MacroProducerType,
   ViewConfig,
   UpdateSourceFn,
+  EngineContext,
+  EngineEmitter,
+  EventNames,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
-import { EngineContext } from "./engine";
 
 type SourceUpdateListeners = {
   [k: string]: {
@@ -22,19 +24,30 @@ type SourceUpdateListeners = {
 export class EngineModule {
   private state: EngineModuleState = EngineModuleState.NOT_BOOTSTRAPPED;
   private db: DatastoreInstance;
-  private engineId: string;
+  private engineContext: EngineContext;
+  private id: string;
   private source: EngineModuleSource;
   private producers: ProducerInstance[] = [];
   private context: ModuleContext;
+  private emit: EngineContext["emit"];
   private sourceUpdateListeners: SourceUpdateListeners = {};
 
   constructor(context: EngineContext, module: EngineModuleSource) {
+    this.engineContext = context;
+    const emit: EngineContext["emit"] = (name, payload = {}, context = {}) => {
+      this.engineContext.emit(name, payload, {
+        ...context,
+        moduleId: this.id,
+      });
+    };
+    this.emit = emit.bind(this);
     this.source = module;
     this.db = context.db;
-    this.engineId = context.engineId;
+    this.id = randomId();
     this.context = {
       onSourceUpdate: this.addSourceUpdateListener.bind(this),
       addProducer: this.addProducer.bind(this),
+      emit: this.emit.bind(this),
     };
   }
 
@@ -54,8 +67,8 @@ export class EngineModule {
     extendedContext: any = {}
   ): ProducerInstance {
     const context = {
-      db: this.db,
       ...extendedContext,
+      db: this.db,
     };
     // @ts-ignore
     const producer = new Producer(config, context);
@@ -78,6 +91,9 @@ export class EngineModule {
       await this.source.bootstrap();
     }
     this.state = EngineModuleState.NOT_MOUNTED;
+    this.emit(EventNames.MODULE_MOUNTED, {
+      name: this.source.name,
+    });
     await this.source.mount(this.context);
     this.state = EngineModuleState.MOUNTED;
   }
@@ -85,6 +101,7 @@ export class EngineModule {
   async stop() {
     this.state = EngineModuleState.UNMOUNTING;
     await this.source.unmount(this.context);
+    this.emit(EventNames.MODULE_UNMOUNTED);
     this.state = EngineModuleState.NOT_MOUNTED;
   }
 

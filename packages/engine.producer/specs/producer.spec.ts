@@ -1153,7 +1153,7 @@ test("should work with async/await", (done) => {
   jest.runAllTimers();
 });
 
-test.only("should keep arg references for path updates in async processes", (done) => {
+test("should keep arg references for path updates in async processes", (done) => {
   const state = {
     foo: {
       bar: "a",
@@ -1168,15 +1168,12 @@ test.only("should keep arg references for path updates in async processes", (don
     getFoo = get.foo.bar,
     updateBar = update.bar[arg.foo],
   }) => {
-    console.log("second");
     updateFoo.remove();
     if (!foo) {
       return;
     }
 
-    console.log("first");
     setTimeout(() => {
-      console.log("third", getFoo.value());
       updateBar.remove();
     });
   };

@@ -4,6 +4,7 @@ import {
   UnsubscribeSourceUpdateFn,
   ProducersList,
   ProducerConfig,
+  ModuleNames,
 } from "@c11/engine.types";
 import { randomId, extractProducers } from "@c11/engine.utils";
 
@@ -21,9 +22,11 @@ type ProducersCache = {
 export const producers = (list: ProducersList, config: Config = {}) => {
   const producers: ProducersCache = {};
   return {
+    name: ModuleNames.ENGINE_PRODUCERS,
     mount: (context: ModuleContext) => {
       const producerContext = {
         debug: config.debug || false,
+        emit: context.emit,
       };
       const listType = extractProducers(list);
 

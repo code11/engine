@@ -1,6 +1,6 @@
 import React from "react";
 import { randomId } from "@c11/engine.utils";
-import { PathType } from "@c11/engine.types";
+import { EventNames, PathType } from "@c11/engine.types";
 import { pathFn } from "@c11/engine.runtime";
 import { now, extractProducers } from "@c11/engine.utils";
 import {
@@ -96,6 +96,8 @@ export function view(config: ViewConfig) {
   let producers: ProducerConfig[] = [];
   let setProducers: RenderContext["setProducers"];
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
+    emit: RenderContext["emit"];
+    config: ViewConfig;
     static contextType = ViewContext;
     static displayName = `${config.meta?.relativeFilePath}::${config.meta?.name}:${config.meta?.location?.start.line}`;
     stateUpdate: any = {};
@@ -124,7 +126,21 @@ export function view(config: ViewConfig) {
       super(externalProps, context);
 
       this.id = randomId();
+      this.config = config;
+      const emit: RenderContext["emit"] = (
+        name,
+        payload = {},
+        context = {}
+      ) => {
+        this.context.emit &&
+          this.context.emit(name, payload, {
+            ...context,
+            viewId: this.id,
+          });
+      };
+      this.emit = emit.bind(this);
       const viewContext = {
+        emit: this.emit,
         props: {
           ...externalProps,
           _viewId: this.id,
@@ -263,6 +279,10 @@ export function view(config: ViewConfig) {
     }
     componentDidMount() {
       this.isComponentMounted = true;
+      this.emit(EventNames.VIEW_MOUNTED, {
+        buildId: this.config.buildId,
+        sourceId: this.config.sourceId,
+      });
       Object.values(this.producers).forEach((x) => x.mount());
       this.viewProducer.mount();
       this.viewStateProducer.mount();
@@ -272,6 +292,8 @@ export function view(config: ViewConfig) {
       if (sourceId) {
         this.context.removeViewInstance(sourceId, this.id);
       }
+
+      this.emit(EventNames.VIEW_UNMOUNTED);
       Object.values(this.producers).forEach((x) => {
         x.unmount();
       });

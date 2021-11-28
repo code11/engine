@@ -1,3 +1,4 @@
+import { EngineContext } from ".";
 import { DatastoreInstance } from "./db";
 import { GraphNodeType } from "./graph";
 import { PathType } from "./macro";
@@ -156,6 +157,7 @@ export interface ExternalProps {
   [key: string]: any;
 }
 export interface ProducerContext {
+  emit: EngineContext["emit"];
   db: DatastoreInstance;
   props?: ExternalProps;
   keepReferences?: string[];

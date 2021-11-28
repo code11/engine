@@ -1,5 +1,8 @@
 import db from "@c11/engine.db";
-import { randomId } from "@c11/engine.utils";
+import mitt from "mitt";
+import isFunction from "lodash/isFunction";
+import isPlainObject from "lodash/isPlainObject";
+import { randomId, now } from "@c11/engine.utils";
 import {
   EngineApi,
   EngineConfig,
@@ -8,6 +11,10 @@ import {
   DatastoreInstance,
   ProducerConfig,
   ViewConfig,
+  Events,
+  EventNames,
+  EngineContext,
+  EngineEmitter,
 } from "@c11/engine.types";
 import { EngineModule } from "./module";
 
@@ -21,18 +28,52 @@ export const update = (config: ProducerConfig | ViewConfig) => {
   });
 };
 
-export type EngineContext = {
-  engineId: string;
-  db: DatastoreInstance;
-};
-
 export class Engine implements EngineApi {
-  id: string;
+  private id: string;
   private db: DatastoreInstance;
   private modules: EngineModule[] = [];
-  constructor({ state = {}, use = [] }: EngineConfig) {
+  private emitter: EngineEmitter | undefined;
+  private context: EngineContext;
+  constructor({ state = {}, use = [], onEvents }: EngineConfig) {
     this.id = randomId();
     this.db = db(state);
+    if (onEvents) {
+      this.emitter = mitt<Events>();
+      if (isFunction(onEvents)) {
+        this.emitter.on("*", (eventName, event) => {
+          onEvents(event);
+        });
+      } else if (onEvents && isPlainObject(onEvents)) {
+        Object.entries(onEvents).forEach(([name, fn]) => {
+          if ((Object.values(EventNames) as string[]).includes(name)) {
+            //@ts-ignore
+            this.emitter.on(name, (event) => {
+              //@ts-ignore
+              fn(event);
+            });
+          }
+        });
+      }
+    }
+    this.context = {
+      engineId: this.id,
+      db: this.db,
+      emit: (eventName, payload = {}, context = {}) => {
+        if (!this.emitter) {
+          return;
+        }
+        this.emitter.emit(eventName, {
+          eventName,
+          eventId: randomId(),
+          createdAt: now(),
+          context: {
+            ...context,
+            engineId: this.id,
+          },
+          payload,
+        });
+      },
+    };
     use.forEach((x) => {
       this.use(x);
     });
@@ -50,26 +91,23 @@ export class Engine implements EngineApi {
   }
 
   use(source: EngineModuleSource) {
-    const module = new EngineModule(
-      {
-        engineId: this.id,
-        db: this.db,
-      },
-      source
-    );
+    const module = new EngineModule(this.context, source);
     this.modules.push(module);
   }
 
-  start() {
+  async start() {
+    this.context.emit(EventNames.ENGINE_STARTED);
     this.modules.forEach((x) => {
       x.start();
     });
   }
 
-  stop() {
-    this.modules.forEach((x) => {
-      x.stop();
-    });
+  async stop() {
+    await Promise.all(this.modules.map((x) => x.stop()));
+    this.context.emit(EventNames.ENGINE_STOPPED);
+    if (this.emitter) {
+      this.emitter.all.clear();
+    }
     delete updateListeners[this.id];
   }
 }
