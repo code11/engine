@@ -22,6 +22,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "allowDeclarations": true,
     "eqeqeq": 1
   }
 }

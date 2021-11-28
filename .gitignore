@@ -7,7 +7,6 @@ coverage
 *.log
 
 package-lock.json
-.vscode
 *.tgz
 *.bkp
 dist
