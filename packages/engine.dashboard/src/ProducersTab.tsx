@@ -2,11 +2,12 @@ import { Box, Text, ChakraProvider, List } from "@chakra-ui/react";
 
 const ProducerItem: view = ({
   id = prop.id,
-  data = observe.structure.elements[prop.id],
+  name = observe.structure.elements[prop.id].meta.name,
+  relativeFilePath = observe.structure.elements[prop.id].meta.relativeFilePath,
   selected = observe.selectedElement.id,
   updateSelectedElement = update.selectedElement,
 }) => {
-  if (!data) {
+  if (!name) {
     return;
   }
   const isSelected = selected === id;
@@ -24,9 +25,9 @@ const ProducerItem: view = ({
         })
       }
     >
-      <Text>{data.meta.name}</Text>
+      <Text>{name}</Text>
       <Text fontSize="xs" color="gray.600">
-        {data.meta.relativeFilePath}
+        {relativeFilePath}
       </Text>
     </Box>
   );

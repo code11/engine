@@ -1740,6 +1740,7 @@ __metadata:
     "@babel/runtime": ^7.15.4
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.90
     "@c11/engine.patterns": 4.0.0-alpha.90
+    "@c11/engine.react": 4.0.0-alpha.90
     "@c11/engine.runtime": 4.0.0-alpha.90
     "@c11/engine.service-web": 4.0.0-alpha.90
     "@c11/engine.types": 4.0.0-alpha.90
@@ -1753,19 +1754,22 @@ __metadata:
     "@types/express": ^4
     "@types/lodash": ^4.14.177
     "@types/node": ^16.11.9
+    "@types/ws": ^8.2.0
     "@uiw/react-textarea-code-editor": ^1.4.14
     axios: ^0.24.0
     cors: ^2.8.5
     express: ^4.17.1
     framer-motion: ^4.1.17
+    json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
     prettier: ^2.4.1
     prismjs: ^1.25.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^16.0.2
+    react-dom: ^16.0.2
     react-json-view: ^1.21.3
     react-simple-code-editor: ^0.11.0
     tailwindcss: ^2.2.19
+    ws: ^8.3.0
   bin:
     engine-dashboard: dist/cli.js
   languageName: unknown
@@ -5861,6 +5865,15 @@ __metadata:
   version: 3.0.0
   resolution: "@types/warning@npm:3.0.0"
   checksum: 120dcf90600d583c68a60872200061eab9318ae15ea898581f8e9a6dc71b7941095dd81d8324e36d2a6006e5e12b6fc1cf8eda00cc514ee12bb39a912cc4e040
+  languageName: node
+  linkType: hard
+
+"@types/ws@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "@types/ws@npm:8.2.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: fb2f1cc1bc294607cf737a998a04d4eaca78b0a183905b879849c0e009f47ff4adaa6cbc7d9ac2d2ecc61652c8367e0f8bb02aab0af67a82e8c922746e96434b
   languageName: node
   linkType: hard
 
@@ -18681,6 +18694,20 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^16.0.2":
+  version: 16.14.0
+  resolution: "react-dom@npm:16.14.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+    prop-types: ^15.6.2
+    scheduler: ^0.19.1
+  peerDependencies:
+    react: ^16.14.0
+  checksum: 5a5c49da0f106b2655a69f96c622c347febcd10532db391c262b26aec225b235357d9da1834103457683482ab1b229af7a50f6927a6b70e53150275e31785544
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
@@ -18927,6 +18954,17 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0
   checksum: da3d0192825df3d9f27eef33e7eddf928359a7e3e2b01ae7f7f672ecf4e5c1f7a34f27bdde9ccc24e2e9fbe1d1b9dd2a39c7d47323c9bdf63e7b9bd05c325a71
+  languageName: node
+  linkType: hard
+
+"react@npm:^16.0.2":
+  version: 16.14.0
+  resolution: "react@npm:16.14.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+    prop-types: ^15.6.2
+  checksum: 8484f3ecb13414526f2a7412190575fc134da785c02695eb92bb6028c930bfe1c238d7be2a125088fec663cc7cda0a3623373c46807cf2c281f49c34b79881ac
   languageName: node
   linkType: hard
 
@@ -19933,6 +19971,16 @@ fsevents@^1.2.7:
   dependencies:
     xmlchars: ^2.2.0
   checksum: 5636b55cf15f7cf0baa73f2797bf992bdcf75d1b39d82c0aa4608555c774368f6ac321cb641fd5f3d3ceb87805122cd47540da6a7b5960fe0dbdb8f8c263f000
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.19.1":
+  version: 0.19.1
+  resolution: "scheduler@npm:0.19.1"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: 73e185a59e2ff5aa3609f5b9cb97ddd376f89e1610579d29939d952411ca6eb7a24907a4ea4556569dacb931467a1a4a56d94fe809ef713aa76748642cd96a6c
   languageName: node
   linkType: hard
 
@@ -23347,6 +23395,21 @@ typescript@^4.4.3:
     utf-8-validate:
       optional: true
   checksum: c869296ccb45f218ac6d32f8f614cd85b50a21fd434caf11646008eef92173be53490810c5c23aea31bc527902261fbfd7b062197eea341b26128d4be56a85e4
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "ws@npm:8.3.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 71f6919e3cb2c60ae53e00b13d7782bb77005750641855153a1716c23b7011259fe3a29a432522a3044dc7c579a7e2f5a495bb79ba9f823ce6c2e763300ef99b
   languageName: node
   linkType: hard
 

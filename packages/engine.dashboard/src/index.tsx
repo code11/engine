@@ -6,9 +6,6 @@ import * as producerList from "./producers";
 import "./global";
 
 const app = engine({
-  onEvents: (event) => {
-    console.log(event);
-  },
   state: {},
   use: [
     render(<App />, "#app", {

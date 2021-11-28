@@ -11,7 +11,7 @@ export const App: view = ({
   viewsCount = observe.structure.count.views,
   producersCount = observe.structure.count.producers,
 }) => {
-  if (!data) {
+  if (!data || !viewsCount || !producersCount) {
     return;
   }
 
