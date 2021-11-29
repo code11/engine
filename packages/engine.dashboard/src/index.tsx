@@ -4,8 +4,10 @@ import { render } from "@c11/engine.react";
 import { App } from "./App";
 import * as producerList from "./producers";
 import "./global";
+import { sendToDashboard } from "../common";
 
 const app = engine({
+  onEvents: sendToDashboard(),
   state: {},
   use: [
     render(<App />, "#app", {

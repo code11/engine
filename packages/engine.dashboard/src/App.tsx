@@ -5,6 +5,7 @@ import { StateTree } from "./stateTree";
 import { ElementDescription } from "./elementDescription";
 import { ViewsTab } from "./ViewsTab";
 import { ProducersTab } from "./ProducersTab";
+import { StatsTab } from "./StatsTab";
 
 export const App: view = ({
   data = observe.structure.data,
@@ -28,6 +29,7 @@ export const App: view = ({
               <Tab>
                 Producers <Tag>{producersCount}</Tag>
               </Tab>
+              <Tab>Stats</Tab>
             </TabList>
 
             <TabPanels>
@@ -43,6 +45,9 @@ export const App: view = ({
               </TabPanel>
               <TabPanel pr="0">
                 <ProducersTab />
+              </TabPanel>
+              <TabPanel pr="0">
+                <StatsTab />
               </TabPanel>
             </TabPanels>
           </Tabs>

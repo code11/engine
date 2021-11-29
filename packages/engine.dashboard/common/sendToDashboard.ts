@@ -1,6 +1,7 @@
 import { Event } from "@c11/engine.types";
 import stringify from "json-stringify-safe";
 import isPlainObject from "lodash/isPlainObject";
+import isFunction from "lodash/isFunction";
 import isArray from "lodash/isArray";
 
 const connectToServer = () => {
@@ -43,7 +44,12 @@ export const sendToDashboard = () => {
   };
 
   const replacer = (key: string, value: any) => {
-    if (value && value.__operation__ && value.__operation__.symbol) {
+    if (
+      value &&
+      value.__operation__ &&
+      value.__operation__.symbol &&
+      isFunction(value.__operation__.symbol.toString)
+    ) {
       //TODO: refactor the producer/fnWrapper functionality in order
       // to use it here for proper serialization
       return value.__operation__.symbol.toString();
