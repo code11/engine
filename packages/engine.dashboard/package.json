@@ -1,6 +1,6 @@
 {
  "name": "@c11/engine.dashboard",
- "version": "4.0.0-alpha.91",
+ "version": "4.0.0-alpha.92",
  "description": "A dashboard for visualizing and interacting with the engine instance",
  "scripts": {
   "test": "echo \"engine-service-web test\"",
