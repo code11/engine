@@ -1,6 +1,7 @@
 import { Event } from "@c11/engine.types";
-import { childrenSerializer } from "@c11/engine.react";
 import stringify from "json-stringify-safe";
+import isPlainObject from "lodash/isPlainObject";
+import isArray from "lodash/isArray";
 
 const connectToServer = () => {
   const ws = new WebSocket("ws://localhost:7072/ws");
@@ -41,13 +42,30 @@ export const sendToDashboard = () => {
     );
   };
 
+  const replacer = (key: string, value: any) => {
+    if (value && value.__operation__ && value.__operation__.symbol) {
+      //TODO: refactor the producer/fnWrapper functionality in order
+      // to use it here for proper serialization
+      return value.__operation__.symbol.toString();
+    } else if (
+      isPlainObject(value) ||
+      isArray(value) ||
+      value !== Object(value)
+    ) {
+      return value;
+    } else if (typeof value === "symbol" || value instanceof Symbol) {
+      return value.toString();
+    }
+    return "[unserialized]";
+  };
+
   const isReady = () => {
     return appWs && appWs.bufferedAmount === 0;
   };
 
   const send = (events: Event[]) => {
     if (appWs) {
-      appWs.send(stringify(events, childrenSerializer.serializer));
+      appWs.send(stringify(events, replacer));
     } else {
       queue = queue.concat(events);
     }
