@@ -19,6 +19,7 @@ export type State = {
     commandPath: Path;
     packagePath: Path;
     srcPath: Path;
+    isExportedAsModule: boolean;
     entryPath: Path;
     distPath: Path;
     publicPath: Path;

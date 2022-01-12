@@ -21,6 +21,8 @@ type props = {
   tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
   proxy: Get<State["config"]["proxy"]>;
   engineOutput: Get<State["config"]["engineOutput"]>;
+  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>
+  name: Get<State["config"]["name"]>
 };
 
 //TODO: enforce block statement
@@ -35,6 +37,7 @@ export const init: producer = async ({
   _HtmlWebpackPlugin = HtmlWebpackPlugin,
   trigger = observe.start.triggers.init,
   entryPath = get.config.entryPath,
+  isExportedAsModule = get.config.isExportedAsModule,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
   commandPath = get.config.commandPath,
@@ -48,6 +51,7 @@ export const init: producer = async ({
   engineOutput = get.config.engineOutput,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
   tailwindConfigPath = get.config.tailwindConfigPath,
+  name = get.config.name
 }: props) => {
   if (!trigger) {
     return;
@@ -271,6 +275,11 @@ export const init: producer = async ({
       }),
     ],
   } as Configuration;
+
+  if(isExportedAsModule) {
+    config.output.library = name;
+    config.output.libraryTarget = 'umd';
+  }
 
   //TODO: Account for syntax error during HMR in order to avoid
   //  having to refresh the entire application

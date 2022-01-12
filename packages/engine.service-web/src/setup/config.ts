@@ -51,6 +51,7 @@ export const config: producer = async ({
     version: result.version || "unknown-version",
     proxy: result.proxy || undefined,
     webpackPublicPath: result.publicPath || "/",
+    isExportedAsModule: result.isExportedAsModule || false,
     port: result.port || "auto",
     engineOutput: result.engineOutput === true ? true : false,
     packagePath: root,
