@@ -24,6 +24,8 @@ type props = {
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
   tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
   webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
+  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>
+  name: Get<State["config"]["name"]>
 };
 
 export const init: producer = async ({
@@ -34,6 +36,7 @@ export const init: producer = async ({
   _MiniCssExtractPlugin = MiniCssExtractPlugin,
   trigger = observe.build.triggers.init,
   entryPath = get.config.entryPath,
+  isExportedAsModule = get.config.isExportedAsModule,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
   publicPath = get.config.publicPath,
@@ -45,6 +48,7 @@ export const init: producer = async ({
   packageNodeModulesPath = get.config.packageNodeModulesPath,
   tailwindConfigPath = get.config.tailwindConfigPath,
   webpackPublicPath = get.config.webpackPublicPath,
+  name = get.config.name
 }: props) => {
   if (!trigger) {
     return;
@@ -304,6 +308,11 @@ export const init: producer = async ({
     dereference: true,
     filter: (file) => file !== publicIndexPath.value(),
   });
+
+  if(isExportedAsModule.value()) {
+    config.output.library = name.value();
+    config.output.libraryTarget = 'umd';
+  }
 
   _webpack(config, (err, stats) => {
     if (err) {
