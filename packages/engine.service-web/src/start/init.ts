@@ -276,7 +276,7 @@ export const init: producer = async ({
     ],
   } as Configuration;
 
-  if(isExportedAsModule) {
+  if(isExportedAsModule.value()) {
     config.output.library = name;
     config.output.libraryTarget = 'umd';
   }
