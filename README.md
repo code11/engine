@@ -3,7 +3,9 @@
 [![push](https://github.com/code11/engine/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/code11/engine/actions)
 [![codecov](https://codecov.io/gh/code11/engine/branch/master/graph/badge.svg?token=K3UZLXWOEK)](https://codecov.io/gh/code11/engine)
 
-The Code11 Engine is state management library that offers a compact web development solution.
+The Code11 Engine is an alternative state management library.
+
+It also offers a compact web development solution useful for rapid prototyping.
 
 See [docs](https://code11.github.io/engine/docs/).
 
@@ -62,14 +64,14 @@ const app = engine({
 app.start();
 ```
 
-This tiny example demonstrates the Engine concepts and most of it's api.
+This tiny example demonstrates the Engine concepts and most of it's API.
 
-The rendering is done by [views](https://code11.github.io/engine/docs/api/view) which
+The rendering is done by [views](https://code11.github.io/engine/docs/api/view). Views 
 [observe](https://code11.github.io/engine/docs/api/observe) 
-and [update](https://code11.github.io/engine/docs/api/update) anything in the
+and [update](https://code11.github.io/engine/docs/api/update) anything on the
 state.
 
-Business logic sits in
-[producers](https://code11.github.io/engine/docs/api/producer) that can be added to views.
+The business logic sits in
+[producers](https://code11.github.io/engine/docs/api/producer) that can be added to views or to the global space of the application.
 
 
