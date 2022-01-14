@@ -3,7 +3,7 @@
 [![push](https://github.com/code11/engine/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/code11/engine/actions)
 [![codecov](https://codecov.io/gh/code11/engine/branch/master/graph/badge.svg?token=K3UZLXWOEK)](https://codecov.io/gh/code11/engine)
 
-Engine is state management and development solution for creating web applications.
+The Code11 Engine is state management library that offers a compact web development solution.
 
 See [docs](https://code11.github.io/engine/docs/).
 
