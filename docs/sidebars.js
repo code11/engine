@@ -48,32 +48,6 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Tutorials",
-      items: [
-        {
-          type: "category",
-          label: "React",
-          items: [
-            "tutorials/react/setup",
-            "tutorials/react/static-ui",
-            {
-              type: "category",
-              label: "State",
-              items: [
-                "tutorials/react/state-is-king",
-                "tutorials/react/accessing-state-in-components",
-                "tutorials/react/updating-state-from-components",
-              ],
-            },
-            "tutorials/react/introducing-producers",
-            "tutorials/react/state-as-communication-channel",
-            "tutorials/react/wrapping-up",
-          ],
-        },
-      ],
-    },
-    {
-      type: "category",
       label: "Modules",
       items: ["modules/engine", "modules/react"],
     },
