@@ -18,7 +18,8 @@ todos from state In `src/App.tsx`:
 2. In `App`'s header, `observe.visibileTodoIds` allow reading `State.visibileTodoIds`
 
 Todos ids from state can be seen printed in console! Engine allow observing any
-part of the state by assigning it as `observe.<path>` in header of a `view.
+part of the state by assigning it as `observe.<path>` in header of a `view`.
+All engine operator types are available globally. Check them out in `global.ts`.
 
 Extract the `<Todo>` component out of`<App>` to easily `map` todo ids to`Todo`
 components, and put it in its own file. In `src/Todo.tsx`, add

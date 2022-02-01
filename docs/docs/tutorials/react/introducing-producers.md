@@ -14,8 +14,6 @@ will count the number of pending todos, and show them in the view. Extract
 with following contents:
 
 ```tsx
-import React from "react";
-
 const Footer = () => (
   <footer className="footer">
     <span className="todo-count">
