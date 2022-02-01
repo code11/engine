@@ -8,9 +8,6 @@ Converting a React Component to Engine [view](/docs/api/view) allow accessing
 todos from state In `src/App.tsx`:
 
   ```diff
-import React from "react";
-+ import { view, observe } from "@c11/engine.macro";
-+
 - const App = () => (
 + const App: view = ({ todoIds = observe.visibleTodoIds }) => (
     <section className="todoapp">
@@ -27,8 +24,6 @@ Extract the `<Todo>` component out of`<App>` to easily `map` todo ids to`Todo`
 components, and put it in its own file. In `src/Todo.tsx`, add
 
   ```tsx
-import React from "react";
-
 const Todo = ({ id }) => (
   <li>
     <div className="view">

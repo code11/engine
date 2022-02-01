@@ -1,3 +1,9 @@
+---
+id: setup
+title: Setup
+sidebar_label: Setup
+---
+
 ## Quick Start
 
 Although Engine itself is platform neutral, Engine's reactive features really
