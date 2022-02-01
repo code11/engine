@@ -92,7 +92,7 @@ it in `producer`s. Add a `producer` to the Footer. In `src/Footer.tsx`, add
 +   todosById = observe.todosById
 + }) => {
 +   const pendingCount = Object.values(
-+     todosById as { [id: string]: TodoItem }
++     todosById as TodosById
 +   ).reduce(
 +     (accum: number, todo) =>
 +       todo.status === TodoStatuses.done ? accum : accum + 1,

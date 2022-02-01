@@ -228,7 +228,7 @@ const syncVisibleTodoIds: producer = ({
   filter = observe.filter,
   visibleTodoIds = update.visibleTodoIds,
 }) => {
-  const todoIdsToDisplay = Object.entries(todosById)
+  const todoIdsToDisplay = Object.entries(todosById as TodosById)
     .map(([key, value]) => {
       switch (filter as TodoFilters) {
         case TodoFilters.completed:
