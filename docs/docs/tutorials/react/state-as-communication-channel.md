@@ -9,8 +9,6 @@ extract `TodoForm` view out of `src/App.tsx`. Create a new file
 `src/TodoForm.tsx` with following contents:
 
 ```tsx
-import React from "react";
-
 const TodoForm = () => (
   <input
     className="new-todo"
@@ -80,27 +78,27 @@ Next steps are to:
 In `src/TodoForm.tsx`:
 
 ```diff
-import { TodoItem, TodoStatuses, TodoModes } from "./types";
++ import { TodoItem, TodoStatuses, TodoModes } from "./types";
 
-enum NewTodoItents {
-  commit = "commit",
-  discard = "discard"
-}
++ enum NewTodoItents {
++  commit = "commit",
++  discard = "discard"
++}
 
 const TodoForm: view = ({
   updateNewTodoTitle = update.newTodo.title,
   newTodoTitle = observe.newTodo.title,
-  updateNewTodoIntent = update.newTodo.intent
++  updateNewTodoIntent = update.newTodo.intent
 }) => {
-  const keyDownToIntent = (e) => {
-    if (e.key === "Enter") {
-      updateNewTodoIntent.set(NewTodoItents.commit);
-    }
++  const keyDownToIntent = (e) => {
++    if (e.key === "Enter") {
++      updateNewTodoIntent.set(NewTodoItents.commit);
++    }
 
-    if (e.key === "Escape") {
-      updateNewTodoIntent.set(NewTodoItents.discard);
-    }
-  };
++    if (e.key === "Escape") {
++      updateNewTodoIntent.set(NewTodoItents.discard);
++   }
++  };
 
   return (
     <input
@@ -109,7 +107,7 @@ const TodoForm: view = ({
       autoFocus={true}
       value={newTodoTitle || ""}
       onChange={e => updateNewTodoTitle.set(e.currentTarget.value)}
-      onKeyDown={keyDownToIntent}
++      onKeyDown={keyDownToIntent}
     />
   );
 };
