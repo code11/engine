@@ -80,7 +80,7 @@ In `src/TodoForm.tsx`:
 ```diff
 + import { TodoItem, TodoStatuses, TodoModes } from "./types";
 
-+ enum NewTodoItents {
++ enum NewTodoIntents {
 +  commit = "commit",
 +  discard = "discard"
 +}
@@ -92,11 +92,11 @@ const TodoForm: view = ({
 }) => {
 +  const keyDownToIntent = (e) => {
 +    if (e.key === "Enter") {
-+      updateNewTodoIntent.set(NewTodoItents.commit);
++      updateNewTodoIntent.set(NewTodoIntents.commit);
 +    }
 
 +    if (e.key === "Escape") {
-+      updateNewTodoIntent.set(NewTodoItents.discard);
++      updateNewTodoIntent.set(NewTodoIntents.discard);
 +   }
 +  };
 
@@ -138,7 +138,7 @@ const addNewTodo: producer = ({
   updateNewTodoTitle = update.newTodo.title,
   updateNewTodoIntent = update.newTodo.intent
 }) => {
-  if (newTodoIntent !== NewTodoItents.commit) {
+  if (newTodoIntent !== NewTodoIntents.commit) {
     return;
   }
   updateNewTodoIntent.remove();
@@ -194,7 +194,7 @@ const cancelAddingTodo: producer = ({
   updateNewTodoTitle = update.newTodo.title,
   updateNewTodoIntent = update.newTodo.intent
 }) => {
-  if (newTodoIntent !== NewTodoItents.discard) {
+  if (newTodoIntent !== NewTodoIntents.discard) {
     return;
   }
   updateNewTodoIntent.remove();
