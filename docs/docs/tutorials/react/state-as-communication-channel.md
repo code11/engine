@@ -136,15 +136,18 @@ const addNewTodo: producer = ({
   getTitle = get.newTodo.title,
   updateTodosById = update.todosById,
   updateNewTodoTitle = update.newTodo.title,
+  updateNewTodoIntent = update.newTodo.intent
 }) => {
   if (newTodoIntent !== NewTodoItents.commit) {
     return;
   }
-
+  updateNewTodoIntent.remove();
+  const title = getTitle.value().trim();
+  if (!title) return;
   const id = String(new Date().getTime());
   const newTodo: TodoItem = {
     id,
-    title: getTitle(),
+    title,
     status: TodoStatuses.pending,
     mode: TodoModes.viewing,
   };
@@ -189,11 +192,12 @@ created to cancel adding a new todo if user presses Escape key.
 const cancelAddingTodo: producer = ({
   newTodoIntent = observe.newTodo.intent,
   updateNewTodoTitle = update.newTodo.title,
+  updateNewTodoIntent = update.newTodo.intent
 }) => {
   if (newTodoIntent !== NewTodoItents.discard) {
     return;
   }
-
+  updateNewTodoIntent.remove();
   updateNewTodoTitle.set(null);
 };
 ```
