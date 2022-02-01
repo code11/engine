@@ -14,7 +14,7 @@ In `src/Todo.tsx`,
 - const Todo: view = ({ title = observe.todosById[prop.id].title }) => (
 + const Todo: view = ({
 +   title = observe.todosById[prop.id].title,
-+   updateStatus = update.todosyById[prop.id].status
++   updateStatus = update.todosById[prop.id].status
 + }) => (
   <li>
     <div className="view">
