@@ -69,7 +69,7 @@ const app = engine({
 Todo items are kept in very explicitly named `todosById` key, and their `id`s
 are also added in a `visibleTodoIds` array. This a deliberate choice with [good
 reasons](/docs/concepts/state#shape-of-state). One of the app components (Todo listing)
-happen to show a list of todo items. These shown todos might (and will) end up
+happens to show a list of todo items. These shown todos might (and will) end up
 being different from our `todosById`. Keeping them in their own path in state
 allows keeping a normalized state. It is crucial for maintainability that a
 single source of truth for data is maintained.

@@ -61,6 +61,8 @@ This step:
 
 - Imported CSS from `todomvc-app-css`
 
+**Note**: You might need to install `postcss` v.8 for `todomvc-app-css` to work.
+
 ### Starter Markup
 
 To conclude this chapter, update `src/App.tsx` and add some markup to make the
