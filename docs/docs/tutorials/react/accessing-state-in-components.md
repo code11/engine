@@ -69,8 +69,6 @@ with its id. Modify the `Todo` component to follow the Engine way:
 In`src/Todo.tsx`
 
   ```diff
-+ import { view, observe, prop } from "@c11/engine.macro";
-+
 - const Todo = ({ id }) => (
 + const Todo: view = ({ title = observe.todosById[prop.id].title }) => (
   <li>

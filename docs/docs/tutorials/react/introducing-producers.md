@@ -72,7 +72,6 @@ Update `src/App.tsx` to use `Footer`:
 and that `it'll always contain the correct number of pending todo items. Update `src/Footer.tsx` based on this assumption:
 
 ```diff
-+ import { view, observe } from "@c11/engine.macro";
 - const Footer = () => (
 + const Footer: view = ({ pendingCount = observe.pendingCount }) => (
   <footer className="footer">

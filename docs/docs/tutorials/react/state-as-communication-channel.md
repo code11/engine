@@ -40,9 +40,6 @@ variable should be kept for what user is typing in our `TodoForm` input. Update
 `src/TodoForm.tsx` to make its content be:
 
 ```tsx
-import React from "react";
-import { view, observe, update } from "@c11/engine.macro";
-
 const TodoForm: view = ({
   updateNewTodoTitle = update.newTodo.title,
   newTodoTitle = observe.newTodo.title,
@@ -83,8 +80,6 @@ Next steps are to:
 In `src/TodoForm.tsx`:
 
 ```diff
-import React, { KeyboardEvent } from "react";
-import { view, observe, update, producer, get } from "@c11/engine.macro";
 import { TodoItem, TodoStatuses, TodoModes } from "./types";
 
 enum NewTodoItents {
@@ -97,7 +92,7 @@ const TodoForm: view = ({
   newTodoTitle = observe.newTodo.title,
   updateNewTodoIntent = update.newTodo.intent
 }) => {
-  const keyDownToIntent = (e: KeyboardEvent) => {
+  const keyDownToIntent = (e) => {
     if (e.key === "Enter") {
       updateNewTodoIntent.set(NewTodoItents.commit);
     }
