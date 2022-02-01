@@ -35,11 +35,7 @@ it take control of the app. In the `src/index.tsx` file let's add some todos:
 -      a: "this is a",
 -      b: "this is b",
 -    },
-+    todosById: {
-+      todo1: { id: 'todo1', title: 'Add initial state to engine', status: "pending", mode: "viewing" },
-+      todo2: { id: 'todo2', title: 'Use initial state in components', status: "done", mode: "viewing" },
-+      todo3: { id: 'todo3', title: 'Update state in components', status: "pending", mode: "editing" }
-+    }
++   initial: { }
    },
    use: [
      render(<App />, "#app", {

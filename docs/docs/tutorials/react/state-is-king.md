@@ -52,14 +52,13 @@ application state. In `src/index.tsx`
 const app = engine({
   state: {
 -   initial: { }
-+   initial: {
-+     todosById: {
-+       todo1: { id: 'todo1', title: 'Add initial state to engine', isDone: false },
-+       todo2: { id: 'todo2', title: 'Use initial state in components', isDone: false }
++    todosById: {
++      todo1: { id: 'todo1', title: 'Add initial state to engine', status: "pending", mode: "viewing" },
++      todo2: { id: 'todo2', title: 'Use initial state in components', status: "done", mode: "viewing" },
++      todo3: { id: 'todo3', title: 'Update state in components', status: "pending", mode: "editing" }
 +     },
 +     visibleTodoIds: ['todo1', 'todo2']
-+   }
-+ },
+   },
   view: {
     element: <App />,
     root: "#root"

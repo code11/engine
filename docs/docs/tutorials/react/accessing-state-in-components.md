@@ -89,7 +89,7 @@ In`src/Todo.tsx`
 );
 ```
 
-1. `Todo` is converted to a[view](/docs/api/view) (by labeling it with `view` macro)
+1. `Todo` is converted to a [view](/docs/api/view) (by labeling it with `view` macro)
 2. Assigning `title` to `observe.todosById[prop.id].title` in view header gives
    access to the title of a todo from the global state
 
