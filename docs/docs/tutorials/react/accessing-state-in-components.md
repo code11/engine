@@ -8,9 +8,6 @@ Converting a React Component to Engine [view](/docs/api/view) allow accessing
 todos from state In `src/App.tsx`:
 
   ```diff
-import React from "react";
-+ import { view, observe } from "@c11/engine.macro";
-+
 - const App = () => (
 + const App: view = ({ todoIds = observe.visibleTodoIds }) => (
     <section className="todoapp">
@@ -21,14 +18,13 @@ import React from "react";
 2. In `App`'s header, `observe.visibileTodoIds` allow reading `State.visibileTodoIds`
 
 Todos ids from state can be seen printed in console! Engine allow observing any
-part of the state by assigning it as `observe.<path>` in header of a `view.
+part of the state by assigning it as `observe.<path>` in header of a `view`.
+All engine operator types are available globally. Check them out in `global.ts`.
 
 Extract the `<Todo>` component out of`<App>` to easily `map` todo ids to`Todo`
 components, and put it in its own file. In `src/Todo.tsx`, add
 
   ```tsx
-import React from "react";
-
 const Todo = ({ id }) => (
   <li>
     <div className="view">
@@ -74,8 +70,6 @@ with its id. Modify the `Todo` component to follow the Engine way:
 In`src/Todo.tsx`
 
   ```diff
-+ import { view, observe, prop } from "@c11/engine.macro";
-+
 - const Todo = ({ id }) => (
 + const Todo: view = ({ title = observe.todosById[prop.id].title }) => (
   <li>
@@ -89,7 +83,7 @@ In`src/Todo.tsx`
 );
 ```
 
-1. `Todo` is converted to a[view](/docs/api/view) (by labeling it with `view` macro)
+1. `Todo` is converted to a [view](/docs/api/view) (by labeling it with `view` macro)
 2. Assigning `title` to `observe.todosById[prop.id].title` in view header gives
    access to the title of a todo from the global state
 

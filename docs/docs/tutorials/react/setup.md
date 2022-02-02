@@ -1,8 +1,10 @@
 ---
 id: setup
-title: Quick Start with React
+title: Setup
 sidebar_label: Setup
 ---
+
+## Quick Start
 
 Although Engine itself is platform neutral, Engine's reactive features really
 shine when building a React application.
@@ -14,56 +16,35 @@ This tutorial builds a TodoMVC app following the specs defined at
 
 ## Setup
 
-Use `create-react-app` to create a vanilla react app.
+Use `@c11/engine.cli` to create an engine starter app.
 
 ```sh
-yarn create react-app engine-todos --template typescript
+npx @c11/engine.cli create engine-todo-app
 ```
 
 Engine itself is written in Typescript, and recommends using it for creating
 React applications using Engine.
 
-`yarn start` can be used to start a vanilla react app on
-[localhost:3000](http://localhost:3000).
-
-### Install Engine
-
-Following command will install engine dependencies:
-
-```sh
-yarn add @c11/engine.macro @c11/engine.react
-```
-
-`@c11/engine.macro` contain the platform agnostic core of Engine, and
-`@c11/engine.react` contain the React bindings. Find out more about engine
-packages on [packages](/docs/packages) page.
+`yarn start` can be used to start the app on
+[localhost:8080](http://localhost:8080).
 
 ### Create an Engine instance
 
 First step for building an Engine app is creating an `Engine` instance, and let
-it take control of the app. In the `src/index.tsx` file:
+it take control of the app. In the `src/index.tsx` file let's add some todos:
 
 ```diff
-import React from 'react';
-- import ReactDOM from 'react-dom';
-+ import { engine } from "@c11/engine.react";
-import './index.css';
-import App from './App';
-
-- ReactDOM.render(
--   <React.StrictMode>
--     <App />
--   </React.StrictMode>,
--   document.getElementById("root")
-- );
-+ const engine = engine({
-+   view: {
-+     element: <App />,
-+     root: "#root"
-+   }
-+ });
-+
-+ engine.start();
+ const app = engine({
+   state: {
+-    name: "John Doe",
+-    item: {
+-      a: "this is a",
+-      b: "this is b",
+-    },
++   initial: { }
+   },
+   use: [
+     render(<App />, "#app", {
 ```
 
 Engine takes care of mounting the app to DOM instead of having `react-dom`.
@@ -76,38 +57,25 @@ Up next: some chores to set the stage for building the TodoMVC app:
 
 To keep the focus on building the React side of things, install
 `todomvc-app-css` npm package with `yarn add todomvc-app-css`. Update
-`src/index.tsx` file to use it:
+`src/App.tsx` file to use it:
 
 ```diff
-- import "./index.css";
 + import "todomvc-app-css/index.css";
-import App from "./App";
-- import * as serviceWorker from "./serviceWorker";
-...
-- // If you want your app to work offline and load faster, you can change
-- // unregister() to register() below. Note this comes with some pitfalls.
-- // Learn more about service workers: https://bit.ly/CRA-PWA
-- serviceWorker.unregister();
 ```
 
 This step:
 
 - Imported CSS from `todomvc-app-css`
-- Removed `create-react-app`'s default css and service worker code. Files
-  containing dead code can now be deleted:
-  ```sh
-  rm src/index.css
-  rm src/serviceWorker.ts
-  ```
+
+**Note**: You might need to install `postcss` v.8 for `todomvc-app-css` to work.
+
 
 ### Starter Markup
 
-To conclude this chapter, update `/src/App.tsx` and add some markup to make the
-app feel more like the TodoMVC. Replace contents of `/src/App.tsx` with:
+To conclude this chapter, update `src/App.tsx` and add some markup to make the
+app feel more like the TodoMVC. Replace contents of `src/App.tsx` with:
 
 ```tsx
-import React from "react";
-
 const App = () => (
   <section className="todoapp">
     <div>
@@ -121,12 +89,8 @@ const App = () => (
 export default App;
 ```
 
-Replacing the default JSX allows removing some more code that is dead now:
-
-```sh
-rm src/App.css
-rm public/logo*
-```
-
 CSS is provided by `todomvc-app-css` npm package, which mandates using correct
 CSS classes to keep the app looking right.
+
+### Cleanup
+The engine CLI uses a starter template. Go on and remove `greeting.ts`, `greeting.spec.ts` and `Component.tsx` once you updated `App.tsx`. Also remove "Foo bar baz" line above the app entry point `#app` in `public/index.html`.

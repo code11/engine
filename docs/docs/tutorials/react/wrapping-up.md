@@ -63,7 +63,7 @@ const handleClearRequest: producer = ({
     return;
   }
 
-  const todosById = getTodosById();
+  const todosById = getTodosById.value();
   const nextTodos = Object.values(todosById)
     .filter((todo: any) => todo.status !== TodoStatuses.done)
     .reduce((accum: any, todo: any) => {
@@ -127,8 +127,8 @@ const handleToggleAllRequest: producer = ({
     return;
   }
 
-  const todosById = getTodosById() as TodosById;
-  const pendingCount = getPendingCount();
+  const todosById = getTodosById.value() as TodosById;
+  const pendingCount = getPendingCount.value();
 
   const nextTodos = Object.values(todosById)
     .map((todo) => {
