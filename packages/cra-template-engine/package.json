@@ -1,6 +1,6 @@
 {
   "name": "cra-template-engine",
-  "version": "4.0.0-alpha.90",
+  "version": "4.0.0-alpha.97",
   "keywords": [
     "react",
     "create-react-app",
@@ -24,12 +24,12 @@
     "template.json"
   ],
   "dependencies": {
-    "@c11/engine.db": "4.0.0-alpha.90",
-    "@c11/engine.runtime": "4.0.0-alpha.90",
-    "@c11/engine.types": "4.0.0-alpha.90"
+    "@c11/engine.db": "4.0.0-alpha.97",
+    "@c11/engine.runtime": "4.0.0-alpha.97",
+    "@c11/engine.types": "4.0.0-alpha.97"
   },
   "devDependencies": {
-    "@c11/engine.macro": "4.0.0-alpha.90"
+    "@c11/engine.macro": "4.0.0-alpha.97"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9"
 }

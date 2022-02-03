@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.babel-plugin-syntax",
-  "version": "4.0.0-alpha.90",
+  "version": "4.0.0-alpha.97",
   "description": "Compile engine syntax to js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-typescript": "^7.15.0",
     "@babel/types": "^7.15.6",
-    "@c11/engine.types": "4.0.0-alpha.90",
+    "@c11/engine.types": "4.0.0-alpha.97",
     "@types/babel__core": "^7.1.16",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.172",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.15.5",
-    "@c11/engine.utils": "4.0.0-alpha.90",
+    "@c11/engine.utils": "4.0.0-alpha.97",
     "lodash": "^4.17.21"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9"
