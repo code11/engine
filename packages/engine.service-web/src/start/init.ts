@@ -20,9 +20,9 @@ type props = {
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
   proxy: Get<State["config"]["proxy"]>;
   engineOutput: Get<State["config"]["engineOutput"]>;
-  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>
-  name: Get<State["config"]["name"]>,
-  configPath: Get<State["config"]["configPath"]>
+  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>;
+  name: Get<State["config"]["name"]>;
+  configPath: Get<State["config"]["configPath"]>;
 };
 
 //TODO: enforce block statement
@@ -50,13 +50,12 @@ export const init: producer = async ({
   publicPath = get.config.publicPath,
   engineOutput = get.config.engineOutput,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
-  configPath =  get.config.configPath,
-  name = get.config.name
+  configPath = get.config.configPath,
+  name = get.config.name,
 }: props) => {
   if (!trigger) {
     return;
   }
-
 
   //TODO: if the engine.babel-plugin-syntax has an output flag
   // then we need to delete the .cache folder from node_modules
@@ -254,17 +253,17 @@ export const init: producer = async ({
     ],
   } as Configuration;
   try {
-  const  engineConfig = require(configPath.value());
-  if(engineConfig.extendWebpack) {
-    config = engineConfig.extendWebpack(config, require.resolve);
-  }
+    const engineConfig = require(configPath.value());
+    if (engineConfig.extendWebpack) {
+      config = engineConfig.extendWebpack(config, require.resolve);
+    }
   } catch (error) {
-    console.error('Config path error', error);
+    console.error("Config path error", error);
   }
 
-  if(isExportedAsModule.value()) {
+  if (isExportedAsModule.value()) {
     config.output.library = name.value();
-    config.output.libraryTarget = 'umd';
+    config.output.libraryTarget = "umd";
   }
 
   //TODO: Account for syntax error during HMR in order to avoid
