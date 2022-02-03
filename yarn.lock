@@ -2000,8 +2000,6 @@ __metadata:
     webpack: ^5.52.1
     webpack-bundle-analyzer: ^4.4.2
     webpack-dev-server: ^4.2.1
-  peerDependencies:
-    tailwindcss: "*"
   bin:
     engine-service-web: dist/cli.js
   languageName: unknown
