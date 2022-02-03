@@ -35,9 +35,6 @@
     "test": "echo \"jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
     "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
-  "peerDependencies": {
-    "tailwindcss": "*"
-  },
   "devDependencies": {
     "@babel/cli": "^7.15.4",
     "@schemastore/package": "^0.0.6",

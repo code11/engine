@@ -22,10 +22,9 @@ type props = {
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
-  tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
   webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
-  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>
-  name: Get<State["config"]["name"]>
+  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>;
+  name: Get<State["config"]["name"]>;
 };
 
 export const init: producer = async ({
@@ -46,26 +45,14 @@ export const init: producer = async ({
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
-  tailwindConfigPath = get.config.tailwindConfigPath,
   webpackPublicPath = get.config.webpackPublicPath,
-  name = get.config.name
+  name = get.config.name,
 }: props) => {
   if (!trigger) {
     return;
   }
 
-  let tailwindConfig = {};
-  try {
-    tailwindConfig = require(tailwindConfigPath.value());
-  } catch (e) {
-    if (e.code === "MODULE_NOT_FOUND") {
-      console.log("ok - not found");
-    } else {
-      throw e;
-    }
-  }
-
-  const config = {
+  let config = {
     mode: "production",
     devtool: "source-map",
     entry: entryPath.value(),
@@ -212,10 +199,6 @@ export const init: producer = async ({
                   config: false,
                   plugins: [
                     require.resolve("postcss-import"),
-                    [
-                      require.resolve("tailwindcss"),
-                      { config: tailwindConfig },
-                    ],
                     [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
@@ -247,10 +230,6 @@ export const init: producer = async ({
                   config: false,
                   plugins: [
                     require.resolve("postcss-import"),
-                    [
-                      require.resolve("tailwindcss"),
-                      { config: tailwindConfig },
-                    ],
                     [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
@@ -304,14 +283,23 @@ export const init: producer = async ({
     },
   } as Configuration;
 
+  try {
+    const engineConfig = require(configPath.value());
+    if (engineConfig.extendWebpack) {
+      config = engineConfig.extendWebpack(config, require.resolve);
+    }
+  } catch (error) {
+    console.error("Config path error", error);
+  }
+
   await _copy(publicPath.value(), distPath.value(), {
     dereference: true,
     filter: (file) => file !== publicIndexPath.value(),
   });
 
-  if(isExportedAsModule.value()) {
+  if (isExportedAsModule.value()) {
     config.output.library = name.value();
-    config.output.libraryTarget = 'umd';
+    config.output.libraryTarget = "umd";
   }
 
   _webpack(config, (err, stats) => {

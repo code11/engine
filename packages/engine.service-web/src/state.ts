@@ -18,6 +18,7 @@ export type State = {
     webpackPublicPath: string;
     commandPath: Path;
     packagePath: Path;
+    configPath: Path;
     srcPath: Path;
     isExportedAsModule: boolean;
     entryPath: Path;
@@ -28,7 +29,6 @@ export type State = {
     overrideModulesPath: Path;
     replacerPath: Path;
     packageNodeModulesPath: Path;
-    tailwindConfigPath: Path;
     port: string | number;
     engineOutput: boolean;
   };

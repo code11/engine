@@ -45,12 +45,14 @@ export const config: producer = async ({
   const publicPath = _resolve(commandPath, "public");
   const distPath = _resolve(commandPath, "dist");
   const publicIndexPath = _resolve(publicPath, "index.html");
-  const tailwindConfigPath = _resolve(commandPath, "tailwind.config.js");
+  const configPath = _resolve(commandPath, "engine.config.js");
+
   config.set({
     name: result.name || "unknown-app",
     version: result.version || "unknown-version",
     proxy: result.proxy || undefined,
     webpackPublicPath: result.publicPath || "/",
+    configPath,
     isExportedAsModule: result.isExportedAsModule || false,
     port: result.port || "auto",
     engineOutput: result.engineOutput === true ? true : false,
@@ -65,6 +67,5 @@ export const config: producer = async ({
     overrideModulesPath,
     replacerPath,
     packageNodeModulesPath,
-    tailwindConfigPath,
   });
 };
