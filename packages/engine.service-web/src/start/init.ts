@@ -18,11 +18,11 @@ type props = {
   publicPath: Get<State["config"]["publicPath"]>;
   port: Get<State["config"]["port"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
-  tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
   proxy: Get<State["config"]["proxy"]>;
   engineOutput: Get<State["config"]["engineOutput"]>;
   isExportedAsModule: Get<State["config"]["isExportedAsModule"]>
-  name: Get<State["config"]["name"]>
+  name: Get<State["config"]["name"]>,
+  configPath: Get<State["config"]["configPath"]>
 };
 
 //TODO: enforce block statement
@@ -50,28 +50,13 @@ export const init: producer = async ({
   publicPath = get.config.publicPath,
   engineOutput = get.config.engineOutput,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
-  tailwindConfigPath = get.config.tailwindConfigPath,
+  configPath =  get.config.configPath,
   name = get.config.name
 }: props) => {
   if (!trigger) {
     return;
   }
 
-  let tailwindConfig = {};
-  try {
-    tailwindConfig = require(tailwindConfigPath.value());
-  } catch (e) {
-    //TODO: error needs to be shown in full. There are errors
-    //  that can occur from the file itself that will propagate here
-    //  and lead to false messages
-    if (e.code === "MODULE_NOT_FOUND") {
-      console.log(
-        "tailwind.config.js not found. Using default tailwindcss theme."
-      );
-    } else {
-      throw e;
-    }
-  }
 
   //TODO: if the engine.babel-plugin-syntax has an output flag
   // then we need to delete the .cache folder from node_modules
@@ -80,7 +65,7 @@ export const init: producer = async ({
   //TODO: add support for json loading using import syntax:
   // import foo from './something.json'
 
-  const config = {
+  let config = {
     mode: "development",
     devtool: "eval-source-map",
     entry: entryPath.value(),
@@ -110,6 +95,7 @@ export const init: producer = async ({
             {
               loader: require.resolve("file-loader"),
               options: {
+                esModule: false,
                 name: "[name].[ext]?[hash]",
                 outputPath: "assets",
               },
@@ -212,10 +198,6 @@ export const init: producer = async ({
                   config: false,
                   plugins: [
                     require.resolve("postcss-import"),
-                    [
-                      require.resolve("tailwindcss"),
-                      { config: tailwindConfig },
-                    ],
                     [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
@@ -245,10 +227,6 @@ export const init: producer = async ({
                   config: false,
                   plugins: [
                     require.resolve("postcss-import"),
-                    [
-                      require.resolve("tailwindcss"),
-                      { config: tailwindConfig },
-                    ],
                     [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
@@ -275,6 +253,14 @@ export const init: producer = async ({
       }),
     ],
   } as Configuration;
+  try {
+  const  engineConfig = require(configPath.value());
+  if(engineConfig.extendWebpack) {
+    config = engineConfig.extendWebpack(config, require.resolve);
+  }
+  } catch (error) {
+    console.error('Config path error', error);
+  }
 
   if(isExportedAsModule.value()) {
     config.output.library = name.value();
