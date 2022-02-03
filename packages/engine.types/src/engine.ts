@@ -22,7 +22,7 @@ export type UnsubscribeSourceUpdateFn = () => void;
 
 export type EngineEmitter = Emitter<Events>;
 
-export enum EngineStates {
+export enum EngineStatus {
   RUNNING = "RUNNING",
   NOT_RUNNING = "NOT_RUNNING",
 }
