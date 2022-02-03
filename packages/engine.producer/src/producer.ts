@@ -164,10 +164,17 @@ export class Producer implements ProducerInstance {
       }, {} as { [k: string]: any });
       console.log(loc, logParams);
     }
+    //TODO: could the producer become unmounted here?
+    // maybe the call shouldn't be made
     this.emit(EventNames.PRODUCER_CALLED, params);
     const result = this.fn.call(null, params);
 
     if (isFunction(result)) {
+      //TODO: could the producer become unmounted here?
+      // maybe the result should be invoked directly
+      //TODO: maybe the results should be tested for equality
+      // as the same result might be returned more than
+      // once across many calls
       this.results.push(result);
     } else if (isPromise(result)) {
       result.then((cb) => {

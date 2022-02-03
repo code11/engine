@@ -89,6 +89,7 @@ export const init: producer = async ({
           ],
         },
         {
+          //TODO: add more extensions to this loader
           test: /\.(png|jpg|gif|webp)$/,
           use: [
             {

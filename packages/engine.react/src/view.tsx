@@ -357,6 +357,10 @@ export function view(config: ViewConfig) {
         this.createdAt
       );
     }
+    //TODO: Add shouldComponentUpdate in order to separate
+    // the actual used props and the props that are given
+    // to the component in order to optimise rendering in some
+    // cases
     render() {
       // TODO: anyway of knowing if the props changed?
       Object.values(this.producers).forEach((x) => {
