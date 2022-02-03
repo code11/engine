@@ -22,6 +22,11 @@ export type UnsubscribeSourceUpdateFn = () => void;
 
 export type EngineEmitter = Emitter<Events>;
 
+export enum EngineStates {
+  RUNNING = "RUNNING",
+  NOT_RUNNING = "NOT_RUNNING",
+}
+
 export type EngineContext = {
   engineId: string;
   db: DatastoreInstance;

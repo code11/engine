@@ -15,6 +15,7 @@ import {
   EventNames,
   EngineContext,
   EngineEmitter,
+  EngineStates
 } from "@c11/engine.types";
 import { EngineModule } from "./module";
 
@@ -34,6 +35,7 @@ export class Engine implements EngineApi {
   private modules: EngineModule[] = [];
   private emitter: EngineEmitter | undefined;
   private context: EngineContext;
+  private state: EngineStates = EngineStates.NOT_RUNNING;
   constructor({ state = {}, use = [], onEvents }: EngineConfig) {
     this.id = randomId();
     this.db = db(state);
@@ -93,10 +95,14 @@ export class Engine implements EngineApi {
   use(source: EngineModuleSource) {
     const module = new EngineModule(this.context, source);
     this.modules.push(module);
+    if (this.state === EngineStates.RUNNING) {
+      module.start()
+    }
   }
 
   async start() {
     this.context.emit(EventNames.ENGINE_STARTED);
+    this.state = EngineStates.RUNNING;
     this.modules.forEach((x) => {
       x.start();
     });
@@ -105,6 +111,7 @@ export class Engine implements EngineApi {
   async stop() {
     await Promise.all(this.modules.map((x) => x.stop()));
     this.context.emit(EventNames.ENGINE_STOPPED);
+    this.state = EngineStates.NOT_RUNNING;
     if (this.emitter) {
       this.emitter.all.clear();
     }
