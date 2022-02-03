@@ -3,41 +3,26 @@
 [![push](https://github.com/code11/engine/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/code11/engine/actions)
 [![codecov](https://codecov.io/gh/code11/engine/branch/master/graph/badge.svg?token=K3UZLXWOEK)](https://codecov.io/gh/code11/engine)
 
-Engine is state management and development solution for creating web applications with unprecedented simplicity.
+The Code11 Engine is an alternative state management library.
 
-You can read more on the [Engine Documentation](https://code11.github.io/engine/docs/) site.
+It also offers a compact web development solution useful for rapid prototyping.
 
-## Goals
+See [docs](https://code11.github.io/engine/docs/).
 
-Engine strives to build applications with
+## Usage
 
-- Small codebase. Less code, less bugs, more hairs still on head
-- Less work for computer. Only compute what is needed for faster applications
-- Less work for developer. Minimal API which gets out of developers' way.
-
-## Run
-
-Engine provides a convenient [CLI](https://code11.github.io/engine/docs/cli) to
-work with engine apps.
+Get started using the [cli](https://code11.github.io/engine/docs/cli):
 
 ```
-npm i -g @c11/engine.cli
-engine create my-app
+npx @c11/engine.cli create my-app
 cd my-app
 npm start
 ```
 
-## Build
-
-You can use Engine for building React applications and you won't be needing classes, hooks or
-any other state management libraries.
-
-You will pretty much be needing only the JSX aspect of React and a few Engine keywords.
-
-Here's an example:
+## Example
 
 ```tsx
-// app.tsx
+// App.tsx
 export const App: view = ({
   name = observe.name,
   greeting = observe.greeting,
@@ -46,7 +31,7 @@ export const App: view = ({
   <div>
     <h1>{greeting}</h1>
     <input
-      value={name}
+      defaultValue={name}
       onChange={(e) => updateName.set(e.currentTarget.value)}
     />
   </div>
@@ -56,11 +41,8 @@ const greeter: producer = ({
   name = observe.name,
   updateGreeting = update.greeting,
 }) => {
-  if (!name) {
-    updateGreeting.set("Enter your name below.");
-  } else {
-    updateGreeting.set(`Hello ${name}!`);
-  }
+  const greeting = name ? "Enter your name:" : `Hello ${name}!`;
+  updateGreeting.set(greeting);
 };
 
 App.producers([greeter]);
@@ -70,7 +52,7 @@ App.producers([greeter]);
 // index.tsx
 import { engine } from "@c11/engine.runtime";
 import { render } from "@c11/engine.react";
-import { App } from "./app";
+import { App } from "./App";
 
 const app = engine({
   state: {
@@ -82,18 +64,15 @@ const app = engine({
 app.start();
 ```
 
-This tiny example demonstrates pretty much all the Engine concepts!
+This tiny example demonstrates the Engine concepts and most of it's API.
 
-Components labeled as [view](https://code11.github.io/engine/docs/api/view) can
-[observe](https://code11.github.io/engine/docs/api/observe) anything from state,
-and [update](https://code11.github.io/engine/docs/api/update) anything in the
+The rendering is done by [views](https://code11.github.io/engine/docs/api/view).
+Views [observe](https://code11.github.io/engine/docs/api/observe) 
+and [update](https://code11.github.io/engine/docs/api/update) anything on the
 state.
 
-Functions labeled as
-[producer](https://code11.github.io/engine/docs/api/producer) is where the
-business logic should live and use the state to store and read data.
+The business logic sits in
+[producers](https://code11.github.io/engine/docs/api/producer).
+Producers can be added to views or to the global space of the application.
 
-Head over to the [React Quick
-start](https://code11.github.io/engine/docs/tutorials/react/setup) tutorial for
-a more involved introduction to building an Engine React app.
 

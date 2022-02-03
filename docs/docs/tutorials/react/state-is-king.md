@@ -52,14 +52,13 @@ application state. In `src/index.tsx`
 const app = engine({
   state: {
 -   initial: { }
-+   initial: {
-+     todosById: {
-+       todo1: { id: 'todo1', title: 'Add initial state to engine', isDone: false },
-+       todo2: { id: 'todo2', title: 'Use initial state in components', isDone: false }
++    todosById: {
++      todo1: { id: 'todo1', title: 'Add initial state to engine', status: "pending", mode: "viewing" },
++      todo2: { id: 'todo2', title: 'Use initial state in components', status: "done", mode: "viewing" },
++      todo3: { id: 'todo3', title: 'Update state in components', status: "pending", mode: "editing" }
 +     },
 +     visibleTodoIds: ['todo1', 'todo2']
-+   }
-+ },
+   },
   view: {
     element: <App />,
     root: "#root"
@@ -70,7 +69,7 @@ const app = engine({
 Todo items are kept in very explicitly named `todosById` key, and their `id`s
 are also added in a `visibleTodoIds` array. This a deliberate choice with [good
 reasons](/docs/concepts/state#shape-of-state). One of the app components (Todo listing)
-happen to show a list of todo items. These shown todos might (and will) end up
+happens to show a list of todo items. These shown todos might (and will) end up
 being different from our `todosById`. Keeping them in their own path in state
 allows keeping a normalized state. It is crucial for maintainability that a
 single source of truth for data is maintained.

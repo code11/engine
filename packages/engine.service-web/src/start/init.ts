@@ -267,6 +267,11 @@ export const init: producer = async ({
     config.output.libraryTarget = 'umd';
   }
 
+  if(isExportedAsModule.value()) {
+    config.output.library = name.value();
+    config.output.libraryTarget = 'umd';
+  }
+
   //TODO: Account for syntax error during HMR in order to avoid
   //  having to refresh the entire application
   const server = new _WebpackDevServer(

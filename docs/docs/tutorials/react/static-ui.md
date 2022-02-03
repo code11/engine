@@ -6,12 +6,11 @@ sidebar_label: Static UI
 
 This tutorial takes a top-down approach for building the todos app. This chapter
 adds the static UI of our `App`, which will be given life with Engine in
-subsequent chapters.
+subsequent chapters. Replace the code you find in `App.tsx` as follows:
 
 Add the todos `<input>` in `App.tsx`:
 
 ```tsx
-import React from "react";
 import "todomvc-app-css/index.css";
 
 const App = () => (
