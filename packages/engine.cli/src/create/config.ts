@@ -26,6 +26,8 @@ export const config: producer = ({
   const templatePath = _resolve(tmpPath, templateName);
   const templateSandboxPath = _resolve(templatePath, "template");
   const templateConfigFilePath = _resolve(templatePath, "template.json");
+  const templateGitIgnorePath = _resolve(templatePath, "gitignore");
+  const copiedGitIgnorePath = _resolve(targetPath, "gitignore");
   config.merge({
     targetPath,
     targetPackageJsonPath,
@@ -35,5 +37,7 @@ export const config: producer = ({
     templateConfigFilePath,
     targetTsConfigPath,
     targetGitIgnorePath,
+    templateGitIgnorePath,
+    copiedGitIgnorePath,
   });
 };
