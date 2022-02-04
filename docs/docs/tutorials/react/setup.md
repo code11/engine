@@ -93,4 +93,4 @@ CSS is provided by `todomvc-app-css` npm package, which mandates using correct
 CSS classes to keep the app looking right.
 
 ### Cleanup
-The engine CLI uses a starter template. Go on and remove `greeting.ts`, `greeting.spec.ts` and `Component.tsx` once you updated `App.tsx`. Also remove "Foo bar baz" line above the app entry point `#app` in `public/index.html`.
+The engine CLI uses a starter template. Go on and remove `greeting.ts`, `greeting.spec.ts` and `Component.tsx` once you updated `App.tsx`. 
