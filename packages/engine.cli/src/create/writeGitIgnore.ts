@@ -60,6 +60,7 @@ dist
 .history
 /.gtm/
 .infra
+app-structure.json
 `;
 
   await _writeFile(targetPath, content, "utf-8");
