@@ -259,10 +259,13 @@ export const init: producer = async ({
       config = engineConfig.extendWebpack(config, require.resolve);
     }
   } catch (error) {
-    console.error("Config path error", error);
+    console.error("Could not extend the webpack config", error);
   }
 
   if (isExportedAsModule.value()) {
+    if (!config.output) {
+      config.output = {};
+    }
     config.output.library = name.value();
     config.output.libraryTarget = "umd";
   }

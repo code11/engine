@@ -25,6 +25,7 @@ type props = {
   webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
   isExportedAsModule: Get<State["config"]["isExportedAsModule"]>;
   name: Get<State["config"]["name"]>;
+  configPath: Get<State["config"]["configPath"]>;
 };
 
 export const init: producer = async ({
@@ -46,6 +47,7 @@ export const init: producer = async ({
   replacerPath = get.config.replacerPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
   webpackPublicPath = get.config.webpackPublicPath,
+  configPath = get.config.configPath,
   name = get.config.name,
 }: props) => {
   if (!trigger) {
@@ -289,7 +291,7 @@ export const init: producer = async ({
       config = engineConfig.extendWebpack(config, require.resolve);
     }
   } catch (error) {
-    console.error("Config path error", error);
+    console.error("Could not extend the webpack config", error);
   }
 
   await _copy(publicPath.value(), distPath.value(), {
@@ -298,6 +300,9 @@ export const init: producer = async ({
   });
 
   if (isExportedAsModule.value()) {
+    if (!config.output) {
+      config.output = {};
+    }
     config.output.library = name.value();
     config.output.libraryTarget = "umd";
   }

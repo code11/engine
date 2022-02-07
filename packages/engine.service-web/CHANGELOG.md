@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.98](https://github.com/code11/engine/compare/v4.0.0-alpha.97...v4.0.0-alpha.98) (2022-02-07)
+
+
+### Bug Fixes
+
+* **engine.service-web:** add configPath variable to build and small updates ([68a94a2](https://github.com/code11/engine/commit/68a94a2b9ec52eb47b7d0da89cbf699d14363c98))
+
+
+
+
+
 # [4.0.0-alpha.97](https://github.com/code11/engine/compare/v4.0.0-alpha.96...v4.0.0-alpha.97) (2022-02-03)
 
 **Note:** Version bump only for package @c11/engine.service-web
