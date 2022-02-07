@@ -8,6 +8,7 @@ const bar: view = ({ foo = observe.foo }) => { }
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import { view as viewRandomId } from "engineViewLibrary";
+
 const foo = viewRandomId({
   fn: ({ foo }) => {},
   props: {
@@ -27,6 +28,7 @@ const foo = viewRandomId({
   type: "view",
   buildId: "unique_id",
 });
+
 const bar = viewRandomId({
   fn: ({ foo }) => {},
   props: {
@@ -131,6 +133,7 @@ const foo: view = (props) => {}
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import { view as viewRandomId } from "engineViewLibrary";
+
 const foo = viewRandomId({
   fn: (props) => {},
   props: {
