@@ -22,6 +22,7 @@ type SourceUpdateListeners = {
 };
 
 export class EngineModule {
+  name: string;
   private state: EngineModuleState = EngineModuleState.NOT_BOOTSTRAPPED;
   private db: DatastoreInstance;
   private engineContext: EngineContext;
@@ -42,6 +43,7 @@ export class EngineModule {
     };
     this.emit = emit.bind(this);
     this.source = module;
+    this.name = this.source.name;
     this.db = context.db;
     this.id = randomId();
     this.context = {

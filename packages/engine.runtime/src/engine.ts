@@ -15,7 +15,7 @@ import {
   EventNames,
   EngineContext,
   EngineEmitter,
-  EngineStatus
+  EngineStatus,
 } from "@c11/engine.types";
 import { EngineModule } from "./module";
 
@@ -93,10 +93,16 @@ export class Engine implements EngineApi {
   }
 
   use(source: EngineModuleSource) {
+    //TODO: add test to ensure it is an engine module
+    if (!source) {
+      return;
+    }
     const module = new EngineModule(this.context, source);
     this.modules.push(module);
     if (this.status === EngineStatus.RUNNING) {
-      module.start()
+      module.start().catch((e) => {
+        console.error(`Module ${source.name} failed to start.`, e);
+      });
     }
   }
 
@@ -104,14 +110,25 @@ export class Engine implements EngineApi {
     this.context.emit(EventNames.ENGINE_STARTED);
     this.status = EngineStatus.RUNNING;
     this.modules.forEach((x) => {
-      x.start();
+      x.start().catch((e) => {
+        console.error(`Module ${x.name} failed to start.`, e);
+      });
     });
   }
 
   async stop() {
-    await Promise.all(this.modules.map((x) => x.stop()));
-    this.context.emit(EventNames.ENGINE_STOPPED);
+    if (this.status === EngineStatus.NOT_RUNNING) {
+      return;
+    }
     this.status = EngineStatus.NOT_RUNNING;
+    await Promise.all(
+      this.modules.map((x) =>
+        x.stop().catch((e) => {
+          console.error(`Module ${x.name} failed to start.`, e);
+        })
+      )
+    );
+    this.context.emit(EventNames.ENGINE_STOPPED);
     if (this.emitter) {
       this.emitter.all.clear();
     }
