@@ -47,6 +47,8 @@ export const ElementDescription: view = ({
   path = observe.selectedElement.path,
   element = observe.structure.elements[arg.selectedId],
   code = observe.structure.code[arg.selectedId],
+  showV2 = update.showV2,
+  getShowV2 = get.showV2,
 }) => {
   if (!element) {
     return;
@@ -74,6 +76,16 @@ export const ElementDescription: view = ({
             {element.meta.name}
           </Text>
           <Text>{element.meta.relativeFilePath}</Text>
+          <Badge
+            onClick={() => showV2.set(!!!getShowV2.value())}
+            position="absolute"
+            colorScheme="green"
+            right="3"
+            top="3"
+            cursor="pointer"
+          >
+            Toggle V2
+          </Badge>
         </VStack>
       </Box>
       <Box mb="4">

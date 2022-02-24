@@ -1,4 +1,4 @@
-import { Box, Tag, ChakraProvider, List } from "@chakra-ui/react";
+import { Box, Tag, ChakraProvider, List, Badge } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { StateTree } from "./stateTree";
@@ -6,6 +6,7 @@ import { ElementDescription } from "./elementDescription";
 import { ViewsTab } from "./ViewsTab";
 import { ProducersTab } from "./ProducersTab";
 import { StatsTab } from "./StatsTab";
+import { EditElement } from "./EditElement";
 
 export const App: view = ({
   data = observe.structure.data,
@@ -21,7 +22,7 @@ export const App: view = ({
       <SimpleGrid columns={2}>
         <Box bg="gray.100" h="100vh">
           <Tabs>
-            <TabList>
+            <TabList position="relative">
               <Tab>State</Tab>
               <Tab>
                 Views <Tag>{viewsCount}</Tag>
@@ -31,7 +32,6 @@ export const App: view = ({
               </Tab>
               <Tab>Stats</Tab>
             </TabList>
-
             <TabPanels>
               <TabPanel pr="0">
                 <List>
@@ -53,6 +53,7 @@ export const App: view = ({
           </Tabs>
         </Box>
         <Box bg="gray.200" borderLeft="solid 1px" borderColor="gray.300">
+          <EditElement />
           <ElementDescription />
         </Box>
       </SimpleGrid>

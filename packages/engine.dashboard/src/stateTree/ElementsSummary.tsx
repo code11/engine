@@ -17,14 +17,16 @@ export const ElementsSummary: view = ({
   return (
     <Stack direction="row" ml="2">
       {depsNo > 0 && (
-        <Badge
-          variant={isDepsVisible ? "solid" : "outline"}
-          colorScheme="purple"
-          cursor="pointer"
-          onClick={() => updateIsDepsVisible.set(!isDepsVisible)}
-        >
-          {depsNo} deps
-        </Badge>
+        <>
+          <Badge
+            variant={isDepsVisible ? "solid" : "outline"}
+            colorScheme="purple"
+            cursor="pointer"
+            onClick={() => updateIsDepsVisible.set(!isDepsVisible)}
+          >
+            {depsNo} deps
+          </Badge>
+        </>
       )}
     </Stack>
   );

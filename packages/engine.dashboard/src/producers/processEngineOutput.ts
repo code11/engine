@@ -38,6 +38,7 @@ export const processEngineOutput: producer = async ({
   updateStructureData = update.structure.data,
   updateStructureElements = update.structure.elements,
   updateStructureRaw = update.structure.raw,
+  updateProjectRoot = update.structure.projectRoot,
 }) => {
   const result = await axios.get(`http://localhost:3000/app-structure`);
   const output = result.data as OutputStructure;
@@ -50,6 +51,11 @@ export const processEngineOutput: producer = async ({
   }, {});
 
   updateStructureElements.set(elements);
+
+  const projectRoot = Object.values(Object.values(output)[0])[0]?.meta
+    .absoluteRootPath;
+
+  updateProjectRoot.set(projectRoot);
 
   const stateStructure: StateStructure = Object.entries(output).reduce(
     (acc, [fileName, locals]) => {
