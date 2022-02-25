@@ -23,3 +23,4 @@ TODO
 .pnp.*
 .scannerwork
 engine.output.json
+.app-structure.json

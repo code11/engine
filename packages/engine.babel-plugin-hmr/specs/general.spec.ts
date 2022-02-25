@@ -20,9 +20,15 @@ pluginTester({
       /buildId:\s?\"[a-zA-Z_]+\"/g,
       `buildId:"unique_id"`
     );
-    return prettier.format(result, {
+    let format = prettier.format(result, {
       parser: "babel",
     });
+    format = format
+      .split("\n")
+      .filter((x) => x !== "")
+      .join("\n");
+    format += "\n";
+    return format;
   },
   pluginName: "@c11/engine.babel-plugin-hmr",
   tests: {
