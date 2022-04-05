@@ -61,7 +61,7 @@ export const init: producer = async ({
     output: {
       path: distPath.value(),
       filename: "[name].[contenthash:8].js",
-      publicPath: webpackPublicPath.value() || "/",
+      publicPath: webpackPublicPath.value(),
     },
     resolve: {
       modules: ["node_modules", commandPath.value()],
@@ -187,7 +187,7 @@ export const init: producer = async ({
             {
               loader: _MiniCssExtractPlugin.loader,
               options: {
-                publicPath: "/",
+                publicPath: webpackPublicPath.value() || "/",
               },
             },
             {
@@ -214,7 +214,7 @@ export const init: producer = async ({
             {
               loader: _MiniCssExtractPlugin.loader,
               options: {
-                publicPath: "/",
+                publicPath: webpackPublicPath.value() || "/",
               },
             },
             {
@@ -249,9 +249,10 @@ export const init: producer = async ({
         "process.env.DEBUG": JSON.stringify(false),
       }),
       new _HtmlWebpackPlugin({
+        title: name.value(),
         template: publicIndexPath.value(),
         templateParameters: {
-          PUBLIC_URL: "",
+          PUBLIC_URL: webpackPublicPath.value(),
         },
       }),
       new _MiniCssExtractPlugin({

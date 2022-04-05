@@ -1,6 +1,7 @@
 import webpack, { Configuration } from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import { existsSync } from "fs";
 
 type props = {
   _webpack: typeof webpack;
@@ -15,6 +16,7 @@ type props = {
   commandPath: Get<State["config"]["commandPath"]>;
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
+  webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
   publicPath: Get<State["config"]["publicPath"]>;
   port: Get<State["config"]["port"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
@@ -45,6 +47,7 @@ export const init: producer = async ({
   port = get.config.port,
   proxy = get.config.proxy,
   nodeModulesPath = get.config.nodeModulesPath,
+  webpackPublicPath = get.config.webpackPublicPath,
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   publicPath = get.config.publicPath,
@@ -69,7 +72,7 @@ export const init: producer = async ({
     devtool: "eval-source-map",
     entry: entryPath.value(),
     output: {
-      publicPath: "/",
+      publicPath: webpackPublicPath.value(),
       path: distPath.value(),
     },
     resolve: {
@@ -246,17 +249,20 @@ export const init: producer = async ({
         "process.env.DEBUG": JSON.stringify(process.env.DEBUG),
       }),
       new _HtmlWebpackPlugin({
+        title: name.value(),
         template: publicIndexPath.value(),
         templateParameters: {
-          PUBLIC_URL: "",
+          PUBLIC_URL: webpackPublicPath.value(),
         },
       }),
     ],
   } as Configuration;
   try {
-    const engineConfig = require(configPath.value());
-    if (engineConfig.extendWebpack) {
-      config = engineConfig.extendWebpack(config, require.resolve);
+    if (existsSync(configPath.value())) {
+      const engineConfig = require(configPath.value());
+      if (engineConfig.extendWebpack) {
+        config = engineConfig.extendWebpack(config, require.resolve);
+      }
     }
   } catch (error) {
     console.error("Could not extend the webpack config", error);
