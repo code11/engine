@@ -33,4 +33,9 @@ export const debug: producer = ({
   (window as any).set = (str: string, value: any) => {
     return setValue.set(value, { path: makePath(str) });
   };
+
+  return () => {
+    delete (window as any).set;
+    delete (window as any).get;
+  };
 };

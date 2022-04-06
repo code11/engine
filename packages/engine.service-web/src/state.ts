@@ -1,6 +1,12 @@
 export type Path = string;
 
 export type State = {
+  triggers: {
+    config: {
+      path: string;
+      timestamp: number;
+    };
+  };
   config: {
     proxy:
       | string
@@ -9,9 +15,12 @@ export type State = {
         };
     name: string;
     version: string;
+    webpackPublicPath: string;
     commandPath: Path;
     packagePath: Path;
+    configPath: Path;
     srcPath: Path;
+    isExportedAsModule: boolean;
     entryPath: Path;
     distPath: Path;
     publicPath: Path;
@@ -20,37 +29,38 @@ export type State = {
     overrideModulesPath: Path;
     replacerPath: Path;
     packageNodeModulesPath: Path;
-    tailwindConfigPath: Path;
+    port: string | number;
+    engineOutput: boolean;
   };
   test: {
-    flags: {};
-    config: {};
+    flags: Record<string, unknown>;
+    config: Record<string, unknown>;
     triggers: {
       init: {
-        opts: any;
+        opts: unknown;
         timestamp: number;
       };
     };
   };
   start: {
-    flags: {};
-    config: {};
+    flags: Record<string, unknown>;
+    config: Record<string, unknown>;
     triggers: {
       init: {
-        opts: any;
+        opts: unknown;
         timestamp: number;
       };
     };
   };
   build: {
-    flags: {};
-    config: {};
+    flags: Record<string, unknown>;
+    config: Record<string, unknown>;
     triggers: {
       init: {
-        opts: any;
+        opts: unknown;
         timestamp: number;
       };
     };
   };
-  err: any;
+  err: unknown;
 };

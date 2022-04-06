@@ -216,6 +216,41 @@ timers, etc. As such, when the `producer` is unmounted from the state, it is the
 `producer`'s responsability to provide a callback for clean-up purposes. See the
 example above.
 
+Note that a producer can be called multiple times so take care to not make duplicate
+subscribing, etc. To do so, you can store a flag on the state which you can check
+before creating the subscribe.
+
+Also, all return values of a producer that are functions will be queued for the clean-up phase.
+In order to avoid duplicate calls to the clean-up function ensure that the subscribe
+and the clean-up return are only made in the subscribe scenario.
+
+A producer can have multiple subscribes and clean-up functions (altough a best practice
+is to have multiple producers that handle their individual scenario):
+```
+// Possible, but not recommended
+const foo: producer = ({
+  a = observe.a,
+  b = observe.b
+  getListener = get.listeners[param.type],
+  updateListener = update.listeners[param.type]
+}) => {
+  if (a && !getListener.value({type: "a"})) {
+    const off = events.on("a.stuff", (event) => { ... )}
+    updateListener.set(true, {type: "a"})
+    return () => {
+      off()
+    }
+  }
+  if (b && !getListener.value({type: "b"})) {
+    const off = events.on("b.stuff", (event) => { ... )}
+    updateListener.set(true, {type: "a"})
+    return () => {
+      off()
+    }
+  }
+}
+```
+
 ## Best practices
 
 1. A `producer` should perform a single, very specific job. The more specific

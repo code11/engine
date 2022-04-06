@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.98](https://github.com/code11/engine/compare/v4.0.0-alpha.97...v4.0.0-alpha.98) (2022-02-07)
+
+
+### Bug Fixes
+
+* add app-structure.json to gitignore ([ef396d8](https://github.com/code11/engine/commit/ef396d82cd25df03f60d12652272b021fae747df))
+* **engine.template-react:** remove dummy content ([1bba897](https://github.com/code11/engine/commit/1bba897a5918e07ef8570a9e580157fce6d60f97))
+
+
+
+
+
+# [4.0.0-alpha.86](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.86) (2021-11-19)
+
+**Note:** Version bump only for package @c11/engine.template-react
+
+
+
+
+
+# [4.0.0-alpha.85](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.85) (2021-11-18)
+
+**Note:** Version bump only for package @c11/engine.template-react
+
+
+
+
+
+# [4.0.0-alpha.84](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.84) (2021-11-18)
+
+**Note:** Version bump only for package @c11/engine.template-react
+
+
+
+
+
+# [4.0.0-alpha.83](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.83) (2021-11-09)
+
+**Note:** Version bump only for package @c11/engine.template-react
+
+
+
+
+
+# [4.0.0-alpha.80](https://github.com/code11/engine/compare/v4.0.0-alpha.79...v4.0.0-alpha.80) (2021-10-28)
+
+**Note:** Version bump only for package @c11/engine.template-react
+
+
+
+
+
 # [4.0.0-alpha.70](https://github.com/code11/engine/compare/v4.0.0-alpha.69...v4.0.0-alpha.70) (2021-09-24)
 
 **Note:** Version bump only for package @c11/engine.template-react

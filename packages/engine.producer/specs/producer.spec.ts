@@ -1127,6 +1127,65 @@ test("should allow override of private props", (done) => {
   run(struct, {}, {});
 });
 
+test("should work with async/await", (done) => {
+  const state = {
+    bar: 123,
+  };
+  const foo = (value) => {
+    return new Promise((resolve, reject) => {
+      resolve(value);
+    });
+  };
+  const struct: producer = async ({ bar = observe.bar }) => {
+    if (!bar) {
+      return;
+    }
+    const a = await foo(bar);
+    return () => {
+      expect(a).toBe(123);
+      done();
+    };
+  };
+
+  const { producer } = run(struct, state, {});
+  jest.runAllTimers();
+  producer.unmount();
+  jest.runAllTimers();
+});
+
+test("should keep arg references for path updates in async processes", (done) => {
+  const state = {
+    foo: {
+      bar: "a",
+    },
+    bar: {
+      a: 123,
+    },
+  };
+  const struct: producer = ({
+    foo = observe.foo.bar,
+    updateFoo = update.foo.bar,
+    getFoo = get.foo.bar,
+    updateBar = update.bar[arg.foo],
+  }) => {
+    updateFoo.remove();
+    if (!foo) {
+      return;
+    }
+
+    setTimeout(() => {
+      updateBar.remove();
+    });
+  };
+
+  const { db, producer } = run(struct, state, {});
+  jest.runAllTimers();
+
+  console.log("final", db.get("/foo"));
+  expect(db.get("/bar/a")).toBeUndefined();
+  done();
+});
+
 // Add test that checks that references are kept
 
 /*

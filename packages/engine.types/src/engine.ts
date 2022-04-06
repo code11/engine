@@ -1,6 +1,15 @@
+import type { Emitter } from "mitt";
 import { MacroProducerType } from "./macro";
 import { ProducerConfig, ProducerInstance } from "./producer";
 import { ViewConfig } from "./view";
+import {
+  Events,
+  EventContext,
+  Event,
+  EventNames,
+  EventPayload,
+} from "./events";
+import { DatastoreInstance } from "./db";
 
 export type ExternalProducerContext = {
   props?: any;
@@ -11,7 +20,30 @@ export type UpdateSourceFn = (config: ProducerConfig | ViewConfig) => void;
 
 export type UnsubscribeSourceUpdateFn = () => void;
 
+export type EngineEmitter = Emitter<Events>;
+
+export enum EngineStatus {
+  RUNNING = "RUNNING",
+  NOT_RUNNING = "NOT_RUNNING",
+}
+
+export type EngineContext = {
+  engineId: string;
+  db: DatastoreInstance;
+  emit: (
+    name: EventNames,
+    payload?: EventPayload,
+    context?: EventContext
+  ) => void;
+};
+
+export enum ModuleNames {
+  ENGINE_PRODUCERS = "ENGINE_PRODUCERS",
+  REACT_RENDER = "REACT_RENDER",
+}
+
 export type ModuleContext = {
+  emit: EngineContext["emit"];
   onSourceUpdate: (
     sourceId: string,
     cb: UpdateSourceFn
@@ -27,12 +59,19 @@ export type EngineModuleInstance = {
 };
 
 export type EngineModuleSource = {
+  name: ModuleNames;
   bootstrap?: () => void | Promise<void>;
   mount: (context: ModuleContext) => void | Promise<void>;
   unmount: (context: ModuleContext) => void | Promise<void>;
 };
 
+export type EventListener = (event: Event) => void;
+export type EventListenerMap = Partial<{
+  [k in EventNames]: EventListener;
+}>;
+
 export type EngineConfig = {
+  onEvents?: EventListener | EventListenerMap;
   state?: {
     [key: string]: any;
   };

@@ -71,3 +71,16 @@ return
 }
 
 if observe, etc are not transformed initially and are just proxies - that means they can be reused at runtime
+
+
+
+// extend the observe syntax:
+observe.foo.isDefined()
+observe.foo.value() // same as observe.foo
+observe.foo.length()
+observe.foo.isValid()
+observe.foo.exists()
+observe.foo.is("asd")
+
+bam = observe.bam,
+foo = observe.foo.is(arg.bam)

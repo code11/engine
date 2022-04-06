@@ -1,51 +1,27 @@
-import React, { isValidElement } from "react";
-import ViewContext from "./context";
-import { BaseProps, BaseState } from "./types";
-import { getParentId } from "./getParentId";
-import { isProducer } from "./isProducer";
-import isPlainObject from "lodash/isPlainObject";
-import isArray from "lodash/isArray";
+import React from "react";
+import { randomId } from "@c11/engine.utils";
+import { EventNames, PathType } from "@c11/engine.types";
+import { pathFn } from "@c11/engine.runtime";
+import { now, extractProducers } from "@c11/engine.utils";
 import {
-  GraphNodeType,
-  ValueSerializer,
+  ProducersList,
   ProducerFn,
   ViewConfig,
-  ViewInstance,
   ProducerConfig,
   ExternalProducerContext,
   StructOperation,
   OperationTypes,
   UpdateValue,
+  View,
+  ViewFn,
 } from "@c11/engine.types";
-import { now } from "@c11/engine.producer";
 import type { ProducerInstance } from "@c11/engine.types";
 import { RenderComponent } from "./renderComponent";
 import type { RenderContext } from "./render";
-import { customAlphabet } from "nanoid";
-import { PathType } from "@c11/engine.types";
-import { pathFn } from "@c11/engine.runtime";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
-
-export const childrenSerializer: ValueSerializer = {
-  type: GraphNodeType.EXTERNAL,
-  name: "children",
-  serializer: (value) => {
-    if (
-      value instanceof Array &&
-      value.includes((x: any) => !isValidElement(x))
-    ) {
-      return;
-    } else if (!isValidElement(value)) {
-      return;
-    }
-    const result = JSON.stringify(value, circular());
-    return result;
-  },
-};
+import ViewContext from "./context";
+import { BaseProps } from "./types";
+import { getParentId } from "./getParentId";
+import { childrenSerializer } from "./childrenSerializer";
 
 // TopLevel{
 //   ErrorManagement,
@@ -76,16 +52,6 @@ export const childrenSerializer: ValueSerializer = {
 
 interface SampleState {}
 
-export type ViewFn<ExternalProps = {}> = (
-  props: any
-) => React.ReactElement<ExternalProps> | null;
-
-export type ViewExtra = {
-  producers?: ProducerFn[];
-};
-
-export type View<ExternalProps = {}> = ViewFn<ExternalProps> & ViewExtra;
-
 type InstanceApi = {
   replaceView: (config: ViewConfig) => void;
   replaceProducers: (producers: ProducerConfig[]) => void;
@@ -102,21 +68,7 @@ type InstanceCache = {
 
 const cache: InstanceCache = {};
 
-const circular = () => {
-  const seen = new WeakSet();
-  return (key: string, value: any) => {
-    if (key.startsWith("_")) {
-      return;
-    }
-    if (typeof value === "object" && value !== null) {
-      if (seen.has(value)) {
-        return;
-      }
-      seen.add(value);
-    }
-    return value;
-  };
-};
+export type { View, ViewFn };
 
 // TODO: Create a production and development view - there too many overlaps now
 //TODO: Add viewId on every view - see engine.patterns/component implementation
@@ -144,6 +96,8 @@ export function view(config: ViewConfig) {
   let producers: ProducerConfig[] = [];
   let setProducers: RenderContext["setProducers"];
   return class ViewComponent extends React.Component<BaseProps, SampleState> {
+    emit: RenderContext["emit"];
+    config: ViewConfig;
     static contextType = ViewContext;
     static displayName = `${config.meta?.relativeFilePath}::${config.meta?.name}:${config.meta?.location?.start.line}`;
     stateUpdate: any = {};
@@ -159,33 +113,34 @@ export function view(config: ViewConfig) {
     _update: ((path: any) => UpdateValue<any, any>) | undefined;
     ref: any;
     id: string;
-    static producers(
-      newProducers:
-        | ProducerConfig[]
-        | ProducerConfig
-        | { [k: string]: ProducerConfig }
-    ) {
-      let producersList: ProducerConfig[] = [];
-      if (isProducer(newProducers)) {
-        producersList = [newProducers as ProducerConfig];
-      } else if (isPlainObject(newProducers)) {
-        producersList = Object.values(newProducers);
-      } else if (isArray(newProducers)) {
-        producersList = newProducers;
-      }
+    static producers(newProducers: ProducersList) {
+      const producersList = extractProducers(newProducers);
       producers = producers.concat(producersList);
-      // TODO: should throw an error if the same producer is used twice
-      // check using sourceId in development
       if (setProducers) {
         setProducers(sourceId, producersList);
       }
     }
     static isView = true;
+    static buildId = config.buildId;
     constructor(externalProps: BaseProps, context: RenderContext) {
       super(externalProps, context);
 
-      this.id = nanoid();
+      this.id = randomId();
+      this.config = config;
+      const emit: RenderContext["emit"] = (
+        name,
+        payload = {},
+        context = {}
+      ) => {
+        this.context.emit &&
+          this.context.emit(name, payload, {
+            ...context,
+            viewId: this.id,
+          });
+      };
+      this.emit = emit.bind(this);
       const viewContext = {
+        emit: this.emit,
         props: {
           ...externalProps,
           _viewId: this.id,
@@ -306,14 +261,14 @@ export function view(config: ViewConfig) {
               if (this.isComponentMounted) {
                 producer.mount();
               }
-              const producerId = x.sourceId || nanoid();
+              const producerId = x.sourceId || randomId();
               this.producers[producerId] = producer;
             });
           },
         });
       }
       producers.forEach((x: any) => {
-        const id = x.sourceId || nanoid();
+        const id = x.sourceId || randomId();
         this.producers[id] = context.addProducer(x, viewContext, {
           viewId: this.id,
           viewSourceId: sourceId,
@@ -324,6 +279,10 @@ export function view(config: ViewConfig) {
     }
     componentDidMount() {
       this.isComponentMounted = true;
+      this.emit(EventNames.VIEW_MOUNTED, {
+        buildId: this.config.buildId,
+        sourceId: this.config.sourceId,
+      });
       Object.values(this.producers).forEach((x) => x.mount());
       this.viewProducer.mount();
       this.viewStateProducer.mount();
@@ -333,6 +292,8 @@ export function view(config: ViewConfig) {
       if (sourceId) {
         this.context.removeViewInstance(sourceId, this.id);
       }
+
+      this.emit(EventNames.VIEW_UNMOUNTED);
       Object.values(this.producers).forEach((x) => {
         x.unmount();
       });
@@ -396,6 +357,10 @@ export function view(config: ViewConfig) {
         this.createdAt
       );
     }
+    //TODO: Add shouldComponentUpdate in order to separate
+    // the actual used props and the props that are given
+    // to the component in order to optimise rendering in some
+    // cases
     render() {
       // TODO: anyway of knowing if the props changed?
       Object.values(this.producers).forEach((x) => {
@@ -411,7 +376,6 @@ export function view(config: ViewConfig) {
             this.onMount();
           }}
           viewId={this.id}
-          ref={this.ref}
           state={this.state}
           fn={this.fn}
         />

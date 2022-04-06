@@ -1,7 +1,5 @@
-import isPlainObject from "lodash/isPlainObject";
-import isArray from "lodash/isArray";
-import { isProducer } from "../utils";
-import { ProducerConfig, ViewInstance } from "@c11/engine.types";
+import { extractProducers } from "@c11/engine.utils";
+import { ProducersList, ProducerConfig, ViewInstance } from "@c11/engine.types";
 
 //TODO: allow creation of simpler components in order
 //  to have the componentId space:
@@ -17,10 +15,7 @@ export const viewSelector = (
   },
   //TODO: add proper type to match states structure
   stateSelector: ({ data }: any) => string,
-  producers:
-    | ProducerConfig[]
-    | ProducerConfig
-    | { [k: string]: ProducerConfig } = []
+  producers: ProducersList
 ) => {
   const Component: view = ({
     _props,
@@ -63,15 +58,7 @@ export const viewSelector = (
     updateState.set(newState);
   };
 
-  let producersList: ProducerConfig[] = [];
-  if (isProducer(producers)) {
-    producersList = [producers as ProducerConfig];
-  } else if (isPlainObject(producers)) {
-    producersList = Object.values(producers);
-  } else if (isArray(producers)) {
-    producersList = producers;
-  }
-
+  const producersList = extractProducers(producers);
   Component.producers([...producersList, selector]);
 
   return (props: any) => <Component {...props} />;

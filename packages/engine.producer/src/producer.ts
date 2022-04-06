@@ -10,6 +10,7 @@ import {
   ValueSerializer,
   PassthroughOperation,
   OperationTypes,
+  EventNames,
 } from "@c11/engine.types";
 import isFunction from "lodash/isFunction";
 import isEqual from "lodash/isEqual";
@@ -20,18 +21,14 @@ import isNumber from "lodash/isNumber";
 import isBoolean from "lodash/isBoolean";
 import isNil from "lodash/isNil";
 import isRegExp from "lodash/isRegExp";
-import { customAlphabet } from "nanoid";
+import { randomId } from "@c11/engine.utils";
+import isPromise from "is-promise";
 import { Graph } from "./graph";
-import { now } from "./now";
+import { now } from "@c11/engine.utils";
 import { UpdateOperationSymbol } from "./graph/updateOperation";
 import { GetOperationSymbol } from "./graph/getOperation";
 import { stringifyPath } from "./graph/stringifyPath";
 import { PassthroughGraph } from "./graph/passthroughGraph";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
 
 enum ProducerStates {
   MOUNTED,
@@ -43,7 +40,9 @@ enum ProducerStates {
 
 export class Producer implements ProducerInstance {
   private state: ProducerStates = ProducerStates.UNMOUNTED;
+  private config: ProducerConfig;
   private db: DatastoreInstance;
+  private context: ProducerContext;
   private props: StructOperation | PassthroughOperation;
   private fn: ProducerFn;
   private external: ExternalProps;
@@ -53,6 +52,7 @@ export class Producer implements ProducerInstance {
   private meta: ProducerMeta;
   private serializers: ValueSerializer[];
   private results: any[] = [];
+  private emit: ProducerContext["emit"];
   private stats = {
     executionCount: 0,
   };
@@ -60,7 +60,21 @@ export class Producer implements ProducerInstance {
   sourceId: string;
   constructor(config: ProducerConfig, context: ProducerContext) {
     this.db = context.db;
-    this.id = nanoid();
+    this.config = config;
+    this.id = randomId();
+    this.context = context;
+    const emit: ProducerContext["emit"] = (
+      name,
+      payload = {},
+      context = {}
+    ) => {
+      this.context.emit &&
+        this.context.emit(name, payload, {
+          ...context,
+          producerId: this.id,
+        });
+    };
+    this.emit = emit.bind(this);
     this.props = config.props;
     this.fn = config.fn;
     this.external = {
@@ -150,15 +164,37 @@ export class Producer implements ProducerInstance {
       }, {} as { [k: string]: any });
       console.log(loc, logParams);
     }
+    //TODO: could the producer become unmounted here?
+    // maybe the call shouldn't be made
+    this.emit(EventNames.PRODUCER_CALLED, params);
     const result = this.fn.call(null, params);
-    if (result !== undefined && isFunction(result)) {
+
+    if (isFunction(result)) {
+      //TODO: could the producer become unmounted here?
+      // maybe the result should be invoked directly
+      //TODO: maybe the results should be tested for equality
+      // as the same result might be returned more than
+      // once across many calls
       this.results.push(result);
+    } else if (isPromise(result)) {
+      result.then((cb) => {
+        if (isFunction(cb)) {
+          if (this.state === ProducerStates.UNMOUNTED) {
+            cb();
+          }
+          this.results.push(cb);
+        }
+      });
     }
   }
   mount() {
     if (this.state === ProducerStates.MOUNTED) {
       return this;
     }
+    this.emit(EventNames.PRODUCER_MOUNTED, {
+      buildId: this.config.buildId,
+      sourceId: this.config.sourceId,
+    });
     this.graph.listen();
     this.state = ProducerStates.MOUNTED;
     return this;
@@ -174,10 +210,11 @@ export class Producer implements ProducerInstance {
         x();
       }
     });
+    this.emit(EventNames.PRODUCER_UNMOUNTED);
     return this;
   }
   updateExternal(props: ProducerContext["props"]) {
-    if (props) {
+    if (props && props !== this.external) {
       this.external = props;
       this.graph.updateExternal(this.external);
     }

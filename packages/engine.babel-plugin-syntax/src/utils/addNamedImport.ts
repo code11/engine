@@ -1,10 +1,5 @@
 import type * as Babel from "@babel/core";
-import { customAlphabet } from "nanoid";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
+import { randomId } from "@c11/engine.utils";
 
 export const addNamedImport = (
   babel: typeof Babel,
@@ -21,7 +16,9 @@ export const addNamedImport = (
 
   let alias; // `${exportName}Engine`;
   if (!path) {
-    alias = nanoid();
+    // TODO: use babel's uid generation tools instead
+    // https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md#generating-a-uid
+    alias = randomId();
     const newNode = t.importDeclaration(
       [t.importSpecifier(t.identifier(alias), t.identifier(exportName))],
       t.stringLiteral(moduleName)
@@ -43,7 +40,7 @@ export const addNamedImport = (
       return false;
     });
     if (!exportedVariable) {
-      alias = nanoid();
+      alias = randomId();
       node.specifiers.push(
         t.importSpecifier(t.identifier(alias), t.identifier(exportName))
       );

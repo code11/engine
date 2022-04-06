@@ -1,8 +1,7 @@
 import commander from "commander";
-import { performance } from "perf_hooks";
 
 type props = {
-  _now: number;
+  _now: () => number;
   _commander: typeof commander;
   version: State["config"]["version"];
   start: Update<State["start"]["triggers"]["init"]>;
@@ -26,10 +25,11 @@ export const command: producer = ({
     .command("start")
     .description("Start the application")
     .action((cmd: commander.Command) => {
-      start.set({
+      const trigger = {
         opts: (cmd && cmd.opts && cmd.opts()) || {},
         timestamp: _now(),
-      });
+      };
+      start.set(trigger);
     });
 
   _commander

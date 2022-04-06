@@ -3,6 +3,178 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.98](https://github.com/code11/engine/compare/v4.0.0-alpha.97...v4.0.0-alpha.98) (2022-02-07)
+
+
+### Bug Fixes
+
+* **engine.service-web:** add configPath variable to build and small updates ([68a94a2](https://github.com/code11/engine/commit/68a94a2b9ec52eb47b7d0da89cbf699d14363c98))
+
+
+
+
+
+# [4.0.0-alpha.97](https://github.com/code11/engine/compare/v4.0.0-alpha.96...v4.0.0-alpha.97) (2022-02-03)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
+# [4.0.0-alpha.96](https://github.com/code11/engine/compare/v4.0.0-alpha.95...v4.0.0-alpha.96) (2022-01-12)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
+# [4.0.0-alpha.90](https://github.com/code11/engine/compare/v4.0.0-alpha.89...v4.0.0-alpha.90) (2021-11-28)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
+# [4.0.0-alpha.89](https://github.com/code11/engine/compare/v4.0.0-alpha.88...v4.0.0-alpha.89) (2021-11-19)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
+# [4.0.0-alpha.87](https://github.com/code11/engine/compare/v4.0.0-alpha.86...v4.0.0-alpha.87) (2021-11-19)
+
+
+### Bug Fixes
+
+* **engine.service-web:** fix typo to enable engine output to generate ([bf3130c](https://github.com/code11/engine/commit/bf3130c635c11584f947957ff1e0bc63eb9a6b52))
+
+
+
+
+
+# [4.0.0-alpha.86](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.86) (2021-11-19)
+
+
+### Bug Fixes
+
+* **engine.service-web:** ensure webpack optimization doesn't fail with root modules ([42a7d69](https://github.com/code11/engine/commit/42a7d69553eaf59ba2d396af37e287b6917d061d))
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
+# [4.0.0-alpha.85](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.85) (2021-11-18)
+
+
+### Bug Fixes
+
+* **engine.service-web:** ensure webpack optimization doesn't fail with root modules ([42a7d69](https://github.com/code11/engine/commit/42a7d69553eaf59ba2d396af37e287b6917d061d))
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
+# [4.0.0-alpha.84](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.84) (2021-11-18)
+
+
+### Bug Fixes
+
+* **engine.service-web:** ensure webpack optimization doesn't fail with root modules ([42a7d69](https://github.com/code11/engine/commit/42a7d69553eaf59ba2d396af37e287b6917d061d))
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
+# [4.0.0-alpha.83](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.83) (2021-11-09)
+
+
+### Bug Fixes
+
+* **engine.service-web:** ensure webpack optimization doesn't fail with root modules ([42a7d69](https://github.com/code11/engine/commit/42a7d69553eaf59ba2d396af37e287b6917d061d))
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
+# [4.0.0-alpha.82](https://github.com/code11/engine/compare/v4.0.0-alpha.81...v4.0.0-alpha.82) (2021-10-29)
+
+
+### Bug Fixes
+
+* **engine.service-web:** ensure webpack optimization doesn't fail with root modules ([42a7d69](https://github.com/code11/engine/commit/42a7d69553eaf59ba2d396af37e287b6917d061d))
+
+
+
+
+
+# [4.0.0-alpha.81](https://github.com/code11/engine/compare/v4.0.0-alpha.80...v4.0.0-alpha.81) (2021-10-28)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
+# [4.0.0-alpha.80](https://github.com/code11/engine/compare/v4.0.0-alpha.79...v4.0.0-alpha.80) (2021-10-28)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
+# [4.0.0-alpha.79](https://github.com/code11/engine/compare/v4.0.0-alpha.78...v4.0.0-alpha.79) (2021-10-28)
+
+
+### Features
+
+* **engine.utils:** add a new package with common utils ([3531474](https://github.com/code11/engine/commit/353147405b7b67d89237c10cee5a45a8c25278f2))
+
+
+
+
+
+# [4.0.0-alpha.78](https://github.com/code11/engine/compare/v4.0.0-alpha.75...v4.0.0-alpha.78) (2021-10-17)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
+# [4.0.0-alpha.77](https://github.com/code11/engine/compare/v4.0.0-alpha.75...v4.0.0-alpha.77) (2021-10-14)
+
+**Note:** Version bump only for package @c11/engine.service-web
+
+
+
+
+
 # [4.0.0-alpha.76](https://github.com/code11/engine/compare/v4.0.0-alpha.75...v4.0.0-alpha.76) (2021-10-06)
 
 **Note:** Version bump only for package @c11/engine.service-web

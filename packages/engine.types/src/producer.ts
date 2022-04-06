@@ -1,3 +1,4 @@
+import { EngineContext } from ".";
 import { DatastoreInstance } from "./db";
 import { GraphNodeType } from "./graph";
 import { PathType } from "./macro";
@@ -115,7 +116,10 @@ export type ProducerData = {
 };
 
 export type ProducerCb = () => void;
-export type ProducerFn = (props: ProducerData | any) => any | ProducerCb;
+export type ProducerFn = (
+  props: ProducerData
+) => void | ProducerCb | Promise<void | ProducerCb>;
+
 export interface ProducerMeta {
   name?: string;
   location?: {
@@ -153,6 +157,7 @@ export interface ExternalProps {
   [key: string]: any;
 }
 export interface ProducerContext {
+  emit: EngineContext["emit"];
   db: DatastoreInstance;
   props?: ExternalProps;
   keepReferences?: string[];
@@ -199,3 +204,10 @@ export type ValueSerializer = {
   instanceof?: any;
   serializer: (value: any) => void | string;
 };
+
+export type ProducersList =
+  | undefined
+  | ProducerFn
+  | ProducerFn[]
+  | ProducersList[]
+  | { [k: string]: ProducersList };

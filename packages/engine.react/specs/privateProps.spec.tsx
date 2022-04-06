@@ -14,8 +14,6 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-//TODO: Add case with empty params view that results in endless loop
-
 test("should provide private helper props", async (done) => {
   const defaultState = {
     foo: "123",

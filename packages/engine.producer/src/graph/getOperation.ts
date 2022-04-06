@@ -4,7 +4,7 @@ import {
   GetOperation,
   OperationParams,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import isString from "lodash/isString";
 import isArray from "lodash/isArray";
 import { getInvokablePath } from "./getInvokablePath";
@@ -49,12 +49,18 @@ export const getOperation = (
     }
   };
 
+  //TODO: add an exists method as well
+  // if (getFoo.exists()) { ... }
+  // this should check if the path exists and if the
+  // value is not undefined
+
+
   const operation = {
     value,
     includes,
     length,
     __operation__: {
-      id: nanoid(),
+      id: randomId(),
       symbol: GetOperationSymbol,
       path: op.path,
     },

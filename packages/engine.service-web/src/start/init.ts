@@ -16,9 +16,13 @@ type props = {
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
   publicPath: Get<State["config"]["publicPath"]>;
+  port: Get<State["config"]["port"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
-  tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
   proxy: Get<State["config"]["proxy"]>;
+  engineOutput: Get<State["config"]["engineOutput"]>;
+  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>;
+  name: Get<State["config"]["name"]>;
+  configPath: Get<State["config"]["configPath"]>;
 };
 
 //TODO: enforce block statement
@@ -33,39 +37,34 @@ export const init: producer = async ({
   _HtmlWebpackPlugin = HtmlWebpackPlugin,
   trigger = observe.start.triggers.init,
   entryPath = get.config.entryPath,
+  isExportedAsModule = get.config.isExportedAsModule,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
   commandPath = get.config.commandPath,
   packagePath = get.config.packagePath,
+  port = get.config.port,
   proxy = get.config.proxy,
   nodeModulesPath = get.config.nodeModulesPath,
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   publicPath = get.config.publicPath,
+  engineOutput = get.config.engineOutput,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
-  tailwindConfigPath = get.config.tailwindConfigPath,
+  configPath = get.config.configPath,
+  name = get.config.name,
 }: props) => {
   if (!trigger) {
     return;
   }
 
-  let tailwindConfig = {};
-  try {
-    tailwindConfig = require(tailwindConfigPath.value());
-  } catch (e) {
-    //TODO: error needs to be shown in full. There are errors
-    //  that can occur from the file itself that will propagate here
-    //  and lead to false messages
-    if (e.code === "MODULE_NOT_FOUND") {
-      console.log(
-        "tailwind.config.js not found. Using default tailwindcss theme."
-      );
-    } else {
-      throw e;
-    }
-  }
+  //TODO: if the engine.babel-plugin-syntax has an output flag
+  // then we need to delete the .cache folder from node_modules
+  // in order to trigger babel to recompile all files
 
-  const config = {
+  //TODO: add support for json loading using import syntax:
+  // import foo from './something.json'
+
+  let config = {
     mode: "development",
     devtool: "eval-source-map",
     entry: entryPath.value(),
@@ -84,14 +83,19 @@ export const init: producer = async ({
       rules: [
         {
           test: /\.svg$/,
-          use: ["@svgr/webpack", "url-loader"],
+          use: [
+            require.resolve("@svgr/webpack"),
+            require.resolve("url-loader"),
+          ],
         },
         {
+          //TODO: add more extensions to this loader
           test: /\.(png|jpg|gif|webp)$/,
           use: [
             {
-              loader: "file-loader",
+              loader: require.resolve("file-loader"),
               options: {
+                esModule: false,
                 name: "[name].[ext]?[hash]",
                 outputPath: "assets",
               },
@@ -102,7 +106,7 @@ export const init: producer = async ({
           test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
           use: [
             {
-              loader: "file-loader",
+              loader: require.resolve("file-loader"),
               options: {
                 name: "[name].[ext]",
                 outputPath: "fonts/",
@@ -116,16 +120,19 @@ export const init: producer = async ({
           // exclude: fileIsES5(FILE_ENCODING),
           use: [
             {
-              loader: "babel-loader",
+              loader: require.resolve("babel-loader"),
               options: {
                 cacheDirectory: true,
                 comments: false,
                 minified: false,
-                presets: ["@babel/preset-env", "@babel/preset-react"],
+                presets: [
+                  require.resolve("@babel/preset-env"),
+                  require.resolve("@babel/preset-react"),
+                ],
                 plugins: [
-                  "babel-plugin-react-require",
-                  "@babel/plugin-proposal-class-properties",
-                  "@babel/plugin-transform-runtime",
+                  require.resolve("babel-plugin-react-require"),
+                  require.resolve("@babel/plugin-proposal-class-properties"),
+                  require.resolve("@babel/plugin-transform-runtime"),
                 ],
               },
             },
@@ -135,7 +142,7 @@ export const init: producer = async ({
           test: /\.(ts|tsx)$/,
           use: [
             {
-              loader: "babel-loader",
+              loader: require.resolve("babel-loader"),
               options: {
                 cacheDirectory: true,
                 comments: false,
@@ -144,22 +151,23 @@ export const init: producer = async ({
                   {
                     plugins: [
                       [
-                        "@c11/engine.babel-plugin-syntax",
+                        require.resolve("@c11/engine.babel-plugin-syntax"),
                         {
                           viewLibrary: "@c11/engine.react",
+                          output: engineOutput.value(),
                         },
                       ],
-                      "@c11/engine.babel-plugin-hmr",
+                      require.resolve("@c11/engine.babel-plugin-hmr"),
                     ],
                   },
-                  "@babel/preset-typescript",
-                  "@babel/preset-env",
-                  "@babel/preset-react",
+                  require.resolve("@babel/preset-typescript"),
+                  require.resolve("@babel/preset-env"),
+                  require.resolve("@babel/preset-react"),
                 ],
                 plugins: [
-                  "babel-plugin-react-require",
-                  "@babel/plugin-proposal-class-properties",
-                  "@babel/plugin-transform-runtime",
+                  require.resolve("babel-plugin-react-require"),
+                  require.resolve("@babel/plugin-proposal-class-properties"),
+                  require.resolve("@babel/plugin-transform-runtime"),
                   // [
                   //   "babel-plugin-module-rewrite",
                   //   {
@@ -178,20 +186,19 @@ export const init: producer = async ({
           test: /\.css$/,
           exclude: /\.module\.css$/,
           use: [
-            "style-loader",
+            require.resolve("style-loader"),
             {
-              loader: "css-loader",
+              loader: require.resolve("css-loader"),
               options: { modules: false, importLoaders: 1 },
             },
             {
-              loader: "postcss-loader",
+              loader: require.resolve("postcss-loader"),
               options: {
                 postcssOptions: {
                   config: false,
                   plugins: [
-                    "postcss-import",
-                    ["tailwindcss", { config: tailwindConfig }],
-                    ["postcss-preset-env", { stage: 1 }],
+                    require.resolve("postcss-import"),
+                    [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
               },
@@ -201,10 +208,10 @@ export const init: producer = async ({
         {
           test: /\.module.css$/,
           use: [
-            "style-loader",
-            "@teamsupercell/typings-for-css-modules-loader",
+            require.resolve("style-loader"),
+            require.resolve("@teamsupercell/typings-for-css-modules-loader"),
             {
-              loader: "css-loader",
+              loader: require.resolve("css-loader"),
               options: {
                 importLoaders: 1,
                 modules: {
@@ -214,14 +221,13 @@ export const init: producer = async ({
               },
             },
             {
-              loader: "postcss-loader",
+              loader: require.resolve("postcss-loader"),
               options: {
                 postcssOptions: {
                   config: false,
                   plugins: [
-                    "postcss-import",
-                    ["tailwindcss", { config: tailwindConfig }],
-                    ["postcss-preset-env", { stage: 1 }],
+                    require.resolve("postcss-import"),
+                    [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
               },
@@ -247,6 +253,22 @@ export const init: producer = async ({
       }),
     ],
   } as Configuration;
+  try {
+    const engineConfig = require(configPath.value());
+    if (engineConfig.extendWebpack) {
+      config = engineConfig.extendWebpack(config, require.resolve);
+    }
+  } catch (error) {
+    console.error("Could not extend the webpack config", error);
+  }
+
+  if (isExportedAsModule.value()) {
+    if (!config.output) {
+      config.output = {};
+    }
+    config.output.library = name.value();
+    config.output.libraryTarget = "umd";
+  }
 
   //TODO: Account for syntax error during HMR in order to avoid
   //  having to refresh the entire application
@@ -260,5 +282,5 @@ export const init: producer = async ({
     _webpack(config)
   );
 
-  server.listen(8081, "0.0.0.0");
+  server.listen(port.value(), "0.0.0.0");
 };

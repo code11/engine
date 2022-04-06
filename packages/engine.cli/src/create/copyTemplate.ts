@@ -6,7 +6,7 @@ const pNcp = promisify(ncp);
 
 type props = {
   _ncp: typeof pNcp;
-  _now: number;
+  _now: () => number;
   isReady: State["create"]["flags"]["isTemplateDownloadReady"];
   sandboxPath: State["create"]["config"]["templateSandboxPath"];
   targetPath: State["create"]["config"]["targetPath"];

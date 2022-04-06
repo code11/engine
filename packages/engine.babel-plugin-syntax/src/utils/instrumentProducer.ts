@@ -6,22 +6,22 @@ import {
   paramsCompiler,
 } from "../compilers";
 import { Messages } from "../messages";
-import { PluginConfig } from "../plugin";
 import { extractMeta } from "./extractMeta";
 import { rawObjectCompiler } from "../compilers/rawObjectCompiler";
-import { customAlphabet } from "nanoid";
-
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_",
-  15
-);
+import { randomId } from "@c11/engine.utils";
+import {
+  EngineKeywords,
+  PassthroughOperation,
+  OperationTypes,
+} from "@c11/engine.types";
+import { PluginConfig, InstrumentationOutput } from "../types";
 
 export const instrumentProducer = (
   babel: typeof Babel,
   config: PluginConfig,
   state: Babel.PluginPass,
   path: Babel.NodePath<Babel.types.VariableDeclarator>
-) => {
+): InstrumentationOutput => {
   const t = babel.types;
   const node = path.node;
 
@@ -37,17 +37,30 @@ export const instrumentProducer = (
   }
 
   let props;
+  let parsedParam;
   if (t.isObjectPattern(param)) {
-    const parsedParam = paramParser(babel, param);
+    parsedParam = paramParser(babel, param);
     fn.params = paramsCompiler(babel, parsedParam);
     props = structOperationCompiler(babel, parsedParam);
   } else {
+    parsedParam = {
+      type: OperationTypes.PASSTHROUGH,
+    } as PassthroughOperation;
     props = passthroughOperationCompiler(babel);
   }
 
   const metaProps = extractMeta(babel, state, path);
+  // TODO: sourceId is not unique as there can be multiple scoped
+  // producers with the same name - this will conflict
   const sourceId = `${metaProps.absoluteFilePath}:${metaProps.name}`;
-  const buildId = nanoid();
+  const buildId = randomId();
+  const output: InstrumentationOutput = {
+    type: EngineKeywords.PRODUCER,
+    meta: metaProps,
+    sourceId,
+    buildId,
+    params: parsedParam,
+  };
 
   if (
     !(process.env.NODE_ENV == "production" || process.env.NODE_ENV == "test")
@@ -81,4 +94,6 @@ export const instrumentProducer = (
     ]);
     node.init = result;
   }
+
+  return output;
 };

@@ -37,10 +37,9 @@ This is a good practice in general, and Engine provides nice optimizations for
 this pattern. When a list of such objects is needed, a producer should be
 created to create and update a list of `id`s.
 
-### Prefer explicit types over boolean flags
+### Prefer explicit types for defining states
 
-Instead of using boolean flags, e.g `isDone` and `isEditing`, prefer using
-explicit types, e.g
+When using an `Enum`, prefer using a string Enum.
 
 ```ts
 enum Statuses {
@@ -53,8 +52,6 @@ enum Modes {
   editing: "editing"
 }
 ```
-
-When using an `Enum`, prefer using a string Enum.
 
 ### Convention for naming variables:
 - `observe`: the final name in the path or an interpretation of that value:
@@ -100,6 +97,7 @@ _now
 - if you use typescript keep using the types throughout the entire producer (use type casting if needed)
 
 ### Components (views):
+- if you do not interact with the state you don't need a view, use a regular component instead
 - only one component per file
 - they should have a descriptive name (PascalCase) and the file should have the same name
 - they should do only one thing

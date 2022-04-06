@@ -11,14 +11,11 @@ status of `Todo`s.
 In `src/Todo.tsx`,
 
 ```diff
-import React from "react";
-- import { view, observe, prop } from "@c11/engine.macro";
-+ import { view, observe, prop, update } from "@c11/engine.macro";
-
 - const Todo: view = ({ title = observe.todosById[prop.id].title }) => (
 + const Todo: view = ({
 +   title = observe.todosById[prop.id].title,
-+   updateStatus = update.todosyById[prop.id].status
++   status = observe.todosById[prop.id].status,
++   updateStatus = update.todosById[prop.id].status
 + }) => (
   <li>
     <div className="view">
@@ -93,8 +90,6 @@ and gives a directory to nicely keep `Todo.View` and `Todo.Edit` close together.
 
 Create `src/Todo/View.tsx` with following contents
 ```tsx
-import React from "react";
-import { view, observe, prop, update } from "@c11/engine.macro";
 import { TodoStatuses } from "../types";
 
 const View: view = ({
@@ -129,9 +124,6 @@ export default View;
 
 For the editing mode of `Todo`, create `src/Todo/Edit.tsx`:
 ```tsx
-import React from "react";
-import { view, observe, prop, update } from "@c11/engine.macro";
-
 const Edit: view = ({
   title = observe.todosById[prop.id].title,
   updateTodo = update.todosById[prop.id]
@@ -152,8 +144,6 @@ export default Edit;
 appropriate view based on Todo's state. In `src/Todo/index.tsx`
 
  ```tsx
-import React from "react";
-import { view, observe, prop } from "@c11/engine.macro";
 import View from "./View";
 import Edit from "./Edit";
 import { TodoModes } from "../types";
@@ -258,7 +248,7 @@ Update `src/Todo/Edit.tsx` so Todo can switch back to `viewing` mode:
 ...
       <input
         className="edit"
-        value={title}
+        defaultValue={title}
         onChange={e => updateTodo.merge({ title: e.currentTarget.value })}
 +       onBlur={() => updateTodo.merge({ mode: TodoModes.viewing })}
       />

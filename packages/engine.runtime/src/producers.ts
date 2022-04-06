@@ -1,11 +1,12 @@
 import {
   ModuleContext,
-  MacroProducerType,
-  ProducerConfig,
   ProducerInstance,
   UnsubscribeSourceUpdateFn,
+  ProducersList,
+  ProducerConfig,
+  ModuleNames,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId, extractProducers } from "@c11/engine.utils";
 
 type Config = {
   debug?: boolean;
@@ -18,14 +19,16 @@ type ProducersCache = {
   };
 };
 
-export const producers = (list: MacroProducerType[], config: Config = {}) => {
+export const producers = (list: ProducersList, config: Config = {}) => {
   const producers: ProducersCache = {};
   return {
+    name: ModuleNames.ENGINE_PRODUCERS,
     mount: (context: ModuleContext) => {
       const producerContext = {
         debug: config.debug || false,
+        emit: context.emit,
       };
-      const listType = list as ProducerConfig[];
+      const listType = extractProducers(list);
 
       listType.forEach((x) => {
         const instance = context.addProducer(x, producerContext);
@@ -39,7 +42,10 @@ export const producers = (list: MacroProducerType[], config: Config = {}) => {
               if (producers[sourceId]) {
                 producers[sourceId].instance.unmount();
               }
-              const instance = context.addProducer(config, producerContext);
+              const instance = context.addProducer(
+                config as ProducerConfig,
+                producerContext
+              );
               producers[sourceId].instance = instance;
               instance.mount();
             }
@@ -49,7 +55,7 @@ export const producers = (list: MacroProducerType[], config: Config = {}) => {
             unsubscribeUpdate,
           };
         } else {
-          const sourceId = nanoid();
+          const sourceId = randomId();
           producers[sourceId] = {
             instance,
           };

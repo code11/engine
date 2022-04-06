@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { copy } from "fs-extra";
+import { randomId } from "@c11/engine.utils";
 
 type props = {
   _webpack: typeof webpack;
@@ -21,7 +22,10 @@ type props = {
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
-  tailwindConfigPath: Get<State["config"]["tailwindConfigPath"]>;
+  webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
+  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>;
+  name: Get<State["config"]["name"]>;
+  configPath: Get<State["config"]["configPath"]>;
 };
 
 export const init: producer = async ({
@@ -32,6 +36,7 @@ export const init: producer = async ({
   _MiniCssExtractPlugin = MiniCssExtractPlugin,
   trigger = observe.build.triggers.init,
   entryPath = get.config.entryPath,
+  isExportedAsModule = get.config.isExportedAsModule,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
   publicPath = get.config.publicPath,
@@ -41,31 +46,22 @@ export const init: producer = async ({
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
-  tailwindConfigPath = get.config.tailwindConfigPath,
+  webpackPublicPath = get.config.webpackPublicPath,
+  configPath = get.config.configPath,
+  name = get.config.name,
 }: props) => {
   if (!trigger) {
     return;
   }
 
-  let tailwindConfig = {};
-  try {
-    tailwindConfig = require(tailwindConfigPath.value());
-  } catch (e) {
-    if (e.code === "MODULE_NOT_FOUND") {
-      console.log("ok - not found");
-    } else {
-      throw e;
-    }
-  }
-
-  const config = {
+  let config = {
     mode: "production",
     devtool: "source-map",
     entry: entryPath.value(),
     output: {
       path: distPath.value(),
       filename: "[name].[contenthash:8].js",
-      publicPath: "/",
+      publicPath: webpackPublicPath.value() || "/",
     },
     resolve: {
       modules: ["node_modules", commandPath.value()],
@@ -73,18 +69,22 @@ export const init: producer = async ({
     },
     resolveLoader: {
       modules: [nodeModulesPath.value(), packageNodeModulesPath.value()],
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
     },
     module: {
       rules: [
         {
           test: /\.svg$/,
-          use: ["@svgr/webpack", "url-loader"],
+          use: [
+            require.resolve("@svgr/webpack"),
+            require.resolve("url-loader"),
+          ],
         },
         {
           test: /\.(png|jpg|gif|webp)$/,
           use: [
             {
-              loader: "file-loader",
+              loader: require.resolve("file-loader"),
               options: {
                 name: "[name].[ext]?[hash]",
                 outputPath: "assets",
@@ -96,7 +96,7 @@ export const init: producer = async ({
           test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
           use: [
             {
-              loader: "file-loader",
+              loader: require.resolve("file-loader"),
               options: {
                 name: "[name].[ext]",
                 outputPath: "fonts/",
@@ -110,16 +110,19 @@ export const init: producer = async ({
           // exclude: fileIsES5(FILE_ENCODING),
           use: [
             {
-              loader: "babel-loader",
+              loader: require.resolve("babel-loader"),
               options: {
                 cacheDirectory: true,
                 comments: false,
                 minified: true,
-                presets: ["@babel/preset-env", "@babel/preset-react"],
+                presets: [
+                  require.resolve("@babel/preset-env"),
+                  require.resolve("@babel/preset-react"),
+                ],
                 plugins: [
-                  "babel-plugin-react-require",
-                  "@babel/plugin-proposal-class-properties",
-                  "@babel/plugin-transform-runtime",
+                  require.resolve("babel-plugin-react-require"),
+                  require.resolve("@babel/plugin-proposal-class-properties"),
+                  require.resolve("@babel/plugin-transform-runtime"),
                   // [
                   //   "babel-plugin-module-rewrite",
                   //   {
@@ -139,7 +142,7 @@ export const init: producer = async ({
           // exclude: fileIsES5(FILE_ENCODING),
           use: [
             {
-              loader: "babel-loader",
+              loader: require.resolve("babel-loader"),
               options: {
                 cacheDirectory: true,
                 comments: false,
@@ -148,21 +151,21 @@ export const init: producer = async ({
                   {
                     plugins: [
                       [
-                        "@c11/engine.babel-plugin-syntax",
+                        require.resolve("@c11/engine.babel-plugin-syntax"),
                         {
                           viewLibrary: "@c11/engine.react",
                         },
                       ],
                     ],
                   },
-                  "@babel/preset-typescript",
-                  "@babel/preset-env",
-                  "@babel/preset-react",
+                  require.resolve("@babel/preset-typescript"),
+                  require.resolve("@babel/preset-env"),
+                  require.resolve("@babel/preset-react"),
                 ],
                 plugins: [
-                  "babel-plugin-react-require",
-                  "@babel/plugin-proposal-class-properties",
-                  "@babel/plugin-transform-runtime",
+                  require.resolve("babel-plugin-react-require"),
+                  require.resolve("@babel/plugin-proposal-class-properties"),
+                  require.resolve("@babel/plugin-transform-runtime"),
                   // [
                   //   "babel-plugin-module-rewrite",
                   //   {
@@ -188,18 +191,17 @@ export const init: producer = async ({
               },
             },
             {
-              loader: "css-loader",
+              loader: require.resolve("css-loader"),
               options: { modules: false, importLoaders: 1 },
             },
             {
-              loader: "postcss-loader",
+              loader: require.resolve("postcss-loader"),
               options: {
                 postcssOptions: {
                   config: false,
                   plugins: [
-                    "postcss-import",
-                    ["tailwindcss", { config: tailwindConfig }],
-                    ["postcss-preset-env", { stage: 1 }],
+                    require.resolve("postcss-import"),
+                    [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
               },
@@ -216,7 +218,7 @@ export const init: producer = async ({
               },
             },
             {
-              loader: "css-loader",
+              loader: require.resolve("css-loader"),
               options: {
                 importLoaders: 1,
                 modules: true,
@@ -224,14 +226,13 @@ export const init: producer = async ({
               },
             },
             {
-              loader: "postcss-loader",
+              loader: require.resolve("postcss-loader"),
               options: {
                 postcssOptions: {
                   config: false,
                   plugins: [
-                    "postcss-import",
-                    ["tailwindcss", { config: tailwindConfig }],
-                    ["postcss-preset-env", { stage: 1 }],
+                    require.resolve("postcss-import"),
+                    [require.resolve("postcss-preset-env"), { stage: 1 }],
                   ],
                 },
               },
@@ -270,9 +271,10 @@ export const init: producer = async ({
             name(module) {
               // get the name. E.g. node_modules/packageName/not/this/part.js
               // or node_modules/packageName
-              const packageName = module.context.match(
+              const parts = module.context.match(
                 /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-              )[1];
+              );
+              const packageName = parts && parts[1] ? parts[1] : randomId();
 
               // npm package names are URL-safe, but some servers don't like @ symbols
               return `npm.${packageName.replace("@", "")}`;
@@ -283,10 +285,27 @@ export const init: producer = async ({
     },
   } as Configuration;
 
+  try {
+    const engineConfig = require(configPath.value());
+    if (engineConfig.extendWebpack) {
+      config = engineConfig.extendWebpack(config, require.resolve);
+    }
+  } catch (error) {
+    console.error("Could not extend the webpack config", error);
+  }
+
   await _copy(publicPath.value(), distPath.value(), {
     dereference: true,
     filter: (file) => file !== publicIndexPath.value(),
   });
+
+  if (isExportedAsModule.value()) {
+    if (!config.output) {
+      config.output = {};
+    }
+    config.output.library = name.value();
+    config.output.libraryTarget = "umd";
+  }
 
   _webpack(config, (err, stats) => {
     if (err) {

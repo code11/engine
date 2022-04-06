@@ -3,7 +3,7 @@ import { performance } from "perf_hooks";
 
 type props = {
   _spawn: typeof spawn;
-  _now: number;
+  _now: () => number;
   isReady: State["create"]["flags"]["isPackageJsonReady"];
   getTargetPath: Get<State["create"]["config"]["targetPath"]>;
   flag: Update<State["create"]["flags"]["isDependencyInstallReady"]>;

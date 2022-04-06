@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import {
   RenderInstance,
   RootElement,
@@ -8,9 +8,10 @@ import {
   ModuleContext,
   ProducerConfig,
   ViewConfig,
-  ProducerContext,
   ProducerInstance,
   ExternalProducerContext,
+  ModuleNames,
+  EngineEmitter,
 } from "@c11/engine.types";
 import { ViewProvider } from "./context";
 
@@ -26,6 +27,7 @@ type ProducerConfigs = {
 //TODO: Copy key={} code to avoid key issue
 
 export type RenderContext = {
+  emit: ModuleContext["emit"];
   debug: boolean;
   addProducer: (
     config: ProducerConfig,
@@ -124,6 +126,7 @@ export class Render implements RenderInstance {
     this.moduleContext = config.moduleContext;
     this.updateProps = config.updateProps;
     this.context = {
+      emit: config.moduleContext.emit,
       debug: this.debug,
       addProducer: this.addProducer.bind(this),
       subscribeViewInstance: this.subscribeViewInstance.bind(this),
@@ -172,7 +175,10 @@ export class Render implements RenderInstance {
       const unsubscribeProducer = this.moduleContext.onSourceUpdate(
         producerSourceId,
         (producerConfig) =>
-          this.updateProducer(producerSourceId, producerConfig)
+          this.updateProducer(
+            producerSourceId,
+            producerConfig as ProducerConfig
+          )
       );
       this.cache[opts.viewSourceId].unsubscribeProducers[producerSourceId] =
         unsubscribeProducer;
@@ -228,7 +234,7 @@ export class Render implements RenderInstance {
     }
 
     for (let x of producers) {
-      const id = x.sourceId || nanoid();
+      const id = x.sourceId || randomId();
       this.cache[sourceId].producers[id] = x;
     }
   }
@@ -289,6 +295,7 @@ export const render = (
 ): EngineModuleSource => {
   let instance: Render | undefined;
   return {
+    name: ModuleNames.REACT_RENDER,
     bootstrap: () => {},
     unmount: () => {
       if (instance) {

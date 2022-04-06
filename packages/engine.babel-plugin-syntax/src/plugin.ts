@@ -1,17 +1,11 @@
-import * as Babel from "@babel/core";
-import { VariableDeclaratorVisitor } from "./visitors";
+import { PluginType } from "./types";
+import { withOutput } from "./withOutput";
+import { withoutOutput } from "./withoutOutput";
 
-export type PluginConfig = {
-  viewLibrary: string;
-};
-
-type pluginType = (babel: typeof Babel, state: PluginConfig) => {};
-
-export const plugin: pluginType = (babel, state) => {
-  return {
-    name: "@c11/engine.babel-plugin-syntax",
-    visitor: {
-      VariableDeclarator: VariableDeclaratorVisitor(babel, state),
-    },
-  };
+export const plugin: PluginType = (babel, state) => {
+  if (state.output) {
+    return withOutput(babel, state);
+  } else {
+    return withoutOutput(babel, state);
+  }
 };

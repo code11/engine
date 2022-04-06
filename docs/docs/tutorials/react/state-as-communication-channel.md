@@ -9,8 +9,6 @@ extract `TodoForm` view out of `src/App.tsx`. Create a new file
 `src/TodoForm.tsx` with following contents:
 
 ```tsx
-import React from "react";
-
 const TodoForm = () => (
   <input
     className="new-todo"
@@ -40,9 +38,6 @@ variable should be kept for what user is typing in our `TodoForm` input. Update
 `src/TodoForm.tsx` to make its content be:
 
 ```tsx
-import React from "react";
-import { view, observe, update } from "@c11/engine.macro";
-
 const TodoForm: view = ({
   updateNewTodoTitle = update.newTodo.title,
   newTodoTitle = observe.newTodo.title,
@@ -83,29 +78,27 @@ Next steps are to:
 In `src/TodoForm.tsx`:
 
 ```diff
-import React, { KeyboardEvent } from "react";
-import { view, observe, update, producer, get } from "@c11/engine.macro";
-import { TodoItem, TodoStatuses, TodoModes } from "./types";
++ import { TodoItem, TodoStatuses, TodoModes } from "./types";
 
-enum NewTodoItents {
-  commit = "commit",
-  discard = "discard"
-}
++ enum NewTodoIntents {
++  commit = "commit",
++  discard = "discard"
++}
 
 const TodoForm: view = ({
   updateNewTodoTitle = update.newTodo.title,
   newTodoTitle = observe.newTodo.title,
-  updateNewTodoIntent = update.newTodo.intent
++  updateNewTodoIntent = update.newTodo.intent
 }) => {
-  const keyDownToIntent = (e: KeyboardEvent) => {
-    if (e.key === "Enter") {
-      updateNewTodoIntent.set(NewTodoItents.commit);
-    }
++  const keyDownToIntent = (e) => {
++    if (e.key === "Enter") {
++      updateNewTodoIntent.set(NewTodoIntents.commit);
++    }
 
-    if (e.key === "Escape") {
-      updateNewTodoIntent.set(NewTodoItents.discard);
-    }
-  };
++    if (e.key === "Escape") {
++      updateNewTodoIntent.set(NewTodoIntents.discard);
++   }
++  };
 
   return (
     <input
@@ -114,7 +107,7 @@ const TodoForm: view = ({
       autoFocus={true}
       value={newTodoTitle || ""}
       onChange={e => updateNewTodoTitle.set(e.currentTarget.value)}
-      onKeyDown={keyDownToIntent}
++      onKeyDown={keyDownToIntent}
     />
   );
 };
@@ -143,15 +136,18 @@ const addNewTodo: producer = ({
   getTitle = get.newTodo.title,
   updateTodosById = update.todosById,
   updateNewTodoTitle = update.newTodo.title,
+  updateNewTodoIntent = update.newTodo.intent
 }) => {
-  if (newTodoIntent !== NewTodoItents.commit) {
+  if (newTodoIntent !== NewTodoIntents.commit) {
     return;
   }
-
+  updateNewTodoIntent.remove();
+  const title = getTitle.value().trim();
+  if (!title) return;
   const id = String(new Date().getTime());
   const newTodo: TodoItem = {
     id,
-    title: getTitle(),
+    title,
     status: TodoStatuses.pending,
     mode: TodoModes.viewing,
   };
@@ -196,11 +192,12 @@ created to cancel adding a new todo if user presses Escape key.
 const cancelAddingTodo: producer = ({
   newTodoIntent = observe.newTodo.intent,
   updateNewTodoTitle = update.newTodo.title,
+  updateNewTodoIntent = update.newTodo.intent
 }) => {
-  if (newTodoIntent !== NewTodoItents.discard) {
+  if (newTodoIntent !== NewTodoIntents.discard) {
     return;
   }
-
+  updateNewTodoIntent.remove();
   updateNewTodoTitle.set(null);
 };
 ```
@@ -231,7 +228,7 @@ const syncVisibleTodoIds: producer = ({
   filter = observe.filter,
   visibleTodoIds = update.visibleTodoIds,
 }) => {
-  const todoIdsToDisplay = Object.entries(todosById)
+  const todoIdsToDisplay = Object.entries(todosById as TodosById)
     .map(([key, value]) => {
       switch (filter as TodoFilters) {
         case TodoFilters.completed:

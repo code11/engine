@@ -14,8 +14,6 @@ will count the number of pending todos, and show them in the view. Extract
 with following contents:
 
 ```tsx
-import React from "react";
-
 const Footer = () => (
   <footer className="footer">
     <span className="todo-count">
@@ -72,7 +70,6 @@ Update `src/App.tsx` to use `Footer`:
 and that `it'll always contain the correct number of pending todo items. Update `src/Footer.tsx` based on this assumption:
 
 ```diff
-+ import { view, observe } from "@c11/engine.macro";
 - const Footer = () => (
 + const Footer: view = ({ pendingCount = observe.pendingCount }) => (
   <footer className="footer">
@@ -95,7 +92,7 @@ it in `producer`s. Add a `producer` to the Footer. In `src/Footer.tsx`, add
 +   todosById = observe.todosById
 + }) => {
 +   const pendingCount = Object.values(
-+     todosById as { [id: string]: TodoItem }
++     todosById as TodosById
 +   ).reduce(
 +     (accum: number, todo) =>
 +       todo.status === TodoStatuses.done ? accum : accum + 1,

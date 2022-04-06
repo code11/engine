@@ -9,7 +9,7 @@ enum CreateTemplateTarget {
 const pReadFile = promisify(readFile);
 
 type props = {
-  _now: number;
+  _now: () => number;
   _readFile: typeof pReadFile;
   isReady: State["create"]["flags"]["isTemplateDownloadReady"];
   path: Get<State["create"]["config"]["templateConfigFilePath"]>;

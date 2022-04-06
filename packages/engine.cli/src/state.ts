@@ -43,9 +43,11 @@ export type State = {
       templatePath: DirPath;
       templateSandboxPath: DirPath;
       templateConfigFilePath: DirPath;
+      templateGitIgnorePath: DirPath;
       targetPackageJsonPath: DirPath;
       targetTsConfigPath: DirPath;
       targetGitIgnorePath: DirPath;
+      copiedGitIgnorePath: DirPath;
     };
     templateConfig: {
       target: CreateTemplateTarget;

@@ -9,8 +9,11 @@ import {
   MacroProducerType,
   ViewConfig,
   UpdateSourceFn,
+  EngineContext,
+  EngineEmitter,
+  EventNames,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 
 type SourceUpdateListeners = {
   [k: string]: {
@@ -19,24 +22,39 @@ type SourceUpdateListeners = {
 };
 
 export class EngineModule {
+  name: string;
   private state: EngineModuleState = EngineModuleState.NOT_BOOTSTRAPPED;
   private db: DatastoreInstance;
+  private engineContext: EngineContext;
+  private id: string;
   private source: EngineModuleSource;
   private producers: ProducerInstance[] = [];
   private context: ModuleContext;
+  private emit: EngineContext["emit"];
   private sourceUpdateListeners: SourceUpdateListeners = {};
 
-  constructor(db: DatastoreInstance, module: EngineModuleSource) {
+  constructor(context: EngineContext, module: EngineModuleSource) {
+    this.engineContext = context;
+    const emit: EngineContext["emit"] = (name, payload = {}, context = {}) => {
+      this.engineContext.emit(name, payload, {
+        ...context,
+        moduleId: this.id,
+      });
+    };
+    this.emit = emit.bind(this);
     this.source = module;
-    this.db = db;
+    this.name = this.source.name;
+    this.db = context.db;
+    this.id = randomId();
     this.context = {
       onSourceUpdate: this.addSourceUpdateListener.bind(this),
       addProducer: this.addProducer.bind(this),
+      emit: this.emit.bind(this),
     };
   }
 
   private addSourceUpdateListener(sourceId: string, cb: UpdateSourceFn) {
-    const id = nanoid();
+    const id = randomId();
     if (!this.sourceUpdateListeners[sourceId]) {
       this.sourceUpdateListeners[sourceId] = {};
     }
@@ -51,8 +69,8 @@ export class EngineModule {
     extendedContext: any = {}
   ): ProducerInstance {
     const context = {
-      db: this.db,
       ...extendedContext,
+      db: this.db,
     };
     // @ts-ignore
     const producer = new Producer(config, context);
@@ -75,6 +93,9 @@ export class EngineModule {
       await this.source.bootstrap();
     }
     this.state = EngineModuleState.NOT_MOUNTED;
+    this.emit(EventNames.MODULE_MOUNTED, {
+      name: this.source.name,
+    });
     await this.source.mount(this.context);
     this.state = EngineModuleState.MOUNTED;
   }
@@ -82,6 +103,7 @@ export class EngineModule {
   async stop() {
     this.state = EngineModuleState.UNMOUNTING;
     await this.source.unmount(this.context);
+    this.emit(EventNames.MODULE_UNMOUNTED);
     this.state = EngineModuleState.NOT_MOUNTED;
   }
 

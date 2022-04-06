@@ -7,7 +7,7 @@ import {
   ValueTypes,
   GraphInternalNode,
 } from "@c11/engine.types";
-import { nanoid } from "nanoid";
+import { randomId } from "@c11/engine.utils";
 import { getOperation } from "./getOperation";
 import { observeOperation } from "./observeOperation";
 import { updateOperation } from "./updateOperation";
@@ -38,7 +38,7 @@ export const constructorOperation = (
       }
 
       const removeListener = db.on(observePath, cb);
-      const listenerId = nanoid();
+      const listenerId = randomId();
       node.listenersFromConstructors[listenerId] = removeListener;
 
       return () => {

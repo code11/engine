@@ -7,7 +7,6 @@ coverage
 *.log
 
 package-lock.json
-.vscode
 *.tgz
 *.bkp
 dist
@@ -23,3 +22,5 @@ TODO
 !.yarn/versions
 .pnp.*
 .scannerwork
+engine.output.json
+.app-structure.json
