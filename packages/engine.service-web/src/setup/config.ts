@@ -1,8 +1,10 @@
 import findRoot from "find-root";
-import { readFile } from "fs";
+import webpack from "webpack";
+import { readFile, existsSync } from "fs";
 import { promisify } from "util";
 import { resolve } from "path";
 import { JSONSchemaForNPMPackageJsonFiles } from "@schemastore/package";
+import { EngineConfig } from "../types";
 
 const pReadFile = promisify(readFile);
 
@@ -44,18 +46,23 @@ export const config: producer = async ({
   const nodeModulesPath = _resolve(commandPath, "node_modules");
   const publicPath = _resolve(commandPath, "public");
   const distPath = _resolve(commandPath, "dist");
-  const publicIndexPath = _resolve(publicPath, "index.html");
+  const publicIndexPath = _resolve(publicPath, "index.ejs");
   const configPath = _resolve(commandPath, "engine.config.js");
 
+  let engineConfig: EngineConfig = {};
+  if (existsSync(configPath)) {
+    engineConfig = require(configPath) || {};
+    //TODO: check if the engine config is malformed
+  }
+  const name = engineConfig.name || result.name || "unknown-app";
+  const exportAppStructure =
+    engineConfig.exportAppStructure === true ? true : false;
+
   config.set({
-    name: result.name || "unknown-app",
+    name,
     version: result.version || "unknown-version",
-    proxy: result.proxy || undefined,
-    webpackPublicPath: result.publicPath || "/",
     configPath,
-    isExportedAsModule: result.isExportedAsModule || false,
-    port: result.port || "auto",
-    engineOutput: result.engineOutput === true ? true : false,
+    exportAppStructure,
     packagePath: root,
     commandPath,
     srcPath,

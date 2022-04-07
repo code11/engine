@@ -25,11 +25,13 @@ export const getInvokablePath = (
       if (value === wildcard) {
         acc.push("*");
       } else {
+        //TODO: if the value is not a string then throw an error
         acc.push(value);
       }
     }
     return acc;
   }, [] as any[]);
+
   if (path.includes(undefined) || path.includes(null)) {
     return;
   } else {

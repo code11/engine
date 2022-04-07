@@ -60,3 +60,5 @@ export const start = (path) => {
 export const build = () => {};
 
 export const test = () => {};
+
+export { EngineConfig } from "./setup/config";

@@ -1,4 +1,8 @@
-import { MacroProducerType, MacroViewType, ProducerConfig } from "@c11/engine.types";
+import {
+  MacroProducerType,
+  MacroViewType,
+  ProducerConfig,
+} from "@c11/engine.types";
 import { createMacro, MacroHandler } from "babel-plugin-macros";
 import { ReactElement } from "react";
 import { addPathImport } from "./utils/addPathImport";
@@ -10,37 +14,41 @@ import { prepareForEngine, TransformType } from "./utils/prepareForEngine";
  * unnecessary ones
  */
 
-const EngineMacroHandler:MacroHandler = ({
+const EngineMacroHandler: MacroHandler = ({
   references,
   state,
   babel,
   // @ts-ignore
-  config
+  config,
 }) => {
   const { wildcard = [], path = [], view = [], producer = [] } = references;
-  state.config = config
+  state.config = config;
+  //@ts-ignore
   view.forEach((x) => prepareForEngine(babel, state, x, TransformType.VIEW));
   producer.forEach((x) =>
+    //@ts-ignore
     prepareForEngine(babel, state, x, TransformType.PRODUCER)
   );
   if (path.length > 0) {
     path.forEach((x) => {
+      //@ts-ignore
       addPathImport(babel, state, x);
     });
   }
   if (wildcard.length > 0) {
     wildcard.forEach((x) => {
+      //@ts-ignore
       addWildcardImport(babel, state, x);
     });
   }
-}
+};
 
 interface Config {
   [k: string]: any;
 }
 
-export type producer = MacroProducerType
-export type view<T=any> = MacroViewType<T>
+export type producer = MacroProducerType;
+export type view<T = any> = MacroViewType<T>;
 
 export const observe: any = {};
 export const update: any = {};

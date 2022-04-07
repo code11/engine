@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.test",
-  "version": "4.0.0-alpha.97",
+  "version": "4.0.0-alpha.99",
   "description": "A test lib for the engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -20,19 +20,19 @@
     "react": ">=16"
   },
   "dependencies": {
-    "@c11/engine.react": "4.0.0-alpha.97",
-    "@c11/engine.runtime": "4.0.0-alpha.97",
+    "@c11/engine.react": "4.0.0-alpha.99",
+    "@c11/engine.runtime": "4.0.0-alpha.99",
     "@c11/engine.types": "4.0.0-alpha.97"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
-    "@babel/preset-react": "^7.14.5",
-    "@babel/preset-typescript": "^7.15.0",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.97",
-    "@types/jest": "^26.0.22",
-    "@types/node": "^16.9.1",
-    "@types/react": "^17.0.20",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.99",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.11.26",
+    "@types/react": "^17.0.43",
     "babel-jest": "^26.6.3",
     "babel-plugin-macros": "^3.1.0",
     "jest": "^26.6.3",

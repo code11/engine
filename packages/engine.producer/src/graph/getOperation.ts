@@ -54,6 +54,12 @@ export const getOperation = (
   // this should check if the path exists and if the
   // value is not undefined
 
+  //TODO: add an `is` method in order to test the value
+  // getFoo.is('string')
+  // getFoo.isString()
+  // getFoo.isObject()
+  // getFoo.isArray()
+  // getFoo.is({ type: object, properties: { foo: { type: string }}}}) // schema
 
   const operation = {
     value,

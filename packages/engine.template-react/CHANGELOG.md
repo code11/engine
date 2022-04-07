@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.99](https://github.com/code11/engine/compare/v4.0.0-alpha.98...v4.0.0-alpha.99) (2022-04-05)
+
+
+### Bug Fixes
+
+* **engine.service-web:** ensure publicPath is properly used ([7574fba](https://github.com/code11/engine/commit/7574fba21ce48e34399e208a79afcc9705240123))
+
+
+
+
+
 # [4.0.0-alpha.98](https://github.com/code11/engine/compare/v4.0.0-alpha.97...v4.0.0-alpha.98) (2022-02-07)
 
 
