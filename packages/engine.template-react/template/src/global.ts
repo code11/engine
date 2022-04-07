@@ -17,8 +17,8 @@ import type { State as StateType } from "./state";
 declare global {
   const React: typeof _React;
   type State = StateType;
-  type producer = ProducerFn;
-  type view<T = {}> = View<T>;
+  type producer<InternalProps={}, ExternalProps={}> = ProducerFn<InternalProps, ExternalProps>;
+  type view<InternalProps={}, ExternalProps={}> = View<InternalProps, ExternalProps>;
   const observe: ObservePath<State>;
   const get: GetPath<State>;
   const update: UpdatePath<State>;
