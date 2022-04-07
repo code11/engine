@@ -24,7 +24,7 @@
     "test": "yarn workspaces foreach run test",
     "merge:coverage": "istanbul-merge --out coverage/coverage-final.json \"packages/**/coverage/**.json\"",
     "release": "yarn build && yarn test",
-    "version:lerna": "lerna version --conventional-commits --exact --amend",
+    "version:lerna": "lerna version --conventional-commits --exact",
     "publish": "lerna publish from-package",
     "publish:local": "lerna publish from-package --registry http://localhost:4873",
     "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\"",
