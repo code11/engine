@@ -12,11 +12,11 @@
     "clean": "docusaurus clear"
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.0",
-    "@docusaurus/core": "^2.0.0-beta.0",
-    "@docusaurus/preset-classic": "^2.0.0-beta.0",
+    "@babel/runtime": "^7.17.9",
+    "@docusaurus/core": "^2.0.0-beta.18",
+    "@docusaurus/preset-classic": "^2.0.0-beta.18",
     "@mdx-js/react": "^1.6.22",
-    "chalk": "^4.1.1",
+    "chalk": "^4.1.2",
     "clsx": "^1.1.1",
     "lodash": "^4.17.21",
     "lodash.flatmap": "^4.5.0",
@@ -37,7 +37,7 @@
     ]
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.170",
+    "@types/lodash": "^4.14.181",
     "@types/lodash.flatmap": "^4.5.6"
   }
 }
