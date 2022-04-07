@@ -4,6 +4,8 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { copy } from "fs-extra";
 import { randomId } from "@c11/engine.utils";
+import { existsSync } from "fs";
+import { EngineConfig } from "../types";
 
 type props = {
   _webpack: typeof webpack;
@@ -22,8 +24,6 @@ type props = {
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
-  webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
-  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>;
   name: Get<State["config"]["name"]>;
   configPath: Get<State["config"]["configPath"]>;
 };
@@ -36,7 +36,6 @@ export const init: producer = async ({
   _MiniCssExtractPlugin = MiniCssExtractPlugin,
   trigger = observe.build.triggers.init,
   entryPath = get.config.entryPath,
-  isExportedAsModule = get.config.isExportedAsModule,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
   publicPath = get.config.publicPath,
@@ -46,12 +45,62 @@ export const init: producer = async ({
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
-  webpackPublicPath = get.config.webpackPublicPath,
   configPath = get.config.configPath,
   name = get.config.name,
 }: props) => {
   if (!trigger) {
     return;
+  }
+
+  let webpackConfig: EngineConfig["webpack"];
+  try {
+    if (existsSync(configPath.value())) {
+      webpackConfig = require(configPath.value())?.webpack;
+    }
+  } catch (error) {
+    console.error("Could not extend the webpack config", error);
+  }
+
+  if (!webpackConfig) {
+    webpackConfig = {};
+  }
+
+  if (!webpackConfig.publicPath) {
+    //TODO: have a place to store defaults
+    webpackConfig.publicPath = "/";
+  }
+
+  const plugins = {
+    htmlWebpackPlugin: {
+      title: name.value(),
+      template: publicIndexPath.value(),
+      templateParameters: {
+        PUBLIC_URL: webpackConfig.publicPath,
+      },
+    } as HtmlWebpackPlugin.Options,
+    miniCssExtractPlugin: {
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    },
+    definePlugin: {
+      "process.env.NODE_ENV": JSON.stringify("production"),
+      "process.env.DEBUG": JSON.stringify(false),
+    } as ConstructorParameters<typeof webpack.DefinePlugin>[0],
+  };
+
+  if (webpackConfig.production?.plugins?.htmlWebpackPlugin) {
+    plugins.htmlWebpackPlugin =
+      webpackConfig.production?.plugins?.htmlWebpackPlugin(
+        plugins.htmlWebpackPlugin,
+        require.resolve
+      );
+  }
+
+  if (webpackConfig.production?.plugins?.definePlugin) {
+    plugins.definePlugin = webpackConfig.production.plugins.definePlugin(
+      plugins.definePlugin,
+      require.resolve
+    );
   }
 
   let config = {
@@ -61,7 +110,7 @@ export const init: producer = async ({
     output: {
       path: distPath.value(),
       filename: "[name].[contenthash:8].js",
-      publicPath: webpackPublicPath.value(),
+      publicPath: webpackConfig.publicPath,
     },
     resolve: {
       modules: ["node_modules", commandPath.value()],
@@ -187,7 +236,7 @@ export const init: producer = async ({
             {
               loader: _MiniCssExtractPlugin.loader,
               options: {
-                publicPath: webpackPublicPath.value() || "/",
+                publicPath: webpackConfig.publicPath,
               },
             },
             {
@@ -214,7 +263,7 @@ export const init: producer = async ({
             {
               loader: _MiniCssExtractPlugin.loader,
               options: {
-                publicPath: webpackPublicPath.value() || "/",
+                publicPath: webpackConfig.publicPath,
               },
             },
             {
@@ -244,21 +293,9 @@ export const init: producer = async ({
     plugins: [
       // new _BundleAnalyzerPlugin(),
       new _webpack.ids.HashedModuleIdsPlugin(),
-      new _webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production"),
-        "process.env.DEBUG": JSON.stringify(false),
-      }),
-      new _HtmlWebpackPlugin({
-        title: name.value(),
-        template: publicIndexPath.value(),
-        templateParameters: {
-          PUBLIC_URL: webpackPublicPath.value(),
-        },
-      }),
-      new _MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css",
-      }),
+      new _webpack.DefinePlugin(plugins.definePlugin),
+      new _HtmlWebpackPlugin(plugins.htmlWebpackPlugin),
+      new _MiniCssExtractPlugin(plugins.miniCssExtractPlugin),
     ],
     optimization: {
       runtimeChunk: "single",
@@ -286,27 +323,14 @@ export const init: producer = async ({
     },
   } as Configuration;
 
-  try {
-    const engineConfig = require(configPath.value());
-    if (engineConfig.extendWebpack) {
-      config = engineConfig.extendWebpack(config, require.resolve);
-    }
-  } catch (error) {
-    console.error("Could not extend the webpack config", error);
+  if (webpackConfig.production && webpackConfig.production.config) {
+    config = webpackConfig.production.config(config, require.resolve);
   }
 
   await _copy(publicPath.value(), distPath.value(), {
     dereference: true,
     filter: (file) => file !== publicIndexPath.value(),
   });
-
-  if (isExportedAsModule.value()) {
-    if (!config.output) {
-      config.output = {};
-    }
-    config.output.library = name.value();
-    config.output.libraryTarget = "umd";
-  }
 
   _webpack(config, (err, stats) => {
     if (err) {

@@ -1,24 +1,12 @@
 import findRoot from "find-root";
+import webpack from "webpack";
 import { readFile, existsSync } from "fs";
 import { promisify } from "util";
 import { resolve } from "path";
 import { JSONSchemaForNPMPackageJsonFiles } from "@schemastore/package";
-import { Configuration } from "webpack";
+import { EngineConfig } from "../types";
 
 const pReadFile = promisify(readFile);
-
-export type EngineConfig = {
-  name?: string;
-  publicPath?: string;
-  exportAsModule?: string;
-  proxy?: string;
-  outputStructure?: boolean;
-  port?: number;
-  extendWebpack?: (
-    config: Configuration,
-    resolver: typeof require.resolve
-  ) => Configuration;
-};
 
 type props = {
   _findRoot: typeof findRoot;
@@ -58,37 +46,23 @@ export const config: producer = async ({
   const nodeModulesPath = _resolve(commandPath, "node_modules");
   const publicPath = _resolve(commandPath, "public");
   const distPath = _resolve(commandPath, "dist");
-  const publicIndexPath = _resolve(publicPath, "index.html");
+  const publicIndexPath = _resolve(publicPath, "index.ejs");
   const configPath = _resolve(commandPath, "engine.config.js");
-
-  //TODO: remove usage of package.json for settings in favor of
-  // engine.config.js
 
   let engineConfig: EngineConfig = {};
   if (existsSync(configPath)) {
     engineConfig = require(configPath) || {};
     //TODO: check if the engine config is malformed
   }
-  const webpackPublicPath = engineConfig.publicPath || result.publicPath || "/";
-  const isExportedAsModule =
-    engineConfig.exportAsModule || result.isExportedAsModule || false;
-  const proxy = engineConfig.proxy || result.proxy || undefined;
   const name = engineConfig.name || result.name || "unknown-app";
-  const engineOutput =
-    (engineConfig.outputStructure || result.engineOutput) === true
-      ? true
-      : false;
-  const port = engineConfig.port || result.port || "auto";
+  const exportAppStructure =
+    engineConfig.exportAppStructure === true ? true : false;
 
   config.set({
     name,
     version: result.version || "unknown-version",
-    proxy,
-    webpackPublicPath,
     configPath,
-    isExportedAsModule,
-    port,
-    engineOutput,
+    exportAppStructure,
     packagePath: root,
     commandPath,
     srcPath,

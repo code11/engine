@@ -2,6 +2,7 @@ import webpack, { Configuration } from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { existsSync } from "fs";
+import { EngineConfig } from "../types";
 
 type props = {
   _webpack: typeof webpack;
@@ -16,13 +17,9 @@ type props = {
   commandPath: Get<State["config"]["commandPath"]>;
   overrideModulesPath: Get<State["config"]["overrideModulesPath"]>;
   replacerPath: Get<State["config"]["replacerPath"]>;
-  webpackPublicPath: Get<State["config"]["webpackPublicPath"]>;
   publicPath: Get<State["config"]["publicPath"]>;
-  port: Get<State["config"]["port"]>;
   packageNodeModulesPath: Get<State["config"]["packageNodeModulesPath"]>;
-  proxy: Get<State["config"]["proxy"]>;
-  engineOutput: Get<State["config"]["engineOutput"]>;
-  isExportedAsModule: Get<State["config"]["isExportedAsModule"]>;
+  exportAppStructure: Get<State["config"]["exportAppStructure"]>;
   name: Get<State["config"]["name"]>;
   configPath: Get<State["config"]["configPath"]>;
 };
@@ -39,19 +36,15 @@ export const init: producer = async ({
   _HtmlWebpackPlugin = HtmlWebpackPlugin,
   trigger = observe.start.triggers.init,
   entryPath = get.config.entryPath,
-  isExportedAsModule = get.config.isExportedAsModule,
   distPath = get.config.distPath,
   publicIndexPath = get.config.publicIndexPath,
   commandPath = get.config.commandPath,
   packagePath = get.config.packagePath,
-  port = get.config.port,
-  proxy = get.config.proxy,
   nodeModulesPath = get.config.nodeModulesPath,
-  webpackPublicPath = get.config.webpackPublicPath,
   overrideModulesPath = get.config.overrideModulesPath,
   replacerPath = get.config.replacerPath,
   publicPath = get.config.publicPath,
-  engineOutput = get.config.engineOutput,
+  exportAppStructure = get.config.exportAppStructure,
   packageNodeModulesPath = get.config.packageNodeModulesPath,
   configPath = get.config.configPath,
   name = get.config.name,
@@ -67,12 +60,74 @@ export const init: producer = async ({
   //TODO: add support for json loading using import syntax:
   // import foo from './something.json'
 
+  let webpackConfig: EngineConfig["webpack"];
+  try {
+    if (existsSync(configPath.value())) {
+      webpackConfig = require(configPath.value())?.webpack;
+    }
+  } catch (error) {
+    console.error("Could not extend the webpack config", error);
+  }
+
+  if (!webpackConfig) {
+    webpackConfig = {};
+  }
+
+  if (!webpackConfig.publicPath) {
+    //TODO: have a place to store defaults
+    webpackConfig.publicPath = "/";
+  }
+
+  const plugins = {
+    htmlWebpackPlugin: {
+      title: name.value(),
+      template: publicIndexPath.value(),
+      templateParameters: {
+        PUBLIC_URL: webpackConfig.publicPath,
+      },
+    } as HtmlWebpackPlugin.Options,
+    definePlugin: {
+      "process.env.NODE_ENV": JSON.stringify(
+        process.env.NODE_ENV || "development"
+      ),
+      "process.env.DEBUG": JSON.stringify(process.env.DEBUG),
+    } as ConstructorParameters<typeof webpack.DefinePlugin>[0],
+  };
+
+  if (webpackConfig.development?.plugins?.htmlWebpackPlugin) {
+    plugins.htmlWebpackPlugin =
+      webpackConfig.development?.plugins?.htmlWebpackPlugin(
+        plugins.htmlWebpackPlugin,
+        require.resolve
+      );
+  }
+
+  if (webpackConfig.development?.plugins?.definePlugin) {
+    plugins.definePlugin = webpackConfig.development.plugins.definePlugin(
+      plugins.definePlugin,
+      require.resolve
+    );
+  }
+
+  let devServerConfig = {
+    historyApiFallback: true,
+    static: publicPath.value(),
+    hot: true,
+  };
+
+  if (webpackConfig.development?.devServer) {
+    devServerConfig = webpackConfig.development.devServer(
+      devServerConfig,
+      require.resolve
+    );
+  }
+
   let config = {
     mode: "development",
     devtool: "eval-source-map",
     entry: entryPath.value(),
     output: {
-      publicPath: webpackPublicPath.value(),
+      publicPath: webpackConfig.publicPath,
       path: distPath.value(),
     },
     resolve: {
@@ -157,7 +212,7 @@ export const init: producer = async ({
                         require.resolve("@c11/engine.babel-plugin-syntax"),
                         {
                           viewLibrary: "@c11/engine.react",
-                          output: engineOutput.value(),
+                          output: exportAppStructure.value(),
                         },
                       ],
                       require.resolve("@c11/engine.babel-plugin-hmr"),
@@ -240,53 +295,18 @@ export const init: producer = async ({
       ],
     },
     plugins: [
-      // new Webpack.HotModuleReplacementPlugin(),
-      // new _webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new _webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(
-          process.env.NODE_ENV || "development"
-        ),
-        "process.env.DEBUG": JSON.stringify(process.env.DEBUG),
-      }),
-      new _HtmlWebpackPlugin({
-        title: name.value(),
-        template: publicIndexPath.value(),
-        templateParameters: {
-          PUBLIC_URL: webpackPublicPath.value(),
-        },
-      }),
+      new _webpack.DefinePlugin(plugins.definePlugin),
+      new _HtmlWebpackPlugin(plugins.htmlWebpackPlugin),
     ],
   } as Configuration;
-  try {
-    if (existsSync(configPath.value())) {
-      const engineConfig = require(configPath.value());
-      if (engineConfig.extendWebpack) {
-        config = engineConfig.extendWebpack(config, require.resolve);
-      }
-    }
-  } catch (error) {
-    console.error("Could not extend the webpack config", error);
-  }
 
-  if (isExportedAsModule.value()) {
-    if (!config.output) {
-      config.output = {};
-    }
-    config.output.library = name.value();
-    config.output.libraryTarget = "umd";
+  if (webpackConfig.development && webpackConfig.development.config) {
+    config = webpackConfig.development.config(config, require.resolve);
   }
 
   //TODO: Account for syntax error during HMR in order to avoid
   //  having to refresh the entire application
-  const server = new _WebpackDevServer(
-    {
-      proxy: proxy.value(),
-      historyApiFallback: true,
-      static: publicPath.value(),
-      hot: true,
-    },
-    _webpack(config)
-  );
+  const server = new _WebpackDevServer(devServerConfig, _webpack(config));
 
-  server.listen(port.value(), "0.0.0.0");
+  server.listen();
 };

@@ -1,4 +1,4 @@
-import { State as StateStructure } from "./state";
+import { State as StateStructure } from "./types";
 
 declare global {
   type State = StateStructure;
