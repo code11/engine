@@ -2,7 +2,7 @@ import {
   ProducersList,
   StructOperation,
   ProducerInstance,
-  ProducerMeta,
+  ProducerMeta, ExternalProps,
 } from "./producer";
 
 export interface RenderConfig {
@@ -29,8 +29,14 @@ export interface RenderInstance {
   getRoot: () => RootElement;
 }
 
-export type ViewFn<ExternalProps = {}> = (
-  props: any
+export type PrivateProps<ExternalProps> = {
+  _now?: () => number;
+  _viewId?: string;
+  _props?: ExternalProps;
+}
+
+export type ViewFn<InternalProps = {}, ExternalProps = {}> = (
+  props: PrivateProps<ExternalProps> & InternalProps & Partial<ExternalProps>
 ) => React.ReactElement<ExternalProps> | null;
 
 export type ViewExtra = {

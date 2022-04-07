@@ -115,9 +115,16 @@ export type ProducerData = {
   [key: string]: any;
 };
 
+export type PrivateProps<ExternalProps> = {
+  _now?: () => number;
+  _producerId?: string;
+  _viewId?: string;
+  _props?: ExternalProps;
+}
+
 export type ProducerCb = () => void;
-export type ProducerFn = (
-  props: ProducerData
+export type ProducerFn<InternalProps={}, ExternalProps={}> = (
+  props: PrivateProps<ExternalProps> & InternalProps & Partial<ExternalProps>
 ) => void | ProducerCb | Promise<void | ProducerCb>;
 
 export interface ProducerMeta {
