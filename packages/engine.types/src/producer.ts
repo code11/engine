@@ -122,9 +122,11 @@ export type PrivateProps<ExternalProps> = {
   _props?: ExternalProps;
 }
 
+type Merge<T={}, K={}> = Omit<T, keyof K> & K;
+
 export type ProducerCb = () => void;
-export type ProducerFn<InternalProps={}, ExternalProps={}> = (
-  props: PrivateProps<ExternalProps> & InternalProps & Partial<ExternalProps>
+export type ProducerFn<InternalProps=any, ExternalProps={}> = (
+  props: Merge<Merge<PrivateProps<ExternalProps>, ExternalProps>, InternalProps>
 ) => void | ProducerCb | Promise<void | ProducerCb>;
 
 export interface ProducerMeta {

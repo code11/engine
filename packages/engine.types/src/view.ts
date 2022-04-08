@@ -35,8 +35,10 @@ export type PrivateProps<ExternalProps> = {
   _props?: ExternalProps;
 }
 
-export type ViewFn<InternalProps = {}, ExternalProps = {}> = (
-  props: PrivateProps<ExternalProps> & InternalProps & Partial<ExternalProps>
+type Merge<T={}, K={}> = Omit<T, keyof K> & K;
+
+export type ViewFn<InternalProps = any, ExternalProps = {}> = (
+  props: Merge<Merge<PrivateProps<ExternalProps>, ExternalProps>, InternalProps>
 ) => React.ReactElement<ExternalProps> | null;
 
 export type ViewExtra = {
