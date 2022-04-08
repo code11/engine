@@ -20,6 +20,7 @@ type EngineModule = {
   unmount: (context: ModuleContext) => void | Promise<void>;
 };
 ```
+
 ### `bootstrap: () => void | Promise<void>`
 
 `bootstrap` function gets called when the engine instance itself is bootstrapping.

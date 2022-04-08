@@ -3,16 +3,19 @@ id: get
 title: get
 sidebar_label: get
 ---
+
 ## Overview
 
 `get` provides the ability to get values from the global state at a later time,
 after the `view` or `producer` was triggered. It works the same way as
 [observe](/docs/api/observe), except:
+
 1. `get` don't provide a value, but instead an api for that path which can be used at
    any time in future to get the latest value form state
 2. `get` don't cause `view`s and `producer`s to get triggered
 
 `get` is ideal when:
+
 1. A value is needed to do a computation in a `producer`, but the producer
    should not get triggered when this value changes
 2. A value is needed at a later time since producer was triggered, e.g while

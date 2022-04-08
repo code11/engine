@@ -69,7 +69,6 @@ This step:
 
 **Note**: You might need to install `postcss` v.8 for `todomvc-app-css` to work.
 
-
 ### Starter Markup
 
 To conclude this chapter, update `src/App.tsx` and add some markup to make the
@@ -93,4 +92,5 @@ CSS is provided by `todomvc-app-css` npm package, which mandates using correct
 CSS classes to keep the app looking right.
 
 ### Cleanup
-The engine CLI uses a starter template. Go on and remove `greeting.ts`, `greeting.spec.ts` and `Component.tsx` once you updated `App.tsx`. 
+
+The engine CLI uses a starter template. Go on and remove `greeting.ts`, `greeting.spec.ts` and `Component.tsx` once you updated `App.tsx`.

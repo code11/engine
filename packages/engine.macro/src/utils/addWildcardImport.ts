@@ -19,19 +19,17 @@ export const addWildcardImport: AddWildcardImport = (babel, state, ref) => {
     [importSpecifier(identifier("wildcard"), identifier("wildcard"))],
     stringLiteral(producerName)
   );
-  const program = ref.findParent((p) => p.isProgram())
+  const program = ref.findParent((p) => p.isProgram());
   if (!program) {
-    throw new Error('')
+    throw new Error("");
   }
 
-
-  const macroImport = program.get("body")
-    .find((p) => {
-      const result =
-        p.isImportDeclaration() &&
-        p.node.source.value.indexOf("@c11/engine.macro") !== -1;
-      return result;
-    });
+  const macroImport = program.get("body").find((p) => {
+    const result =
+      p.isImportDeclaration() &&
+      p.node.source.value.indexOf("@c11/engine.macro") !== -1;
+    return result;
+  });
 
   if (macroImport) {
     // @ts-ignore

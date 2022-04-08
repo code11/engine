@@ -1,5 +1,5 @@
 import { DatastoreInstance, Datastore } from "@c11/engine.types";
-import cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from "lodash/cloneDeep";
 import on from "./api/on";
 import get from "./api/get";
 import has from "./api/has";
@@ -59,7 +59,6 @@ function jsonmvcdb(data: any): DatastoreInstance {
       node: [],
       on: [],
     };
-
   }
 
   return {

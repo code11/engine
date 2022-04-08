@@ -5,7 +5,7 @@ sidebar_label: path
 ---
 
 ```ts
-import { path } from "@c11/engine.runtime"
+import { path } from "@c11/engine.runtime";
 ```
 
 ## Overview
@@ -27,12 +27,11 @@ stores a message in state. Instead of accessing this message itself, `LoginForm`
 can give path to the message to `Alert`.
 
 ```tsx
-const LoginForm: view = () => (
-  <Alert messagePath={path.login.status.message} />
-);
+const LoginForm: view = () => <Alert messagePath={path.login.status.message} />;
 ```
 
 `Alert` can then access the message:
+
 ```tsx
 const Alert: view = ({
   message = observe[prop.messagePath]

@@ -42,6 +42,7 @@ export default Todo;
 ```
 
 Above snippet:
+
 1. Uses `observe.todosById<todoId>.status` for deciding whether the checkbox for
    the `Todo` is checked or not
 2. Uses `update.todosById<todoId>.status` to change status of the TodoItem.
@@ -89,33 +90,34 @@ This will not need a change in other components which import `Todo` (i.e `App`),
 and gives a directory to nicely keep `Todo.View` and `Todo.Edit` close together.
 
 Create `src/Todo/View.tsx` with following contents
+
 ```tsx
 import { TodoStatuses } from "../types";
 
 const View: view = ({
   title = observe.todosById[prop.id].title,
   status = observe.todosById[prop.id].status,
-  updateStatus = update.todosById[prop.id].status
+  updateStatus = update.todosById[prop.id].status,
 }) => (
-    <li>
-      <div className="view">
-        <input
-          className="toggle"
-          type="checkbox"
-          checked={status === TodoStatuses.done}
-          onChange={() =>
-            updateStatus.set(
-              status === TodoStatuses.done
-                ? TodoStatuses.pending
-                : TodoStatuses.done
-            )
-          }
-        />
-        <label>{title}</label>
-        <button className="destroy" />
-      </div>
-    </li>
-  );
+  <li>
+    <div className="view">
+      <input
+        className="toggle"
+        type="checkbox"
+        checked={status === TodoStatuses.done}
+        onChange={() =>
+          updateStatus.set(
+            status === TodoStatuses.done
+              ? TodoStatuses.pending
+              : TodoStatuses.done
+          )
+        }
+      />
+      <label>{title}</label>
+      <button className="destroy" />
+    </div>
+  </li>
+);
 
 export default View;
 ```
@@ -123,19 +125,20 @@ export default View;
 `Todo.tsx` view is practically renamed to `Todo/View.tsx`
 
 For the editing mode of `Todo`, create `src/Todo/Edit.tsx`:
+
 ```tsx
 const Edit: view = ({
   title = observe.todosById[prop.id].title,
-  updateTodo = update.todosById[prop.id]
+  updateTodo = update.todosById[prop.id],
 }) => (
-    <li className="editing">
-      <input
-        className="edit"
-        value={title}
-        onChange={e => updateTodo.merge({ title: e.currentTarget.value })}
-      />
-    </li>
-  );
+  <li className="editing">
+    <input
+      className="edit"
+      value={title}
+      onChange={(e) => updateTodo.merge({ title: e.currentTarget.value })}
+    />
+  </li>
+);
 
 export default Edit;
 ```
@@ -143,14 +146,14 @@ export default Edit;
 `src/Todo/index.tsx` can simply be a logical component which decides the
 appropriate view based on Todo's state. In `src/Todo/index.tsx`
 
- ```tsx
+```tsx
 import View from "./View";
 import Edit from "./Edit";
 import { TodoModes } from "../types";
 
 const uiStates = {
   [TodoModes.editing]: Edit,
-  [TodoModes.viewing]: View
+  [TodoModes.viewing]: View,
 };
 
 const Fallback = ({ id }: { id: string }) => {
@@ -233,6 +236,7 @@ const View: view = ({
 ```
 
 Above snippet:
+
 1. Changed `update` from `update.todosById[prop.id].status` to
    `update.todosById[prop.id]`. Since we want to update more than just status of
    a Todo, it's better to minimize our component's API surface and get an

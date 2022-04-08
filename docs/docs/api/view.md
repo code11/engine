@@ -50,15 +50,15 @@ Each view once mounted will have a data representation of that instance accesibl
 
 ```tsx
 type viewInstance = {
-  id: string,
-  createdAt: number,
-  data: object, // used to store view's private/temporary data
-  parentId: string | null, // the parent view or null if it's the root
-  rootId: string, // the root (top-most) view
+  id: string;
+  createdAt: number;
+  data: object; // used to store view's private/temporary data
+  parentId: string | null; // the parent view or null if it's the root
+  rootId: string; // the root (top-most) view
   children: {
-    [k: string]: number // the ids of the direct children views of the view
-  }
-}
+    [k: string]: number; // the ids of the direct children views of the view
+  };
+};
 ```
 
 ## Best practices
@@ -72,4 +72,3 @@ A `view` is just a specialized form of a [producer](/docs/api/producer). All the
 [concepts](/docs/api/producer#parts) and [best
 practices](/docs/api/producer#best-practices) of producers apply for views as
 well.
-

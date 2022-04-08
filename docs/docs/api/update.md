@@ -5,6 +5,7 @@ sidebar_label: update
 ---
 
 ## Overview
+
 `update` provides the ability to update values in the global state. `update` is
 the dual of `observe`. [observe](/docs/api/observe) enables reading live values
 from state, `update` allows changing values in state.

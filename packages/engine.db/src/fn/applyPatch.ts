@@ -252,7 +252,13 @@ function applyPatch(db, patch, shouldClone) {
           revert = i;
           break root;
         }
-        obj[last] = merge(obj[last], xValue);
+        if (last === "__proto__" || last === "constructor") {
+          console.error(
+            `Possible prototype pollution during a merge operation. Found: ${last}. Merge not applied.`
+          );
+        } else {
+          obj[last] = merge(obj[last], xValue);
+        }
         break;
     }
   }

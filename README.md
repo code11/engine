@@ -64,15 +64,7 @@ const app = engine({
 app.start();
 ```
 
-This tiny example demonstrates the Engine concepts and most of it's API.
-
-The rendering is done by [views](https://code11.github.io/engine/docs/api/view).
-Views [observe](https://code11.github.io/engine/docs/api/observe) 
+The rendering is done by [views](https://code11.github.io/engine/docs/api/view). Views [observe](https://code11.github.io/engine/docs/api/observe)
 and [update](https://code11.github.io/engine/docs/api/update) anything on the
-state.
-
-The business logic sits in
+state. The business logic sits in
 [producers](https://code11.github.io/engine/docs/api/producer).
-Producers can be added to views or to the global space of the application.
-
-
