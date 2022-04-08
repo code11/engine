@@ -21,7 +21,7 @@ Engine applications are combinations of [views](/docs/api/view) and
 achieved by writing unit tests for its `producer`s and `view`s.
 
 ```ts
-import Test from '@c11/engine.test';
+import Test from "@c11/engine.test";
 ```
 
 Like rest of Engine ecosystem, API exposed by `@c11/engine.test` is also quite
@@ -46,18 +46,18 @@ making a single test case for a producer's test suite. For example, here's what
 a test suite for a producer with single test looks like:
 
 ```ts
-describe('editListItem', () => {
+describe("editListItem", () => {
   Test.producer("Guard action doesn't exist", {
     producer: editListItem,
     values: {},
     expectations: {
       resetAction: {
-        set: []
+        set: [],
       },
       updateMode: {
-        set: []
-      }
-    }
+        set: [],
+      },
+    },
   });
 });
 ```
@@ -109,15 +109,15 @@ Similar to `Test.producer`, `Test.view` is how individual tests of a
 Here's what a simple test for a view looks like:
 
 ```ts
-describe('TodoList view', () => {
-  Test.view('no list', {
+describe("TodoList view", () => {
+  Test.view("no list", {
     state: {
       todo: {
-        byId: {}
-      }
+        byId: {},
+      },
     },
     View: TodoList,
-    props: { icons: {}}
+    props: { icons: {} },
   });
 });
 ```

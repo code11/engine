@@ -9,7 +9,7 @@ import type {
   UpdateValue,
   GetValue,
   ProducerFn,
-  ProducersList
+  ProducersList,
 } from "@c11/engine.types";
 import type { View } from "@c11/engine.react";
 import type { State as StateType } from "./state";
@@ -30,6 +30,6 @@ declare global {
   type Get<T, P = {}> = GetValue<T, P>;
 
   interface Function {
-      producers(producers: ProducersList): void;
-    }
+    producers(producers: ProducersList): void;
+  }
 }

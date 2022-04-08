@@ -12,7 +12,7 @@
 - comment: Should find a dynamic value
   doc: {}
   dynamic:
-    /foo/bar: ['/bar/boo']
+    /foo/bar: ["/bar/boo"]
   get: /foo/bar
   expect: true
 
@@ -26,6 +26,6 @@
 - comment: Shouldn't find a dynamic value
   doc: {}
   dynamic:
-    /foo/baz: ['/bar/boo']
+    /foo/baz: ["/bar/boo"]
   get: /foo/qux
   expect: false

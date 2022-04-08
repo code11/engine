@@ -5,6 +5,7 @@ sidebar_label: param
 ---
 
 ## Overview
+
 `param` allow using runtime values from the view/producer to create new paths.
 
 Occasionally, a `producer` or `view` need to access a path in state, which

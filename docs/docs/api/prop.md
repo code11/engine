@@ -20,7 +20,9 @@ global state looks like:
 ```ts
 {
   todosById: {
-    todo1: { title: "My first todo" }
+    todo1: {
+      title: "My first todo";
+    }
   }
 }
 ```

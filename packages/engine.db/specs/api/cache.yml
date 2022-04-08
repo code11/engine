@@ -1,10 +1,9 @@
-
 - comment: Should test a simple remove cache
   doc:
     bar: 123
   patch:
-  - op: remove
-    path: /bar
+    - op: remove
+      path: /bar
   expectPaths:
     "/bar": undefined
 
@@ -13,13 +12,13 @@
     bar:
       baz: 123
   patch:
-  - op: add
-    path: /bar/bam
-    value:
-      foo:
-        bam: 123
-  - op: remove
-    path: /bar
+    - op: add
+      path: /bar/bam
+      value:
+        foo:
+          bam: 123
+    - op: remove
+      path: /bar
   expectPaths:
     "/bar": undefined
     "/bar/baz": undefined
@@ -36,8 +35,8 @@
   dynamic:
     /foo: [/bar/baz]
   patch:
-  - op: remove
-    path: /bar
+    - op: remove
+      path: /bar
   expectPaths:
     "/bar": undefined
     "/bar/baz": undefined
@@ -46,4 +45,3 @@
     "/foo": null
     "/foo/boo": undefined
     "/foo/bam": undefined
- 

@@ -22,6 +22,7 @@ Also, it's very important for an Entity to have its `id` stored in its data
 structure. Entities should always be able to exist on their own if needed.
 
 In the following example several data processing patterns are used:
+
 - `articles.raw` stores denormalized data received from an API.
 - `articles.items` is created by a producer that `reduce`s `articles.raw` and
   extracts only the information needed by the application; and only the items

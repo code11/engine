@@ -12,7 +12,6 @@ rely on the state to provide this information.
 Keeping flags on the state decreases complexity and helps code to be more
 modular.
 
-
 `user.isAuth` is populated by a producer that uses different sources (local
 storage, session, etc) to determine wheter the user has a valid session or not,
 and stores this information in the state.
@@ -32,7 +31,6 @@ capacity it will update the path with `true` otherwise, it'll be `false`.
 `balloons.areInflated` is populated by a producer that observes
 `balloons.items.*.isInflated` and `balloons.count` and will update the
 `areInflated` path once the `isInflated` count is equal to the `balloons.count`
-
 
 ```
 {

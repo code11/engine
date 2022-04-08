@@ -1,4 +1,4 @@
-import { ExternalProps } from '@c11/engine.types'
+import { ExternalProps } from "@c11/engine.types";
 
 export class PassthroughGraph {
   private cb: Function;

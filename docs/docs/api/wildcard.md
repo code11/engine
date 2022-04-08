@@ -5,15 +5,17 @@ sidebar_label: wildcard
 ---
 
 ```ts
-import { wildcard } from "@c11/engine.runtime"
+import { wildcard } from "@c11/engine.runtime";
 ```
 
 ## Overview
+
 `wildcard` allow selecting arbitrarily deep paths from state.
 
 They are meant to be used by `producer` to obtain more powerful triggers.
 
 ## Example
+
 For example:
 
 ```tsx

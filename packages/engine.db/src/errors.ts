@@ -23,8 +23,7 @@ export default {
     "2": { text: "Invalid node arguments given.", name: "node" },
     "3": { text: "Nodes can't be cyclical.", name: "node" },
     "4": {
-      text:
-        "The node function need to have the same number of arguments as the dependencies.",
+      text: "The node function need to have the same number of arguments as the dependencies.",
       name: "node",
     },
     "5": { text: "Node was called and an error was raised", name: "node" },

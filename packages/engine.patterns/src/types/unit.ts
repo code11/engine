@@ -8,19 +8,17 @@ export namespace Unit {
     uid: Data.Uid;
   };
 
-  export type Entity<EntityProps extends Props> = EntityBase &
-    {
-      [Prop in keyof EntityProps]: EntityProps[Prop];
-    };
+  export type Entity<EntityProps extends Props> = EntityBase & {
+    [Prop in keyof EntityProps]: EntityProps[Prop];
+  };
 
   type ItemBase = {
     id: Data.Id;
   };
 
-  export type Item<ItemProps extends Props> = ItemBase &
-    {
-      [Prop in keyof ItemProps]: ItemProps[Prop];
-    };
+  export type Item<ItemProps extends Props> = ItemBase & {
+    [Prop in keyof ItemProps]: ItemProps[Prop];
+  };
 
   export type Element = unknown;
   export type Component = unknown;

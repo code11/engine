@@ -226,6 +226,7 @@ and the clean-up return are only made in the subscribe scenario.
 
 A producer can have multiple subscribes and clean-up functions (altough a best practice
 is to have multiple producers that handle their individual scenario):
+
 ```
 // Possible, but not recommended
 const foo: producer = ({

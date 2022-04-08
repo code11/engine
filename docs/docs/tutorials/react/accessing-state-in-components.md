@@ -7,10 +7,10 @@ sidebar_label: Accessing State
 Converting a React Component to Engine [view](/docs/api/view) allow accessing
 todos from state In `src/App.tsx`:
 
-  ```diff
+```diff
 - const App = () => (
 + const App: view = ({ todoIds = observe.visibleTodoIds }) => (
-    <section className="todoapp">
+  <section className="todoapp">
 +     {console.log("TODOS", todoIds)}
 ```
 
@@ -24,7 +24,7 @@ All engine operator types are available globally. Check them out in `global.ts`.
 Extract the `<Todo>` component out of`<App>` to easily `map` todo ids to`Todo`
 components, and put it in its own file. In `src/Todo.tsx`, add
 
-  ```tsx
+```tsx
 const Todo = ({ id }) => (
   <li>
     <div className="view">
@@ -58,8 +58,8 @@ Update the `App` component with:
 ```
 
 As per the implementation of`Todo`, it is possible to see todo ids(i.e`todo1`,
-  `todo2`) in browser. But it should actually show`TodoItem.title`, not their
-  id.
+`todo2`) in browser. But it should actually show`TodoItem.title`, not their
+id.
 
 This is where Engine differs from traditional React apps. Engine recommends that
 [parent component should pass minimal data to its children](docs / best -
@@ -69,17 +69,17 @@ with its id. Modify the `Todo` component to follow the Engine way:
 
 In`src/Todo.tsx`
 
-  ```diff
+```diff
 - const Todo = ({ id }) => (
 + const Todo: view = ({ title = observe.todosById[prop.id].title }) => (
-  <li>
-    <div className="view">
-      <input className="toggle" type="checkbox" />
+<li>
+  <div className="view">
+    <input className="toggle" type="checkbox" />
 -     <label>{id}</label>
 +     <label>{title}</label>
-      <button className="destroy" />
-    </div>
-  </li>
+    <button className="destroy" />
+  </div>
+</li>
 );
 ```
 

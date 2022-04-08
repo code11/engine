@@ -29,20 +29,20 @@ Next section lists all the todos, and also has a control to toggle "Done"
 status of all todo items.
 
 ```tsx
-    <section className="main">
-      <input id="toggle-all" className="toggle-all" type="checkbox" />
-      <label htmlFor="toggle-all">Mark all as complete</label>
+<section className="main">
+  <input id="toggle-all" className="toggle-all" type="checkbox" />
+  <label htmlFor="toggle-all">Mark all as complete</label>
 
-      <ul className="todo-list">
-        <li>
-          <div className="view">
-            <input className="toggle" type="checkbox" />
-            <label>Give life to my TODOs</label>
-            <button className="destroy" />
-          </div>
-        </li>
-      </ul>
-    </section>
+  <ul className="todo-list">
+    <li>
+      <div className="view">
+        <input className="toggle" type="checkbox" />
+        <label>Give life to my TODOs</label>
+        <button className="destroy" />
+      </div>
+    </li>
+  </ul>
+</section>
 ```
 
 And finally, the footer has some more controls for viewing todos, and clearing

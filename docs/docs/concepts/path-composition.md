@@ -10,10 +10,10 @@ sidebar_label: Path Composition
 const State = {
   foo: {
     bar: {
-      baz: "BAZZZ!"
-    }
-  }
-}
+      baz: "BAZZZ!",
+    },
+  },
+};
 ```
 
 Then path for `baz` is `.foo.bar.baz`.

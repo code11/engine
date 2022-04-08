@@ -136,7 +136,7 @@ const addNewTodo: producer = ({
   getTitle = get.newTodo.title,
   updateTodosById = update.todosById,
   updateNewTodoTitle = update.newTodo.title,
-  updateNewTodoIntent = update.newTodo.intent
+  updateNewTodoIntent = update.newTodo.intent,
 }) => {
   if (newTodoIntent !== NewTodoIntents.commit) {
     return;
@@ -192,7 +192,7 @@ created to cancel adding a new todo if user presses Escape key.
 const cancelAddingTodo: producer = ({
   newTodoIntent = observe.newTodo.intent,
   updateNewTodoTitle = update.newTodo.title,
-  updateNewTodoIntent = update.newTodo.intent
+  updateNewTodoIntent = update.newTodo.intent,
 }) => {
   if (newTodoIntent !== NewTodoIntents.discard) {
     return;

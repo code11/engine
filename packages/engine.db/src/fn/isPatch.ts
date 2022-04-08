@@ -13,7 +13,7 @@ function isPatch(schema, patch) {
 
   for (let i = 0, len = patch.length; i < len; i += 1) {
     let x = patch[i];
-    const isPlainObjectValidate = isPlainObject(x)
+    const isPlainObjectValidate = isPlainObject(x);
     if (
       !(
         isPlainObject(x) &&
