@@ -2,7 +2,7 @@ import {
   ProducersList,
   StructOperation,
   ProducerInstance,
-  ProducerMeta,
+  ProducerMeta, ExternalProps,
 } from "./producer";
 
 export interface RenderConfig {
@@ -29,8 +29,16 @@ export interface RenderInstance {
   getRoot: () => RootElement;
 }
 
-export type ViewFn<ExternalProps = {}> = (
-  props: any
+export type PrivateProps<ExternalProps> = {
+  _now?: () => number;
+  _viewId?: string;
+  _props?: ExternalProps;
+}
+
+type Merge<T={}, K={}> = Omit<T, keyof K> & K;
+
+export type ViewFn<InternalProps = any, ExternalProps = {}> = (
+  props: Merge<Merge<PrivateProps<ExternalProps>, ExternalProps>, InternalProps>
 ) => React.ReactElement<ExternalProps> | null;
 
 export type ViewExtra = {

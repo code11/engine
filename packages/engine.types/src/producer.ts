@@ -115,9 +115,18 @@ export type ProducerData = {
   [key: string]: any;
 };
 
+export type PrivateProps<ExternalProps> = {
+  _now?: () => number;
+  _producerId?: string;
+  _viewId?: string;
+  _props?: ExternalProps;
+}
+
+type Merge<T={}, K={}> = Omit<T, keyof K> & K;
+
 export type ProducerCb = () => void;
-export type ProducerFn = (
-  props: ProducerData
+export type ProducerFn<InternalProps=any, ExternalProps={}> = (
+  props: Merge<Merge<PrivateProps<ExternalProps>, ExternalProps>, InternalProps>
 ) => void | ProducerCb | Promise<void | ProducerCb>;
 
 export interface ProducerMeta {
