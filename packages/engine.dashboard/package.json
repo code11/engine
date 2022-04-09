@@ -21,8 +21,10 @@
   "@types/babel__core": "^7",
   "@types/cors": "^2",
   "@types/express": "^4",
+  "@types/jest": "^27.4.1",
   "@types/lodash": "^4.14.181",
   "@types/node": "^16.11.26",
+  "@types/react": "^18.0.0",
   "@types/ws": "^8.5.3",
   "tailwindcss": "^2.2.19"
  },
@@ -45,6 +47,7 @@
   "@c11/engine.utils": "4.0.0-alpha.100",
   "@chakra-ui/icons": "^1.1.7",
   "@chakra-ui/react": "^1.8.7",
+  "@chakra-ui/system": "^1.12.1",
   "@emotion/react": "^11.9.0",
   "@emotion/styled": "^11.8.1",
   "@uiw/react-textarea-code-editor": "^1.6.0",

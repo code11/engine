@@ -60,7 +60,9 @@ export type State = {
       };
     };
   };
-  err: unknown;
+  err: {
+    on: any;
+  };
 };
 
 type ConfigFn<T> = (config: T, resolve: typeof require.resolve) => T;
