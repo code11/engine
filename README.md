@@ -3,11 +3,9 @@
 [![push](https://github.com/code11/engine/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/code11/engine/actions)
 [![codecov](https://codecov.io/gh/code11/engine/branch/master/graph/badge.svg?token=K3UZLXWOEK)](https://codecov.io/gh/code11/engine)
 
-The Code11 Engine is an alternative state management library.
+The Code11 Engine is a declarative state management system and application builder.
 
-It also offers a compact web development solution useful for rapid prototyping.
-
-See [docs](https://code11.github.io/engine/docs/).
+[Read the documentation](https://code11.github.io/engine/docs/) for more information.
 
 ## Usage
 
