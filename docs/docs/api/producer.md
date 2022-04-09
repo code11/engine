@@ -252,21 +252,3 @@ const foo: producer = ({
 }
 ```
 
-## Best practices
-
-1. A `producer` should perform a single, very specific job. The more specific
-   the better. It is okay to have many small producers doing one thing each.
-2. All the dependencies of a producers should be passed in the header.
-   The following is encouraged to increase the testability and reusability of the producer:
-
-   ```ts
-   import axios from 'axios'
-
-   const producer: producer = ({
-     get = axios.get,
-     data = observe.data
-     ...
-   }) => {
-     get({ ... })
-   }
-   ```

@@ -7,11 +7,7 @@ slug: /
 
 ### What is the Code<sup>11</sup> Engine?
 
-Engine is a meta-framework for creating web applications.
-
-The Engine keenly focuses on developer productivity. It allows creating robust
-web applications with unprecedented simplicity.
-
+Engine is a declarative state management system for creating web applications.
 ### Goals
 
 Engine strives to build applications with
@@ -65,6 +61,6 @@ Engine apps are reactive. They start with:
 
 Engine takes care of updating the view and re-running the computations only when
 their dependencies from state change. Head over to the [Getting
-started](/docs/usage) page for a sneak peek into how Engine apps look like, or
+started](/docs/getting-started) page for a sneak peek into how Engine apps look like, or
 take a look at the [quick start tutorial](/docs/tutorials/react/setup) for a
 more comprehensive guide to building an Engine app.

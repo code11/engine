@@ -7,7 +7,7 @@ sidebar_label: "@c11/engine.cli"
 Engine provides a convenient CLI to work with engine apps. It can be installed globally or used with `npx`. 
 
 ```bash
-npm i -g @c11/engine.cli
+npm install -g @c11/engine.cli
 ```
 
 Running above command will make `engine` command available in your terminal.

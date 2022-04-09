@@ -9,7 +9,8 @@ Engine provides a development and build server.
 It uses `webpack` underneath the hood which you can easily configure according to your project needs.
 
 ```bash
-npm i -D @c11/engine.service-web
+npm install -D @c11/engine.service-web
+yarn add -D @c11/engine.service-web
 ```
 
 Then add to `package.json`:

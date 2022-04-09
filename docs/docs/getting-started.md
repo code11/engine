@@ -7,7 +7,7 @@ sidebar_label: Getting started
 ## Install
 
 Fastest way to get started with Engine is by using the Engine
-[CLI](https://code11.github.io/engine/docs/cli).
+[CLI](https://code11.github.io/engine/docs/packages/cli).
 
 ```
 npx @c11/engine.cli create my-app
@@ -39,7 +39,7 @@ app.start();
 
 Creating an `Engine` instance takes care of mounting our application. It is
 possible to provide an initial state to it. More about Engine can be found in
-[API docs for Engine](/docs/implementations/react).
+[API docs for Engine](/docs/api/engine).
 
 ## Build
 

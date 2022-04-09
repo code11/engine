@@ -61,14 +61,3 @@ type viewInstance = {
 };
 ```
 
-## Best practices
-
-View should contain as little logic as possible.
-
-Instead of performing any logic in view, a producer should be created for the
-view to perform required business logic.
-
-A `view` is just a specialized form of a [producer](/docs/api/producer). All the
-[concepts](/docs/api/producer#parts) and [best
-practices](/docs/api/producer#best-practices) of producers apply for views as
-well.

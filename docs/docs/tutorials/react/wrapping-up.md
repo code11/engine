@@ -4,9 +4,7 @@ title: Wrapping Up
 sidebar_label: Wrapping Up
 ---
 
-We have learned almost all the concepts needed to build Engine apps. There is a
-bit more to Engine API, about which you can read in the [API
-section](/docs/implementations/react).
+We have learned almost all the concepts needed to build Engine apps.
 
 Let's wrap up by finishing our Todos app. Three last UI elements that left
 putting life in are:

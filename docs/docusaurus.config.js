@@ -1,6 +1,7 @@
 module.exports = {
   title: "Code11 Engine",
-  tagline: "A declarative state management system and application builder",
+  tagline:
+    "A declarative state management system for creating web applications",
   url: "https://code11.github.io",
   baseUrl: "/engine/",
   onBrokenLinks: "throw",

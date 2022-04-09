@@ -10,6 +10,7 @@ be installed like any other npm package.
 
 ```sh
 npm install -D @c11/engine.test jest
+yarn add -D @c11/engine.test jest
 ```
 
 `@c11/engine.test` provides utilities for writing tests which can be used with

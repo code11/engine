@@ -73,6 +73,10 @@ module.exports = {
           type: "doc",
           id: "packages/service-web",
         },
+        {
+          type: "doc",
+          id: "packages/dashboard",
+        },
       ],
     },
     {
