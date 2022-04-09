@@ -5,7 +5,6 @@ import { pathFn } from "@c11/engine.runtime";
 import { now, extractProducers } from "@c11/engine.utils";
 import {
   ProducersList,
-  ProducerFn,
   ViewConfig,
   ProducerConfig,
   ExternalProducerContext,

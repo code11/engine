@@ -1,4 +1,4 @@
-import { ProducerData, ValueSerializer } from "@c11/engine.types";
+import { ValueSerializer } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
 import isPlainObject from "lodash/isPlainObject";
 import isEqual from "lodash/isEqual";
@@ -11,7 +11,7 @@ import { UpdateOperationSymbol } from "./updateOperation";
 // TODO: this needs to go only a few levels deep - it shouldn't compare through the actual data
 
 const removeOperations = (
-  data: ProducerData,
+  data: any,
   serializers: ValueSerializer[],
   result: any = {},
   set = new WeakSet()
@@ -68,8 +68,8 @@ const removeOperations = (
 };
 
 export const isDataEqual = (
-  prevData: ProducerData,
-  data: ProducerData,
+  prevData: any,
+  data: any,
   serializers: ValueSerializer[]
 ) => {
   // const rawPrevData = removeOperations(prevData, serializers);

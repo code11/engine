@@ -7,13 +7,15 @@ import type {
   Arg,
   UpdateValue,
   GetValue,
-  ProducerFn,
+  Producer,
+  PrivateProps as PrivatePropsType,
 } from "@c11/engine.types";
 import type { State as StateType } from "./state";
 
 declare global {
   type State = StateType;
-  type producer = ProducerFn;
+  type PrivateProps = PrivatePropsType;
+  type producer = Producer;
   const observe: ObservePath<State>;
   const get: GetPath<State>;
   const update: UpdatePath<State>;

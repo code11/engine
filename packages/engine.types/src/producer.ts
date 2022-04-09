@@ -111,22 +111,16 @@ export interface ProducerProps {
   [key: string]: Operation;
 }
 
-export type ProducerData = {
-  [key: string]: any;
+export type PrivateProps<Props = any> = {
+  _now: () => number;
+  _producerId: string;
+  _viewId: string;
+  _props: Props;
 };
 
-export type PrivateProps<ExternalProps> = {
-  _now?: () => number;
-  _producerId?: string;
-  _viewId?: string;
-  _props?: ExternalProps;
-}
-
-type Merge<T={}, K={}> = Omit<T, keyof K> & K;
-
 export type ProducerCb = () => void;
-export type ProducerFn<InternalProps=any, ExternalProps={}> = (
-  props: Merge<Merge<PrivateProps<ExternalProps>, ExternalProps>, InternalProps>
+export type Producer = (
+  props: any
 ) => void | ProducerCb | Promise<void | ProducerCb>;
 
 export interface ProducerMeta {
@@ -151,7 +145,7 @@ export interface ProducerConfig {
   buildId?: string;
   meta?: ProducerMeta;
   props: StructOperation | PassthroughOperation;
-  fn: ProducerFn;
+  fn: Producer;
 }
 
 export interface ProducerInstance {
@@ -216,7 +210,7 @@ export type ValueSerializer = {
 
 export type ProducersList =
   | undefined
-  | ProducerFn
-  | ProducerFn[]
+  | Producer
+  | Producer[]
   | ProducersList[]
   | { [k: string]: ProducersList };

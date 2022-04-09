@@ -5,7 +5,7 @@ import values from "lodash/values";
 import flattenDeep from "lodash/flattenDeep";
 import { isView } from "./isView";
 
-export const extractViews = (...args: unknown[]): View[] => {
+export const extractViews = (...args: unknown[]): View<any>[] => {
   let result: unknown[] = flattenDeep(args);
 
   result = result.map((x) => {
@@ -26,5 +26,5 @@ export const extractViews = (...args: unknown[]): View[] => {
   result = result.filter(isView);
   result = uniqBy(result, "buildId");
 
-  return result as View[];
+  return result as View<any>[];
 };

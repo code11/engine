@@ -6,7 +6,7 @@ const pRmdir = promisify(rmdir);
 
 type props = {
   _rmdir: typeof pRmdir;
-  _now: () => number;
+  _now: PrivateProps["_now"];
   isSetupReady: State["create"]["flags"]["isSetupReady"];
   getTmpPath: Get<State["create"]["config"]["tmpPath"]>;
   flag: Update<State["create"]["flags"]["isCleanupReady"]>;

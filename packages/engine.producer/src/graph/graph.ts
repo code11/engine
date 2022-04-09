@@ -13,7 +13,6 @@ import {
   GraphNodeType,
   ValueTypes,
   DatastoreInstance,
-  ProducerData,
   GraphExternalNode,
 } from "@c11/engine.types";
 import { resolveDependencies } from "./resolveDependencies";
@@ -34,7 +33,7 @@ import { cloneCbData } from "./cloneCbData";
 export class Graph {
   private structure: GraphStructure;
   private computeOrder: string[];
-  private prevData: ProducerData;
+  private prevData: any;
   private serializedProps: any;
   private nonSerializedProps: any;
   private destroyed = false;

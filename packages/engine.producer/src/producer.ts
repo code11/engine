@@ -2,7 +2,7 @@ import {
   DatastoreInstance,
   ProducerContext,
   ProducerConfig,
-  ProducerFn,
+  Producer as ProducerType,
   ProducerInstance,
   ExternalProps,
   StructOperation,
@@ -44,7 +44,7 @@ export class Producer implements ProducerInstance {
   private db: DatastoreInstance;
   private context: ProducerContext;
   private props: StructOperation | PassthroughOperation;
-  private fn: ProducerFn;
+  private fn: ProducerType;
   private external: ExternalProps;
   private graph: Graph | PassthroughGraph;
   private debug: boolean;

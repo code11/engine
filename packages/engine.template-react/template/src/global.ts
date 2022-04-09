@@ -8,7 +8,7 @@ import type {
   Arg,
   UpdateValue,
   GetValue,
-  ProducerFn,
+  Producer,
   ProducersList,
 } from "@c11/engine.types";
 import type { View } from "@c11/engine.react";
@@ -17,8 +17,8 @@ import type { State as StateType } from "./state";
 declare global {
   const React: typeof _React;
   type State = StateType;
-  type producer<InternalProps=any, ExternalProps={}> = ProducerFn<InternalProps, ExternalProps>;
-  type view<InternalProps=any, ExternalProps={}> = View<InternalProps, ExternalProps>;
+  type producer = Producer;
+  type view<External = any> = View<External>;
   const observe: ObservePath<State>;
   const get: GetPath<State>;
   const update: UpdatePath<State>;

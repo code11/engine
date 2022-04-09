@@ -2,7 +2,8 @@ import {
   ProducersList,
   StructOperation,
   ProducerInstance,
-  ProducerMeta, ExternalProps,
+  ProducerMeta,
+  ExternalProps,
 } from "./producer";
 
 export interface RenderConfig {
@@ -15,7 +16,7 @@ export interface ViewConfig {
   buildId: string;
   meta: ProducerMeta;
   props: StructOperation;
-  fn: ViewFn;
+  fn: ViewFn<any>;
 }
 export type RootElement = HTMLElement | null;
 export interface ViewInstance {
@@ -29,26 +30,18 @@ export interface RenderInstance {
   getRoot: () => RootElement;
 }
 
-export type PrivateProps<ExternalProps> = {
-  _now?: () => number;
-  _viewId?: string;
-  _props?: ExternalProps;
-}
-
-type Merge<T={}, K={}> = Omit<T, keyof K> & K;
-
-export type ViewFn<InternalProps = any, ExternalProps = {}> = (
-  props: Merge<Merge<PrivateProps<ExternalProps>, ExternalProps>, InternalProps>
+export type ViewFn<ExternalProps> = (
+  props: any
 ) => React.ReactElement<ExternalProps> | null;
 
 export type ViewExtra = {
   producers: (producers: ProducersList) => void;
 };
 
-export type View<ExternalProps = {}> = ViewFn<ExternalProps> & ViewExtra;
+export type View<ExternalProps> = ViewFn<ExternalProps> & ViewExtra;
 
 export type ViewsList =
-  | View
-  | View[]
+  | View<any>
+  | View<any>[]
   | ViewsList[]
   | { [k: string]: ViewsList };
