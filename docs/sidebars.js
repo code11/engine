@@ -5,77 +5,75 @@ module.exports = {
       id: "introduction",
     },
     {
+      type: "doc",
+      id: "getting-started",
+    },
+    {
       type: "category",
-      label: "Getting Started",
-      items: ["usage"],
+      label: "Tutorial",
+      items: [
+        "tutorials/react/setup",
+        "tutorials/react/static-ui",
+        {
+          type: "category",
+          label: "State",
+          items: [
+            "tutorials/react/state-is-king",
+            "tutorials/react/accessing-state-in-components",
+            "tutorials/react/updating-state-from-components",
+          ],
+        },
+        "tutorials/react/introducing-producers",
+        "tutorials/react/state-as-communication-channel",
+        "tutorials/react/wrapping-up",
+      ],
     },
     {
       type: "doc",
-      id: "cli",
+      id: "best-practices",
     },
     {
       type: "category",
       label: "Concepts",
-      items: ["concepts/state", "concepts/path-composition"],
-    },
-    {
-      type: "category",
-      label: "Guides",
-      items: ["packages", "best-practices", "guides/debugging"],
-    },
-    {
-      type: "doc",
-      id: "testing",
-    },
-    {
-      type: "category",
-      label: "Patterns",
       items: [
-        "patterns/aggregate",
-        "patterns/collections",
-        "patterns/flags",
-        "patterns/request-response",
-        "patterns/search",
-        "patterns/sections",
-        "patterns/triggers",
-      ],
-    },
-
-    {
-      type: "category",
-      label: "Implementations",
-      items: ["implementations/react"],
-    },
-    {
-      type: "category",
-      label: "Tutorials",
-      items: [
+        "concepts/state",
+        "concepts/path-composition",
         {
           type: "category",
-          label: "React",
+          label: "Patterns",
           items: [
-            "tutorials/react/setup",
-            "tutorials/react/static-ui",
-            {
-              type: "category",
-              label: "State",
-              items: [
-                "tutorials/react/state-is-king",
-                "tutorials/react/accessing-state-in-components",
-                "tutorials/react/updating-state-from-components",
-              ],
-            },
-            "tutorials/react/introducing-producers",
-            "tutorials/react/state-as-communication-channel",
-            "tutorials/react/wrapping-up",
+            "patterns/aggregate",
+            "patterns/collections",
+            "patterns/flags",
+            "patterns/request-response",
+            "patterns/search",
+            "patterns/sections",
+            "patterns/triggers",
           ],
+        },
+        {
+          type: "doc",
+          id: "testing",
+        },
+        {
+          type: "doc",
+          id: "modules/engine",
         },
       ],
     },
     {
       type: "category",
-      label: "Modules",
-      items: ["modules/engine", "modules/react"],
+      label: "Packages",
+      items: [
+        {
+          type: "doc",
+          id: "packages/cli",
+        },
+        {
+          type: "doc",
+          id: "packages/service-web",
+        },
+      ],
     },
     {
       type: "category",

@@ -4,8 +4,6 @@ title: Search
 sidebar_label: Search
 ---
 
-### Search
-
 Implements the following patterns: [Collections](/docs/patterns/collections),
 [Triggers](/docs/patterns/triggers)
 

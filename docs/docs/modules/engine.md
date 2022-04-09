@@ -1,7 +1,7 @@
 ---
 id: engine
-title: Engine Modules
-sidebar_label: Engine Modules
+title: Modules
+sidebar_label: Modules
 ---
 
 Engine is written in an extremely modular manner. Most critical components of

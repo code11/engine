@@ -4,8 +4,6 @@ title: Triggers
 sidebar_label: Triggers
 ---
 
-### Triggers
-
 Triggers are explicit actions that are recorded in the state. Triggers resemble
 an event but without the event boilerplate. A trigger is a recording than an
 intent, made by someone or something and might be acted-on (or not) by a

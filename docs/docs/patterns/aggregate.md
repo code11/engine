@@ -4,8 +4,6 @@ title: Aggregate
 sidebar_label: Aggregate
 ---
 
-### Aggregate
-
 The Aggregate pattern allows you to reduce a set of events.
 
 ```

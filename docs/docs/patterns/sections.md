@@ -4,8 +4,6 @@ title: Sections
 sidebar_label: Sections
 ---
 
-### Sections
-
 Implements the following patterns: [Collections](/docs/patterns/collections)
 
 Sections are parts of an application that are shown at certain times. These can

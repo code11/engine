@@ -9,7 +9,6 @@ import styles from "./styles.module.css";
 const features = [
   {
     title: <>Easy to Use</>,
-    imageUrl: "img/undraw_docusaurus_mountain.svg",
     description: (
       <>
         Code<sup>11</sup>Engine is designed from ground up to be easily
@@ -19,7 +18,6 @@ const features = [
   },
   {
     title: <>Focus on What Matters</>,
-    imageUrl: "img/undraw_docusaurus_tree.svg",
     description: (
       <>
         Code<sup>11</sup>Engine lets you focus on your business logic, and we'll
@@ -30,11 +28,10 @@ const features = [
   },
   {
     title: <>Optimized for productivity</>,
-    imageUrl: "img/undraw_docusaurus_react.svg",
     description: (
       <>
         Code<sup>11</sup>Engine is optimized for developer productivity. Your
-        time is valuable, don't waste it away in boilerplate.
+        time is valuable, don't waste it away on boilerplate.
       </>
     ),
   },

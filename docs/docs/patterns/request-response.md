@@ -4,8 +4,6 @@ title: Request-Response
 sidebar_label: Request-Response
 ---
 
-### Request-Response
-
 The `Request-Response` pattern can be used in several occasions: when dealing
 with server interactions like XHR calls, as a middleware between two
 applications, an internal communication loop between two independent processes

@@ -4,8 +4,6 @@ title: Collections
 sidebar_label: Collections
 ---
 
-### Collections
-
 Collections group similar data structures together and provide a friendly way of
 accessing and working with those data structures. Collections are very useful
 when used in conjuction with entities.

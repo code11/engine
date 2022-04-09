@@ -1,12 +1,12 @@
 module.exports = {
   title: "Code11 Engine",
-  tagline: "Next Generation applications built at lightning speed 🚀",
+  tagline: "A declarative state management system and application builder",
   url: "https://code11.github.io",
   baseUrl: "/engine/",
   onBrokenLinks: "throw",
   favicon: "img/favicon.ico",
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "code11", // Usually your GitHub org/user name.
+  projectName: "engine", // Usually your repo name.
   themeConfig: {
     navbar: {
       title: "Engine",
@@ -21,7 +21,6 @@ module.exports = {
           label: "Docs",
           position: "left",
         },
-        // { to: "blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/code11/engine",
           label: "GitHub",
