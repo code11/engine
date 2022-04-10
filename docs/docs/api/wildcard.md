@@ -4,6 +4,8 @@ title: wildcard
 sidebar_label: wildcard
 ---
 
+*Experimental*
+
 ```ts
 import { wildcard } from "@c11/engine.runtime";
 ```
