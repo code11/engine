@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.101](https://github.com/code11/engine/compare/v4.0.0-alpha.100...v4.0.0-alpha.101) (2022-04-10)
+
+
+### Bug Fixes
+
+* **engine.types:** revert to simple props definition for producers/views ([9f6e802](https://github.com/code11/engine/commit/9f6e8024296688acb8e195fda47ae0f8b8211ca6))
+* types for supporting internal and external props in view and producer ([#126](https://github.com/code11/engine/issues/126)) ([b33ae30](https://github.com/code11/engine/commit/b33ae3020ac68d453e52e7bca929cda2f07dfd91))
+
+
+
+
+
 # [4.0.0-alpha.97](https://github.com/code11/engine/compare/v4.0.0-alpha.96...v4.0.0-alpha.97) (2022-02-03)
 
 
