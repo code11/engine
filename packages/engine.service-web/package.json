@@ -32,15 +32,15 @@
     "run:start": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn start",
     "run:build": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn build",
     "run:test": "yarn build && chmod +x dist/index.js && cd ../../../engine.cli-service-web-test && yarn test",
-    "test": "echo \"jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
-    "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
+    "test": "echo \"jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/*\"",
+    "test:coverage": "jest --clearCache && jest --runInBand --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@schemastore/package": "^0.0.6",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.11.26",
-    "typescript": "4.4.3"
+    "typescript": "4.5.5"
   },
   "dependencies": {
     "@babel/core": "^7.17.9",

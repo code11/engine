@@ -6,9 +6,9 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test:simple": "jest --clearCache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/*",
-    "test:update": "jest --clearCache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
-    "test:coverage": "jest --config ../../jest.config.js --coverageDirectory='packages/engine.babel-plugin-hmr/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.babel-plugin-hmr/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
+    "test:simple": "jest --clearCache && NODE_ENV=test jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test:update": "jest --clearCache && NODE_ENV=test jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
+    "test:coverage": "jest --runInBand --config ../../jest.config.js --coverageDirectory='packages/engine.babel-plugin-hmr/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.babel-plugin-hmr/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "yarn run test:coverage"
   },
   "author": {
@@ -30,7 +30,7 @@
     "babel-plugin-tester": "^10.1.0",
     "jest": "^26.6.3",
     "prettier": "^2.6.2",
-    "typescript": "4.4.3"
+    "typescript": "4.5.5"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9"
 }

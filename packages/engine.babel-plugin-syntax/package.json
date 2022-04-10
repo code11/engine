@@ -6,9 +6,9 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test:simple": "jest --clearCache && NODE_ENV=test jest --config ../../jest.config.js --runTestsByPath ./specs/producer*",
-    "test:update": "jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
-    "test:coverage": "jest --config ../../jest.config.js --coverageDirectory='packages/engine.babel-plugin-syntax/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.babel-plugin-syntax/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
+    "test:simple": "jest --clearCache && NODE_ENV=test jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/producer*",
+    "test:update": "jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
+    "test:coverage": "jest --clearCache && jest --runInBand --config ../../jest.config.js --coverageDirectory='packages/engine.babel-plugin-syntax/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.babel-plugin-syntax/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "yarn run test:coverage"
   },
   "author": {
@@ -29,7 +29,7 @@
     "babel-plugin-tester": "^10.1.0",
     "jest": "^26.6.3",
     "prettier": "^2.6.2",
-    "typescript": "4.4.3"
+    "typescript": "4.5.5"
   },
   "dependencies": {
     "@babel/core": "^7.17.9",

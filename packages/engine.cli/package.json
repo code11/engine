@@ -32,8 +32,8 @@
     "clean": "rm -rf ./dist && rm -rf ./test",
     "execute": "chmod +x dist/index.js && NODE_ENV=development ./dist/index.js create test",
     "start": "yarn clean && yarn build && yarn execute",
-    "test": "echo \"jest --clearCache && jest --config ../../jest.config.js --runTestsByPath ./specs/*\"",
-    "test:coverage": "jest --clearCache && jest --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
+    "test": "echo \"jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/*\"",
+    "test:coverage": "jest --clearCache && jest --runInBand --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
