@@ -1,0 +1,10 @@
+{
+  "name": "@c11/engine.template-app",
+  "private": true,
+  "version": "4.0.0-alpha.101",
+  "license": "MIT",
+  "keywords": [
+    "template"
+  ],
+  "description": "A full fledged application starter"
+}
