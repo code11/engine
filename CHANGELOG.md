@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.102](https://github.com/code11/engine/compare/v4.0.0-alpha.101...v4.0.0-alpha.102) (2022-05-11)
+
+
+### Bug Fixes
+
+* **engine.cli:** ensure gitignore path is correct ([3eae7c9](https://github.com/code11/engine/commit/3eae7c9763e5d7b85523543d1462fe900e575e38))
+
+
+
+
+
 # [4.0.0-alpha.101](https://github.com/code11/engine/compare/v4.0.0-alpha.100...v4.0.0-alpha.101) (2022-04-10)
 
 
