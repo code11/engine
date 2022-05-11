@@ -2013,6 +2013,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@c11/engine.template-app@workspace:packages/engine.template-app":
+  version: 0.0.0-use.local
+  resolution: "@c11/engine.template-app@workspace:packages/engine.template-app"
+  languageName: unknown
+  linkType: soft
+
 "@c11/engine.template-express@workspace:packages/engine.template-express":
   version: 0.0.0-use.local
   resolution: "@c11/engine.template-express@workspace:packages/engine.template-express"
