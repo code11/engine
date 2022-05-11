@@ -1,4 +1,4 @@
-import { writeFile, readFile, unlink } from "fs";
+import { writeFile, readFile, unlink, existsSync } from "fs";
 import { promisify } from "util";
 
 const pWriteFile = promisify(writeFile);
@@ -7,6 +7,7 @@ const pUnlink = promisify(unlink);
 
 type props = {
   _writeFile: typeof pWriteFile;
+  _existsSync: typeof existsSync;
   _readFile: typeof pReadFile;
   _unlink: typeof pUnlink;
   _now: () => number;
@@ -24,6 +25,7 @@ export const writeGitIgnore: producer = async ({
   _writeFile = pWriteFile,
   _readFile = pReadFile,
   _unlink = pUnlink,
+  _existsSync = existsSync,
   _now,
   isTemplateCopyReady = observe.create.flags.isTemplateCopyReady,
   isTemplateConfigReady = observe.create.flags.isTemplateConfigReady,
@@ -43,7 +45,10 @@ export const writeGitIgnore: producer = async ({
   }
 
   let content: string;
-  if (templateGitIgnorePath.value()) {
+  if (
+    templateGitIgnorePath.value() &&
+    _existsSync(templateGitIgnorePath.value())
+  ) {
     content = await _readFile(templateGitIgnorePath.value(), "utf-8");
   } else {
     content = `
