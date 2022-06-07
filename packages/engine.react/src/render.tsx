@@ -8,15 +8,22 @@ import {
   ModuleContext,
   ProducerConfig,
   ViewConfig,
+  ProducerMeta,
   ProducerInstance,
   ExternalProducerContext,
   ModuleNames,
   EngineEmitter,
 } from "@c11/engine.types";
 import { ViewProvider } from "./context";
+import { DefaultError } from "./errorBoundary";
 
 export type ModuleConfig = {
   debug?: boolean;
+  onError?: (
+    error: Error,
+    viewMeta: ProducerMeta,
+    viewId: string
+  ) => JSX.Element;
   updateProps?: (props: any) => void;
 };
 
@@ -44,6 +51,11 @@ export type RenderContext = {
   getProducers: (sourceId: string) => ProducerConfig[] | void;
   registerView: (sourceId: string, config: ViewConfig) => void;
   getRoot: () => RootElement;
+  errorFallback: (
+    error: Error,
+    viewMeta: ProducerMeta,
+    viewId: string
+  ) => JSX.Element;
 };
 
 type RenderConfig = {
@@ -52,6 +64,11 @@ type RenderConfig = {
   container: any;
   element: any;
   updateProps?: any;
+  onError?: (
+    error: Error,
+    viewMeta: ProducerMeta,
+    viewId: string
+  ) => JSX.Element;
 };
 
 type InstanceApi = {
@@ -117,6 +134,11 @@ export class Render implements RenderInstance {
   private context: RenderContext;
   private moduleContext: ModuleContext;
   private cache: RenderCache = {};
+  private onError?: (
+    error: Error,
+    viewMeta: ProducerMeta,
+    viewId: string
+  ) => JSX.Element;
   private updateProps: (cb: (props: any) => void) => void;
 
   constructor(config: RenderConfig) {
@@ -125,6 +147,7 @@ export class Render implements RenderInstance {
     this.container = config.container;
     this.moduleContext = config.moduleContext;
     this.updateProps = config.updateProps;
+    this.onError = config.onError;
     this.context = {
       emit: config.moduleContext.emit,
       debug: this.debug,
@@ -135,9 +158,23 @@ export class Render implements RenderInstance {
       registerView: this.registerView.bind(this),
       getProducers: this.getProducers.bind(this),
       getRoot: this.getRoot.bind(this),
+      errorFallback: this.errorFallback.bind(this),
     };
   }
 
+  private errorFallback(error: Error, viewMeta: ProducerMeta, viewId: string) {
+    if (this.onError) {
+      try {
+        const errorComponent = this.onError(error, viewMeta, viewId);
+        if (React.isValidElement(errorComponent)) {
+          return errorComponent;
+        }
+      } catch (e) {
+        console.log("CAUGHT ERROR ===>", e);
+      }
+    }
+    return <DefaultError error={error} />;
+  }
   private updateProducer(producerId: string, config: ProducerConfig) {
     Object.values(this.cache).forEach((x) => {
       if (x.producers[producerId]) {
@@ -310,6 +347,7 @@ export const render = (
         debug: config.debug || false,
         updateProps: config.updateProps,
         moduleContext,
+        onError: config.onError,
       });
 
       instance.mount();

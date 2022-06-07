@@ -21,6 +21,7 @@ import ViewContext from "./context";
 import { BaseProps } from "./types";
 import { getParentId } from "./getParentId";
 import { childrenSerializer } from "./childrenSerializer";
+import ErrorBoundary, { DefaultError } from "./errorBoundary";
 
 // TopLevel{
 //   ErrorManagement,
@@ -49,7 +50,10 @@ import { childrenSerializer } from "./childrenSerializer";
  * and handles them accordingly
  */
 
-interface SampleState {}
+interface SampleState {
+  error: Error | null;
+  data: any;
+}
 
 type InstanceApi = {
   replaceView: (config: ViewConfig) => void;
@@ -273,9 +277,14 @@ export function view(config: ViewConfig) {
           viewSourceId: sourceId,
         });
       });
-      this.state = { data: {} };
+      this.state = { data: {}, error: null };
       this.context = context;
     }
+
+    static getDerivedStateFromError(error: Error) {
+      return { error };
+    }
+
     componentDidMount() {
       this.isComponentMounted = true;
       this.emit(EventNames.VIEW_MOUNTED, {
@@ -368,6 +377,19 @@ export function view(config: ViewConfig) {
       this.viewProducer.updateExternal(this.props);
       if (!this.isStateReady) {
         return null;
+      }
+      if (this.state.error) {
+        let fallbackElement;
+        try {
+          fallbackElement = this.context.errorFallback(
+            this.state.error,
+            this.config.meta,
+            this.id
+          );
+        } catch (e) {
+          fallbackElement = <DefaultError error={this.state.error} />;
+        }
+        return <ErrorBoundary>{fallbackElement}</ErrorBoundary>;
       }
       return (
         <RenderComponent
