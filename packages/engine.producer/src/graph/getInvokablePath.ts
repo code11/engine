@@ -5,6 +5,8 @@ import {
   OperationParams,
 } from "@c11/engine.types";
 import isArray from "lodash/isArray";
+import isString from "lodash/isString";
+import isNumber from "lodash/isNumber";
 import { PathSymbol } from "../path";
 import { resolveValue } from "./resolveValue";
 import { wildcard } from "../wildcard";
@@ -32,7 +34,7 @@ export const getInvokablePath = (
     return acc;
   }, [] as any[]);
 
-  if (path.includes(undefined) || path.includes(null)) {
+  if (!path.every((x) => isString(x) || isNumber(x))) {
     return;
   } else {
     return "/" + path.join("/");
