@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.103](https://github.com/code11/engine/compare/v4.0.0-alpha.102...v4.0.0-alpha.103) (2022-06-10)
+
+
+### Bug Fixes
+
+* **engine.dashboard:** use index.ejs instead of index.html ([566f199](https://github.com/code11/engine/commit/566f1996be881cc1d54c90ab9fcb3f8c2b5143e9))
+
+
+
+
+
 # [4.0.0-alpha.102](https://github.com/code11/engine/compare/v4.0.0-alpha.101...v4.0.0-alpha.102) (2022-05-11)
 
 
