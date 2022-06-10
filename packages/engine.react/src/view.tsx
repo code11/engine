@@ -21,7 +21,7 @@ import ViewContext from "./context";
 import { BaseProps } from "./types";
 import { getParentId } from "./getParentId";
 import { childrenSerializer } from "./childrenSerializer";
-import ErrorBoundary, { DefaultError } from "./errorBoundary";
+import { DefaultError, ErrorBoundary } from "./errorBoundary";
 
 // TopLevel{
 //   ErrorManagement,
@@ -383,13 +383,17 @@ export function view(config: ViewConfig) {
         try {
           fallbackElement = this.context.errorFallback(
             this.state.error,
-            this.config.meta,
-            this.id
+            this.id,
+            this.config.meta
           );
         } catch (e) {
-          fallbackElement = <DefaultError error={this.state.error} />;
+          fallbackElement = (
+            <DefaultError error={this.state.error} viewId={this.id} />
+          );
         }
-        return <ErrorBoundary>{fallbackElement}</ErrorBoundary>;
+        return (
+          <ErrorBoundary viewId={this.id}>{fallbackElement}</ErrorBoundary>
+        );
       }
       return (
         <RenderComponent

@@ -12,102 +12,70 @@ jest.useFakeTimers("legacy");
 
 beforeEach(() => {
   document.body.innerHTML = "";
-});
-
-test("Display of a provided error", async (done) => {
-  const defaultState = {
-    foo: "123",
-  };
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
-  const Component: view = ({ foo = observe.foo }) => {
-    return <div data-testid="foo">{foo.bar.x}</div>;
-  };
+});
 
-  const ErrorFallback = ({ error, viewMeta, viewId }: any) => {
-    return <div data-testid="test">Error test</div>;
+test("should replace the failing component with the provided fallback", async () => {
+  console.error = jest.fn();
+  const onError = jest.fn(() => <div data-testid="error-fallback"></div>);
+  const error = new Error();
+  const Component: view = () => {
+    throw error;
   };
-
   const app = engine({
-    state: defaultState,
     use: [
-      render(<Component />, rootEl, {
-        onError: (error, viewData, viewId) => (
-          <ErrorFallback error={error} viewData={viewData} viewId={viewId} />
-        ),
+      render(<Component />, "#root", {
+        onError,
       }),
     ],
   });
-
   app.start();
-
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "test")).then((x) => {
-    expect(x.innerHTML).toBe("Error test");
-    done();
-  });
+  await expect(
+    waitFor(() => getByTestId(document.body, "error-fallback"))
+  ).resolves.toBeDefined();
+  expect(onError).toBeCalledTimes(1);
+  expect(onError).toBeCalledWith(error, expect.any(String), undefined);
 });
 
-test("Display of default error when no error handler is provided", async (done) => {
-  const defaultState = {
-    foo: "123",
+test("should replace the failing component with a default fallback if no fallback is provided", async () => {
+  console.error = jest.fn();
+  const Component: view = () => {
+    throw new Error();
   };
-  const rootEl = document.createElement("div");
-  rootEl.setAttribute("id", "root");
-  document.body.appendChild(rootEl);
-  const Component: view = ({ foo = observe.foo }) => {
-    return <div data-testid="foo">{foo.bar.x}</div>;
-  };
-
   const app = engine({
-    state: defaultState,
-    use: [render(<Component />, rootEl)],
+    use: [render(<Component />, "#root")],
   });
-
   app.start();
-
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "error")).then((x) => {
-    expect(x.innerHTML).toBe("Error: Cannot read property 'x' of undefined");
-    done();
-  });
+  await expect(
+    waitFor(() => getByTestId(document.body, "error"))
+  ).resolves.toBeDefined();
 });
 
-test("Display of error when provided error handler throws error ", async (done) => {
-  const defaultState = {
-    foo: "123",
+test("should display of error when provided error handler throws error ", async () => {
+  console.error = jest.fn();
+  const onError = jest.fn(() => {
+    throw new Error();
+  });
+  const Component: view = () => {
+    throw new Error();
   };
-  const rootEl = document.createElement("div");
-  rootEl.setAttribute("id", "root");
-  document.body.appendChild(rootEl);
-  const Component: view = ({ foo = observe.foo }) => {
-    return <div data-testid="foo">{foo.bar.x}</div>;
-  };
-
-  const ErrorFallback = ({ error, viewMeta, viewId }: any) => {
-    return <div data-testid="test2">Error {x.a}</div>;
-  };
-
   const app = engine({
-    state: defaultState,
     use: [
-      render(<Component />, rootEl, {
-        onError: (error, viewData, viewId) => (
-          <ErrorFallback error={error} viewData={viewData} viewId={viewId} />
-        ),
+      render(<Component />, "#root", {
+        onError,
       }),
     ],
   });
-
   app.start();
-
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "error")).then((x) => {
-    expect(x.innerHTML).toContain("Error: x is not defined");
-    done();
-  });
+  await expect(
+    waitFor(() => getByTestId(document.body, "error"))
+  ).resolves.toBeDefined();
 });

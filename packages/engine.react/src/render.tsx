@@ -19,11 +19,7 @@ import { DefaultError } from "./errorBoundary";
 
 export type ModuleConfig = {
   debug?: boolean;
-  onError?: (
-    error: Error,
-    viewMeta: ProducerMeta,
-    viewId: string
-  ) => JSX.Element;
+  onError?: RenderConfig["onError"];
   updateProps?: (props: any) => void;
 };
 
@@ -53,8 +49,8 @@ export type RenderContext = {
   getRoot: () => RootElement;
   errorFallback: (
     error: Error,
-    viewMeta: ProducerMeta,
-    viewId: string
+    viewId: string,
+    viewMeta: ProducerMeta
   ) => JSX.Element;
 };
 
@@ -66,9 +62,9 @@ type RenderConfig = {
   updateProps?: any;
   onError?: (
     error: Error,
-    viewMeta: ProducerMeta,
-    viewId: string
-  ) => JSX.Element;
+    viewId: string,
+    viewMeta: ProducerMeta
+  ) => JSX.Element | undefined;
 };
 
 type InstanceApi = {
@@ -134,11 +130,7 @@ export class Render implements RenderInstance {
   private context: RenderContext;
   private moduleContext: ModuleContext;
   private cache: RenderCache = {};
-  private onError?: (
-    error: Error,
-    viewMeta: ProducerMeta,
-    viewId: string
-  ) => JSX.Element;
+  private onError?: RenderConfig["onError"];
   private updateProps: (cb: (props: any) => void) => void;
 
   constructor(config: RenderConfig) {
@@ -162,18 +154,19 @@ export class Render implements RenderInstance {
     };
   }
 
-  private errorFallback(error: Error, viewMeta: ProducerMeta, viewId: string) {
+  private errorFallback(error: Error, viewId: string, viewMeta: ProducerMeta) {
     if (this.onError) {
       try {
-        const errorComponent = this.onError(error, viewMeta, viewId);
+        const errorComponent = this.onError(error, viewId, viewMeta);
         if (React.isValidElement(errorComponent)) {
           return errorComponent;
         }
       } catch (e) {
-        console.log("CAUGHT ERROR ===>", e);
+        console.error("engine.react onError fallback failure", e);
       }
     }
-    return <DefaultError error={error} />;
+
+    return <DefaultError error={error} viewId={viewId} />;
   }
   private updateProducer(producerId: string, config: ProducerConfig) {
     Object.values(this.cache).forEach((x) => {

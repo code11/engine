@@ -55,6 +55,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@babel/types": "^7.17.0",
     "@types/eslint": "^8",
+    "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.181",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",

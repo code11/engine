@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test:simple": "jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/events*",
+    "test:simple": "jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/error*",
     "test:coverage": "jest --clearCache && jest --runInBand --config ../../jest.config.js --coverageDirectory='packages/engine.react/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.react/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "yarn run test:coverage"
   },
@@ -44,6 +44,7 @@
     "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.102",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.2.7",
+    "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.181",
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.43",
