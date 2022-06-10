@@ -340,6 +340,8 @@ export function view(config: ViewConfig) {
         this.stateUpdate.done = true;
         this.setState({
           data: this.stateUpdate.data,
+          //TODO: check if there is a circular probability of error
+          error: null,
         });
       });
     }
