@@ -32,6 +32,10 @@
  "bin": {
   "engine-dashboard": "dist/cli.js"
  },
+ "peerDependencies": {
+  "react": ">=16",
+  "react-dom": ">=16"
+ },
  "dependencies": {
   "@babel/core": "^7.17.9",
   "@babel/plugin-proposal-class-properties": "^7.16.7",
@@ -59,8 +63,6 @@
   "lodash": "^4.17.21",
   "prettier": "^2.6.2",
   "prismjs": "^1.27.0",
-  "react": "^16.14.0",
-  "react-dom": "^16.14.0",
   "react-json-view": "^1.21.3",
   "react-simple-code-editor": "^0.11.0",
   "ws": "^8.5.0"
