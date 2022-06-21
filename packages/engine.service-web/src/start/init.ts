@@ -53,10 +53,6 @@ export const init: producer = async ({
     return;
   }
 
-  //TODO: if the engine.babel-plugin-syntax has an output flag
-  // then we need to delete the .cache folder from node_modules
-  // in order to trigger babel to recompile all files
-
   //TODO: add support for json loading using import syntax:
   // import foo from './something.json'
 
@@ -180,7 +176,7 @@ export const init: producer = async ({
             {
               loader: require.resolve("babel-loader"),
               options: {
-                cacheDirectory: true,
+                cacheDirectory: exportAppStructure.value() ? false : true,
                 comments: false,
                 minified: false,
                 presets: [
@@ -202,7 +198,7 @@ export const init: producer = async ({
             {
               loader: require.resolve("babel-loader"),
               options: {
-                cacheDirectory: true,
+                cacheDirectory: exportAppStructure.value() ? false : true,
                 comments: false,
                 minified: false,
                 presets: [
