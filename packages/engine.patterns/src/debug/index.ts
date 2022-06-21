@@ -23,6 +23,8 @@ export const debug: producer = ({
     return result;
   };
 
+  //TODO: this can also be a Proxy so that it's easier to get data from the state:
+  //get.foo.bar() instead of get('foo.bar')
   (window as any).get = (str: string) => {
     if (!str) {
       str = "";
