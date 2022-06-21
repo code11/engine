@@ -1,6 +1,7 @@
-import { Box, VStack, Text, Badge, Divider } from "@chakra-ui/react";
+import { Box, VStack, Text, Badge, Divider, Button } from "@chakra-ui/react";
 
 import {
+  Flex,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -42,26 +43,67 @@ const Operations = ({ value, path, id }) => {
   );
 };
 
+const CodeEditorComp: view = ({
+  id,
+  code = observe.structure.code[prop.id],
+  updateCode = update.structure.elements[prop.id].currentCode,
+  getCurrentCode = get.structure.elements[prop.id].currentCode,
+  saveCode = update.saveCode,
+}) => {
+  // code = (prettier as any).format(code, {
+  //   parser: "typescript",
+  //   plugins: prettierPlugins,
+  // });
+  code = code || "loading code..";
+  return (
+    <Box mb="2">
+      <Heading size="sm" mb="2">
+        <Flex alignContent="center" justifyContent="space-between">
+          <Text>Body</Text>
+          <Button
+            colorScheme="blue"
+            onClick={(e) => {
+              saveCode.set({
+                id,
+                code: getCurrentCode.value() || code,
+              });
+            }}
+          >
+            Save
+          </Button>
+        </Flex>
+      </Heading>
+      <CodeEditor
+        value={code}
+        language="typescript"
+        placeholder="loading code.."
+        onChange={(e) => {
+          updateCode.set(e.target.value);
+        }}
+        padding={15}
+        style={{
+          fontSize: 12,
+          backgroundColor: "#f5f5f5",
+          fontFamily:
+            "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+        }}
+      />
+    </Box>
+  );
+};
+
 export const ElementDescription: view = ({
   selectedId = observe.selectedElement.id,
   path = observe.selectedElement.path,
   element = observe.structure.elements[arg.selectedId],
-  code = observe.structure.code[arg.selectedId],
   showV2 = update.showV2,
+  saveCode = update.saveCode,
   getShowV2 = get.showV2,
 }) => {
   if (!element) {
     return;
   }
 
-  try {
-    code = (prettier as any).format(code, {
-      parser: "typescript",
-      plugins: prettierPlugins,
-    });
-  } catch (e) {
-    code = code || "loading code..";
-  }
   return (
     <Box p="4" overflowY="scroll" h="100vh">
       <Box mb="4">
@@ -101,24 +143,7 @@ export const ElementDescription: view = ({
           />
         )}
       </Box>
-      <Box mb="2">
-        <Heading size="sm" mb="2">
-          Body
-        </Heading>
-        <CodeEditor
-          value={code}
-          language="typescript"
-          placeholder="loading code.."
-          onChange={(evn) => {}}
-          padding={15}
-          style={{
-            fontSize: 12,
-            backgroundColor: "#f5f5f5",
-            fontFamily:
-              "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
-          }}
-        />
-      </Box>
+      <CodeEditorComp id={selectedId} />
     </Box>
   );
 };

@@ -1,11 +1,12 @@
 import axios from "axios";
+
 export const getCode: producer = ({
   selectedElement = observe.selectedElement.id,
   getAbsPath = get.structure.elements[arg.selectedElement].meta
     .absoluteFilePath,
-
   getLocation = get.structure.elements[arg.selectedElement].meta.location,
   updateCode = update.structure.code[arg.selectedElement],
+  updateFile = update.structure.fileCode,
   getCode = get.structure.elements[arg.selectedElement].code,
 }) => {
   if (!selectedElement || getCode.value()) {
@@ -15,6 +16,7 @@ export const getCode: producer = ({
   axios
     .get(`http://localhost:3000?file=${getAbsPath.value()}`)
     .then((x) => {
+      updateFile.merge({ [getAbsPath.value()]: x.data });
       const code = x.data;
       const location = getLocation.value();
       const lines = code.split("\n");
@@ -23,18 +25,18 @@ export const getCode: producer = ({
         location.end.line - 1
       );
       const body = elementLines.reduce(
-        (acc, x) => {
-          if (acc.found && x !== "") {
-            acc.body += `${x}\n`;
+        (acc, x, idx) => {
+          if (acc.found !== undefined) {
+            acc.body.push(x);
           }
           if (x.includes("=>")) {
-            acc.found = true;
+            acc.found = idx;
           }
           return acc;
         },
-        { found: false, body: "" }
+        { found: undefined, body: [] }
       );
-      updateCode.set(body.body);
+      updateCode.set(body.body.join("\n"));
     })
     .catch((e) => {
       console.error(e);

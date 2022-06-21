@@ -1,5 +1,6 @@
 import express from "express";
-import { join } from "path";
+import bodyParser from "body-parser";
+import { isAbsolute, join, relative } from "path";
 import cors from "cors";
 import fs from "fs";
 import WebSocket from "ws";
@@ -34,12 +35,29 @@ const app = express();
 // starting to coordinate with the app
 const port = 3000;
 
-app.use(cors());
-app.get("/", (req, res, next) => {
-  const filePath = req.query.file;
-  if (!filePath || typeof filePath !== "string") {
-    throw new Error("file path was not defined properly");
+const isValidPath = (filePath: string) => {
+  if (!filePath) {
+    return false;
   }
+
+  const result = relative(process.cwd(), filePath);
+  if (!result || result.startsWith("..") || isAbsolute(result)) {
+    return false;
+  }
+  return true;
+};
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.get("/", (req, res, next) => {
+  const filePath = req.query.file as string;
+  if (!isValidPath(filePath)) {
+    throw new Error(
+      "file path was not defined properly or is outside the project"
+    );
+  }
+  console.log('reading file', filePath);
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
       next(err);
@@ -47,6 +65,20 @@ app.get("/", (req, res, next) => {
     }
     res.send(data);
   });
+});
+
+app.post("/", (req, res, next) => {
+  const filePath = req.body.filePath;
+  const body = req.body.body;
+  if (!isValidPath(filePath)) {
+    throw new Error(
+      "file path was not defined properly or is outside the project"
+    );
+  }
+
+  console.log('writing file', filePath);
+  fs.writeFileSync(filePath, body, "utf-8");
+  res.send("OK");
 });
 
 app.get("/app-structure", (req, res, next) => {
