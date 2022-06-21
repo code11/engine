@@ -1742,7 +1742,7 @@ __metadata:
     "@babel/preset-typescript": ^7.16.7
     "@babel/runtime": ^7.17.9
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.104
-    "@c11/engine.patterns": 4.0.0-alpha.104
+    "@c11/engine.patterns": 4.0.0-alpha.106
     "@c11/engine.react": 4.0.0-alpha.104
     "@c11/engine.runtime": 4.0.0-alpha.104
     "@c11/engine.service-web": 4.0.0-alpha.105
@@ -1839,7 +1839,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.patterns@4.0.0-alpha.104, @c11/engine.patterns@workspace:packages/engine.patterns":
+"@c11/engine.patterns@4.0.0-alpha.106, @c11/engine.patterns@workspace:packages/engine.patterns":
   version: 0.0.0-use.local
   resolution: "@c11/engine.patterns@workspace:packages/engine.patterns"
   dependencies:
