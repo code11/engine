@@ -19,6 +19,9 @@
     "test:coverage": "jest --clearCache && jest --runInBand --config ../../jest.config.js --coverageDirectory='packages/engine.utils/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.utils/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "echo \"testing disabled for @c11/engine.utils until the deps issue is solved\""
   },
+  "peerDependencies": {
+    "react": ">=16"
+  },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.9",

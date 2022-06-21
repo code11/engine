@@ -35,6 +35,10 @@
     "test": "echo \"jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/*\"",
     "test:coverage": "jest --clearCache && jest --runInBand --config ../../jest.config.js --collectCoverage --collectCoverageFrom=packages/engine.producer/src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
   },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16"
+  },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@schemastore/package": "^0.0.6",
@@ -76,8 +80,6 @@
     "postcss-import": "^14.1.0",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.4.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "style-loader": "^3.3.1",
     "svg-inline-loader": "^0.8.2",
     "url-loader": "^4.1.1",

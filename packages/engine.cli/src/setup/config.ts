@@ -48,10 +48,7 @@ export const config: producer = async ({
         target: CreateTemplateTarget.WEB,
         packageName: "@c11/engine.service-web",
         binName: "engine-service-web",
-        version:
-          (result.devDependencies &&
-            result.devDependencies["@c11/engine.service-web"]) ||
-          "latest",
+        version: "latest",
       },
     },
   });
