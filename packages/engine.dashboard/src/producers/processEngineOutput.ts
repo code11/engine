@@ -6,6 +6,7 @@ import axios from "axios";
 import { OperationTypes, ValueTypes } from "@c11/engine.types";
 import mergeWith from "lodash/mergeWith";
 import isArray from "lodash/isArray";
+import { camelCaseTest, upperCaseTest } from "../enumTest";
 
 type StateSection = {
   id?: string;
@@ -80,11 +81,38 @@ export const processEngineOutput: producer = async ({
                   const path = Array.from(operation.path);
                   let last;
                   for (let member of path) {
-                    const name: string =
+                    let name: string;
+
+                    if (
+                      member.type === ValueTypes.CONST &&
+                      member.value.__node__ &&
+                      member.value.__node__.type === "MemberExpression"
+                    ) {
+                      const varName = member.value.__node__.object.name;
+                      const propName = member.value.__node__.property.name;
+                      if (
+                        camelCaseTest.test(varName) &&
+                        upperCaseTest.test(propName)
+                      ) {
+                        name = `[${varName}.${propName}]`;
+                      } else {
+                        console.log(
+                          "name",
+                          varName,
+                          propName,
+                          camelCaseTest.test(varName),
+                          upperCaseTest.test(propName)
+                        );
+                        name = "[unknown]";
+                      }
+                    } else if (
                       member.type === ValueTypes.CONST &&
                       typeof member.value === "string"
-                        ? member.value
-                        : "[unknown]";
+                    ) {
+                      name = member.value;
+                    } else {
+                      name = "[unknown]";
+                    }
 
                     //TODO: this should be an id
                     part[name] = {

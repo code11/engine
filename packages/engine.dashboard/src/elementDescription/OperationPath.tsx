@@ -17,11 +17,11 @@ export const OperationPath = ({ name, op, selectedPath }) => {
   const isSelected = selectedPath === current.join(".");
   return (
     <Flex bg={isSelected && "purple.200"} p="2" w="full">
-      <Text>{name} =&nbsp;</Text>
-      <Text fontWeight="bold" color={colors[type]}>
+      <Text>{name}&nbsp;=&nbsp;</Text>
+      <Text fontWeight="bold" color={colors[type]} align="left">
         {type && type.toLowerCase()}
       </Text>
-      <Text>.{items.join(".")}</Text>
+      <Text align="left">.{items.join(".")}</Text>
     </Flex>
   );
 };
