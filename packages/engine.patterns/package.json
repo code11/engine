@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.patterns",
-  "version": "4.0.0-alpha.104",
+  "version": "4.0.0-alpha.106",
   "description": "Engine patterns and their implementation",
   "main": "src/index.ts",
   "license": "MIT",

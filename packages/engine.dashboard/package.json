@@ -1,6 +1,6 @@
 {
  "name": "@c11/engine.dashboard",
- "version": "4.0.0-alpha.105",
+ "version": "4.0.0-alpha.106",
  "description": "A dashboard for visualizing and interacting with the engine instance",
  "scripts": {
   "test": "echo \"engine-service-web test\"",
@@ -45,7 +45,7 @@
   "@babel/preset-typescript": "^7.16.7",
   "@babel/runtime": "^7.17.9",
   "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.104",
-  "@c11/engine.patterns": "4.0.0-alpha.104",
+  "@c11/engine.patterns": "4.0.0-alpha.106",
   "@c11/engine.react": "4.0.0-alpha.104",
   "@c11/engine.runtime": "4.0.0-alpha.104",
   "@c11/engine.types": "4.0.0-alpha.102",
