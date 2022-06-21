@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.service-web",
-  "version": "4.0.0-alpha.104",
+  "version": "4.0.0-alpha.105",
   "description": "A service for running and building engine.react applications",
   "main": "dist/index.js",
   "bin": {

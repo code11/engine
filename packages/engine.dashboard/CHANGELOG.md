@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.105](https://github.com/code11/engine/compare/v4.0.0-alpha.104...v4.0.0-alpha.105) (2022-06-21)
+
+
+### Bug Fixes
+
+* **engine.dashboard:** add enum support for better paths ([f6cea92](https://github.com/code11/engine/commit/f6cea9254ac94008f8d99a12d798da8b86a91bc8))
+
+
+
+
+
 # [4.0.0-alpha.104](https://github.com/code11/engine/compare/v4.0.0-alpha.103...v4.0.0-alpha.104) (2022-06-21)
 
 **Note:** Version bump only for package @c11/engine.dashboard

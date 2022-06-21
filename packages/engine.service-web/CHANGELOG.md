@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.105](https://github.com/code11/engine/compare/v4.0.0-alpha.104...v4.0.0-alpha.105) (2022-06-21)
+
+
+### Bug Fixes
+
+* **engine.service-web:** disable caching if output structure is enabled ([cc27e08](https://github.com/code11/engine/commit/cc27e08edc35afbd3ee1c0c9fb92b9ed739ea75e))
+
+
+
+
+
 # [4.0.0-alpha.104](https://github.com/code11/engine/compare/v4.0.0-alpha.103...v4.0.0-alpha.104) (2022-06-21)
 
 **Note:** Version bump only for package @c11/engine.service-web
