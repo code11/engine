@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.104](https://github.com/code11/engine/compare/v4.0.0-alpha.103...v4.0.0-alpha.104) (2022-06-21)
+
+
+### Bug Fixes
+
+* **engine.producer:** test paths for strings and numbers ([39b4435](https://github.com/code11/engine/commit/39b44350b25837fc8951391e78a92527cd5c1bcc))
+* **engine.react:** remove error after data update ([69c58e8](https://github.com/code11/engine/commit/69c58e8fc762eed519f395f3eaad70dfa7b03867))
+
+
+
+
+
 # [4.0.0-alpha.103](https://github.com/code11/engine/compare/v4.0.0-alpha.102...v4.0.0-alpha.103) (2022-06-10)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.patterns",
-  "version": "4.0.0-alpha.103",
+  "version": "4.0.0-alpha.104",
   "description": "Engine patterns and their implementation",
   "main": "src/index.ts",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "src"
   ],
   "dependencies": {
-    "@c11/engine.utils": "4.0.0-alpha.102",
+    "@c11/engine.utils": "4.0.0-alpha.104",
     "http-status-codes": "^2.2.0",
     "lodash": "^4.17.21",
     "react-is": "^17.0.2"
@@ -35,9 +35,9 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime": "^7.17.9",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.102",
-    "@c11/engine.react": "4.0.0-alpha.103",
-    "@c11/engine.runtime": "4.0.0-alpha.102",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.104",
+    "@c11/engine.react": "4.0.0-alpha.104",
+    "@c11/engine.runtime": "4.0.0-alpha.104",
     "@c11/engine.types": "4.0.0-alpha.102",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.2.7",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.104](https://github.com/code11/engine/compare/v4.0.0-alpha.103...v4.0.0-alpha.104) (2022-06-21)
+
+
+### Bug Fixes
+
+* **engine.producer:** test paths for strings and numbers ([39b4435](https://github.com/code11/engine/commit/39b44350b25837fc8951391e78a92527cd5c1bcc))
+
+
+
+
+
 # [4.0.0-alpha.102](https://github.com/code11/engine/compare/v4.0.0-alpha.101...v4.0.0-alpha.102) (2022-05-11)
 
 **Note:** Version bump only for package @c11/engine.producer
