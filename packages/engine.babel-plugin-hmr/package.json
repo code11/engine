@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.babel-plugin-hmr",
-  "version": "4.0.0-alpha.104",
+  "version": "4.0.0-alpha.107",
   "description": "Compile engine keywords into code",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@babel/types": "^7.17.0",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.104",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.107",
     "@types/babel__core": "^7.1.19",
     "@types/babel__preset-env": "^7.9.2",
     "@types/jest": "^26.0.24",

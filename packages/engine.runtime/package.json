@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.runtime",
-  "version": "4.0.0-alpha.104",
+  "version": "4.0.0-alpha.107",
   "description": "A runtime for engine applications",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -16,10 +16,10 @@
     "test": "yarn run test:coverage"
   },
   "dependencies": {
-    "@c11/engine.db": "4.0.0-alpha.104",
-    "@c11/engine.producer": "4.0.0-alpha.104",
-    "@c11/engine.types": "4.0.0-alpha.102",
-    "@c11/engine.utils": "4.0.0-alpha.104",
+    "@c11/engine.db": "4.0.0-alpha.107",
+    "@c11/engine.producer": "4.0.0-alpha.107",
+    "@c11/engine.types": "4.0.0-alpha.107",
+    "@c11/engine.utils": "4.0.0-alpha.107",
     "lodash": "^4.17.21"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9",
@@ -28,7 +28,7 @@
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.104",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.107",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.181",
     "@types/node": "^16.11.26",

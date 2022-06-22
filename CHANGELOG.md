@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.107](https://github.com/code11/engine/compare/v4.0.0-alpha.106...v4.0.0-alpha.107) (2022-06-22)
+
+
+### Features
+
+* add PATCH_APPLIED and STATE_UPDATED events ([e1c0e88](https://github.com/code11/engine/commit/e1c0e88d11a163a1d10dde754943231d1122537a))
+* **engine.dashboard:** add info on elements tab ([53134a6](https://github.com/code11/engine/commit/53134a61266654f3d64af523499740e6ae5a45e7))
+
+
+
+
+
 # [4.0.0-alpha.106](https://github.com/code11/engine/compare/v4.0.0-alpha.105...v4.0.0-alpha.106) (2022-06-21)
 
 

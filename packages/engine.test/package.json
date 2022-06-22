@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.test",
-  "version": "4.0.0-alpha.104",
+  "version": "4.0.0-alpha.107",
   "description": "A test lib for the engine",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -20,16 +20,16 @@
     "react": ">=16"
   },
   "dependencies": {
-    "@c11/engine.react": "4.0.0-alpha.104",
-    "@c11/engine.runtime": "4.0.0-alpha.104",
-    "@c11/engine.types": "4.0.0-alpha.102"
+    "@c11/engine.react": "4.0.0-alpha.107",
+    "@c11/engine.runtime": "4.0.0-alpha.107",
+    "@c11/engine.types": "4.0.0-alpha.107"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.104",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.107",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.43",
