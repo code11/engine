@@ -16,11 +16,12 @@ const connectToServer = () => {
   });
 };
 
-export const sendToDashboard = () => {
+export const connectToDashboard = () => {
   let appWs: any;
   let queue: Event[] = [];
   connectToServer().then((ws) => {
     appWs = ws;
+    appWs.onmessage = dispatchMessage;
   });
   let scheduledQueue = false;
   const drainQueue = () => {
@@ -77,10 +78,23 @@ export const sendToDashboard = () => {
     }
   };
 
-  return (event) => {
-    queue.push(event);
-    if (!scheduledQueue) {
-      drainQueue();
-    }
+  const dispatchMessage = (event) => {
+    receivers.forEach((x) => {
+      x(event);
+    });
+  };
+
+  const receivers = [];
+
+  return {
+    send: (event) => {
+      queue.push(event);
+      if (!scheduledQueue) {
+        drainQueue();
+      }
+    },
+    on: (cb) => {
+      receivers.push(cb);
+    },
   };
 };

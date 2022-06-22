@@ -8,6 +8,7 @@ import { ProducersTab } from "./ListTabs/ProducersTab";
 import { StatsTab } from "./StatsTab";
 import { EditElement } from "./EditElement";
 import { TabsIdx } from "./settings";
+import { StateTab } from "./StateTab";
 
 export const App: view = ({
   data = observe.structure.data,
@@ -29,6 +30,7 @@ export const App: view = ({
             }}
           >
             <TabList position="relative">
+              <Tab>Structure</Tab>
               <Tab>State</Tab>
               <Tab>
                 Views <Tag>{viewsCount}</Tag>
@@ -39,20 +41,25 @@ export const App: view = ({
               <Tab>Stats</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel pr="0">
+              <TabPanel pr="0" pb="0">
                 <List>
                   <Box overflowY="scroll" h="92vh">
                     <StateTree data={data} />
                   </Box>
                 </List>
               </TabPanel>
-              <TabPanel pr="0">
+              <TabPanel pr="0" pb="0">
+                <Box overflowY="scroll" h="92vh">
+                  <StateTab />
+                </Box>
+              </TabPanel>
+              <TabPanel pr="0" pb="0">
                 <ViewsTab />
               </TabPanel>
-              <TabPanel pr="0">
+              <TabPanel pr="0" pb="0">
                 <ProducersTab />
               </TabPanel>
-              <TabPanel pr="0">
+              <TabPanel pr="0" pb="0">
                 <StatsTab />
               </TabPanel>
             </TabPanels>

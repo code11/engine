@@ -17,6 +17,9 @@ dashboard.on("connection", (ws) => {
   if (queue.length > 0) {
     queue.forEach((x) => dashboardWs.send(x));
   }
+  ws.on("message", (message: string) => {
+    clientWs.send(message);
+  });
 });
 
 client.on("connection", (ws) => {
@@ -57,7 +60,7 @@ app.get("/", (req, res, next) => {
       "file path was not defined properly or is outside the project"
     );
   }
-  console.log('reading file', filePath);
+  console.log("reading file", filePath);
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
       next(err);
@@ -76,7 +79,7 @@ app.post("/", (req, res, next) => {
     );
   }
 
-  console.log('writing file', filePath);
+  console.log("writing file", filePath);
   fs.writeFileSync(filePath, body, "utf-8");
   res.send("OK");
 });

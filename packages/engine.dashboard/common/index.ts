@@ -1,1 +1,1 @@
-export * from "./sendToDashboard";
+export * from "./connectToDashboard";
