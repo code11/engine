@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.109](https://github.com/code11/engine/compare/v4.0.0-alpha.108...v4.0.0-alpha.109) (2022-06-22)
+
+
+### Features
+
+* **engine.dashboard:** send patch updates back to the app ([6108e9a](https://github.com/code11/engine/commit/6108e9a59aaf11a04b5a85b276818a11324e9f71))
+
+
+
+
+
 # [4.0.0-alpha.108](https://github.com/code11/engine/compare/v4.0.0-alpha.107...v4.0.0-alpha.108) (2022-06-22)
 
 **Note:** Version bump only for package engine
