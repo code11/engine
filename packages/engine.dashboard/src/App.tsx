@@ -3,15 +3,17 @@ import { SimpleGrid } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { StateTree } from "./stateTree";
 import { ElementDescription } from "./elementDescription";
-import { ViewsTab } from "./ViewsTab";
-import { ProducersTab } from "./ProducersTab";
+import { ViewsTab } from "./ListTabs/ViewsTab";
+import { ProducersTab } from "./ListTabs/ProducersTab";
 import { StatsTab } from "./StatsTab";
 import { EditElement } from "./EditElement";
+import { TabsIdx } from "./settings";
 
 export const App: view = ({
   data = observe.structure.data,
   viewsCount = observe.structure.count.views,
   producersCount = observe.structure.count.producers,
+  updateActiveTab = update.activeTab,
 }) => {
   if (!data || !viewsCount || !producersCount) {
     return;
@@ -21,7 +23,11 @@ export const App: view = ({
     <ChakraProvider>
       <SimpleGrid columns={2}>
         <Box bg="gray.100" h="100vh">
-          <Tabs>
+          <Tabs
+            onChange={(idx) => {
+              updateActiveTab.set(TabsIdx[idx]);
+            }}
+          >
             <TabList position="relative">
               <Tab>State</Tab>
               <Tab>

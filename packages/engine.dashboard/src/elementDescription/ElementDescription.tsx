@@ -108,11 +108,15 @@ export const ElementDescription: view = ({
     <Box p="4" overflowY="scroll" h="100vh">
       <Box mb="4">
         <VStack align="stretch" spacing={1} bg="gray.400" p="4">
-          <Text>
-            <Badge color={element.type === "view" ? "green" : "purple"}>
-              {element.type}
-            </Badge>
-          </Text>
+          <Flex>
+            <Text>
+              <Badge color={element.type === "view" ? "green" : "purple"}>
+                {element.type}
+              </Badge>
+            </Text>
+            &nbsp;
+            <Text>{selectedId}</Text>
+          </Flex>
           <Text fontSize="xl" fontWeight="bold">
             {" "}
             {element.meta.name}

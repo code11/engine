@@ -1,6 +1,8 @@
-import { Box, Text, ChakraProvider, List } from "@chakra-ui/react";
+import { Flex, Box, Text, ChakraProvider, List } from "@chakra-ui/react";
+import { ElementStats } from "./ElementStats";
+import { SortBar } from "./SortBar";
 
-const ProducerItem: view = ({
+const ViewItem: view = ({
   id = prop.id,
   name = observe.structure.elements[prop.id].meta.name,
   relativeFilePath = observe.structure.elements[prop.id].meta.relativeFilePath,
@@ -25,7 +27,10 @@ const ProducerItem: view = ({
         })
       }
     >
-      <Text>{name}</Text>
+      <Flex>
+        <Text>{name}</Text>
+        <ElementStats id={id} />
+      </Flex>
       <Text fontSize="xs" color="gray.600">
         {relativeFilePath}
       </Text>
@@ -33,16 +38,15 @@ const ProducerItem: view = ({
   );
 };
 
-export const ProducersTab: view = ({
-  producers = observe.structure.byType.producers,
-}) => {
-  if (!producers) {
+export const ViewsTab: view = ({ views = observe.structure.sortedByStats }) => {
+  if (!views) {
     return;
   }
   return (
     <Box overflowY="scroll" h="92vh">
-      {producers.map((x) => (
-        <ProducerItem key={x} id={x} />
+      <SortBar />
+      {views.map((x) => (
+        <ViewItem key={x} id={x} />
       ))}
     </Box>
   );

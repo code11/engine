@@ -4,3 +4,5 @@ export * from "./structure";
 export * from "./listenToEvents";
 export * from "./receiveEvents";
 export * from "./saveCode";
+export * from "./elementStats";
+export * from "./sortByStats";
