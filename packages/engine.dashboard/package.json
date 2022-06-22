@@ -1,6 +1,6 @@
 {
  "name": "@c11/engine.dashboard",
- "version": "4.0.0-alpha.107",
+ "version": "4.0.0-alpha.108",
  "description": "A dashboard for visualizing and interacting with the engine instance",
  "scripts": {
   "test": "echo \"engine-service-web test\"",
@@ -17,7 +17,7 @@
  "typings": "dist/index.d.ts",
  "devDependencies": {
   "@babel/cli": "^7.17.6",
-  "@c11/engine.service-web": "4.0.0-alpha.107",
+  "@c11/engine.service-web": "4.0.0-alpha.108",
   "@types/babel__core": "^7",
   "@types/body-parser": "^1",
   "@types/cors": "^2",
