@@ -1956,7 +1956,6 @@ __metadata:
     "@types/node": ^16.11.26
     jest: ^26.6.3
     lodash: ^4.17.21
-    mitt: ^3.0.0
     typescript: 4.6.3
   languageName: unknown
   linkType: soft
@@ -2080,7 +2079,6 @@ __metadata:
   dependencies:
     "@types/react": ^17.0.43
     "@types/react-dom": ^17.0.14
-    mitt: ^3.0.0
     react: ^17.0.2
     react-dom: ^17.0.2
     typescript: 4.6.3
@@ -16098,13 +16096,6 @@ __metadata:
     minipass: ^3.0.0
     yallist: ^4.0.0
   checksum: f1fdeac0b07cf8f30fcf12f4b586795b97be856edea22b5e9072707be51fc95d41487faec3f265b42973a304fe3a64acd91a44a3826a963e37b37bafde0212c3
-  languageName: node
-  linkType: hard
-
-"mitt@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "mitt@npm:3.0.0"
-  checksum: f7be5049d27d18b1dbe9408452d66376fa60ae4a79fe9319869d1b90ae8cbaedadc7e9dab30b32d781411256d468be5538996bb7368941c09009ef6bbfa6bfc7
   languageName: node
   linkType: hard
 

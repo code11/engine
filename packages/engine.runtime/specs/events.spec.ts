@@ -37,6 +37,7 @@ test("should catch events with fn", async () => {
 
   expect(extractEvents(onEvents)).toEqual([
     EventNames.ENGINE_STARTED,
+    EventNames.STATE_UPDATED,
     EventNames.ENGINE_STOPPED,
   ]);
 });
@@ -65,7 +66,9 @@ test("should catch events with object", async () => {
 
 test("should support modules and producers", async () => {
   const onEvents = jest.fn();
-  const sample: producer = ({ foo = observe.foo }) => {};
+  const sample: producer = ({ foo = update.foo }) => {
+    foo.set("123");
+  };
   const app = engine({
     onEvents,
     state: {
@@ -83,9 +86,12 @@ test("should support modules and producers", async () => {
 
   expect(extractEvents(onEvents)).toEqual([
     EventNames.ENGINE_STARTED,
+    EventNames.STATE_UPDATED,
     EventNames.MODULE_MOUNTED,
     EventNames.PRODUCER_MOUNTED,
     EventNames.PRODUCER_CALLED,
+    EventNames.PATCH_APPLIED,
+    EventNames.STATE_UPDATED,
     EventNames.PRODUCER_UNMOUNTED,
     EventNames.MODULE_UNMOUNTED,
     EventNames.ENGINE_STOPPED,

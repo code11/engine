@@ -3,6 +3,7 @@ import {
   GraphStructure,
   GetOperation,
   OperationParams,
+  ProducerContext,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
 import isString from "lodash/isString";
@@ -20,8 +21,10 @@ export const GetOperationSymbol = Symbol("get");
 export const getOperation = (
   db: DatastoreInstance,
   structure: GraphStructure,
-  op: GetOperation
+  op: GetOperation,
+  emit?: ProducerContext["emit"]
 ) => {
+  //TODO: add emit for retrieving data
   const value = (params: OperationParams): unknown => {
     const path = getInvokablePath(structure, op, params);
     if (path) {

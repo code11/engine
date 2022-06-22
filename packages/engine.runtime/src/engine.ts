@@ -1,7 +1,5 @@
 import db from "@c11/engine.db";
-import mitt from "mitt";
 import isFunction from "lodash/isFunction";
-import isPlainObject from "lodash/isPlainObject";
 import { randomId, now } from "@c11/engine.utils";
 import {
   EngineApi,
@@ -11,10 +9,8 @@ import {
   DatastoreInstance,
   ProducerConfig,
   ViewConfig,
-  Events,
   EventNames,
   EngineContext,
-  EngineEmitter,
   EngineStatus,
 } from "@c11/engine.types";
 import { EngineModule } from "./module";
@@ -33,48 +29,17 @@ export class Engine implements EngineApi {
   private id: string;
   private db: DatastoreInstance;
   private modules: EngineModule[] = [];
-  private emitter: EngineEmitter | undefined;
   private context: EngineContext;
   private status: EngineStatus = EngineStatus.NOT_RUNNING;
+  private onEvents: EngineConfig["onEvents"];
   constructor({ state = {}, use = [], onEvents }: EngineConfig) {
     this.id = randomId();
+    this.onEvents = onEvents;
     this.db = db(state);
-    if (onEvents) {
-      this.emitter = mitt<Events>();
-      if (isFunction(onEvents)) {
-        this.emitter.on("*", (eventName, event) => {
-          onEvents(event);
-        });
-      } else if (onEvents && isPlainObject(onEvents)) {
-        Object.entries(onEvents).forEach(([name, fn]) => {
-          if ((Object.values(EventNames) as string[]).includes(name)) {
-            //@ts-ignore
-            this.emitter.on(name, (event) => {
-              //@ts-ignore
-              fn(event);
-            });
-          }
-        });
-      }
-    }
     this.context = {
       engineId: this.id,
       db: this.db,
-      emit: (eventName, payload = {}, context = {}) => {
-        if (!this.emitter) {
-          return;
-        }
-        this.emitter.emit(eventName, {
-          eventName,
-          eventId: randomId(),
-          createdAt: now(),
-          context: {
-            ...context,
-            engineId: this.id,
-          },
-          payload,
-        });
-      },
+      emit: this.emit.bind(this),
     };
     use.forEach((x) => {
       this.use(x);
@@ -84,6 +49,45 @@ export class Engine implements EngineApi {
         x.update(sourceId, config);
       });
     };
+  }
+
+  private emit(eventName: EventNames, payload = {}, context = {}) {
+    if (!this.onEvents) {
+      return;
+    }
+    if (!EventNames[eventName]) {
+      console.error(`unrecognized event name ${eventName}`);
+      return;
+    }
+    const event = {
+      eventName,
+      eventId: randomId(),
+      createdAt: now(),
+      context: {
+        ...context,
+        engineId: this.id,
+      },
+      payload,
+    };
+
+    if (this.onEvents && isFunction(this.onEvents)) {
+      this.onEvents(event);
+    } else if (
+      this.onEvents &&
+      this.onEvents[eventName] &&
+      isFunction(this.onEvents[eventName])
+    ) {
+      const fn = this.onEvents[eventName];
+      if (fn) {
+        fn(event);
+      }
+    } else {
+      // event could not be sent
+    }
+
+    if (eventName === EventNames.PATCH_APPLIED) {
+      this.emit(EventNames.STATE_UPDATED, this.db.db.static);
+    }
   }
 
   state(state: EngineState) {
@@ -107,7 +111,8 @@ export class Engine implements EngineApi {
   }
 
   async start() {
-    this.context.emit(EventNames.ENGINE_STARTED);
+    this.emit(EventNames.ENGINE_STARTED);
+    this.emit(EventNames.STATE_UPDATED, this.db.db.static);
     this.status = EngineStatus.RUNNING;
     this.modules.forEach((x) => {
       x.start().catch((e) => {
@@ -128,10 +133,7 @@ export class Engine implements EngineApi {
         })
       )
     );
-    this.context.emit(EventNames.ENGINE_STOPPED);
-    if (this.emitter) {
-      this.emitter.all.clear();
-    }
+    this.emit(EventNames.ENGINE_STOPPED);
     delete updateListeners[this.id];
   }
 }

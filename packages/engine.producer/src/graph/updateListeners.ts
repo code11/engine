@@ -29,7 +29,8 @@ export const updateListeners = (
     db,
     data,
     structure,
-    updatedNode
+    updatedNode,
+    _this.emit
   );
 
   // TODO:
@@ -44,7 +45,7 @@ export const updateListeners = (
     }
     let node = x as GraphInternalNode;
     if (node.op && node.op.type === OperationTypes.OBSERVE) {
-      const result = computeOperation(db, structure, node);
+      const result = computeOperation(db, structure, node, _this.emit);
       if (result.type === ComputeType.PATH && result.value) {
         node.path = result.value;
         if (hasWildcard(result.value)) {

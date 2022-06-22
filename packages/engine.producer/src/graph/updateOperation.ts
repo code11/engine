@@ -3,6 +3,10 @@ import {
   GraphStructure,
   UpdateOperation,
   OperationParams,
+  ProducerContext,
+  EventNames,
+  OperationTypes,
+  UpdateValue,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
 import isArray from "lodash/isArray";
@@ -13,9 +17,28 @@ export const UpdateOperationSymbol = Symbol("update");
 export const updateOperation = (
   db: DatastoreInstance,
   structure: GraphStructure,
-  op: UpdateOperation
+  op: UpdateOperation,
+  emit?: ProducerContext["emit"]
 ) => {
-  const set = (value: any, params: OperationParams) => {
+  const operationId = randomId();
+  //TODO: figure out how to infer the cb using typescript from
+  // name
+  const wrapUpdate = (name: keyof UpdateValue, cb: any) => {
+    return (...args: any[]) => {
+      const patch = cb.apply(null, args);
+      if (emit && patch) {
+        //TODO: add stack trace information so that code location
+        // can be highlighted in the dashboard
+        emit(EventNames.PATCH_APPLIED, patch, {
+          operationId,
+          operationType: OperationTypes.UPDATE,
+          operationFnName: name,
+        });
+      }
+    };
+  };
+
+  const set = wrapUpdate("set", (value: any, params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const patch = {
@@ -24,30 +47,36 @@ export const updateOperation = (
         value: value,
       };
       db.patch([patch]);
+      return patch;
     }
-  };
-  const merge = (value: any, params: OperationParams) => {
+    return;
+  });
+
+  const merge = wrapUpdate("merge", (value: any, params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
-      const patch = {
-        op: "merge",
-        path,
-        value: value,
-      };
+      let patch = [
+        {
+          op: "merge",
+          path,
+          value: value,
+        },
+      ];
       const val = db.get(path);
       if (!val) {
-        db.patch([
-          {
-            op: "add",
-            path,
-            value: {},
-          },
-        ]);
+        patch.unshift({
+          op: "add",
+          path,
+          value: {},
+        });
       }
-      db.patch([patch]);
+      db.patch(patch);
+      return patch;
     }
-  };
-  const remove = (params: OperationParams) => {
+    return;
+  });
+
+  const remove = wrapUpdate("remove", (params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const patch = {
@@ -55,9 +84,12 @@ export const updateOperation = (
         path,
       };
       db.patch([patch]);
+      return patch;
     }
-  };
-  const push = (value: any, params: OperationParams) => {
+    return;
+  });
+
+  const push = wrapUpdate("push", (value: any, params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       let val = db.get(path);
@@ -74,9 +106,12 @@ export const updateOperation = (
         value: val,
       };
       db.patch([patch]);
+      return patch;
     }
-  };
-  const pop = (params: OperationParams) => {
+    return;
+  });
+
+  const pop = wrapUpdate("pop", (params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const val = db.get(path);
@@ -91,8 +126,10 @@ export const updateOperation = (
         value: val,
       };
       db.patch([patch]);
+      return patch;
     }
-  };
+    return;
+  });
 
   const operation = {
     set,
@@ -101,7 +138,7 @@ export const updateOperation = (
     push,
     pop,
     __operation__: {
-      id: randomId(),
+      id: operationId,
       symbol: UpdateOperationSymbol,
       path: op.path,
     },

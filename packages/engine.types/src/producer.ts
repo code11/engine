@@ -177,7 +177,7 @@ export type Params<T> = {
   [k in keyof T]: string | number | Params<T[k]>;
 };
 
-export type UpdateValue<T, P = {}> = {
+export type UpdateValue<T = any, P = {}> = {
   set: (value: T, params?: Params<P>) => void;
   merge: (value: Partial<T>, params?: Params<P>) => void;
   remove: (params?: Params<P>) => void;
@@ -188,7 +188,7 @@ export type UpdateValue<T, P = {}> = {
   pop: (params?: Params<P>) => void;
 };
 
-export type GetValue<T, P = {}> = {
+export type GetValue<T = any, P = {}> = {
   value: (params?: Params<P>) => T;
   includes: (value: any, params?: Params<P>) => boolean;
   length: (params?: Params<P>) => number;

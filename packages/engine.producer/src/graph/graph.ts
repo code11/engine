@@ -14,6 +14,7 @@ import {
   ValueTypes,
   DatastoreInstance,
   GraphExternalNode,
+  ProducerContext,
 } from "@c11/engine.types";
 import { resolveDependencies } from "./resolveDependencies";
 import { getExternalNodes } from "./getExternalNodes";
@@ -38,6 +39,7 @@ export class Graph {
   private nonSerializedProps: any;
   private destroyed = false;
   private isFirstCall = true;
+  emit: ProducerContext["emit"];
   db: DatastoreInstance;
   props: ExternalProps;
   data: GraphData = {};
@@ -50,7 +52,8 @@ export class Graph {
     op: StructOperation,
     cb: Function,
     keepReferences: string[],
-    serializers: ValueSerializer[] = []
+    serializers: ValueSerializer[] = [],
+    emit: ProducerContext["emit"]
   ) {
     const internalNodes = getInternalNodes(op);
     const struct = merge(internalNodes, getExternalNodes(internalNodes, props));
@@ -58,6 +61,7 @@ export class Graph {
     this.props = props;
     this.structure = struct;
     this.db = db;
+    this.emit = emit;
     this.prevData = {};
     // TODO: Provide a way to test reference for equality in order to keep the
     // comparison optimizations.
@@ -73,7 +77,12 @@ export class Graph {
     const data = this.computeOrder.reduce((acc, x) => {
       const node = this.structure[x];
       if (node.type === GraphNodeType.INTERNAL) {
-        const result = computeOperation(this.db, this.structure, node);
+        const result = computeOperation(
+          this.db,
+          this.structure,
+          node,
+          this.emit
+        );
         if (result.type === ComputeType.PATH && result.value) {
           node.path = result.value;
           node.value = this.db.get(result.value);

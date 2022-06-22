@@ -7,6 +7,7 @@ import {
   GraphStructure,
   GraphNodeType,
   GraphNode,
+  ProducerContext,
 } from "@c11/engine.types";
 import { computeOperation, ComputeType } from "./computeOperation";
 
@@ -15,14 +16,15 @@ export const computeDependenciesForNode = (
   db: DatastoreInstance,
   data: any,
   structure: GraphStructure,
-  node: GraphNode
+  node: GraphNode,
+  emit?: ProducerContext["emit"]
 ) => {
   let listeners: string[] = [];
   let funcListeners: { id: string; param: number }[] = [];
   node.isDependedBy.forEach((x) => {
     const dep = structure[x];
     if (dep.type === GraphNodeType.INTERNAL) {
-      const result = computeOperation(db, structure, dep);
+      const result = computeOperation(db, structure, dep, emit);
 
       if (result.type === ComputeType.PATH) {
         listeners.push(x);
@@ -41,7 +43,8 @@ export const computeDependenciesForNode = (
         db,
         data,
         structure,
-        dep
+        dep,
+        emit
       );
       listeners = listeners.concat(newListeners.listeners);
       funcListeners = funcListeners.concat(newListeners.funcListeners);

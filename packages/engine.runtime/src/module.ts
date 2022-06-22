@@ -10,7 +10,6 @@ import {
   ViewConfig,
   UpdateSourceFn,
   EngineContext,
-  EngineEmitter,
   EventNames,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";

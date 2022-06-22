@@ -12,7 +12,6 @@ import {
   ProducerInstance,
   ExternalProducerContext,
   ModuleNames,
-  EngineEmitter,
 } from "@c11/engine.types";
 import { ViewProvider } from "./context";
 import { DefaultError } from "./errorBoundary";

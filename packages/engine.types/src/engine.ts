@@ -1,4 +1,3 @@
-import type { Emitter } from "mitt";
 import { MacroProducerType } from "./macro";
 import { ProducerConfig, ProducerInstance } from "./producer";
 import { ViewConfig } from "./view";
@@ -19,8 +18,6 @@ export type ExternalProducerContext = {
 export type UpdateSourceFn = (config: ProducerConfig | ViewConfig) => void;
 
 export type UnsubscribeSourceUpdateFn = () => void;
-
-export type EngineEmitter = Emitter<Events>;
 
 export enum EngineStatus {
   RUNNING = "RUNNING",

@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:simple": "jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/*",
+    "test:simple": "jest --clearCache && jest --runInBand --config ../../jest.config.js --runTestsByPath ./specs/events*",
     "test:coverage": "jest --runInBand --config ../../jest.config.js --coverageDirectory='packages/engine.runtime/coverage' --collectCoverage --collectCoverageFrom='[\"packages/engine.runtime/src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "yarn run test:coverage"
   },
@@ -20,8 +20,7 @@
     "@c11/engine.producer": "4.0.0-alpha.104",
     "@c11/engine.types": "4.0.0-alpha.102",
     "@c11/engine.utils": "4.0.0-alpha.104",
-    "lodash": "^4.17.21",
-    "mitt": "^3.0.0"
+    "lodash": "^4.17.21"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9",
   "devDependencies": {

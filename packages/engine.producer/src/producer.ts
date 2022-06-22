@@ -108,7 +108,8 @@ export class Producer implements ProducerInstance {
         this.props,
         this.fnWrapper.bind(this),
         this.keepReferences,
-        this.serializers
+        this.serializers,
+        this.emit
       );
     } else if (this.props.type === OperationTypes.PASSTHROUGH) {
       this.graph = new PassthroughGraph(

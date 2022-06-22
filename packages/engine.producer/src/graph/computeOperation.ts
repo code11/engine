@@ -3,6 +3,7 @@ import {
   OperationTypes,
   GraphStructure,
   GraphInternalNode,
+  ProducerContext,
 } from "@c11/engine.types";
 import { observeOperation } from "./observeOperation";
 import { isValidPath } from "./isValidPath";
@@ -23,7 +24,8 @@ export interface ComputeResult {
 export const computeOperation = (
   db: DatastoreInstance,
   structure: GraphStructure,
-  node: GraphInternalNode
+  node: GraphInternalNode,
+  emit?: ProducerContext["emit"]
 ): ComputeResult => {
   const result: ComputeResult = {
     type:
@@ -40,13 +42,13 @@ export const computeOperation = (
   } else if (node.op.type === OperationTypes.VALUE) {
     result.value = valueOperation(structure, node.op);
   } else if (node.op.type === OperationTypes.UPDATE) {
-    result.value = updateOperation(db, structure, node.op);
+    result.value = updateOperation(db, structure, node.op, emit);
   } else if (node.op.type === OperationTypes.GET) {
-    result.value = getOperation(db, structure, node.op);
+    result.value = getOperation(db, structure, node.op, emit);
   } else if (node.op.type === OperationTypes.FUNC) {
     result.value = funcOperation(db, structure, node.op);
   } else if (node.op.type === OperationTypes.CONSTRUCTOR) {
-    result.value = constructorOperation(db, structure, node);
+    result.value = constructorOperation(db, structure, node, emit);
   }
   return result;
 };
