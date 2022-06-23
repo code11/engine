@@ -135,6 +135,7 @@ export const init: producer = async ({
             {
               loader: require.resolve("file-loader"),
               options: {
+                esModule: false,
                 name: "[name].[ext]?[hash]",
                 outputPath: "assets",
               },
