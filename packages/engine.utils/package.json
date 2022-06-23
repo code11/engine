@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.utils",
-  "version": "4.0.0-alpha.107",
+  "version": "4.0.0-alpha.111",
   "description": "Utilities for managing engine specific constructs",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -41,7 +41,7 @@
     "typescript": "4.6.3"
   },
   "dependencies": {
-    "@c11/engine.types": "4.0.0-alpha.107",
+    "@c11/engine.types": "4.0.0-alpha.111",
     "lodash": "^4.17.21",
     "nanoid": "^3.3.2"
   }
