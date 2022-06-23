@@ -32,7 +32,21 @@ const Patch: view = ({
       _hover={{ bg: "gray.200" }}
       onClick={() => {
         updateSelected.set(
-          producerName ? item.context.producerId : item.context.viewId
+          producerName
+            ? {
+                id: item.context.producerId,
+                path: patches[0].path
+                  .split("/")
+                  .filter((x) => !!x)
+                  .join("."),
+              }
+            : {
+                id: item.context.viewId,
+                path: patches[0].path
+                  .split("/")
+                  .filter((x) => !!x)
+                  .join("."),
+              }
         );
       }}
     >
