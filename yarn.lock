@@ -1745,7 +1745,7 @@ __metadata:
     "@c11/engine.patterns": 4.0.0-alpha.107
     "@c11/engine.react": 4.0.0-alpha.107
     "@c11/engine.runtime": 4.0.0-alpha.107
-    "@c11/engine.service-web": 4.0.0-alpha.108
+    "@c11/engine.service-web": 4.0.0-alpha.110
     "@c11/engine.types": 4.0.0-alpha.107
     "@c11/engine.utils": 4.0.0-alpha.107
     "@chakra-ui/icons": ^1.1.7
@@ -1960,7 +1960,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.service-web@4.0.0-alpha.108, @c11/engine.service-web@workspace:packages/engine.service-web":
+"@c11/engine.service-web@4.0.0-alpha.110, @c11/engine.service-web@workspace:packages/engine.service-web":
   version: 0.0.0-use.local
   resolution: "@c11/engine.service-web@workspace:packages/engine.service-web"
   dependencies:
