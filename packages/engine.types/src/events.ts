@@ -34,10 +34,12 @@ export type ModuleEventContext = {
 
 export type ViewEventContext = {
   viewId: string;
+  viewInstanceId: string;
 };
 
 export type ProducerEventContext = {
   producerId: string;
+  producerInstanceId: string;
 };
 
 export type OperationEventContext = {

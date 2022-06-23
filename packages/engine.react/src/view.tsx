@@ -138,7 +138,8 @@ export function view(config: ViewConfig) {
         this.context.emit &&
           this.context.emit(name, payload, {
             ...context,
-            viewId: this.id,
+            viewId: this.config.buildId,
+            viewInstanceId: this.id,
           });
       };
       this.emit = emit.bind(this);

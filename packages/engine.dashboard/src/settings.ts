@@ -9,7 +9,8 @@ export const operationColors = {
 export const TabsIdx = {
   "0": "Structure",
   "1": "State",
-  "2": "Views",
-  "3": "Producers",
-  "4": "Stats",
+  "2": "Updates",
+  "3": "Views",
+  "4": "Producers",
+  "5": "Stats",
 };

@@ -71,7 +71,8 @@ export class Producer implements ProducerInstance {
       this.context.emit &&
         this.context.emit(name, payload, {
           ...context,
-          producerId: this.id,
+          producerId: this.config.buildId,
+          producerInstanceId: this.id,
         });
     };
     this.emit = emit.bind(this);

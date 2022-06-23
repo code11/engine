@@ -6,3 +6,4 @@ export * from "./saveCode";
 export * from "./elementStats";
 export * from "./sortByStats";
 export * from "./updatePath";
+export * from "./patches";

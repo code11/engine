@@ -15,6 +15,9 @@ export const structOperationCompiler = (
     t.identifier("type"),
     t.stringLiteral(opOrig.type)
   );
+  //TODO: add an id to each operation so that events can
+  // be traced back to it's originator operation and parent
+  // see PATCH_APPLIED
   const keys: ObjectProperty[] = Object.keys(opOrig.value)
     .map((x) => {
       const op = opOrig.value[x];

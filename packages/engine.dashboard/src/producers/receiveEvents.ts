@@ -15,6 +15,7 @@ const connectToServer = () => {
 export const receiveEvents: producer = ({
   updateEvents = update.events,
   updateState = update.currentState,
+  updatePatches = update.patches.items,
   setWs = update.ws,
 }) => {
   let eventsNo = 0;
@@ -41,6 +42,15 @@ export const receiveEvents: producer = ({
         if (state) {
           updateState.set(state.payload);
         }
+
+        const patches = result
+          .filter((x) => x.eventName === EventNames.PATCH_APPLIED)
+          .reduce((acc, x) => {
+            acc[x.eventId] = x;
+            return acc;
+          }, {});
+
+        updatePatches.merge(patches);
 
         updateEvents.set({
           total: eventsNo,

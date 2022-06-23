@@ -1,8 +1,8 @@
 import ReactJson from "react-json-view";
-import { EditIcon } from "@chakra-ui/icons";
-import { Input, Text, Flex } from "@chakra-ui/react";
 
-const LeafValue = () => {};
+//TODO: Show a patch applied list with the element context
+// to help debugging state changes that come from
+// dificult to track sources
 
 export const StateTab: view = ({
   state = observe.currentState,

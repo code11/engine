@@ -9,6 +9,7 @@ import { StatsTab } from "./StatsTab";
 import { EditElement } from "./EditElement";
 import { TabsIdx } from "./settings";
 import { StateTab } from "./StateTab";
+import { UpdatesTab } from "./UpdatesTab";
 
 export const App: view = ({
   data = observe.structure.data,
@@ -32,6 +33,7 @@ export const App: view = ({
             <TabList position="relative">
               <Tab>Structure</Tab>
               <Tab>State</Tab>
+              <Tab>Updates</Tab>
               <Tab>
                 Views <Tag>{viewsCount}</Tag>
               </Tab>
@@ -51,6 +53,11 @@ export const App: view = ({
               <TabPanel pr="0" pb="0">
                 <Box overflowY="scroll" h="92vh">
                   <StateTab />
+                </Box>
+              </TabPanel>
+              <TabPanel pr="0" pb="0">
+                <Box overflowY="scroll" h="92vh">
+                  <UpdatesTab />
                 </Box>
               </TabPanel>
               <TabPanel pr="0" pb="0">
