@@ -2,6 +2,7 @@
   "target": "web",
   "package": {
     "dependencies": {
+      "@c11/engine.react": "4.0.0-alpha.111",
       "react": "^17.0.1",
       "react-dom": "^17.0.1"
     },
