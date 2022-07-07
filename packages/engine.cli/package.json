@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.cli",
-  "version": "4.0.0-alpha.111",
+  "version": "4.0.0-alpha.113",
   "description": "A cli for creating and analysing engine applications",
   "main": "dist/index.js",
   "bin": {
@@ -53,7 +53,7 @@
     "@babel/core": "^7.17.9",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/runtime": "^7.17.9",
-    "@c11/engine.runtime": "4.0.0-alpha.111",
+    "@c11/engine.runtime": "4.0.0-alpha.113",
     "commander": "^8.3.0",
     "find-root": "^1.1.0",
     "ncp": "^2.0.0",

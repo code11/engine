@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.113](https://github.com/code11/engine/compare/v4.0.0-alpha.112...v4.0.0-alpha.113) (2022-07-07)
+
+
+### Bug Fixes
+
+* **engine.template-react:** add missing dependency ([81c524e](https://github.com/code11/engine/commit/81c524e2b5677881780296d6e6db2d00f3ebd574))
+
+
+
+
+
 # [4.0.0-alpha.101](https://github.com/code11/engine/compare/v4.0.0-alpha.100...v4.0.0-alpha.101) (2022-04-10)
 
 
