@@ -208,6 +208,11 @@ export class Graph {
 
     this.prevData = data;
 
+    //TODO: call the clean-up function - if there are instances created
+    // inside the producer then these should be cleaned before calling the
+    // producer again
+    // What happens if the clean-up fails? The producer should be called
+    // nevertheless but this error should cascade somehow in order to treatable
     this.cb.call(null, cloneCbData(data, this.keepReferences, this.structure));
     // this.cb.call(null, data);
   }
