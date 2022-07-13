@@ -13,8 +13,6 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: "*"
-      - name: Use ssh-agent
-        run: ssh-agent -s && ssh-add ~/.ssh/id_rsa
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"

@@ -8,7 +8,7 @@ module.exports = {
   favicon: "img/favicon.ico",
   organizationName: "code11", // Usually your GitHub org/user name.
   projectName: "engine", // Usually your repo name.
-  plugins: ["docusaurus-plugin-matomo"],
+  plugins: ["@c11/docusaurus-plugin-matomo"],
   themeConfig: {
     matomo: {
       matomoUrl: "https://c11engine.matomo.cloud/",

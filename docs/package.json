@@ -13,12 +13,12 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.17.9",
+    "@c11/docusaurus-plugin-matomo": "^0.0.6",
     "@docusaurus/core": "2.0.0-beta.18",
     "@docusaurus/preset-classic": "2.0.0-beta.18",
     "@mdx-js/react": "^1.6.22",
     "chalk": "^4.1.2",
     "clsx": "^1.1.1",
-    "docusaurus-plugin-matomo": "git@github.com:dumconstantin/docusaurus-plugin-matomo.git",
     "lodash": "^4.17.21",
     "lodash.flatmap": "^4.5.0",
     "react": "^17.0.2",

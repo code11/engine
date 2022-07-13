@@ -1659,6 +1659,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@c11/docusaurus-plugin-matomo@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@c11/docusaurus-plugin-matomo@npm:0.0.6"
+  peerDependencies:
+    "@docusaurus/core": ^2.0.0-alpha.56
+  checksum: 8cc636a607e6f2eb4314a6447916ceff2ac3ca8acbf3567d9beefd8812731391894739ac5f82538cc1434db577d91ff220dd3119e5bbb60ba69e727cff0e71c2
+  languageName: node
+  linkType: hard
+
 "@c11/engine.babel-plugin-hmr@4.0.0-alpha.111, @c11/engine.babel-plugin-hmr@workspace:packages/engine.babel-plugin-hmr":
   version: 0.0.0-use.local
   resolution: "@c11/engine.babel-plugin-hmr@workspace:packages/engine.babel-plugin-hmr"
@@ -10339,6 +10348,7 @@ __metadata:
   resolution: "docs@workspace:docs"
   dependencies:
     "@babel/runtime": ^7.17.9
+    "@c11/docusaurus-plugin-matomo": ^0.0.6
     "@docusaurus/core": 2.0.0-beta.18
     "@docusaurus/preset-classic": 2.0.0-beta.18
     "@mdx-js/react": ^1.6.22
@@ -10346,7 +10356,6 @@ __metadata:
     "@types/lodash.flatmap": ^4.5.6
     chalk: ^4.1.2
     clsx: ^1.1.1
-    docusaurus-plugin-matomo: "git@github.com:dumconstantin/docusaurus-plugin-matomo.git"
     lodash: ^4.17.21
     lodash.flatmap: ^4.5.0
     react: ^17.0.2
@@ -10370,15 +10379,6 @@ __metadata:
   dependencies:
     esutils: ^2.0.2
   checksum: fd7673ca77fe26cd5cba38d816bc72d641f500f1f9b25b83e8ce28827fe2da7ad583a8da26ab6af85f834138cf8dae9f69b0cd6ab925f52ddab1754db44d99ce
-  languageName: node
-  linkType: hard
-
-"docusaurus-plugin-matomo@git@github.com:dumconstantin/docusaurus-plugin-matomo.git":
-  version: 0.0.6
-  resolution: "docusaurus-plugin-matomo@git@github.com:dumconstantin/docusaurus-plugin-matomo.git#commit=73375e2f146bd371c58c4010207d3df345b1abe0"
-  peerDependencies:
-    "@docusaurus/core": ^2.0.0-alpha.56
-  checksum: 65800d589ad2df8577f3a92d84ed85b1954b2e71f2c83a2165f1a0aaea86a15816d8e7449ffcef5732bbbe4656bc2ab2bd485c2f8411d2905a8f8bb82d9e15dc
   languageName: node
   linkType: hard
 
