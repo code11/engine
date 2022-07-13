@@ -5,6 +5,7 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 
 const features = [
   {
@@ -74,7 +75,9 @@ const initTracking = () => {
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
-  initTracking();
+  if (ExecutionEnvironment.canUseDOM) {
+    initTracking();
+  }
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
