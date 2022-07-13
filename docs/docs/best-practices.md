@@ -116,5 +116,6 @@ _now;
 - use `observe` to ensure that views are up-to-date visual representation of the state
 - never use `get` in the rendering process
 - only use `get` to get data needed in async situations e.g. `onClick`
+- use all the data you receive / don't observe or get data you won't use e.g. `observe.item.title` instead of `observe.item` if you are only using the title 
 - pass minimum information to child components e.g. an `id` is enough for the child to then create paths for the information it needs
-- record the intents of the user and not the meaning of the intent e.g. this thing was clicked vs remove the entity and refresh the data
+- record the intents of the user and not the meaning of the intent e.g. on click inform of the intent to remove the entity vs on click remove the entity and refresh the data
