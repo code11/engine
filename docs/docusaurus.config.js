@@ -15,6 +15,7 @@ module.exports = {
       siteId: "1",
       phpLoader: "matomo.php",
       jsLoader: "matomo.js",
+      tracking: [["requireCookieConsent"]],
     },
     navbar: {
       title: "Engine",
