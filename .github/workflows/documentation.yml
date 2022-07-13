@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - uses: actions/setup-node@v2-beta
         with:
           node-version: "*"
-
+      - name: Use ssh-agent
+        run: ssh-agent -s && ssh-add ~/.ssh/id_rsa
       - name: Install dependencies
         run: yarn
         working-directory: docs
