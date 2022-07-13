@@ -10346,7 +10346,7 @@ __metadata:
     "@types/lodash.flatmap": ^4.5.6
     chalk: ^4.1.2
     clsx: ^1.1.1
-    docusaurus-plugin-matomo: ^0.0.6
+    docusaurus-plugin-matomo: "git@github.com:dumconstantin/docusaurus-plugin-matomo.git"
     lodash: ^4.17.21
     lodash.flatmap: ^4.5.0
     react: ^17.0.2
@@ -10373,12 +10373,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-plugin-matomo@npm:^0.0.6":
+"docusaurus-plugin-matomo@git@github.com:dumconstantin/docusaurus-plugin-matomo.git":
   version: 0.0.6
-  resolution: "docusaurus-plugin-matomo@npm:0.0.6"
+  resolution: "docusaurus-plugin-matomo@git@github.com:dumconstantin/docusaurus-plugin-matomo.git#commit=73375e2f146bd371c58c4010207d3df345b1abe0"
   peerDependencies:
     "@docusaurus/core": ^2.0.0-alpha.56
-  checksum: b38488ecb242e9720d047126f0abec84050e48a70acff3688b0ee5a1903e34d854235fdcec708d7f68f7c15b443b4457fb78e22bd3b0a2fcd9c905242c3099bf
+  checksum: 65800d589ad2df8577f3a92d84ed85b1954b2e71f2c83a2165f1a0aaea86a15816d8e7449ffcef5732bbbe4656bc2ab2bd485c2f8411d2905a8f8bb82d9e15dc
   languageName: node
   linkType: hard
 
