@@ -5,7 +5,6 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
-import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 
 const features = [
   {
@@ -53,31 +52,9 @@ function Feature({ imageUrl, title, description }) {
   );
 }
 
-const initTracking = () => {
-  var _paq = (window._paq = window._paq || []);
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  _paq.push(["requireCookieConsent"]);
-  (function () {
-    var u = "https://c11engine.matomo.cloud/";
-    _paq.push(["setTrackerUrl", u + "matomo.php"]);
-    _paq.push(["setSiteId", "1"]);
-    var d = document,
-      g = d.createElement("script"),
-      s = d.getElementsByTagName("script")[0];
-    g.async = true;
-    g.src = "//cdn.matomo.cloud/c11engine.matomo.cloud/matomo.js";
-    s.parentNode.insertBefore(g, s);
-  })();
-};
-
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
-  if (ExecutionEnvironment.canUseDOM) {
-    initTracking();
-  }
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}

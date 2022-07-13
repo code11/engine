@@ -10346,6 +10346,7 @@ __metadata:
     "@types/lodash.flatmap": ^4.5.6
     chalk: ^4.1.2
     clsx: ^1.1.1
+    docusaurus-plugin-matomo: ^0.0.6
     lodash: ^4.17.21
     lodash.flatmap: ^4.5.0
     react: ^17.0.2
@@ -10369,6 +10370,15 @@ __metadata:
   dependencies:
     esutils: ^2.0.2
   checksum: fd7673ca77fe26cd5cba38d816bc72d641f500f1f9b25b83e8ce28827fe2da7ad583a8da26ab6af85f834138cf8dae9f69b0cd6ab925f52ddab1754db44d99ce
+  languageName: node
+  linkType: hard
+
+"docusaurus-plugin-matomo@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "docusaurus-plugin-matomo@npm:0.0.6"
+  peerDependencies:
+    "@docusaurus/core": ^2.0.0-alpha.56
+  checksum: b38488ecb242e9720d047126f0abec84050e48a70acff3688b0ee5a1903e34d854235fdcec708d7f68f7c15b443b4457fb78e22bd3b0a2fcd9c905242c3099bf
   languageName: node
   linkType: hard
 
