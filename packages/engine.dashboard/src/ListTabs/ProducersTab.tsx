@@ -17,8 +17,9 @@ const ProducerItem: view = ({
     <Box
       borderBottom="1px solid"
       borderColor="gray.300"
-      bg={isSelected && "purple.200"}
-      p="2"
+      bg={isSelected && "gray.300"}
+      p="10px"
+      marginRight="14px"
       cursor="pointer"
       _hover={{ background: !isSelected && "gray.200" }}
       onClick={() =>
@@ -45,7 +46,7 @@ export const ProducersTab: view = ({
     return;
   }
   return (
-    <Box overflowY="scroll" h="92vh">
+    <Box overflowY="auto" h="92vh">
       <SortBar />
       {producers.map((x) => (
         <ProducerItem key={x} id={x} />

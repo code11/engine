@@ -25,38 +25,38 @@ export const App: view = ({
     <ChakraProvider>
       <SimpleGrid columns={2}>
         <Box bg="gray.100" h="100vh">
-          <Tabs
+          <Tabs pt={2} 
             onChange={(idx) => {
               updateActiveTab.set(TabsIdx[idx]);
             }}
           >
             <TabList position="relative">
-              <Tab>Structure</Tab>
-              <Tab>State</Tab>
-              <Tab>Updates</Tab>
-              <Tab>
-                Views <Tag>{viewsCount}</Tag>
+              <Tab fontWeight= "500"  _focus={{ outline: "none"}} _active={{backgroundColor: "transparent"}} fontSize= "18px">Structure</Tab>
+              <Tab fontWeight= "500" _focus={{ outline: "none"}} _active={{backgroundColor: "transparent"}} fontSize= "18px">State</Tab>
+              <Tab fontWeight= "500" _focus={{ outline: "none"}} _active={{backgroundColor: "transparent"}} fontSize= "18px"> Updates</Tab>
+              <Tab fontWeight= "500" _focus={{ outline: "none"}} _active={{backgroundColor: "transparent"}} fontSize= "18px">
+                Views <Tag px="12px" color="gray.600" backgroundColor="gray.300" marginLeft="7px" fontSize= "12px">{viewsCount}</Tag>
               </Tab>
-              <Tab>
-                Producers <Tag>{producersCount}</Tag>
+              <Tab fontWeight= "500" _focus={{ outline: "none"}} _active={{backgroundColor: "transparent"}} fontSize= "18px">
+                Producers <Tag px="12px" color="gray.600" backgroundColor="gray.300" marginLeft="7px" fontSize= "12px">{producersCount}</Tag>
               </Tab>
-              <Tab>Stats</Tab>
+              <Tab fontWeight= "500" _focus={{ outline: "none"}} _active={{backgroundColor: "transparent"}} fontSize= "18px">Stats</Tab>
             </TabList>
             <TabPanels>
               <TabPanel pr="0" pb="0">
-                <List>
-                  <Box overflowY="scroll" h="92vh">
+                <List >
+                  <Box overflowY="auto" h="92vh">
                     <StateTree data={data} />
                   </Box>
                 </List>
               </TabPanel>
               <TabPanel pr="0" pb="0">
-                <Box overflowY="scroll" h="92vh">
+                <Box overflowY="auto" h="92vh">
                   <StateTab />
                 </Box>
               </TabPanel>
               <TabPanel pr="0" pb="0">
-                <Box overflowY="scroll" h="92vh">
+                <Box overflowY="auto" h="92vh">
                   <UpdatesTab />
                 </Box>
               </TabPanel>

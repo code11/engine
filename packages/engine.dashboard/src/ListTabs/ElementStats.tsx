@@ -11,8 +11,8 @@ export const ElementStats: view = ({
   }
   return (
     <Box>
-      <Tag
-        fontWeight="bold"
+      <Tag 
+        fontWeight="600"
         color={operationColors[OperationTypes.OBSERVE]}
         align="left"
       >
@@ -20,8 +20,9 @@ export const ElementStats: view = ({
           stats[OperationTypes.OBSERVE]
         } ${OperationTypes.OBSERVE.toLocaleLowerCase()}`}
       </Tag>
-      <Tag
-        fontWeight="bold"
+      <Tag 
+        marginLeft="10px"
+        fontWeight="600"
         color={operationColors[OperationTypes.UPDATE]}
         align="left"
       >
@@ -30,7 +31,8 @@ export const ElementStats: view = ({
         } ${OperationTypes.UPDATE.toLocaleLowerCase()}`}
       </Tag>
       <Tag
-        fontWeight="bold"
+        marginLeft="10px"
+        fontWeight="600"
         color={operationColors[OperationTypes.GET]}
         align="left"
       >

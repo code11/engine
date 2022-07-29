@@ -18,7 +18,7 @@ export const ElementsSummary: view = ({
     <Stack direction="row" ml="2">
       {depsNo > 0 && (
         <>
-          <Badge
+          <Badge alignSelf="flex-start"
             variant={isDepsVisible ? "solid" : "outline"}
             colorScheme="purple"
             cursor="pointer"
