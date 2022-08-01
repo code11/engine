@@ -17,8 +17,9 @@ const ViewItem: view = ({
     <Box
       borderBottom="1px solid"
       borderColor="gray.300"
-      bg={isSelected && "purple.200"}
-      p="2"
+      bg={isSelected && "gray.300"}
+      p="10px"
+      marginRight="14px"
       cursor="pointer"
       _hover={{ background: !isSelected && "gray.200" }}
       onClick={() =>
@@ -28,7 +29,7 @@ const ViewItem: view = ({
       }
     >
       <Flex>
-        <Text>{name}</Text>
+        <Text flex="1">{name}</Text>
         <ElementStats id={id} />
       </Flex>
       <Text fontSize="xs" color="gray.600">
@@ -43,7 +44,7 @@ export const ViewsTab: view = ({ views = observe.structure.sortedByStats }) => {
     return;
   }
   return (
-    <Box overflowY="scroll" h="92vh">
+    <Box overflowY="auto" h="92vh">
       <SortBar />
       {views.map((x) => (
         <ViewItem key={x} id={x} />

@@ -48,11 +48,11 @@ export const StateTree: view = ({
             userSelect="none"
             onClick={() => updateIsBodyVisible.set(!isBodyVisible)}
           >
-            <TagLeftIcon>
+            <TagLeftIcon marginRight="4px" width="20px" height="20px">
               {!isBodyVisible && <ChevronDownIcon />}
               {isBodyVisible && <ChevronUpIcon />}
             </TagLeftIcon>
-            <TagLabel>{data.name}</TagLabel>
+            <TagLabel fontSize="16px" pt={"2px"} pb={"4px"} lineHeight="1.3">{data.name}</TagLabel>
           </Tag>
           {hasElements && (
             <ElementsSummary parentId={_viewId} elements={data.elements} />
@@ -63,6 +63,7 @@ export const StateTree: view = ({
             </Text>
           )}
         </Flex>
+        
       )}
       {!isRoot && !hasChildren && (
         <Flex mb="2">

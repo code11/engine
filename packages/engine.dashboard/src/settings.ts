@@ -1,9 +1,9 @@
 import { OperationTypes } from "@c11/engine.types";
 
 export const operationColors = {
-  [OperationTypes.OBSERVE]: "green",
-  [OperationTypes.GET]: "teal",
-  [OperationTypes.UPDATE]: "purple.600",
+  [OperationTypes.OBSERVE]: "#795366",
+  [OperationTypes.GET]: "#478196",
+  [OperationTypes.UPDATE]: "#3E8880",
 };
 
 export const TabsIdx = {

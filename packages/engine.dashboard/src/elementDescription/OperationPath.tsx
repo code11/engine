@@ -11,7 +11,7 @@ export const OperationPath = ({ name, op, selectedPath }) => {
   current.shift();
   const isSelected = selectedPath === current.join(".");
   return (
-    <Flex bg={isSelected && "purple.200"} p="2" w="full">
+    <Flex bg={isSelected && "gray.300"} p="2" w="full" flexWrap="wrap">
       <Text>{name}&nbsp;=&nbsp;</Text>
       <Text fontWeight="bold" color={operationColors[type]} align="left">
         {type && type.toLowerCase()}

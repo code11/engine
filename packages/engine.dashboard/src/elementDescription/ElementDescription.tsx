@@ -19,13 +19,14 @@ const Operations = ({ value, path, id }) => {
   return (
     <Accordion allowMultiple allowToggle key={Math.random()}>
       {Object.entries(value).map(([name, op]) => (
-        <AccordionItem key={Math.random()}>
-          <AccordionButton p="0">
-            <OperationPath
+        <AccordionItem key={Math.random()} >
+          <AccordionButton p="0" _focus={{ boxShadow: "none"}} >
+            <OperationPath 
               key={Math.random()}
               name={name}
               op={op}
               selectedPath={path}
+              
             />
             <AccordionIcon />
           </AccordionButton>
@@ -58,10 +59,14 @@ const CodeEditorComp: view = ({
   return (
     <Box mb="2">
       <Heading size="sm" mb="2">
-        <Flex alignContent="center" justifyContent="space-between">
+        <Flex mb="16px" alignItems="center" justifyContent="space-between">
           <Text>Body</Text>
-          <Button
-            colorScheme="blue"
+          <Button pb="4px"
+            variant = "outline"
+            _hover={{bg:"gray.300"}}
+            _active={{bg:"gray.300"}}
+            _focus={{outline: "none"}}
+            colorScheme="teal"
             onClick={(e) => {
               saveCode.set({
                 id,
@@ -84,6 +89,7 @@ const CodeEditorComp: view = ({
         style={{
           fontSize: 12,
           backgroundColor: "#f5f5f5",
+          borderRadius: "8px",
           fontFamily:
             "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
         }}
@@ -107,10 +113,10 @@ export const ElementDescription: view = ({
   return (
     <Box p="4" overflowY="scroll" h="100vh">
       <Box mb="4">
-        <VStack align="stretch" spacing={1} bg="gray.400" p="4">
-          <Flex>
+        <VStack align="stretch" spacing={1} bg="gray.400" p="4" borderRadius="6px" position="relative">
+          <Flex  mb="6px">
             <Text>
-              <Badge color={element.type === "view" ? "green" : "purple"}>
+              <Badge borderRadius="6px" mr="6px" px="8px" py="2px" color={element.type === "view" ? "green" : "purple"}>
                 {element.type}
               </Badge>
             </Text>
@@ -127,7 +133,7 @@ export const ElementDescription: view = ({
             position="absolute"
             colorScheme="green"
             right="3"
-            top="3"
+            top="6px"
             cursor="pointer"
           >
             Toggle V2
@@ -135,8 +141,22 @@ export const ElementDescription: view = ({
         </VStack>
       </Box>
       <Box mb="4">
-        <Heading size="sm" mb="2">
+        <Heading size="sm" mb="2" mt="8" display="flex" alignItems="center" justifyContent ="space-between">
           Header
+          <Box>
+            <Button variant="outline" ml="3" colorScheme="teal" height="30px" _hover = {{backgroundColor: "gray.300"}} _active={{bg:"gray.200"}} _focus={{ outline: "none"}}>
+              Play
+            </Button>
+            <Button variant="outline" ml="3" height="30px" colorScheme="teal" _hover = {{backgroundColor: "gray.300"}} _active={{bg:"gray.200"}} _focus={{ outline: "none"}}>
+              Pause
+            </Button>
+            <Button variant="outline" ml="3" height="30px" colorScheme="teal" _hover = {{backgroundColor: "gray.300"}} _active={{bg:"gray.200"}} _focus={{ outline: "none"}}>
+              Logging 
+            </Button>
+            <Button variant="outline" ml="3" height="30px" colorScheme="teal" _hover = {{backgroundColor: "gray.300"}} _active={{bg:"gray.200"}} _focus={{ outline: "none"}}>
+              Breakpoint
+            </Button>
+          </Box>
         </Heading>
 
         {element.params.type === OperationTypes.STRUCT && (

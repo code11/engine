@@ -53,8 +53,8 @@ const Patch: view = ({
       {patches.map((patch) => (
         <>
           <Flex alignItems="center">
-            <Badge>{patch.op}</Badge>
-            <Tag>
+            <Badge mb="10px" borderRadius="6px" py="2px" lineHeight="1.6" backgroundColor="#cbd5e0" px="8px">{patch.op}</Badge>
+            <Tag ml="10px" mb="10px" backgroundColor="#cbd5e0">
               {patch.path
                 .split("/")
                 .filter((x) => !!x)
@@ -92,8 +92,8 @@ export const UpdatesTab: view = ({
     return null;
   }
   return (
-    <Box p="1">
-      <Button colorScheme="teal" onClick={() => updatePatches.remove()}>
+    <Box pt="5px" pr="16px" display="flex"  flexDirection="column" >
+      <Button mb="16px" colorScheme="teal" variant="outline" _hover = {{backgroundColor: "gray.200"}} _active={{bg:"gray.200"}} alignSelf="flex-end" onClick={() => updatePatches.remove()}>
         Remove patches
       </Button>
       {patches.map((x) => (
