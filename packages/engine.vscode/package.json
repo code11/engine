@@ -1,0 +1,144 @@
+{
+	"name": "@c11/engine.vscode",
+	"description": "Visual Studio Code for @c11/engine.dashboard",
+	"version": "0.0.1",
+	"private": true,
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.47.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "engine.dashboard.start",
+				"title": "Start engine dashboard",
+				"category": "Engine Dashboard"
+			},
+			{
+				"command": "extension.refreshButtons",
+				"title": "Refresh Action Buttons"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "VsCode Action Buttons",
+			"properties": {
+				"actionButtons": {
+					"type": "object",
+					"additionalProperties": false,
+					"default": {
+						"commands": [],
+						"defaultColor": "white",
+						"reloadButton": "↻",
+						"loadNpmCommands": false
+					},
+					"properties": {
+						"commands": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"additionalProperties": false,
+								"required": [
+									"name",
+									"command"
+								],
+								"properties": {
+									"name": {
+										"type": "string",
+										"markdownDescription": "Name of the action button"
+									},
+									"saveAll": {
+										"type": "boolean",
+										"markdownDescription": "Save all open files before execute command"
+									},
+									"command": {
+										"type": "string",
+										"markdownDescription": "Command to execute when action is activated.\n\nIf `useVsCodeApi` is `true`, this is the VS Code command to execute. Otherwise, this specifies the command to execute in the terminal"
+									},
+									"tooltip": {
+										"type": "string",
+										"markdownDescription": "Tooltip text to display when hovering over the button"
+									},
+									"color": {
+										"type": "string",
+										"markdownDescription": "Specifies the action button text color"
+									},
+									"cwd": {
+										"type": "string",
+										"markdownDescription": "Start directory when executing terminal command\n\nOnly valid when `useVsCodeApi` is `false`"
+									},
+									"singleInstance": {
+										"type": "boolean",
+										"default": false,
+										"markdownDescription": "Reopen associated terminal each time this action is activated\n\nOnly valid when `useVsCodeApi` is `false`"
+									},
+									"focus": {
+										"type": "boolean",
+										"default": false,
+										"markdownDescription": "Focus the terminal after executing the command.\n\nOnly valid when `useVsCodeApi` is `false`"
+									},
+									"useVsCodeApi": {
+										"type": "boolean",
+										"default": false,
+										"markdownDescription": "Specifies whether to execute a VS Code command or terminal command"
+									},
+									"args": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										},
+										"default": [],
+										"markdownDescription": "List of arguments passed to VS Code command\n\nOnly valid when `useVsCodeApi` is `true`"
+									}
+								}
+							}
+						},
+						"defaultColor": {
+							"type": "string",
+							"required": false,
+							"default": "white",
+							"markdownDescription": "Default color to use for action button text"
+						},
+						"reloadButton": {
+							"type": [
+								"string",
+								"null"
+							],
+							"required": false,
+							"default": "↻",
+							"markdownDescription": "Reload button text. If `null`, button is disabled"
+						},
+						"loadNpmCommands": {
+							"type": "boolean",
+							"required": false,
+							"default": false,
+							"markdownDescription": "Specifies whether to automatically generate buttons from npm commands listed in `package.json`"
+						}
+					}
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint . --ext .ts,.tsx",
+		"watch": "tsc -w -p ./"
+	},
+	"devDependencies": {
+		"@types/node": "^16.11.7",
+		"@types/vscode": "^1.47.0",
+		"@types/vscode-webview": "^1.57.0",
+		"@typescript-eslint/eslint-plugin": "^5.30.0",
+		"@typescript-eslint/parser": "^5.30.0",
+		"eslint": "^8.13.0",
+		"typescript": "^4.7.2"
+	}
+}
