@@ -8,13 +8,10 @@ export const childrenSerializer: ValueSerializer = {
   serializer: (value) => {
     if (
       value instanceof Array &&
-      value.includes((x: any) => !isValidElement(x))
+      value.find((x: any) => isValidElement(x)) ||
+      isValidElement(value)
     ) {
-      return;
-    } else if (!isValidElement(value)) {
-      return;
+      return JSON.stringify(value, circular());
     }
-    const result = JSON.stringify(value, circular());
-    return result;
   },
 };
