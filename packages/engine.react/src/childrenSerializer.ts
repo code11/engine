@@ -7,11 +7,11 @@ export const childrenSerializer: ValueSerializer = {
   name: "children",
   serializer: (value) => {
     if (
-      value instanceof Array &&
-      value.find((x: any) => isValidElement(x)) ||
+      (value instanceof Array && value.find((x: any) => isValidElement(x))) ||
       isValidElement(value)
     ) {
       return JSON.stringify(value, circular());
     }
+    return;
   },
 };
