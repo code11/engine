@@ -2,8 +2,6 @@ module.exports = function (context) {
   const { siteConfig } = context; // Siteconfig is the content of docusaurus.config.js
   const { themeConfig } = siteConfig;
 
-  console.log("there is a window ");
-
   return {
     name: "docusaurus-piwik",
     injectHtmlTags: () => {
