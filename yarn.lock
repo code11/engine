@@ -1659,15 +1659,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@c11/docusaurus-plugin-matomo@npm:^0.0.6":
-  version: 0.0.6
-  resolution: "@c11/docusaurus-plugin-matomo@npm:0.0.6"
-  peerDependencies:
-    "@docusaurus/core": ^2.0.0-alpha.56
-  checksum: 8cc636a607e6f2eb4314a6447916ceff2ac3ca8acbf3567d9beefd8812731391894739ac5f82538cc1434db577d91ff220dd3119e5bbb60ba69e727cff0e71c2
-  languageName: node
-  linkType: hard
-
 "@c11/engine.babel-plugin-hmr@4.0.0-alpha.111, @c11/engine.babel-plugin-hmr@workspace:packages/engine.babel-plugin-hmr":
   version: 0.0.0-use.local
   resolution: "@c11/engine.babel-plugin-hmr@workspace:packages/engine.babel-plugin-hmr"
@@ -1751,10 +1742,10 @@ __metadata:
     "@babel/preset-typescript": ^7.16.7
     "@babel/runtime": ^7.17.9
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.111
-    "@c11/engine.patterns": 4.0.0-alpha.113
-    "@c11/engine.react": 4.0.0-alpha.113
+    "@c11/engine.patterns": 4.0.0-alpha.115
+    "@c11/engine.react": 4.0.0-alpha.115
     "@c11/engine.runtime": 4.0.0-alpha.113
-    "@c11/engine.service-web": 4.0.0-alpha.113
+    "@c11/engine.service-web": 4.0.0-alpha.115
     "@c11/engine.types": 4.0.0-alpha.111
     "@c11/engine.utils": 4.0.0-alpha.111
     "@chakra-ui/icons": ^1.1.7
@@ -1848,7 +1839,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.patterns@4.0.0-alpha.113, @c11/engine.patterns@workspace:packages/engine.patterns":
+"@c11/engine.patterns@4.0.0-alpha.115, @c11/engine.patterns@workspace:packages/engine.patterns":
   version: 0.0.0-use.local
   resolution: "@c11/engine.patterns@workspace:packages/engine.patterns"
   dependencies:
@@ -1861,7 +1852,7 @@ __metadata:
     "@babel/preset-typescript": ^7.16.7
     "@babel/runtime": ^7.17.9
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.111
-    "@c11/engine.react": 4.0.0-alpha.113
+    "@c11/engine.react": 4.0.0-alpha.115
     "@c11/engine.runtime": 4.0.0-alpha.113
     "@c11/engine.types": 4.0.0-alpha.111
     "@c11/engine.utils": 4.0.0-alpha.111
@@ -1915,7 +1906,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.react@4.0.0-alpha.113, @c11/engine.react@workspace:packages/engine.react":
+"@c11/engine.react@4.0.0-alpha.115, @c11/engine.react@workspace:packages/engine.react":
   version: 0.0.0-use.local
   resolution: "@c11/engine.react@workspace:packages/engine.react"
   dependencies:
@@ -1969,7 +1960,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.service-web@4.0.0-alpha.113, @c11/engine.service-web@workspace:packages/engine.service-web":
+"@c11/engine.service-web@4.0.0-alpha.115, @c11/engine.service-web@workspace:packages/engine.service-web":
   version: 0.0.0-use.local
   resolution: "@c11/engine.service-web@workspace:packages/engine.service-web"
   dependencies:
@@ -1983,7 +1974,7 @@ __metadata:
     "@babel/runtime": ^7.17.9
     "@c11/engine.babel-plugin-hmr": 4.0.0-alpha.111
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.111
-    "@c11/engine.react": 4.0.0-alpha.113
+    "@c11/engine.react": 4.0.0-alpha.115
     "@c11/engine.runtime": 4.0.0-alpha.113
     "@c11/engine.utils": 4.0.0-alpha.111
     "@schemastore/package": ^0.0.6
@@ -2052,7 +2043,7 @@ __metadata:
     "@babel/preset-react": ^7.16.7
     "@babel/preset-typescript": ^7.16.7
     "@c11/engine.babel-plugin-syntax": 4.0.0-alpha.111
-    "@c11/engine.react": 4.0.0-alpha.113
+    "@c11/engine.react": 4.0.0-alpha.115
     "@c11/engine.runtime": 4.0.0-alpha.113
     "@c11/engine.types": 4.0.0-alpha.111
     "@types/jest": ^26.0.24
@@ -10348,7 +10339,6 @@ __metadata:
   resolution: "docs@workspace:docs"
   dependencies:
     "@babel/runtime": ^7.17.9
-    "@c11/docusaurus-plugin-matomo": ^0.0.6
     "@docusaurus/core": 2.0.0-beta.18
     "@docusaurus/preset-classic": 2.0.0-beta.18
     "@mdx-js/react": ^1.6.22

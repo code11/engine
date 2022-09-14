@@ -8,15 +8,8 @@ module.exports = {
   favicon: "img/favicon.ico",
   organizationName: "code11", // Usually your GitHub org/user name.
   projectName: "engine", // Usually your repo name.
-  plugins: ["@c11/docusaurus-plugin-matomo"],
+  plugins: ["./src/plugins/piwik"],
   themeConfig: {
-    matomo: {
-      matomoUrl: "https://c11engine.matomo.cloud/",
-      siteId: "1",
-      phpLoader: "matomo.php",
-      jsLoader: "matomo.js",
-      tracking: [["requireCookieConsent"]],
-    },
     algolia: {
       // The application ID provided by Algolia
       appId: "HE3PF3HKN4",
