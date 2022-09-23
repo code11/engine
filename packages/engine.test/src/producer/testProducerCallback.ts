@@ -1,7 +1,11 @@
 import { mockProps } from "./mockProps";
 import { validateResults } from "./validateResults";
 
-export const testProducerCallback = (producer, values, expectations) => {
+export const testProducerCallback = (
+  producer: any,
+  values: any,
+  expectations: any
+) => {
   return () => {
     jest.useFakeTimers("legacy");
 

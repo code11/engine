@@ -1,7 +1,8 @@
 import { OperationTypes, ProducerConfig } from "@c11/engine.types";
 
 export const mockProps = (
-  producer: ProducerConfig,
+  // producer: ProducerConfig,
+  producer: any,
   values: { [k: string]: any }
 ) => {
   const props = producer.props.value;

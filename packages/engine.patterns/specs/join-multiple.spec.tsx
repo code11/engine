@@ -5,19 +5,20 @@ import { render } from "@c11/engine.react";
 import { join } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setTimeout);
+  return new Promise(nextTick);
 };
-
-jest.useFakeTimers();
-
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 // @ts-ignore
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support join() with multiple views and producers", (done) => {
+test("should support join() with multiple views and producers", async () => {
   const fooValue = "123";
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
@@ -45,14 +46,12 @@ test("should support join() with multiple views and producers", (done) => {
 
   app.start();
 
-  flushPromises();
   jest.runAllTimers();
-  flushPromises();
-  waitFor(() => getByTestId(document.body, "bar")).then((x) => {
+  await flushPromises();
+  await waitFor(() => getByTestId(document.body, "bar")).then(async (x) => {
     expect(x.innerHTML).toBe(fooValue);
-    waitFor(() => getByTestId(document.body, "baz")).then((x) => {
+    await waitFor(() => getByTestId(document.body, "baz")).then((x) => {
       expect(x.innerHTML).toBe(fooValue);
-      done();
     });
   });
 });

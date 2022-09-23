@@ -1,5 +1,5 @@
 import "./global.ts";
-import { testProducer } from "../src/index";
+import { testProducer } from "../src";
 
 const foo: producer = ({ bam = observe.bam, baz = update.baz }) => {
   if (!bam) {

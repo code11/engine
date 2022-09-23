@@ -4,17 +4,20 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should not clone children", async (done) => {
+test("Should not clone children", async () => {
   const val = "321";
   const defaultState = {
     baz: "123",
@@ -47,11 +50,10 @@ test("Should not clone children", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
+  await waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     const button = getByTestId(document.body, "change-baz");
     fireEvent.click(button);
     jest.runAllTimers();
     expect(refs[0]).toBe(refs[refs.length - 1]);
-    done();
   });
 });

@@ -4,17 +4,20 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should provide private helper props", async (done) => {
+test("should provide private helper props", async () => {
   const defaultState = {
     foo: "123",
   };
@@ -52,7 +55,7 @@ test("should provide private helper props", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "bar")).then((x) => {
+  await waitFor(() => getByTestId(document.body, "bar")).then((x) => {
     expect(childProps).toBeDefined();
     expect(childViewId).toBeDefined();
     expect(childNow).toBeDefined();
@@ -61,6 +64,5 @@ test("should provide private helper props", async (done) => {
       foo: "123",
     });
     expect(childNow()).toEqual(expect.any(Number));
-    done();
   });
 });

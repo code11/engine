@@ -1,7 +1,8 @@
 import { ProducerConfig } from "@c11/engine.types";
 
 export const validateResults = (
-  producer: ProducerConfig,
+  // producer: ProducerConfig,
+  producer: any,
   mockMap: any,
   expectations: any
 ) => {
@@ -16,6 +17,7 @@ export const validateResults = (
       case "UPDATE":
         if (expectations[key]) {
           Object.keys(expectations[key]).forEach((verb) => {
+            //@ts-ignore
             expect(mockMap[key][verb].mock.calls).toMatchExpectations(
               expectations[key][verb]
             );

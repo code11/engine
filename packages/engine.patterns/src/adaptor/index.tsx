@@ -62,7 +62,7 @@ export const adaptor = (
     }
     render() {
       this.syncProps(this.props);
-      return <div ref={this.mountRef}>mount here</div>;
+      return <div ref={this.mountRef}></div>;
     }
   };
 };

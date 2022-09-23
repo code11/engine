@@ -4,11 +4,14 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers, wildcard } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 // @ts-ignore
 
@@ -16,7 +19,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test.skip("should support wildcard", async (done) => {
+test.skip("should support wildcard", async () => {
   const defaultState = {};
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
@@ -44,9 +47,8 @@ test.skip("should support wildcard", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
+  await waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe("321");
     expect(x.getAttribute("data-id")).toBe("xyz");
-    done();
   });
 });

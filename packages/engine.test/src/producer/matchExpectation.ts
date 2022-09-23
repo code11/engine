@@ -1,5 +1,5 @@
-export const matchExpectation = (utils) => {
-  return (mockCalls, verbExpectations) => {
+export const matchExpectation = (utils: any) => {
+  return (mockCalls: any, verbExpectations: any) => {
     const isLonger = mockCalls.length !== verbExpectations.length;
 
     if (isLonger)

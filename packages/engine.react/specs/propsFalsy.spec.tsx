@@ -4,19 +4,21 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 // @ts-ignore
-
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should pass falsy values as well", async (done) => {
+test("Should pass falsy values as well", async () => {
   const val = "321";
   const defaultState = {
     foo: true,
@@ -47,7 +49,7 @@ test("Should pass falsy values as well", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
+  await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(x.dataset.value).toBe("true");
     const button = getByTestId(document.body, "button");
     fireEvent.click(button);
@@ -55,6 +57,5 @@ test("Should pass falsy values as well", async (done) => {
     await flushPromises();
     const newFoo = getByTestId(document.body, "foo");
     expect(newFoo.dataset.value).toBe("false");
-    done();
   });
 });

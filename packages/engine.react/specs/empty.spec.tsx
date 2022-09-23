@@ -4,17 +4,20 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should load an empty component", async (done) => {
+test("should load an empty component", async () => {
   const defaultState = {};
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
@@ -31,8 +34,7 @@ test("should load an empty component", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
+  await waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe("foo");
-    done();
   });
 });

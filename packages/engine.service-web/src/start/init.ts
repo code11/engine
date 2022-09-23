@@ -176,6 +176,8 @@ export const init: producer = async ({
             {
               loader: require.resolve("babel-loader"),
               options: {
+                configFile: false,
+                babelrc: false,
                 cacheDirectory: exportAppStructure.value() ? false : true,
                 comments: false,
                 minified: false,
@@ -198,6 +200,8 @@ export const init: producer = async ({
             {
               loader: require.resolve("babel-loader"),
               options: {
+                configFile: false,
+                babelrc: false,
                 cacheDirectory: exportAppStructure.value() ? false : true,
                 comments: false,
                 minified: false,

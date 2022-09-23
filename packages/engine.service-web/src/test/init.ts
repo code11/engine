@@ -15,6 +15,6 @@ export const init: producer = ({
     return;
   }
   spawn(
-    `cd ${commandPath.value()} && jest --clearCache && jest --config ./jest.config.js --runTestsByPath ./src/**/*`
+    `cd ${commandPath.value()} && jest --config ./jest.config.js --runTestsByPath ./src/**/*`
   );
 };

@@ -6,6 +6,7 @@
   "keywords": [],
   "workspaces": [
     "packages/*",
+    "nm-packages/*",
     "docs"
   ],
   "author": {
@@ -13,22 +14,25 @@
     "email": "dum.constantin@gmail.com"
   },
   "resolutions": {
-    "@types/react": "^16.9.55"
+    "@types/react": "^17.0.2"
   },
   "scripts": {
-    "clean": "rm -r packages/*/dist || true && rm -r packages/*/node_modules || true",
+    "clean": "yarn run clean:dist || true && yarn run clean:node_modules || true && yarn run clean:nm-node_modules || true",
+    "clean:dist": "rm -r packages/*/dist",
+    "clean:node_modules": "rm -r packages/*/node_modules",
+    "clean:nm-node_modules": "rm -r nm-packages/*/node_modules",
     "build:engine": "lerna run build",
     "build:engine:dependent": "lerna run build --include-filtered-dependencies",
     "describe": "npm-scripts-info",
     "commit": "git-cz",
     "test": "yarn workspaces foreach run test",
     "merge:coverage": "istanbul-merge --out coverage/coverage-final.json \"packages/**/coverage/**.json\"",
-    "release": "yarn build && yarn test",
+    "release": "yarn clean && yarn setup && yarn ./packages/engine.utils run build && yarn build --exclude @c11/engine.utils && yarn test",
     "version:lerna": "lerna version --conventional-commits --exact",
     "publish": "lerna publish from-package",
     "publish:local": "lerna publish from-package --registry http://localhost:4873",
     "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\"",
-    "update:minor": "lerna exec -- ncu --target minor -u"
+    "setup": "yarn install && yarn ./nm-packages/engine.dashboard"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -47,37 +51,19 @@
     "node": ">=16.13.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.9",
-    "@babel/plugin-proposal-class-properties": "^7.16.7",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "@babel/types": "^7.17.0",
-    "@types/eslint": "^8",
-    "@types/jest": "^28.1.1",
-    "@types/lodash": "^4.14.181",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
-    "babel-jest": "^26.6.3",
-    "babel-plugin-macros": "^3.1.0",
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.2.5",
     "conventional-changelog-cli": "^2.2.2",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.12.0",
-    "eslint-plugin-react": "^7.29.4",
+    "eslint": "^8.24.0",
+    "eslint-plugin-react": "^7.31.8",
     "istanbul-merge": "^1.1.1",
-    "jest": "^26.6.3",
-    "lerna": "^4.0.0",
-    "npm-check-updates": "^12.5.8",
-    "prettier": "^2.6.2",
-    "ts-jest": "^26.5.6",
-    "typescript": "4.6.3"
+    "lerna": "^5.5.4",
+    "prettier": "^2.7.1"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
-  "packageManager": "yarn@3.2.3"
+  "packageManager": "yarn@4.0.0-rc.22"
 }

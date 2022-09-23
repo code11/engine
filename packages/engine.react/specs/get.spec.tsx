@@ -4,11 +4,14 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 // @ts-ignore
 
@@ -16,7 +19,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Expect to call using only get", async (done) => {
+test("Expect to call using only get", async () => {
   const defaultState = {
     foo: "123",
   };
@@ -37,8 +40,7 @@ test("Expect to call using only get", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "foo")).then((x) => {
+  await waitFor(() => getByTestId(document.body, "foo")).then((x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
-    done();
   });
 });

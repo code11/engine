@@ -9,6 +9,7 @@ type testViewProps = {
   state: {
     [k: string]: any;
   };
+  //@ts-ignore
   view: ViewFn;
   props: {
     [k: string]: any;

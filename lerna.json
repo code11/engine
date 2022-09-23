@@ -1,7 +1,5 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*", "nm-packages/*"],
   "npmClient": "yarn",
   "version": "4.0.0-alpha.115",
   "useWorkspaces": true,

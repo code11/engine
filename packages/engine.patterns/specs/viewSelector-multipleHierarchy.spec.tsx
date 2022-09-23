@@ -5,11 +5,13 @@ import { render } from "@c11/engine.react";
 import { viewSelector } from "../src";
 import { engine, path } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
-
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 // @ts-ignore
 
@@ -17,7 +19,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support viewSelector() with multiple hierarchy", async (done) => {
+test("should support viewSelector() with multiple hierarchy", async () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
@@ -109,25 +111,28 @@ test("should support viewSelector() with multiple hierarchy", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, Ids.A)).then(async (x) => {
+  await waitFor(() => getByTestId(document.body, Ids.A)).then(async (x) => {
     expect(x.innerHTML).toBe(Ids.A);
-
     _updateParent.set({
       loadB: true,
     });
-    waitFor(() => getByTestId(document.body, Ids.B)).then(async (x) => {
-      waitFor(() => getByTestId(document.body, ChildIds.D)).then(async (x) => {
-        expect(x.innerHTML).toBe(ChildIds.D);
+    jest.runAllTimers();
+    await flushPromises();
+    await waitFor(() => getByTestId(document.body, Ids.B)).then(async (x) => {
+      await waitFor(() => getByTestId(document.body, ChildIds.D)).then(
+        async (x) => {
+          expect(x.innerHTML).toBe(ChildIds.D);
 
-        _updateChildData({ load: ChildIds.C });
-
-        waitFor(() => getByTestId(document.body, ChildIds.C)).then(
-          async (x) => {
-            expect(x.innerHTML).toBe(ChildIds.C);
-            done();
-          }
-        );
-      });
+          _updateChildData({ load: ChildIds.C });
+          jest.runAllTimers();
+          await flushPromises();
+          await waitFor(() => getByTestId(document.body, ChildIds.C)).then(
+            async (x) => {
+              expect(x.innerHTML).toBe(ChildIds.C);
+            }
+          );
+        }
+      );
     });
   });
 });

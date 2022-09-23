@@ -7,7 +7,7 @@ import { validateResults } from "./validateResults";
 
 describe("testProducerCallback", () => {
   test("it calls the helpers correctly", () => {
-    mockProps.mockReturnValue({ just: "a test" });
+    // mockProps.mockReturnValue({ just: "a test" });
 
     const producer = {};
     const values = { foo: "bar" };

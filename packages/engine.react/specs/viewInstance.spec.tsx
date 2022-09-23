@@ -4,17 +4,20 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers, path } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should create a state instance for a view", async (done) => {
+test("should create a state instance for a view", async () => {
   const defaultState = {
     foo: "123",
   };
@@ -79,7 +82,7 @@ test("should create a state instance for a view", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "baz")).then(async (x) => {
+  await waitFor(() => getByTestId(document.body, "baz")).then(async (x) => {
     const parentView = get(path.views[parentViewId]).value();
     const childView = get(path.views[childViewId]).value();
     const childView2 = get(path.views[childView2Id]).value();
@@ -107,8 +110,6 @@ test("should create a state instance for a view", async (done) => {
 
     jest.runAllTimers();
     await flushPromises();
-
     expect(get(path.views).value()).toEqual({});
-    done();
   });
 });

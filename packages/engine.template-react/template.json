@@ -3,8 +3,8 @@
   "package": {
     "dependencies": {
       "@c11/engine.react": "^4.0.0-alpha.113",
-      "react": "^17.0.1",
-      "react-dom": "^17.0.1"
+      "react": "^17.0.2",
+      "react-dom": "^17.0.2"
     },
     "devDependencies": {
       "tailwindcss": "^2.2.15"

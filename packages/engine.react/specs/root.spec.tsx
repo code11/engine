@@ -4,14 +4,16 @@ import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 import { waitFor, getByTestId } from "@testing-library/react";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 // @ts-ignore
-
 beforeEach(() => {
   document.body.innerHTML = "";
 });

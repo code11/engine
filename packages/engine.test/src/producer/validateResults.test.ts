@@ -6,6 +6,7 @@ describe("validateResults", () => {
 
     //no way to remove the extended, but you can overwrite it
     expect.extend({
+      //@ts-ignore
       toMatchExpectations(mockCalls, verbExpectations) {
         return {
           pass: true,

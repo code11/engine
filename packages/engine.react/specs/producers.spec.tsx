@@ -4,11 +4,14 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 // @ts-ignore
 
@@ -16,7 +19,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Should mount and unmount producers attached to a component", async (done) => {
+test("Should mount and unmount producers attached to a component", async () => {
   const defaultState = {
     foo: "123",
     shouldMountChild: true,
@@ -78,8 +81,7 @@ test("Should mount and unmount producers attached to a component", async (done) 
 
   jest.runAllTimers();
   await flushPromises();
-
-  waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
+  await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(bar).toBe("123");
     expect(baz).toBe("123");
     mountFn(false);
@@ -89,6 +91,5 @@ test("Should mount and unmount producers attached to a component", async (done) 
     jest.runAllTimers();
     await flushPromises();
     expect(bar).toBe("123");
-    done();
   });
 });

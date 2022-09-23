@@ -3,6 +3,8 @@ import { parse, traverse, types as t } from "@babel/core";
 import { EngineKeywords, StructOperation } from "@c11/engine.types";
 import { paramParser } from "@c11/engine.babel-plugin-syntax";
 
+//TODO: rename as @c11/engine.babel-engine-types
+
 const compileParams = (params: StructOperation) => {
   /*
           import { State } from "somewhere"

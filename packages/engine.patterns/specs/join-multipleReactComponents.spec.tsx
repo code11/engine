@@ -5,11 +5,13 @@ import { render } from "@c11/engine.react";
 import { join } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
-
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 // @ts-ignore
 
@@ -17,7 +19,7 @@ beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("should support join() with multiple react components", async (done) => {
+test("should support join() with multiple react components", async () => {
   const rootEl = document.createElement("div");
   rootEl.setAttribute("id", "root");
   document.body.appendChild(rootEl);
@@ -31,11 +33,12 @@ test("should support join() with multiple react components", async (done) => {
     use: [render(<Component value="123" />, rootEl)],
   });
   app.start();
-  waitFor(() => getByTestId(document.body, "a")).then((x) => {
+  jest.runAllTimers();
+  await flushPromises();
+  await waitFor(() => getByTestId(document.body, "a")).then(async (x) => {
     expect(x.innerHTML).toBe("123");
-    waitFor(() => getByTestId(document.body, "b")).then((x) => {
+    await waitFor(() => getByTestId(document.body, "b")).then((x) => {
       expect(x.innerHTML).toBe("123");
-      done();
     });
   });
 });

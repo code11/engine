@@ -1,11 +1,14 @@
 import { EventNames } from "@c11/engine.types";
 import { engine, producers } from "../src";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 const extractEvents = (...fn) => {
   return fn.reduce((acc, x) => {

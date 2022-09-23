@@ -2,7 +2,7 @@
 
 // @TODO: Add test when a listener cache returns undefined
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers();
 
 const isObjectLike = require("lodash/isObjectLike");
 const isArray = require("lodash/isArray");
@@ -26,13 +26,9 @@ const additionalProps = ["err"];
 
 // tests = tests.filter(x => x.comment === 'Two dynamic nodes with two paths')
 
-require("setimmediate");
-
 const delayed = (fn) => {
   return new Promise((resolve) => {
-    setImmediate(() => {
-      resolve(fn());
-    });
+    resolve(fn());
   });
 };
 

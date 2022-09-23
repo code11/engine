@@ -2,4 +2,6 @@ package.json
 docs/build
 packages/**/dist/
 packages/**/coverage/
+nm-packages/**/coverage/
+nm-packages/**/dist/
 .*

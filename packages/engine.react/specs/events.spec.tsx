@@ -1,14 +1,18 @@
 import React from "react";
-import isFunction from "lodash/isFunction";
 import { waitFor, getByTestId } from "@testing-library/react";
 import { EventNames } from "@c11/engine.types";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
 
+const nextTick = process.nextTick;
 const flushPromises = () => {
-  return new Promise(setImmediate);
+  return new Promise(nextTick);
 };
+
+jest.useFakeTimers({
+  doNotFake: ["nextTick"],
+});
 
 const extractEvents = (...fn) => {
   return fn.reduce((acc, x) => {
@@ -17,13 +21,11 @@ const extractEvents = (...fn) => {
   }, []);
 };
 
-jest.useFakeTimers("legacy");
-
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 
-test("Simple load of a react component", async (done) => {
+test("Simple load of a react component", async () => {
   const defaultState = {
     foo: "123",
   };
@@ -47,7 +49,7 @@ test("Simple load of a react component", async (done) => {
 
   jest.runAllTimers();
   await flushPromises();
-  waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
+  await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(x.innerHTML).toBe(defaultState.foo);
     app.stop();
     jest.runAllTimers();
@@ -73,6 +75,5 @@ test("Simple load of a react component", async (done) => {
       EventNames.MODULE_UNMOUNTED,
       EventNames.ENGINE_STOPPED,
     ]);
-    done();
   });
 });

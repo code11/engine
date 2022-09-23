@@ -10,6 +10,8 @@ import * as Babel from "@babel/core";
 import { VariableDeclaratorVisitor } from "./visitors";
 
 export const withOutput: PluginType = (babel, state) => {
+  //TODO: move the .app-structure.json in node_modules/cache to avoid
+  // contaminating the app folder
   const outputFile = ".app-structure.json";
   const cache = new Map<string, FileOutput>();
   let rootPath: string;
