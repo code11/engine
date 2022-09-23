@@ -1840,7 +1840,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.macro@4.0.0-alpha.111, @c11/engine.macro@workspace:packages/engine.macro":
+"@c11/engine.macro@workspace:packages/engine.macro":
   version: 0.0.0-use.local
   resolution: "@c11/engine.macro@workspace:packages/engine.macro"
   dependencies:
@@ -9459,17 +9459,6 @@ __metadata:
   checksum: 4be63e7117955fd88333d7460e4c466a90f556df6ef34efd59034d2463484e339666c41f02b523d574a797ec61f4a91918c5b89a316db2ea2f834e0d2d09465b
   languageName: node
   linkType: hard
-
-"cra-template-engine@workspace:packages/cra-template-engine":
-  version: 0.0.0-use.local
-  resolution: "cra-template-engine@workspace:packages/cra-template-engine"
-  dependencies:
-    "@c11/engine.db": 4.0.0-alpha.111
-    "@c11/engine.macro": 4.0.0-alpha.111
-    "@c11/engine.runtime": 4.0.0-alpha.113
-    "@c11/engine.types": 4.0.0-alpha.111
-  languageName: unknown
-  linkType: soft
 
 "create-error-class@npm:^3.0.0":
   version: 3.0.2
