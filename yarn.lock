@@ -17724,7 +17724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:14.8.2, nx@npm:>=14.8.1 < 16":
+"nx@npm:14.8.2, nx@npm:>=14.8.1 < 16, nx@npm:^14.8.2":
   version: 14.8.2
   resolution: "nx@npm:14.8.2"
   dependencies:
@@ -21069,6 +21069,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.8"
     istanbul-merge: "npm:^1.1.1"
     lerna: "npm:^5.5.4"
+    nx: "npm:^14.8.2"
     prettier: "npm:^2.7.1"
   languageName: unknown
   linkType: soft
