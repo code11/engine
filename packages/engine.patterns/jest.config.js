@@ -7,6 +7,7 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testRegex: "(/(src|specs)/.*(\\.|/)(test|spec))\\.(ts|js)x?$",
   coverageDirectory: "coverage",
+  coverageProvider: "v8",
   transformIgnorePatterns: [],
   // collectCoverageFrom: [
   //   "packages/*/src/**/*.{ts,tsx,js,jsx}",

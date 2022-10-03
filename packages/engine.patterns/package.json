@@ -12,7 +12,7 @@
     "build": "echo \"package should be used as is - without build\"",
     "test:simple": "jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/*",
     "test:coverage": "jest --runInBand --config ./jest.config.js --coverageDirectory='./coverage' --collectCoverage --collectCoverageFrom='[\"./src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
-    "test": "yarn run test:simple"
+    "test": "yarn run test:coverage"
   },
   "peerDependencies": {
     "react": ">=16"
