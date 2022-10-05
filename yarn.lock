@@ -21148,6 +21148,7 @@ __metadata:
     lerna: "npm:^5.5.4"
     nx: "npm:^14.8.2"
     prettier: "npm:^2.7.1"
+    typescript: "npm:^4.8.4"
   languageName: unknown
   linkType: soft
 
@@ -23164,7 +23165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.8.4, typescript@npm:^3 || ^4, typescript@npm:^4.4.3":
+"typescript@npm:4.8.4, typescript@npm:^3 || ^4, typescript@npm:^4.4.3, typescript@npm:^4.8.4":
   version: 4.8.4
   resolution: "typescript@npm:4.8.4"
   bin:
@@ -23184,7 +23185,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^3 || ^4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.4.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^3 || ^4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.4.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.8.4#optional!builtin<compat/typescript>":
   version: 4.8.4
   resolution: "typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"
   bin:
