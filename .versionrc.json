@@ -5,7 +5,7 @@
     { "type": "feat", "section": "Features", "hidden": false },
     { "type": "fix", "section": "Bug Fixes", "hidden": false },
     {
-      "type": "improvement",
+      "type": "improv",
       "section": "Feature Improvements",
       "hidden": false
     },
