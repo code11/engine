@@ -4,6 +4,7 @@ import {
   GetOperation,
   OperationParams,
   ProducerContext,
+  GetValueMethods,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
 import isString from "lodash/isString";
@@ -65,9 +66,9 @@ export const getOperation = (
   // getFoo.is({ type: object, properties: { foo: { type: string }}}}) // schema
 
   const operation = {
-    value,
-    includes,
-    length,
+    [GetValueMethods.VALUE]: value,
+    [GetValueMethods.INCLUDES]: includes,
+    [GetValueMethods.LENGTH]: length,
     __operation__: {
       id: randomId(),
       symbol: GetOperationSymbol,
