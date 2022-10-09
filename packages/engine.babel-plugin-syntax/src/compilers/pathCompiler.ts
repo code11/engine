@@ -27,6 +27,20 @@ export const pathCompiler = (
     } else if (x.type === ValueTypes.INVOKE) {
       const path = x.path.map((y: string) => t.stringLiteral(y));
       value = t.objectProperty(t.identifier("path"), t.arrayExpression(path));
+    } else if (x.type === ValueTypes.REFINEE) {
+      const method = t.objectProperty(
+        t.identifier("method"),
+        t.stringLiteral(x.value.method)
+      );
+      const args = t.objectProperty(
+        t.identifier("args"),
+        t.stringLiteral("wip")
+        // t.arrayExpression(x.value.args)
+      );
+      value = t.objectProperty(
+        t.identifier("value"),
+        t.objectExpression([method, args])
+      );
     }
     return t.objectExpression([type, value]);
   });

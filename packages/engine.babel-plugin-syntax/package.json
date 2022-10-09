@@ -6,7 +6,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test:simple": "NODE_ENV=test jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/producer*",
+    "test:simple": "NODE_ENV=test jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/api*",
     "test:update": "jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
     "test:coverage": "jest --runInBand --config ./jest.config.js --coverageDirectory='./coverage' --collectCoverage --collectCoverageFrom='[\"./src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
     "test": "yarn run test:coverage"

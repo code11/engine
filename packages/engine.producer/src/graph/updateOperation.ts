@@ -7,7 +7,7 @@ import {
   EventNames,
   OperationTypes,
   UpdateValue,
-  UpdateValueMethods,
+  UpdateMethods,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
 import isArray from "lodash/isArray";
@@ -24,7 +24,7 @@ export const updateOperation = (
   const operationId = randomId();
   //TODO: figure out how to infer the cb using typescript from
   // name
-  const wrapUpdate = (name: UpdateValueMethods, cb: any) => {
+  const wrapUpdate = (name: UpdateMethods, cb: any) => {
     return (...args: any[]) => {
       const patch = cb.apply(null, args);
       if (emit && patch) {
@@ -40,7 +40,7 @@ export const updateOperation = (
   };
 
   const set = wrapUpdate(
-    UpdateValueMethods.SET,
+    UpdateMethods.set,
     (value: any, params: OperationParams) => {
       const path = getInvokablePath(structure, op, params);
       if (path) {
@@ -57,7 +57,7 @@ export const updateOperation = (
   );
 
   const merge = wrapUpdate(
-    UpdateValueMethods.MERGE,
+    UpdateMethods.merge,
     (value: any, params: OperationParams) => {
       const path = getInvokablePath(structure, op, params);
       if (path) {
@@ -83,24 +83,21 @@ export const updateOperation = (
     }
   );
 
-  const remove = wrapUpdate(
-    UpdateValueMethods.REMOVE,
-    (params: OperationParams) => {
-      const path = getInvokablePath(structure, op, params);
-      if (path) {
-        const patch = {
-          op: "remove",
-          path,
-        };
-        db.patch([patch]);
-        return patch;
-      }
-      return;
+  const remove = wrapUpdate(UpdateMethods.remove, (params: OperationParams) => {
+    const path = getInvokablePath(structure, op, params);
+    if (path) {
+      const patch = {
+        op: "remove",
+        path,
+      };
+      db.patch([patch]);
+      return patch;
     }
-  );
+    return;
+  });
 
   const push = wrapUpdate(
-    UpdateValueMethods.PUSH,
+    UpdateMethods.push,
     (value: any, params: OperationParams) => {
       const path = getInvokablePath(structure, op, params);
       if (path) {
@@ -124,7 +121,7 @@ export const updateOperation = (
     }
   );
 
-  const pop = wrapUpdate(UpdateValueMethods.POP, (params: OperationParams) => {
+  const pop = wrapUpdate(UpdateMethods.pop, (params: OperationParams) => {
     const path = getInvokablePath(structure, op, params);
     if (path) {
       const val = db.get(path);
@@ -145,11 +142,11 @@ export const updateOperation = (
   });
 
   const operation = {
-    [UpdateValueMethods.SET]: set,
-    [UpdateValueMethods.MERGE]: merge,
-    [UpdateValueMethods.REMOVE]: remove,
-    [UpdateValueMethods.PUSH]: push,
-    [UpdateValueMethods.POP]: pop,
+    [UpdateMethods.set]: set,
+    [UpdateMethods.merge]: merge,
+    [UpdateMethods.remove]: remove,
+    [UpdateMethods.push]: push,
+    [UpdateMethods.pop]: pop,
     __operation__: {
       id: operationId,
       symbol: UpdateOperationSymbol,

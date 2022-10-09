@@ -18,6 +18,8 @@ import {
   FuncOperation,
   StaticOperation,
   PathType,
+  AccessMethods,
+  UpdateMethods,
 } from "@c11/engine.types";
 import { getMemberExpressionParams } from "../utils/getMemberExpressionParams";
 import { invokablePathValueParser } from "./invokablePathValueParser";
@@ -131,6 +133,47 @@ const Values: Values = {
     } else {
       return constValue({ __node__: node });
     }
+  },
+  CallExpression: (babel, node) => {
+    const result = Values.MemberExpression(babel, node.callee);
+
+    if (
+      result &&
+      (result.type === OperationTypes.GET ||
+        result.type === OperationTypes.OBSERVE ||
+        result.type === OperationTypes.UPDATE) &&
+      result.path.length > 0
+    ) {
+      const lastIdx = result.path.length - 1;
+      const last = result.path[lastIdx];
+      if (
+        last.type === ValueTypes.CONST &&
+        (((result.type === OperationTypes.GET ||
+          result.type === OperationTypes.OBSERVE) &&
+          Object.keys(AccessMethods).includes(last.value)) ||
+          (result.type === OperationTypes.UPDATE &&
+            Object.keys(UpdateMethods).includes(last.value)))
+      ) {
+        result.path[lastIdx] = {
+          type: ValueTypes.REFINEE,
+          value: {
+            method: last.value,
+            args: node.arguments,
+          },
+        };
+      } else {
+        throw new Error(
+          `invalid usage for ${
+            result.type
+          } refining the operation, compatible keys: ${
+            result.type === OperationTypes.UPDATE
+              ? Object.keys(UpdateMethods)
+              : Object.keys(AccessMethods)
+          }`
+        );
+      }
+    }
+    return result;
   },
   // foo = get.foo || get.bar
   LogicalExpression: (babel, node) => {

@@ -1,6 +1,10 @@
 // Used only when there is no micro/nano second precision
 const ms: { [k: number]: number } = {};
 
+//TODO: this should always be unique
+//  performance.now() might differ from implementation to implementation
+//  and we need a way to ensure that a timestamp is never given twice
+//  in the same browser session
 export const now = (): number => {
   if (
     typeof performance !== "undefined" &&
