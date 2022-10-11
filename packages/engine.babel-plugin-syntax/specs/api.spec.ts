@@ -135,19 +135,12 @@ pluginTester({
         const result: producer = ({
           a = get.foo.value(),
           b = get.foo[param.id].value({ id: 123 }),
-          c = get.foo.length().eq(5),
+          c = get.foo.length(),
           d = get.foo.includes("foo"),
-          e = get.foo[param.foo].includes(prop.foo),
-          f = get.foo.includes(arg.foo),
-          g = get.foo[param.id].includes("bar", { id: arg.foo }),
-          h = get.foo[param.foo].includes(prop.foo, { foo: arg.foo }).eq(true, { baz: prop.baz }),
-          j = get.foo.includes('bar').or().includes('baz')
-          k = observe.foo.eq(true)
         }) => {
         }
       `,
-      // snapshot: true,
-      skip: true,
+      snapshot: true,
     },
     "should support constructors": {
       code: `

@@ -134,7 +134,7 @@ const Values: Values = {
       return constValue({ __node__: node });
     }
   },
-  CallExpression: (babel, node) => {
+  CallExpression: (babel, node: Babel.types.CallExpression) => {
     const result = Values.MemberExpression(babel, node.callee);
 
     if (
@@ -146,32 +146,29 @@ const Values: Values = {
     ) {
       const lastIdx = result.path.length - 1;
       const last = result.path[lastIdx];
+
       if (
-        last.type === ValueTypes.CONST &&
-        (((result.type === OperationTypes.GET ||
-          result.type === OperationTypes.OBSERVE) &&
-          Object.keys(AccessMethods).includes(last.value)) ||
-          (result.type === OperationTypes.UPDATE &&
-            Object.keys(UpdateMethods).includes(last.value)))
+        last.type !== ValueTypes.CONST ||
+        (last.value && last.value.__node__)
       ) {
-        result.path[lastIdx] = {
-          type: ValueTypes.REFINEE,
-          value: {
-            method: last.value,
-            args: node.arguments,
-          },
-        };
-      } else {
-        throw new Error(
-          `invalid usage for ${
-            result.type
-          } refining the operation, compatible keys: ${
-            result.type === OperationTypes.UPDATE
-              ? Object.keys(UpdateMethods)
-              : Object.keys(AccessMethods)
-          }`
-        );
+        throw new Error(`refining ${result.type} does not support expressions`);
       }
+
+      //TODO: throw if it's not an approved keyword
+
+      result.path[lastIdx] = {
+        type: ValueTypes.REFINEE,
+        value: {
+          type: last.value,
+          args: node.arguments.map((x) => {
+            // TODO: process arguments properly -> could be arg, prop
+            return {
+              type: ValueTypes.CONST,
+              value: x,
+            };
+          }),
+        },
+      };
     }
     return result;
   },

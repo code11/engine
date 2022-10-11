@@ -44,11 +44,13 @@ export interface InvokeValue {
   path: string[];
 }
 
+export type RefiningValueArg = ConstValue | ExternalValue | InternalValue;
+
 export interface RefiningValue {
   type: ValueTypes.REFINEE;
   value: {
-    method: AccessMethods | UpdateMethods;
-    args: ConstValue | ExternalValue | InternalValue;
+    type: AccessMethods | UpdateMethods;
+    args: RefiningValueArg[];
   };
 }
 

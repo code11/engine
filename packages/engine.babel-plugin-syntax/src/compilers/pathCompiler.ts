@@ -28,18 +28,34 @@ export const pathCompiler = (
       const path = x.path.map((y: string) => t.stringLiteral(y));
       value = t.objectProperty(t.identifier("path"), t.arrayExpression(path));
     } else if (x.type === ValueTypes.REFINEE) {
-      const method = t.objectProperty(
-        t.identifier("method"),
-        t.stringLiteral(x.value.method)
+      const type = t.objectProperty(
+        t.identifier("type"),
+        t.stringLiteral(x.value.type)
       );
       const args = t.objectProperty(
         t.identifier("args"),
-        t.stringLiteral("wip")
-        // t.arrayExpression(x.value.args)
+        t.arrayExpression(
+          x.value.args.map((x) => {
+            const type = t.objectProperty(
+              t.identifier("type"),
+              t.stringLiteral(x.type)
+            );
+            let value;
+            if (x.type === ValueTypes.CONST) {
+              value = t.objectProperty(t.identifier("value"), x.value);
+            } else {
+              value = t.objectProperty(
+                t.identifier("path"),
+                t.arrayExpression(x.path.map((y: string) => t.stringLiteral(y)))
+              );
+            }
+            return t.objectExpression([type, value]);
+          })
+        )
       );
       value = t.objectProperty(
         t.identifier("value"),
-        t.objectExpression([method, args])
+        t.objectExpression([type, args])
       );
     }
     return t.objectExpression([type, value]);
