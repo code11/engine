@@ -1186,6 +1186,41 @@ test("should keep arg references for path updates in async processes", (done) =>
   done();
 });
 
+test("should support get refining", () => {
+  const state = {
+    foo: 123,
+    bar: [1, 2, 3],
+    baz: {
+      id1: 321,
+      id2: [1, 2],
+      id3: "foobar",
+    },
+    id: "id3",
+  };
+  const mock = jest.fn((x) => x);
+  const struct: producer = ({
+    foo = get.foo.value(),
+    bar = get.bar.length(),
+    has3 = get.bar.includes(3),
+    id1 = get.baz[param.id].value({ id: "id1" }),
+    id2len = get.baz[param.id].length({ id: "id2" }),
+    id2has = get.baz[param.id].includes(2, { id: "id2" }),
+    idlink = observe.id,
+    id3link = get.baz[arg.idlink].value(),
+  }) => {
+    mock({ foo, bar, has3, id1, id2len, id2has, id3link });
+  };
+  run(struct, state, {});
+  jest.runAllTimers();
+  expect(mock.mock.calls[0][0].foo).toBe(123);
+  expect(mock.mock.calls[0][0].bar).toBe(3);
+  expect(mock.mock.calls[0][0].has3).toBe(true);
+  expect(mock.mock.calls[0][0].id1).toBe(321);
+  expect(mock.mock.calls[0][0].id2len).toBe(2);
+  expect(mock.mock.calls[0][0].id2has).toBe(true);
+  expect(mock.mock.calls[0][0].id3link).toBe("foobar");
+});
+
 // Add test that checks that references are kept
 
 /*

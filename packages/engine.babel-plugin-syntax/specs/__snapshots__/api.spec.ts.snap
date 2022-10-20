@@ -243,6 +243,112 @@ const result = {
 
 `;
 
+exports[`engine.babel-plugin-syntax should support get refining: should support get refining 1`] = `
+
+const result: producer = ({
+  a = get.foo.value(),
+  b = get.foo[param.id].value({ id: 123 }),
+  c = get.foo.length(),
+  d = get.foo.includes("foo"),
+}) => {
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const result = {
+  fn: ({ a, b, c, d }) => {},
+  props: {
+    type: "STRUCT",
+    value: {
+      a: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "REFINEE",
+            value: {
+              type: "value",
+              args: [],
+            },
+          },
+        ],
+      },
+      b: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "INVOKE",
+            path: ["id"],
+          },
+          {
+            type: "REFINEE",
+            value: {
+              type: "value",
+              args: [
+                {
+                  type: "CONST",
+                  value: {
+                    id: 123,
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+      c: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "REFINEE",
+            value: {
+              type: "length",
+              args: [],
+            },
+          },
+        ],
+      },
+      d: {
+        type: "GET",
+        path: [
+          {
+            type: "CONST",
+            value: "foo",
+          },
+          {
+            type: "REFINEE",
+            value: {
+              type: "includes",
+              args: [
+                {
+                  type: "CONST",
+                  value: "foo",
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  },
+  type: "producer",
+  buildId: "unique_id",
+};
+
+
+`;
+
 exports[`engine.babel-plugin-syntax should support get: should support get 1`] = `
 
 const result: producer = ({
