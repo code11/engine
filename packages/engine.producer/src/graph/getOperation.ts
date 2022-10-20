@@ -4,7 +4,7 @@ import {
   GetOperation,
   OperationParams,
   ProducerContext,
-  GetValueMethods,
+  AccessMethods,
 } from "@c11/engine.types";
 import { randomId } from "@c11/engine.utils";
 import isString from "lodash/isString";
@@ -18,6 +18,8 @@ import isFunction from "lodash/isFunction";
 // TODO: Return a false or error if the path was not generated
 
 export const GetOperationSymbol = Symbol("get");
+
+// TODO: add type for getOperation -> GetOperationRuntime
 
 export const getOperation = (
   db: DatastoreInstance,
@@ -66,9 +68,9 @@ export const getOperation = (
   // getFoo.is({ type: object, properties: { foo: { type: string }}}}) // schema
 
   const operation = {
-    [GetValueMethods.VALUE]: value,
-    [GetValueMethods.INCLUDES]: includes,
-    [GetValueMethods.LENGTH]: length,
+    [AccessMethods.value]: value,
+    [AccessMethods.includes]: includes,
+    [AccessMethods.length]: length,
     __operation__: {
       id: randomId(),
       symbol: GetOperationSymbol,

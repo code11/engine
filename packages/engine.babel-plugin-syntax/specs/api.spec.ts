@@ -130,6 +130,18 @@ pluginTester({
       `,
       snapshot: true,
     },
+    "should support get refining": {
+      code: `
+        const result: producer = ({
+          a = get.foo.value(),
+          b = get.foo[param.id].value({ id: 123 }),
+          c = get.foo.length(),
+          d = get.foo.includes("foo"),
+        }) => {
+        }
+      `,
+      snapshot: true,
+    },
     "should support constructors": {
       code: `
       const result: producer = ({

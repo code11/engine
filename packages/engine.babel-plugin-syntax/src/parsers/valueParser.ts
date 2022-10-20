@@ -18,6 +18,8 @@ import {
   FuncOperation,
   StaticOperation,
   PathType,
+  AccessMethods,
+  UpdateMethods,
 } from "@c11/engine.types";
 import { getMemberExpressionParams } from "../utils/getMemberExpressionParams";
 import { invokablePathValueParser } from "./invokablePathValueParser";
@@ -131,6 +133,44 @@ const Values: Values = {
     } else {
       return constValue({ __node__: node });
     }
+  },
+  CallExpression: (babel, node: Babel.types.CallExpression) => {
+    const result = Values.MemberExpression(babel, node.callee);
+
+    if (
+      result &&
+      (result.type === OperationTypes.GET ||
+        result.type === OperationTypes.OBSERVE ||
+        result.type === OperationTypes.UPDATE) &&
+      result.path.length > 0
+    ) {
+      const lastIdx = result.path.length - 1;
+      const last = result.path[lastIdx];
+
+      if (
+        last.type !== ValueTypes.CONST ||
+        (last.value && last.value.__node__)
+      ) {
+        throw new Error(`refining ${result.type} does not support expressions`);
+      }
+
+      //TODO: throw if it's not an approved keyword
+
+      result.path[lastIdx] = {
+        type: ValueTypes.REFINEE,
+        value: {
+          type: last.value,
+          args: node.arguments.map((x) => {
+            // TODO: process arguments properly -> could be arg, prop
+            return {
+              type: ValueTypes.CONST,
+              value: x,
+            };
+          }),
+        },
+      };
+    }
+    return result;
   },
   // foo = get.foo || get.bar
   LogicalExpression: (babel, node) => {

@@ -30,6 +30,8 @@ import { wildcard } from "../wildcard";
 import { serializeProps } from "./serializeProps";
 import { isDataEqual } from "./isDataEqual";
 import { cloneCbData } from "./cloneCbData";
+import { GetOperationSymbol } from "./getOperation";
+import { refineGet } from "./refineGet";
 
 export class Graph {
   private structure: GraphStructure;
@@ -190,9 +192,12 @@ export class Graph {
         } else if (refs.includes(`internal.${x}`) || isFunction(data[x])) {
           acc[x] = value;
         } else {
-          acc[x] = cloneDeep(value);
+          if (value?.__operation__?.symbol === GetOperationSymbol) {
+            acc[x] = refineGet(this.structure, value);
+          } else {
+            acc[x] = cloneDeep(value);
+          }
         }
-
         return acc;
       }, {});
     }

@@ -17,10 +17,11 @@ export enum OperationTypes {
 }
 
 export enum ValueTypes {
-  CONST = "CONST",
-  EXTERNAL = "EXTERNAL",
-  INTERNAL = "INTERNAL",
-  INVOKE = "INVOKE",
+  CONST = "CONST", // path member
+  EXTERNAL = "EXTERNAL", // prop
+  INTERNAL = "INTERNAL", // arg
+  INVOKE = "INVOKE", // param
+  REFINEE = "REFINEE", // last path member as invocation in header paths
 }
 
 export interface ConstValue {
@@ -43,8 +44,18 @@ export interface InvokeValue {
   path: string[];
 }
 
+export type RefiningValueArg = ConstValue | ExternalValue | InternalValue;
+
+export interface RefiningValue {
+  type: ValueTypes.REFINEE;
+  value: {
+    type: AccessMethods | UpdateMethods;
+    args: RefiningValueArg[];
+  };
+}
+
 export type StaticValue = ConstValue | ExternalValue | InternalValue;
-export type InvokableValue = StaticValue | InvokeValue;
+export type InvokableValue = StaticValue | InvokeValue | RefiningValue;
 
 export type StaticPath = StaticValue[];
 export type InvokablePath = InvokableValue[];
@@ -177,35 +188,55 @@ export type Params<T> = {
   [k in keyof T]: string | number | Params<T[k]>;
 };
 
-export enum UpdateValueMethods {
-  SET = "set",
-  MERGE = "merge",
-  REMOVE = "remove",
-  PUSH = "push",
-  POP = "pop",
+export enum UpdateMethods {
+  set = "set",
+  merge = "merge",
+  remove = "remove",
+  push = "push",
+  pop = "pop",
 }
 
 export type UpdateValue<T = any, P = {}> = {
-  [UpdateValueMethods.SET]: (value: T, params?: Params<P>) => void;
-  [UpdateValueMethods.MERGE]: (value: Partial<T>, params?: Params<P>) => void;
-  [UpdateValueMethods.REMOVE]: (params?: Params<P>) => void;
-  [UpdateValueMethods.PUSH]: (
+  [UpdateMethods.set]: (value: T, params?: Params<P>) => void;
+  [UpdateMethods.merge]: (value: Partial<T>, params?: Params<P>) => void;
+  [UpdateMethods.remove]: (params?: Params<P>) => void;
+  [UpdateMethods.push]: (
     value: T extends (infer R)[] ? R : unknown,
     params?: Params<P>
   ) => void;
-  [UpdateValueMethods.POP]: (params?: Params<P>) => void;
+  [UpdateMethods.pop]: (params?: Params<P>) => void;
 };
 
-export enum GetValueMethods {
-  VALUE = "value",
-  INCLUDES = "includes",
-  LENGTH = "length",
+//TODO: this should be the same as the Observe refining methods
+// so that the syntax is compatible on both fronts
+//TODO: Rename this operation as data access -> data update
+// or shorter Access and Update
+export enum AccessMethods {
+  value = "value",
+  includes = "includes",
+  length = "length",
+  // keys = "keys",
+  // isValid = "isValid",
+  // isEq = "isEq", // is equal
+  // isNe = "isNe", // is not equal
+  // isGt = "isGt", // is greater
+  // isLt = "isLt", // is less
+  // isGe = "isGe", // is greater or equal
+  // isLe = "isLe", // is less or equal
+  // and
+  // or
+  // not
+  // hasElement = "hasElement", // instead of includes for arrays
+  // hasChar = "hasChar" //
+  // hasProperty
+  // onDemand // update.foo.onDemand() - execution is conditioned by an observe
+  // next - act as a generator
 }
 
 export type GetValue<T = any, P = {}> = {
-  [GetValueMethods.VALUE]: (params?: Params<P>) => T;
-  [GetValueMethods.INCLUDES]: (value: any, params?: Params<P>) => boolean;
-  [GetValueMethods.LENGTH]: (params?: Params<P>) => number;
+  [AccessMethods.value]: (params?: Params<P>) => T;
+  [AccessMethods.includes]: (value: any, params?: Params<P>) => boolean;
+  [AccessMethods.length]: (params?: Params<P>) => number;
 };
 
 export type ObservePath<T> = T;
