@@ -19,6 +19,8 @@ import isFunction from "lodash/isFunction";
 
 export const GetOperationSymbol = Symbol("get");
 
+// TODO: add type for getOperation -> GetOperationRuntime
+
 export const getOperation = (
   db: DatastoreInstance,
   structure: GraphStructure,
