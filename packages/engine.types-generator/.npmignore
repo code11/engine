@@ -1,3 +1,7 @@
 src
 tsconfig.json
 .babelrc
+babel.config.js
+jest.config.js
+jest.setup.js
+CHANGELOG.md

@@ -2,3 +2,6 @@ src
 tsconfig.json
 .babelrc
 coverage
+jest.config.js
+jest.setup.js
+CHANGELOG.md
