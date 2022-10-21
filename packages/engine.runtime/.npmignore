@@ -3,4 +3,9 @@ tsconfig.json
 .babelrc
 specs
 coverage
+modules.d.ts
+babel.config.js
+jest.config.js
+jest.setup.js
+CHANGELOG.md
 
