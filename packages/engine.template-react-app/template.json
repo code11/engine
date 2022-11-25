@@ -1,0 +1,11 @@
+{
+  "target": "web",
+  "package": {
+    "dependencies": {
+      "@c11/engine.react": "^4.0.0-alpha.117",
+      "react": "^17.0.2",
+      "react-dom": "^17.0.2",
+      "react-router-dom": "^6.4.3"
+    }
+  }
+}

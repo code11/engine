@@ -1,0 +1,10 @@
+{
+  "name": "@c11/engine.template-react-app",
+  "version": "4.0.0-alpha.117",
+  "license": "MIT",
+  "keywords": [
+    "engine",
+    "template"
+  ],
+  "description": "The base template for engine react apps."
+}
