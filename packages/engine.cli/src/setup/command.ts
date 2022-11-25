@@ -19,6 +19,7 @@ export const command: producer = ({
 
   program.version(version).usage("<command> [options]");
 
+  //TODO: add support for listing existing templates
   program
     .command("create <app-name>")
     .description("Create a new engine project")
