@@ -3,6 +3,7 @@ import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -40,16 +41,19 @@ test("Simple load of a react component and work with producers", async () => {
     use: [render(<Component />, rootEl), producers([prod])],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();
   await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
-    fireEvent.click(x);
+    await act(async () => {
+      fireEvent.click(x);
+    });
     jest.runAllTimers();
     await flushPromises();
-    await waitFor(() => getByTestId(document.body, "bam")).then((y) => {
-      expect(y.innerHTML).toBe(val);
-    });
+    const y = await waitFor(() => getByTestId(document.body, "bam"));
+    expect(y.innerHTML).toBe(val);
   });
 });

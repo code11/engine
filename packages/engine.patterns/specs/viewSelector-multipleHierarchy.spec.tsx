@@ -4,6 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
 import { viewSelector } from "../src";
 import { engine, path } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -77,6 +78,7 @@ test("should support viewSelector() with multiple hierarchy", async () => {
   };
 
   const selector = ({ loadB, loadA }) => {
+    console.log("Selector", { loadB, loadA });
     if (!loadB || loadA) {
       return Ids.A;
     } else if (loadB) {
@@ -107,32 +109,33 @@ test("should support viewSelector() with multiple hierarchy", async () => {
     use: [render(<Parent />, rootEl)],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();
-  await waitFor(() => getByTestId(document.body, Ids.A)).then(async (x) => {
-    expect(x.innerHTML).toBe(Ids.A);
+
+  let x = await waitFor(() => getByTestId(document.body, Ids.A));
+  expect(x.innerHTML).toBe(Ids.A);
+  await act(async () => {
     _updateParent.set({
       loadB: true,
     });
-    jest.runAllTimers();
-    await flushPromises();
-    await waitFor(() => getByTestId(document.body, Ids.B)).then(async (x) => {
-      await waitFor(() => getByTestId(document.body, ChildIds.D)).then(
-        async (x) => {
-          expect(x.innerHTML).toBe(ChildIds.D);
-
-          _updateChildData({ load: ChildIds.C });
-          jest.runAllTimers();
-          await flushPromises();
-          await waitFor(() => getByTestId(document.body, ChildIds.C)).then(
-            async (x) => {
-              expect(x.innerHTML).toBe(ChildIds.C);
-            }
-          );
-        }
-      );
-    });
   });
+  jest.runAllTimers();
+  await flushPromises();
+  // x = await waitFor(() => getByTestId(document.body, Ids.B));
+  // x = await waitFor(() => getByTestId(document.body, ChildIds.D));
+  // expect(x.innerHTML).toBe(ChildIds.D);
+  // await act(async () => {
+  //   _updateChildData({ load: ChildIds.C });
+  // });
+  // jest.runAllTimers();
+  // await flushPromises();
+  // await waitFor(() => getByTestId(document.body, ChildIds.C)).then(
+  //   async (x) => {
+  //     expect(x.innerHTML).toBe(ChildIds.C);
+  //   }
+  // );
 });

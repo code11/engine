@@ -3,6 +3,7 @@ import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers, path } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -58,13 +59,18 @@ test("should support path operations with multiple components", async () => {
     use: [render(<Component path={path1} />, rootEl), producers([sync])],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();
-  await waitFor(() => getByTestId(document.body, "foo")).then((x) => {
-    fireEvent.change(x, { target: { value: "321" } });
+  await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
+    await act(async () => {
+      fireEvent.change(x, { target: { value: "321" } });
+    });
     jest.runAllTimers();
+    await flushPromises();
     expect(tempStore).toBe("321");
   });
 });

@@ -8,6 +8,7 @@ import {
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -65,13 +66,17 @@ test("should detect children change", async () => {
     use: [render(<Parent />, rootEl), producers([changer])],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();
   await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     const button = getByTestId(document.body, "change-baz");
-    fireEvent.click(button);
+    await act(async () => {
+      fireEvent.click(button);
+    });
     jest.runAllTimers();
     await flushPromises();
     const value = getNodeText(x);

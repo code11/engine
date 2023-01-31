@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { randomId } from "@c11/engine.utils";
 import {
   RenderInstance,
@@ -131,6 +131,7 @@ export class Render implements RenderInstance {
   private cache: RenderCache = {};
   private onError?: RenderConfig["onError"];
   private updateProps: (cb: (props: any) => void) => void;
+  reactRoot: any;
 
   constructor(config: RenderConfig) {
     this.debug = config.debug || false;
@@ -274,19 +275,19 @@ export class Render implements RenderInstance {
       Element: this.element,
       updateProps: this.updateProps,
     });
-    ReactDOM.render(
+    this.reactRoot = createRoot(rootEl);
+    this.reactRoot.render(
       <ViewProvider value={this.context}>
         <Wrapper />
-      </ViewProvider>,
-      rootEl
+      </ViewProvider>
     );
   }
   getRoot() {
     return this.root;
   }
   unmount() {
-    if (this.root) {
-      ReactDOM.unmountComponentAtNode(this.root);
+    if (this.reactRoot) {
+      this.reactRoot.unmount();
     }
     return this;
   }

@@ -368,6 +368,11 @@ export function view(config: ViewConfig) {
         this.createdAt
       );
     }
+
+    componentDidCatch(error: any, errorInfo: any) {
+      // You can also log the error to an error reporting service
+      console.error("componentDidCatch", error, errorInfo);
+    }
     //TODO: Add shouldComponentUpdate in order to separate
     // the actual used props and the props that are given
     // to the component in order to optimise rendering in some
