@@ -45,7 +45,7 @@
     "@schemastore/package": "^0.0.6",
     "@types/babel__preset-env": "^7.9.2",
     "@types/jest": "^29.1.1",
-    "@types/node": "^18.8.0"
+    "@types/node": "^18.11.18"
   },
   "gitHead": "5a84fad4e5eaf1aa3921d42c73c4c01c4a8200f9",
   "engineConfig": {},

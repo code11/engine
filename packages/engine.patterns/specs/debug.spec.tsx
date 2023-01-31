@@ -1,4 +1,5 @@
 import { engine, producers } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 import { debug } from "../src";
 
 const nextTick = process.nextTick;
@@ -19,7 +20,9 @@ test("should support debug producer", async () => {
     use: [producers([debug])],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();

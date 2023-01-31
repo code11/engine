@@ -4,6 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
 import { viewSelector } from "../src";
 import { engine } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -45,7 +46,9 @@ test("should support viewSelector() with a single hierarchy", async () => {
     use: [render(<Component />, rootEl)],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();

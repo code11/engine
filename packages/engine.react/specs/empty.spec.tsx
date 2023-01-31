@@ -3,6 +3,7 @@ import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -30,7 +31,9 @@ test("should load an empty component", async () => {
     use: [render(<Component />, rootEl)],
   });
 
-  app.start();
+  await act(async () => {
+    await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();

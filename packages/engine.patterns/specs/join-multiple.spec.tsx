@@ -4,6 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
 import { join } from "../src";
 import { engine } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -44,7 +45,9 @@ test("should support join() with multiple views and producers", async () => {
     use: [render(<Component foo={fooValue} />, rootEl)],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();

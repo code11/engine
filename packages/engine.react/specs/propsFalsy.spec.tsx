@@ -3,6 +3,7 @@ import { waitFor, getByTestId, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -45,17 +46,20 @@ test("Should pass falsy values as well", async () => {
     use: [render(<Parent />, rootEl)],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();
-  await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
-    expect(x.dataset.value).toBe("true");
-    const button = getByTestId(document.body, "button");
+  const x = await waitFor(() => getByTestId(document.body, "foo"));
+  expect(x.dataset.value).toBe("true");
+  const button = getByTestId(document.body, "button");
+  await act(async () => {
     fireEvent.click(button);
-    jest.runAllTimers();
-    await flushPromises();
-    const newFoo = getByTestId(document.body, "foo");
-    expect(newFoo.dataset.value).toBe("false");
   });
+  jest.runAllTimers();
+  await flushPromises();
+  const newFoo = getByTestId(document.body, "foo");
+  expect(newFoo.dataset.value).toBe("false");
 });

@@ -40,7 +40,7 @@
     "@babel/cli": "^7.19.3",
     "@schemastore/package": "^0.0.6",
     "@types/jest": "^26.0.24",
-    "@types/node": "^16.11.63",
+    "@types/node": "^18.11.18",
     "typescript": "4.8.4"
   },
   "dependencies": {
@@ -58,7 +58,7 @@
     "@c11/engine.utils": "4.0.0-alpha.117",
     "@svgr/webpack": "^5.5.0",
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
-    "@types/react": "^17.0.50",
+    "@types/react": "^18.0.27",
     "autoprefixer": "^10.4.12",
     "babel-loader": "^8.2.5",
     "babel-plugin-module-rewrite": "^0.2.0",

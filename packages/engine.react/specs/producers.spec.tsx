@@ -3,6 +3,7 @@ import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -77,17 +78,23 @@ test("Should mount and unmount producers attached to a component", async () => {
     ],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();
   await waitFor(() => getByTestId(document.body, "foo")).then(async (x) => {
     expect(bar).toBe("123");
     expect(baz).toBe("123");
-    mountFn(false);
+    await act(async () => {
+      mountFn(false);
+    });
     jest.runAllTimers();
     await flushPromises();
-    fooFn("321");
+    await act(async () => {
+      fooFn("321");
+    });
     jest.runAllTimers();
     await flushPromises();
     expect(bar).toBe("123");

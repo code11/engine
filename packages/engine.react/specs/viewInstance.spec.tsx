@@ -3,6 +3,7 @@ import { waitFor, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "../src";
 import { engine, producers, path } from "@c11/engine.runtime";
+import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -78,7 +79,9 @@ test("should create a state instance for a view", async () => {
     use: [render(<Component />, rootEl), producers([monitor])],
   });
 
-  app.start();
+  await act(async () => {
+    return await app.start();
+  });
 
   jest.runAllTimers();
   await flushPromises();
@@ -106,7 +109,9 @@ test("should create a state instance for a view", async () => {
     expect(childView.children[childView2.id]).toBeDefined();
 
     // console.log(parentView, childView, childView2);
-    app.stop();
+    await act(async () => {
+      await app.stop();
+    });
 
     jest.runAllTimers();
     await flushPromises();
