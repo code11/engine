@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.118](https://github.com/code11/engine/compare/v4.0.0-alpha.117...v4.0.0-alpha.118) (2023-01-31)
+
+
+### Features
+
+* **use-react-18:** updated react version to 18, replace React.render with  createRoot().render ([ad58002](https://github.com/code11/engine/commit/ad58002120dc0469e587e6264469a3df7d171ee9))
+
+
+
+
+
 # [4.0.0-alpha.117](https://github.com/code11/engine/compare/v4.0.0-alpha.116...v4.0.0-alpha.117) (2022-10-20)
 
 **Note:** Version bump only for package @c11/engine.cli
