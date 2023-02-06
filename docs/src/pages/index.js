@@ -45,6 +45,7 @@ const features = [
   },
 ];
 
+
 function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
@@ -112,59 +113,61 @@ function ActionsPreview() {
   );
 }
 
+
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
-      <header className={clsx("hero hero--primary", styles.heroBanner)}>
-        <div className={clsx("container", styles.heroContainer)}>
-          <div className={styles.heroDescription}>
-            {/* <h1 className="hero__title">{siteConfig.title}</h1> */}
-            {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}
-            <h1 className="hero__title"><span>Code11</span>ENGINE</h1>
-            <p>A <span className={styles.heroUnderline}>Javascript language extension </span>to simplify web-app development using:</p>
-            <ul>
-              <li><p>3 magic words to interface with the state: <span className={styles.heroTag+" "+ styles.getTag} tooltip-align="top" data-tooltip={""}>get</span><span className={styles.heroTag+" "+ styles.observeTag} data-tooltip={""}>observe</span><span className={styles.heroTag+" "+ styles.updateTag} data-tooltip={""}>update</span></p></li>
-              <li><p>a way to manipulate data according to business logic: <span className={styles.heroTag+" "+ styles.producersTag} data-tooltip={""}>producers</span></p></li>
-              <li><p>a React-powered rendering engine</p></li>
-            </ul>
-          </div>
-          <div className={styles.heroButtons}>
-            <Link
-              className={clsx(
-                "button button--primary button--lg",
-                styles.getStarted
-              )}
-              to={useBaseUrl("docs/")}> Get Started
-            </Link>
-            <Link
-              className={clsx(
-                "button button--secondary button--lg",
-                styles.getStarted
-              )}
-              to={useBaseUrl("docs/")}> Documentation
-            </Link>
-          </div>
+    title={`Hello from ${siteConfig.title}`}
+    description="Description will go into a meta tag in <head />"
+  >
+    <header className={clsx("hero hero--primary", styles.heroBanner)}>
+      <div className={clsx("container", styles.heroContainer)}>
+        <div className={styles.heroDescription}>
+          {/* <h1 className="hero__title">{siteConfig.title}</h1> */}
+          {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}
+          <h1 className="hero__title"><span>Code11</span>ENGINE</h1>
+          <p>A <span className={styles.heroUnderline}>Javascript language extension </span>to simplify web-app development using:</p>
+          <ul>
+            <li><p>3 magic words to interface with the state: <span className={styles.heroTag+" "+ styles.getTag} tooltip-align="top" data-tooltip={""}>get</span><span className={styles.heroTag+" "+ styles.observeTag} data-tooltip={""}>observe</span><span className={styles.heroTag+" "+ styles.updateTag} data-tooltip={""}>update</span></p></li>
+            <li><p>a way to manipulate data according to business logic: <span className={styles.heroTag+" "+ styles.producersTag} data-tooltip={""}>producers</span></p></li>
+            <li><p>a React-powered rendering engine</p></li>
+          </ul>
         </div>
-      </header>
-      <ActionsPreview/>
-      <main className={styles.mainContent}>
-        {features && features.length > 0 && (
-          <section className={styles.features}>
-            <div className="container">
-              <div className={styles.featuresRow}>
-                {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
-                ))}
-              </div>
+        <div className={styles.heroButtons}>
+          <Link
+            className={clsx(
+              "button button--primary button--lg",
+              styles.getStarted
+            )}
+            to={useBaseUrl("docs/")}> Get Started
+          </Link>
+          <Link
+            className={clsx(
+              "button button--secondary button--lg",
+              styles.getStarted
+            )}
+            to={useBaseUrl("docs/")}> Documentation
+          </Link>
+        </div>
+      </div>
+    </header>
+    <ActionsPreview/>
+    <main className={styles.mainContent}>
+      {features && features.length > 0 && (
+        <section className={styles.features}>
+          <div className="container">
+            <div className={styles.featuresRow}>
+              {features.map((props, idx) => (
+                <Feature key={idx} {...props} />
+              ))}
             </div>
-          </section>
-        )}
-      </main>
+          </div>
+        </section>
+      )}
+    </main>
+
     </Layout>
   );
 }
