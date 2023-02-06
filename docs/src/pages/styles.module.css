@@ -5,11 +5,30 @@
  * and scoped locally.
  */
 
+.mainContent {
+  margin-top: 380px;
+}
+
+@media screen and (max-width: 1024px) {
+  .mainContent {
+    margin-top: 0;
+  }
+}
+
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+
+.heroContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 100px;
 }
 
 @media screen and (max-width: 966px) {
@@ -18,20 +37,293 @@
   }
 }
 
-.buttons {
+@media screen and (max-width: 1024px) {
+  .heroContainer {
+    margin-top: 42px;
+  }
+}
+
+.heroDescription {
+  width: 586px;
+}
+
+.heroContainer p {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.heroContainer ul p {
+  line-height: 2;
+}
+
+.heroUnderline {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.heroTag {
+  margin-right: 6px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background-color: #165B6526;
+}
+
+.heroTag:hover {
+  cursor: pointer;
+}
+
+/* .heroButtons {
+  margin-top: 50px;
+} */
+
+.heroButtons a:first-child {
+  margin-bottom: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  .heroContainer {
+    justify-content: center;
+  }
+
+  .heroDescription>p {
+    text-align: center;
+  }
+}
+
+.actionsPreviewCard {
+  position: absolute;
+  top: 500px;
+  right: 20px;
+  left: 20px;
+  max-width: 1012px;
+  margin: 0 auto;
+}
+
+.mobileCarouselWrapper {
+  background-color: #01abbd;
+  margin: auto;
+  max-width: 960px;
+  max-width: 1024px;
+  padding: 20px 0 40px;
+}
+
+.slider {
+  overflow-x: scroll;
+  white-space: nowrap;
+  padding-bottom: 5px;
+}
+
+@media screen and (min-width: 1024.9px) {
+  .mobileCarouselWrapper {
+    display: none;
+  }
+
+}
+
+.actionType h2 {
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 4px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.actionType p {
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+
+@media only screen and (min-width: 1024.99px) {
+  .actionsPreviewCardMobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .actionsPreviewCard {
+    display: none;
+  }
+
+  .actionType p {
+    font-size: 13px;
+  }
+}
+
+.cardBodyHero {
+  padding: 30px;
+  box-shadow: 0px 4px 39px 1px #4848481C;
+}
+
+.actionsPreview {
   display: flex;
-  align-items: center;
+  gap: 30px;
   justify-content: center;
+}
+
+.actionType {
+  width: 100%;
+}
+
+.presentationCard {
+  height: 360px;
+  padding: 16px;
+  background-color: #F1F4F4;
+  box-shadow: none;
+}
+
+.arrowContainer {
+  display: flex;
+}
+
+.manipulateUp,
+.manipulateDown,
+.drivesUp,
+.drivesDown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+  color: #93A9B2;
+  font-size: 14px;
+}
+
+.manipulateUp,
+.manipulateDown {
+  margin-left: 132px;
+  margin-right: 12px;
+}
+
+.manipulateUp,
+.drivesUp {
+  margin-bottom: 4px;
+}
+
+.manipulateDown,
+.drivesDown {
+  margin-top: 8px;
+}
+
+.manipulateUp:before {
+  content: "manipulate";
+}
+
+.manipulateDown:after {
+  content: "manipulate";
+}
+
+.drivesUp:before {
+  content: "drives";
+}
+
+.drivesDown:after {
+  content: "drives";
 }
 
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  margin-top: 32px;
   width: 100%;
 }
 
-.featureImage {
+.featuresRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 -22px;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 48px;
+  text-align: center;
+  max-width: 332px;
+  padding: 0 22px;
+}
+
+.separator {
+  border-right: 1px dashed #C2C2C2;
+  width: 1px;
   height: 200px;
-  width: 200px;
+}
+
+.separator:last-child {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .separator {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 684px) {
+  .feature:not(:last-of-type) {
+    border-bottom: 1px dashed #C2C2C2;
+    padding-bottom: 48px;
+  }
+}
+
+.featureImage {
+  height: 36px;
+}
+
+.featureDescription {
+  font-size: 14px;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  font-weight: 300;
+  color: #434F54;
+}
+
+@media screen and (max-width: 1024px) {
+  .featureDescription {
+    margin-bottom: 12px;
+  }
+
+  .feature p,
+  .feature a {
+    font-size: 13px;
+  }
+}
+
+/* tooltips content*/
+
+.getTag[data-tooltip]:after {
+  background-image: url("@site/static/img/getTag.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 297px;
+  height: 158px;
+}
+
+.observeTag[data-tooltip]:after {
+  background-image: url("@site/static/img/observeTag.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 337px;
+  height: 142px;
+}
+
+.updateTag[data-tooltip]:after {
+  background-image: url("@site/static/img/updateTag.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 456px;
+  height: 215px;
+}
+
+.producersTag[data-tooltip]:after {
+  background-image: url("@site/static/img/producersTag.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 349px;
+  height: 232px;
 }
