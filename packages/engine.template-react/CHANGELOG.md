@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.119](https://github.com/code11/engine/compare/v4.0.0-alpha.118...v4.0.0-alpha.119) (2023-02-06)
+
+
+### Bug Fixes
+
+* ensure react 17 works; update template-react ([b94d476](https://github.com/code11/engine/commit/b94d4761ecf0aeb8b7fa02e1c030b3948dae139f))
+
+
+
+
+
 # [4.0.0-alpha.116](https://github.com/code11/engine/compare/v4.0.0-alpha.115...v4.0.0-alpha.116) (2022-10-03)
 
 **Note:** Version bump only for package @c11/engine.template-react
