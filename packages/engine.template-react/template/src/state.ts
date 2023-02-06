@@ -1,7 +1,4 @@
-export type State = {
-  name: string;
-  greeting: string;
-  item: {
-    [k: string]: string;
-  };
-};
+/**
+ * Structure the type of the application's state.
+ */
+export type State = {};

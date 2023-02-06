@@ -1,5 +1,4 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
 import { randomId } from "@c11/engine.utils";
 import {
   RenderInstance,
@@ -15,6 +14,14 @@ import {
 } from "@c11/engine.types";
 import { ViewProvider } from "./context";
 import { DefaultError } from "./errorBoundary";
+
+let ReactDOM: any;
+let createRoot: any;
+if (parseInt(React.version.split(".")[0]) >= 18) {
+  createRoot = require("react-dom/client").createRoot;
+} else {
+  ReactDOM = require("react-dom");
+}
 
 export type ModuleConfig = {
   debug?: boolean;
@@ -275,12 +282,21 @@ export class Render implements RenderInstance {
       Element: this.element,
       updateProps: this.updateProps,
     });
-    this.reactRoot = createRoot(rootEl);
-    this.reactRoot.render(
-      <ViewProvider value={this.context}>
-        <Wrapper />
-      </ViewProvider>
-    );
+    if (createRoot) {
+      this.reactRoot = createRoot(rootEl);
+      this.reactRoot.render(
+        <ViewProvider value={this.context}>
+          <Wrapper />
+        </ViewProvider>
+      );
+    } else {
+      ReactDOM.render(
+        <ViewProvider value={this.context}>
+          <Wrapper />
+        </ViewProvider>,
+        rootEl
+      );
+    }
   }
   getRoot() {
     return this.root;
@@ -288,6 +304,8 @@ export class Render implements RenderInstance {
   unmount() {
     if (this.reactRoot) {
       this.reactRoot.unmount();
+    } else {
+      ReactDOM.unmountComponentAtNode(this.root);
     }
     return this;
   }
