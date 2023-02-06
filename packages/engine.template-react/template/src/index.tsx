@@ -4,18 +4,7 @@ import { App } from "./App";
 import "./global";
 
 const app = engine({
-  state: {
-    name: "John Doe",
-    item: {
-      a: "this is a",
-      b: "this is b",
-    },
-  },
-  use: [
-    render(<App />, "#app", {
-      debug: process.env.NODE_ENV === "development",
-    }),
-  ],
+  use: [render(<App />, "#app")],
 });
 
 app.start();
