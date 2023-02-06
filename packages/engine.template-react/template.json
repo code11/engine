@@ -2,8 +2,8 @@
   "target": "web",
   "package": {
     "dependencies": {
-      "@c11/engine.react": "4.0.0-alpha.118",
-      "@c11/engine.dashboard": "4.0.0-alpha.118",
+      "@c11/engine.react": "4.0.0-alpha.119",
+      "@c11/engine.dashboard": "4.0.0-alpha.119",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
       "tailwindcss": "^2.2.15"
