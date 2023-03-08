@@ -12,8 +12,7 @@ import Views from '@site/static/img/views.svg';
 import ArrowDown from '@site/static/img/arrow-down.svg';
 import ArrowUp from '@site/static/img/arrow-up.svg';
 import ViewsCard from '@site/static/img/views-card.svg';
-import StateCard from '@site/static/img/state-card.svg';
-import ProducersCard from '@site/static/img/producers-card.svg';
+import MobileArrows from '@site/static/img/mobile-arrows.svg';
 
 const features = [
   {
@@ -103,10 +102,30 @@ function ActionsPreview() {
         </div>
       </div>
       <div className={styles.mobileCarouselWrapper}>
-        <div className={styles.slider}>
-          <ProducersCard/>
-          <StateCard/>
-          <ViewsCard/>
+        <div className={styles.mobileCarouselWrapperInner}>
+          <div className={styles.slider}>
+            <div className={styles.mobileCard}>
+              <h2>Producers</h2>
+              <p>Consume data and send changes <br/> to the state according to business logic</p>
+              <div><Producer/></div>
+            </div>
+            <span className={styles.mobileArrows+" " + styles.manipulate}>
+              <MobileArrows/>
+            </span>
+            <div className={styles.mobileCard}>
+              <h2>State</h2>
+              <p>The single source of truth <br/> for the application</p>
+              <div><State/></div>
+            </div>
+            <span className={styles.mobileArrows+" " + styles.drives}>
+              <MobileArrows/>
+            </span>
+            <div className={styles.mobileCard}>
+              <h2>Views</h2>
+              <p>Visualize data and update the state <br/> based on user intention</p>
+              <div><ViewsCard/></div>
+            </div>
+          </div>
         </div>
       </div>
     </>

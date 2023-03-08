@@ -6,7 +6,7 @@
  */
 
 .mainContent {
-  margin-top: 380px;
+  margin-top: 270px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -28,7 +28,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 24px;
-  margin-top: 100px;
+  margin-top: 64px;
 }
 
 @media screen and (max-width: 966px) {
@@ -94,25 +94,98 @@
 
 .actionsPreviewCard {
   position: absolute;
-  top: 500px;
+  top: 446px;
   right: 20px;
   left: 20px;
   max-width: 1012px;
   margin: 0 auto;
 }
 
+.mobileCard {
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+}
+
+.mobileCard h2 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.mobileCard p {
+  line-height: 1.3;
+  font-size: 14px;
+  text-align: center;
+}
+
+.mobileCard > div {
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #F1F4F4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 297px;
+}
+
+.mobileCard:nth-of-type(2) svg {
+  width: 244px
+}
+
+.mobileCard:nth-of-type(3) div {
+  padding: 16px 0
+}
+
+.mobileCard:nth-of-type(3) svg {
+  width: 274px
+}
+
 .mobileCarouselWrapper {
   background-color: #01abbd;
-  margin: auto;
-  max-width: 960px;
-  max-width: 1024px;
-  padding: 20px 0 40px;
+  padding: 48px 0 0;
+}
+
+.mobileCarouselWrapperInner {
+  overflow-x: scroll;
+  margin: 0 20px;
 }
 
 .slider {
-  overflow-x: scroll;
+  display: flex;
   white-space: nowrap;
-  padding-bottom: 5px;
+  padding-bottom: 32px;
+  margin: auto;
+  max-width: 490px;
+}
+
+.slider > svg {
+  min-width: 100%;
+}
+
+.mobileArrows {
+  margin: auto 20px;
+  display: inline-block;
+}
+
+.mobileArrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+  color: #F3F9FC;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+}
+
+.mobileArrows.manipulate:before {
+  content: "manipulate";
+}
+
+.mobileArrows.drives:before {
+  content: "drives";
 }
 
 @media screen and (min-width: 1024.9px) {
@@ -156,7 +229,7 @@
 }
 
 .cardBodyHero {
-  padding: 30px;
+  padding: 32px;
   box-shadow: 0px 4px 39px 1px #4848481C;
 }
 
@@ -301,33 +374,33 @@
 /* tooltips content*/
 
 .getTag[data-tooltip]:after {
-  background-image: url("@site/static/img/getTag.png");
+  background-image: url("../../static/img/getTag.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  width: 297px;
-  height: 158px;
+  width: 287px;
+  height: 156px;
 }
 
 .observeTag[data-tooltip]:after {
-  background-image: url("@site/static/img/observeTag.png");
+  background-image: url("../../static/img/observeTag.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  width: 337px;
-  height: 142px;
+  width: 330px;
+  height: 140px;
 }
 
 .updateTag[data-tooltip]:after {
-  background-image: url("@site/static/img/updateTag.png");
+  background-image: url("../../static/img/updateTag.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  width: 456px;
-  height: 215px;
+  width: 446px;
+  height: 228px;
 }
 
 .producersTag[data-tooltip]:after {
-  background-image: url("@site/static/img/producersTag.png");
+  background-image: url("../../static/img/producerTag.svg");
   background-position: center center;
   background-repeat: no-repeat;
-  width: 349px;
-  height: 232px;
+  width: 339px;
+  height: 230px;
 }
