@@ -5,11 +5,30 @@
  * and scoped locally.
  */
 
+.mainContent {
+  margin-top: 270px;
+}
+
+@media screen and (max-width: 1024px) {
+  .mainContent {
+    margin-top: 0;
+  }
+}
+
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+
+.heroContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 64px;
 }
 
 @media screen and (max-width: 966px) {
@@ -18,20 +37,370 @@
   }
 }
 
-.buttons {
+@media screen and (max-width: 1024px) {
+  .heroContainer {
+    margin-top: 42px;
+  }
+}
+
+.heroDescription {
+  width: 586px;
+}
+
+.heroContainer p {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.heroContainer ul p {
+  line-height: 2;
+}
+
+.heroUnderline {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.heroTag {
+  margin-right: 6px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background-color: #165B6526;
+}
+
+.heroTag:hover {
+  cursor: pointer;
+}
+
+/* .heroButtons {
+  margin-top: 50px;
+} */
+
+.heroButtons a:first-child {
+  margin-bottom: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  .heroContainer {
+    justify-content: center;
+  }
+
+  .heroDescription>p {
+    text-align: center;
+  }
+}
+
+.actionsPreviewCard {
+  position: absolute;
+  top: 446px;
+  right: 20px;
+  left: 20px;
+  max-width: 1012px;
+  margin: 0 auto;
+}
+
+.mobileCard {
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+}
+
+.mobileCard h2 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.mobileCard p {
+  line-height: 1.3;
+  font-size: 14px;
+  text-align: center;
+}
+
+.mobileCard > div {
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #F1F4F4;
   display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 297px;
+}
+
+.mobileCard:nth-of-type(2) svg {
+  width: 244px
+}
+
+.mobileCard:nth-of-type(3) div {
+  padding: 16px 0
+}
+
+.mobileCard:nth-of-type(3) svg {
+  width: 274px
+}
+
+.mobileCarouselWrapper {
+  background-color: #01abbd;
+  padding: 48px 0 0;
+}
+
+.mobileCarouselWrapperInner {
+  overflow-x: scroll;
+  margin: 0 20px;
+}
+
+.slider {
+  display: flex;
+  white-space: nowrap;
+  padding-bottom: 32px;
+  margin: auto;
+  max-width: 316px;
+}
+
+.slider > svg {
+  min-width: 100%;
+}
+
+.mobileArrows {
+  margin: auto 20px;
+  display: inline-block;
+}
+
+.mobileArrows {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-transform: uppercase;
+  color: #F3F9FC;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+}
+
+.mobileArrows.manipulate:before {
+  content: "manipulate";
+}
+
+.mobileArrows.drives:before {
+  content: "drives";
+}
+
+@media screen and (min-width: 1024.9px) {
+  .mobileCarouselWrapper {
+    display: none;
+  }
+
+}
+
+.actionType h2 {
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.actionType p {
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 0.03em;
+  font-weight: 300;
+}
+
+@media only screen and (min-width: 1024.99px) {
+  .actionsPreviewCardMobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .actionsPreviewCard {
+    display: none;
+  }
+
+  .actionType p {
+    font-size: 13px;
+  }
+}
+
+.cardBodyHero {
+  padding: 32px;
+  box-shadow: 0px 4px 39px 1px #4848481C;
+}
+
+.actionsPreview {
+  display: flex;
+  gap: 30px;
   justify-content: center;
+}
+
+.actionType {
+  width: 100%;
+}
+
+.presentationCard {
+  height: 360px;
+  padding: 16px;
+  background-color: #F1F4F4;
+  box-shadow: none;
+}
+
+.arrowContainer {
+  display: flex;
+}
+
+.manipulateUp,
+.manipulateDown,
+.drivesUp,
+.drivesDown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+  color: #93A9B2;
+  letter-spacing: 0.06em;
+  font-size: 14px;
+}
+
+.manipulateUp,
+.manipulateDown {
+  margin-left: 132px;
+  margin-right: 12px;
+}
+
+.manipulateUp,
+.drivesUp {
+  margin-bottom: 4px;
+}
+
+.manipulateDown,
+.drivesDown {
+  margin-top: 8px;
+}
+
+.manipulateUp:before {
+  content: "manipulate";
+}
+
+.manipulateDown:after {
+  content: "manipulate";
+}
+
+.drivesUp:before {
+  content: "drives";
+}
+
+.drivesDown:after {
+  content: "drives";
 }
 
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  margin-top: 32px;
   width: 100%;
 }
 
-.featureImage {
+.featuresRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 -22px;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 48px;
+  text-align: center;
+  max-width: 332px;
+  padding: 0 22px;
+}
+
+.separator {
+  border-right: 1px dashed #C2C2C2;
+  width: 1px;
   height: 200px;
-  width: 200px;
+}
+
+.separator:last-child {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .separator {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 684px) {
+  .feature:not(:last-of-type) {
+    border-bottom: 1px dashed #C2C2C2;
+    padding-bottom: 48px;
+  }
+}
+
+.featureImage {
+  height: 36px;
+}
+
+.featureDescription {
+  font-size: 14px;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: #434F54;
+}
+
+@media screen and (max-width: 1024px) {
+  .featureDescription {
+    margin-bottom: 12px;
+  }
+
+  .feature p,
+  .feature a {
+    font-size: 13px;
+  }
+}
+
+/* tooltips content*/
+
+.getTag[data-tooltip]:after {
+  background-image: url("../../static/img/getTag.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 287px;
+  height: 156px;
+}
+
+.observeTag[data-tooltip]:after {
+  background-image: url("../../static/img/observeTag.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 330px;
+  height: 140px;
+}
+
+.updateTag[data-tooltip]:after {
+  background-image: url("../../static/img/updateTag.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 446px;
+  height: 228px;
+}
+
+.producersTag[data-tooltip]:after {
+  background-image: url("../../static/img/producerTag.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 339px;
+  height: 230px;
 }
