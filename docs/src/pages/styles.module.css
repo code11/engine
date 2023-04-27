@@ -192,7 +192,6 @@
   .mobileCarouselWrapper {
     display: none;
   }
-
 }
 
 .actionType h2 {
@@ -269,7 +268,7 @@
 
 .manipulateUp,
 .manipulateDown {
-  margin-left: 132px;
+  margin-left: 144px;
   margin-right: 12px;
 }
 
@@ -332,6 +331,13 @@
 
 .separator:last-child {
   display: none;
+}
+
+@media screen and (max-width: 1080px) {
+  .manipulateUp,
+  .manipulateDown {
+    margin-left: 14%;
+  }
 }
 
 @media screen and (max-width: 1024px) {
