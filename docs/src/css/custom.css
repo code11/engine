@@ -134,6 +134,11 @@ h3 {
   font-size: 22px;
 }
 
+
+ul {
+  padding-left: 40px;
+}
+
 @media screen and (max-width: 1024px) {
   .plugin-pages h2 {
     font-size: 18px;
@@ -142,15 +147,15 @@ h3 {
   .plugin-pages h3 {
     font-size: 18px;
   }
+
+  ul {
+    padding-left: 30px;
+  }
 }
 
 .markdown h3 code {
   font-size: 16px;
   line-height: 28px;
-}
-
-ul {
-  padding-left: 40px;
 }
 
 .button--primary {
@@ -323,10 +328,6 @@ h3 {
   line-height: 28px;
 }
 
-ul {
-  padding-left: 40px;
-}
-
 .button--primary {
   background-color: #FFFFFF;
   color: var(--ifm-color-primary);
@@ -465,10 +466,6 @@ h3 {
 .markdown h3 code {
   font-size: 16px;
   line-height: 28px;
-}
-
-ul {
-  padding-left: 40px;
 }
 
 .button--primary {
@@ -621,6 +618,8 @@ ul {
   .hero__title {
     text-align: center;
   }
+
+
 }
 
 .navbar {
@@ -697,8 +696,14 @@ ul {
   font-weight: 300;
 }
 
-.footer span {
+.footer a{
   font-weight: 400;
+  color: var(--ifm-footer-color);
+}
+
+.footer a:hover {
+  text-decoration: none;
+  color: var(--ifm-color-primary)
 }
 
 @media screen and (max-width: 1024px) {
@@ -798,10 +803,8 @@ ul {
 }
 
 @media (max-width: 1024px) {
-
-  [data-tooltip]:before,
   [data-tooltip]:after {
-    content: none;
+    transform: translateX(-38%) translateY(-100%);
   }
 }
 

@@ -90,6 +90,10 @@
   .heroDescription>p {
     text-align: center;
   }
+
+  .heroButtons {
+    width: 100%;
+  }
 }
 
 .actionsPreviewCard {
@@ -166,18 +170,20 @@
 }
 
 .mobileArrows {
-  margin: auto 20px;
-  display: inline-block;
-}
-
-.mobileArrows {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto 12px;
   text-transform: uppercase;
   color: #F3F9FC;
   letter-spacing: 0.06em;
   font-size: 12px;
+}
+
+.mobileArrows:before {
+  position: absolute;
+  top: 54px;
 }
 
 .mobileArrows.manipulate:before {
@@ -409,4 +415,23 @@
   background-repeat: no-repeat;
   width: 339px;
   height: 230px;
+}
+
+@media (max-width: 1024px) {
+  .updateTag[data-tooltip]:after, .producersTag[data-tooltip]:after, .observeTag[data-tooltip]:after {
+    width: 360px;
+  }
+  .updateTag[data-tooltip]:after {
+    background-size: 340px;
+    height: 190px;
+    left: -85px;
+  }
+
+  .observeTag[data-tooltip]:after {
+    left: 0;
+  }
+
+  .producersTag[data-tooltip]:after {
+    left: -25px;
+  }
 }

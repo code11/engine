@@ -1,7 +1,6 @@
 module.exports = {
-  title: "Code11 Engine",
-  tagline:
-    "A declarative state management system for creating web applications",
+  title: "CODE11 Engine",
+  tagline:"A declarative state management for building web applications which lets you focus on the business logic",
   url: "https://code11.github.io",
   baseUrl: "/engine/",
   onBrokenLinks: "throw",
@@ -55,37 +54,8 @@ module.exports = {
       ],
     },
     footer: {
-      style: "dark",
-      links: [
-        {
-          title: "Docs",
-          items: [
-            {
-              label: "Introduction",
-              to: "docs/",
-            },
-          ],
-        },
-        {
-          title: "Community",
-          items: [
-            {
-              label: "Twitter",
-              href: "https://twitter.com/code11dev",
-            },
-          ],
-        },
-        {
-          title: "More",
-          items: [
-            {
-              label: "GitHub",
-              href: "https://github.com/code11/engine",
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Code<sup>11</sup>, Inc. Built with Docusaurus.`,
+      style: "light",
+      copyright: `Copyright © ${new Date().getFullYear()} <a target="blank" href="https://www.code11.ro/">Code<sup>11</sup></a>, Inc. Built with <span>Docusaurus</span>.`,
     },
   },
   presets: [
@@ -101,7 +71,7 @@ module.exports = {
           editUrl: "https://github.com/code11/engine/edit/master/docs/blog",
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss:[require.resolve("./src/css/custom.css")],
         },
       },
     ],
