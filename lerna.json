@@ -4,7 +4,7 @@
     "nm-packages/*"
   ],
   "npmClient": "yarn",
-  "version": "4.0.0-alpha.119",
+  "version": "4.0.0-alpha.120",
   "useWorkspaces": true,
   "changelogPreset": "angular"
 }

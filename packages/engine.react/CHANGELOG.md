@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.120](https://github.com/code11/engine/compare/v4.0.0-alpha.119...v4.0.0-alpha.120) (2023-07-07)
+
+
+### Bug Fixes
+
+* wildcard interoperability with refinees ([804a80c](https://github.com/code11/engine/commit/804a80c5729afd0e56f5cc5595acfc696a0296e8))
+
+
+
+
+
 # [4.0.0-alpha.119](https://github.com/code11/engine/compare/v4.0.0-alpha.118...v4.0.0-alpha.119) (2023-02-06)
 
 
