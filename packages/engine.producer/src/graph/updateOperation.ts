@@ -24,9 +24,10 @@ export const updateOperation = (
   const operationId = randomId();
   //TODO: figure out how to infer the cb using typescript from
   // name
-  const wrapUpdate = (name: UpdateMethods, cb: any) => {
-    return (...args: any[]) => {
-      const patch = cb.apply(null, args);
+  function wrapUpdate(name: UpdateMethods, cb: any) {
+    function updateFn(...args: any[]) {
+      //@ts-ignore
+      const patch = cb.apply(this, args);
       if (emit && patch) {
         //TODO: add stack trace information so that code location
         // can be highlighted in the dashboard
@@ -36,13 +37,20 @@ export const updateOperation = (
           operationFnName: name,
         });
       }
-    };
-  };
+    }
+
+    return updateFn;
+  }
 
   const set = wrapUpdate(
     UpdateMethods.set,
-    (value: any, params: OperationParams) => {
-      const path = getInvokablePath(structure, op, params);
+    function (value: any, params: OperationParams) {
+      const path = getInvokablePath(
+        structure,
+        //@ts-ignore
+        { path: this.__operation__.path },
+        params
+      );
       if (path) {
         const patch = {
           op: "add",
@@ -58,8 +66,13 @@ export const updateOperation = (
 
   const merge = wrapUpdate(
     UpdateMethods.merge,
-    (value: any, params: OperationParams) => {
-      const path = getInvokablePath(structure, op, params);
+    function (value: any, params: OperationParams) {
+      const path = getInvokablePath(
+        structure,
+        //@ts-ignore
+        { path: this.__operation__.path },
+        params
+      );
       if (path) {
         let patch = [
           {
@@ -83,23 +96,36 @@ export const updateOperation = (
     }
   );
 
-  const remove = wrapUpdate(UpdateMethods.remove, (params: OperationParams) => {
-    const path = getInvokablePath(structure, op, params);
-    if (path) {
-      const patch = {
-        op: "remove",
-        path,
-      };
-      db.patch([patch]);
-      return patch;
+  const remove = wrapUpdate(
+    UpdateMethods.remove,
+    function (params: OperationParams) {
+      const path = getInvokablePath(
+        structure,
+        //@ts-ignore
+        { path: this.__operation__.path },
+        params
+      );
+      if (path) {
+        const patch = {
+          op: "remove",
+          path,
+        };
+        db.patch([patch]);
+        return patch;
+      }
+      return;
     }
-    return;
-  });
+  );
 
   const push = wrapUpdate(
     UpdateMethods.push,
-    (value: any, params: OperationParams) => {
-      const path = getInvokablePath(structure, op, params);
+    function (value: any, params: OperationParams) {
+      const path = getInvokablePath(
+        structure,
+        //@ts-ignore
+        { path: this.__operation__.path },
+        params
+      );
       if (path) {
         let val = db.get(path);
         if (val === undefined) {
@@ -121,8 +147,13 @@ export const updateOperation = (
     }
   );
 
-  const pop = wrapUpdate(UpdateMethods.pop, (params: OperationParams) => {
-    const path = getInvokablePath(structure, op, params);
+  const pop = wrapUpdate(UpdateMethods.pop, function (params: OperationParams) {
+    const path = getInvokablePath(
+      structure,
+      //@ts-ignore
+      { path: this.__operation__.path },
+      params
+    );
     if (path) {
       const val = db.get(path);
       if (!isArray(val)) {

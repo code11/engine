@@ -1,4 +1,5 @@
-import getNode from "../fn/getNode";
+import { AccessMethods } from "@c11/engine.types";
+import { getRefinedValue } from "../fn/getRefinedValue";
 import isValidPath from "../fn/isValidPath";
 
 /**
@@ -6,12 +7,14 @@ import isValidPath from "../fn/isValidPath";
  *
  * Gets a value
  */
-const get = (db) => (path) => {
-  if (!isValidPath(path)) {
-    return;
-  }
+const get =
+  (db) =>
+  (path, refinee = { type: AccessMethods.value, args: [] }) => {
+    if (!isValidPath(path)) {
+      return;
+    }
 
-  return getNode(db, path);
-};
+    return getRefinedValue(db, path, undefined, refinee);
+  };
 
 export default get;

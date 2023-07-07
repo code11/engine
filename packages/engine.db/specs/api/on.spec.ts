@@ -25,6 +25,10 @@ const additionalProps = ["err"];
 // tests = [tests[tests.length - 19]]
 
 // tests = tests.filter(x => x.comment === 'Two dynamic nodes with two paths')
+const only = tests.find((x) => x.only === true);
+if (only) {
+  tests = [only];
+}
 
 const delayed = (fn) => {
   return new Promise((resolve) => {
@@ -77,29 +81,45 @@ tests.forEach((x) => {
       });
     }
 
-    let unsubscribes = [];
+    let unsubscribes: { fn: () => {}; idx: number }[] = [];
 
-    x.listeners.forEach((y) => {
+    const appendListener = (y, i) => {
       let unsubscribe;
+      let path = typeof y === "string" ? y : y.path;
+      let id = path + "__" + i;
       if (x.errFn) {
-        unsubscribe = db.on(y, errFn);
+        unsubscribe = db.on(path, errFn, y.refinee);
       } else if (x.invalidFn) {
-        unsubscribe = db.on(y, 123);
+        unsubscribe = db.on(path, 123, y.refinee);
       } else if (x.noArgsFn) {
-        unsubscribe = db.on(y, noArgsFn);
+        unsubscribe = db.on(path, noArgsFn, y.refinee);
       } else {
-        fns[y] = jest.fn();
-        unsubscribe = db.on(y, (x) => {
-          fns[y](x, db.get(y), y);
-        });
+        fns[id] = jest.fn();
+        unsubscribe = db.on(
+          path,
+          (x, patch) => {
+            if (y.calls) {
+              fns[id](x, y.calls[fns[id].mock.calls.length], path, patch);
+            } else {
+              fns[id](x, db.get(path), path);
+            }
+          },
+          y.refinee
+        );
       }
-      unsubscribes.push(unsubscribe);
+      unsubscribes.push({ fn: unsubscribe, idx: i });
+    };
+
+    x.listeners.forEach((y, i) => {
+      if (!y.asyncAppend) {
+        appendListener(y, i);
+      }
     });
 
     if (x.unsubscribe === true) {
       setTimeout(() => {
         unsubscribes.forEach((y) => {
-          y();
+          y.fn();
         });
       });
     }
@@ -115,6 +135,25 @@ tests.forEach((x) => {
         db.patch(x.patch);
       }
     }
+
+    jest.runAllTimers();
+
+    x.listeners.forEach((y, i) => {
+      if (y.asyncAppend) {
+        appendListener(y, i);
+      }
+    });
+
+    jest.runAllTimers();
+
+    x.listeners.forEach((y, i) => {
+      if (y.asyncUnsubscribe) {
+        let el = unsubscribes.find((x) => x.idx === i);
+        if (el) {
+          el.fn();
+        }
+      }
+    });
 
     jest.runAllTimers();
 
@@ -167,12 +206,14 @@ tests.forEach((x) => {
         }
 
         if (x.unsubscribe !== true) {
-          x.listeners.forEach((y) => {
-            let calls = fns[y].mock.calls;
+          x.listeners.forEach((y, i) => {
+            let isRefinee = y.refinee ? true : false;
+            y = typeof y === "string" ? y : y.path;
+            let calls = fns[y + "__" + i].mock.calls;
 
             // Test all values match up
             calls.forEach((x) => {
-              expect(x[0]).toEqual(x[1]);
+              expect(x[0]).toEqual(x[1] === "undefined" ? undefined : x[1]);
             });
 
             let last = calls[calls.length - 1];
@@ -231,7 +272,7 @@ tests.forEach((x) => {
               } else {
                 expect(last[0]).toEqual(result);
               }
-            } else if (last) {
+            } else if (last && !isRefinee) {
               let parts = path.split("/");
               parts.shift();
 
@@ -252,24 +293,26 @@ tests.forEach((x) => {
         }
 
         if (x.async && x.unsubscribe !== true) {
-          let result;
-
-          x.listeners.forEach((y) => {
-            result = fns[y].mock.calls.reduce((acc, x) => {
-              acc[x[2]] = x[0];
-              return acc;
-            }, {});
-          });
-
-          Object.keys(result).forEach((x) => {
-            expect(result[x]).toEqual(db.get(x));
+          x.listeners.forEach((y, i) => {
+            const path = typeof y === "string" ? y : y.path;
+            const calls = fns[path + "__" + i].mock.calls;
+            const last = calls[calls.length - 1];
+            expect(last[0]).toEqual(db.get(last[2], y.refinee));
           });
         } else {
           let callsNo = Object.keys(fns).reduce((acc, x) => {
             acc += fns[x].mock.calls.length;
             return acc;
           }, 0);
-          expect(callsNo).toBe(x.listeners.length);
+          let expectedCallsNo = x.listeners.reduce((acc, x) => {
+            if (x.calls) {
+              acc += x.calls.length;
+            } else {
+              acc += 1;
+            }
+            return acc;
+          }, 0);
+          expect(callsNo).toBe(expectedCallsNo);
         }
       }
     });

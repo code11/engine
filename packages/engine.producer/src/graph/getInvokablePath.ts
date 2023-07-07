@@ -19,7 +19,7 @@ export const getInvokablePath = (
 ) => {
   const noRefinee = op.path.filter((x) => !x || x.type !== ValueTypes.REFINEE);
   const path = noRefinee.reduce((acc, x: any) => {
-    const value = resolveValue(structure, x, params);
+    const value = x.snapshot || resolveValue(structure, x, params);
     if (value && value.__symbol__ === PathSymbol) {
       const expanded = value.__expand__();
       if (isArray(expanded)) {
@@ -27,6 +27,7 @@ export const getInvokablePath = (
       }
     } else {
       if (value === wildcard) {
+        // console.log("should get the wildcard value instead ", x, structure);
         acc.push("*");
       } else {
         //TODO: if the value is not a string then throw an error

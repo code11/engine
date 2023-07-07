@@ -164,6 +164,7 @@ export class Producer implements ProducerInstance {
         }
         return acc;
       }, {} as { [k: string]: any });
+      // TODO: add an out fn in the constructor to pipe things properly
       console.log(loc, logParams);
     }
     //TODO: could the producer become unmounted here?

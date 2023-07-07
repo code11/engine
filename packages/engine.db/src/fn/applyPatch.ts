@@ -9,6 +9,9 @@ import decomposePath from "./decomposePath";
 import clone from "../fn/clone";
 import { triggerListenerFn } from "./triggerListener";
 import pathTriggers from "./pathTriggers";
+import { AccessMethods } from "@c11/engine.types";
+import { isWildcardPath } from "./isWildcardPath";
+import { triggerWildcardFn } from "./triggerWildcardFn";
 
 function clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, path) {
   let staticDepList = staticDeps[path];
@@ -280,7 +283,7 @@ function applyPatch(db, patch, shouldClone) {
     let fns = db.updates.fns[x];
     if (fns) {
       Object.keys(fns).forEach((y) => {
-        if (!acc[y]) {
+        if (!acc[y] && fns[y]?.refinee?.type !== AccessMethods.isObserved) {
           acc[y] = {
             path: x,
             fn: fns[y],
@@ -292,7 +295,11 @@ function applyPatch(db, patch, shouldClone) {
   }, {});
 
   Object.keys(fns).forEach((x) => {
-    triggerListenerFn(db, fns[x].path, x, patch);
+    if (isWildcardPath(fns[x].path)) {
+      triggerWildcardFn(db, fns[x].path, x, patch);
+    } else {
+      triggerListenerFn(db, fns[x].path, x, patch);
+    }
   });
 
   return {

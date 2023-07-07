@@ -63,11 +63,11 @@ test("Should mount and unmount producers attached to a component", async () => {
   };
   let mountFn;
   const setMount: producer = ({ value = update.shouldMountChild }) => {
-    mountFn = value.set;
+    mountFn = value.set.bind(value);
   };
   let fooFn;
   const setFoo: producer = ({ value = update.foo }) => {
-    fooFn = value.set;
+    fooFn = value.set.bind(value);
   };
 
   const app = engine({

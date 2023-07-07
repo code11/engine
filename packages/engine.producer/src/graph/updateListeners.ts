@@ -15,6 +15,7 @@ import { computeOperation, ComputeType } from "./computeOperation";
 import { pathListener } from "./pathListener";
 import { hasWildcard } from "./hasWildcard";
 import { Graph } from "./graph";
+import { getRefinee } from "./getRefinee";
 
 export const updateListeners = (
   _this: Graph,
@@ -68,7 +69,9 @@ export const updateListeners = (
       if (node.path) {
         node.removeListener = db.on(
           node.path,
-          pathListener(_this, update, db, _this.data, structure, node)
+          pathListener(_this, update, db, _this.data, structure, node),
+          //@ts-ignore
+          getRefinee(node.op.path)
         );
         if (hasWildcard(node.path)) {
           return;

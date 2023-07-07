@@ -145,7 +145,7 @@
   get: /foo/baz/bam
   expect: aaa
 
-- comment: Should get a nested parent value in a dynamic node 
+- comment: Should get a nested parent value in a dynamic node
   doc:
     bar:
       baz:
@@ -245,6 +245,43 @@
     /bar: true
   get: /bar
   expect: false
+
+- comment: Should get a value with length refinee
+  doc:
+    foo: "abc"
+  get:
+    path: /foo
+    refinee:
+      type: "length"
+      args: []
+  expect: 3
+
+- comment: Should get a value with isObserved refinee
+  doc:
+    foo: 123
+  get:
+    path: /foo
+    refinee:
+      type: "isObserved"
+      args: []
+  listeners:
+    - "/foo"
+  expect: true
+
+- comment: Should get a value with includes refinee
+  only: true
+  doc:
+    foo: "iamfoo"
+  get:
+    path: /foo
+    refinee:
+      type: "includes"
+      args: ["foo"]
+  expect: true
+
+
+
+
 
 # @TODO: Should not return a reference to the cache that can then be altered
 

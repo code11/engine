@@ -9,8 +9,8 @@ import {
 import { randomId } from "@c11/engine.utils";
 import isString from "lodash/isString";
 import isArray from "lodash/isArray";
-import { getInvokablePath } from "./getInvokablePath";
 import isFunction from "lodash/isFunction";
+import { getInvokablePath } from "./getInvokablePath";
 
 // TODO: add a isValid method to be able to check
 // if the ref path is properly generated
@@ -28,24 +28,39 @@ export const getOperation = (
   emit?: ProducerContext["emit"]
 ) => {
   //TODO: add emit for retrieving data
-  const value = (params: OperationParams): unknown => {
-    const path = getInvokablePath(structure, op, params);
+  function value(params: OperationParams): unknown {
+    const path = getInvokablePath(
+      structure,
+      //@ts-ignore
+      { path: this.__operation__.path },
+      params
+    );
     if (path) {
       return db.get(path);
     }
     return;
-  };
-  const includes = (value: any, params: OperationParams): void | boolean => {
-    const path = getInvokablePath(structure, op, params);
+  }
+  function includes(value: any, params: OperationParams): void | boolean {
+    const path = getInvokablePath(
+      structure,
+      //@ts-ignore
+      { path: this.__operation__.path },
+      params
+    );
     if (path) {
       const val = db.get(path);
       if (isArray(val) || isString(val)) {
         return val.includes(value);
       }
     }
-  };
-  const length = (params: OperationParams): void | number => {
-    const path = getInvokablePath(structure, op, params);
+  }
+  function length(params: OperationParams): void | number {
+    const path = getInvokablePath(
+      structure,
+      //@ts-ignore
+      { path: this.__operation__.path },
+      params
+    );
     if (path) {
       const val = db.get(path);
       if (!(isString(val) || isArray(val) || isFunction(val))) {
@@ -53,7 +68,7 @@ export const getOperation = (
       }
       return val.length;
     }
-  };
+  }
 
   //TODO: add an exists method as well
   // if (getFoo.exists()) { ... }

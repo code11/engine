@@ -12,6 +12,7 @@ export interface GraphNode {
   nestingPath: string[];
   type: GraphNodeType;
   value: any;
+  wildcardValue?: any;
   isDependedBy: string[];
   fromPatch?: Patch[];
 }

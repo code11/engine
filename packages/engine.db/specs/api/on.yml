@@ -434,3 +434,161 @@
     - /bla/bam/bak/blu
   async: true
 # @TODO: Add testing for triggering listeners on node removal / replace
+
+- comment: Support refining for isObserved sync
+  listeners:
+    - "/foo"
+    - path: "/foo"
+      calls:
+        - true
+      refinee:
+        type: "isObserved"
+        args: []
+
+- comment: Support refining for isObserved async
+  listeners:
+    - path: "/foo"
+      calls:
+        - false
+        - true
+        - false
+      refinee:
+        type: "isObserved"
+        args: []
+    - path: "/foo"
+      asyncAppend: true
+      asyncUnsubscribe: true
+
+- comment: Support refining for length sync
+  doc:
+    foo: "abc"
+  listeners:
+    - path: "/foo"
+      calls:
+        - 3
+      refinee:
+        type: "length"
+        args: []
+
+- comment: Support refining for length async
+  patch:
+    - op: add
+      path: /foo
+      value: "abc"
+  async: true
+  listeners:
+    - path: "/foo"
+      calls:
+        - undefined
+        - 3
+      refinee:
+        type: "length"
+        args: []
+
+- comment: Support refining for includes sync
+  doc:
+    foo: "iamfoo"
+  listeners:
+    - path: "/foo"
+      calls:
+        - true
+      refinee:
+        type: "includes"
+        args: ["foo"]
+
+- comment: Support refining for includes async
+  patch:
+    - op: add
+      path: /foo
+      value: "iamfoo"
+  async: true
+  listeners:
+    - path: "/foo"
+      calls:
+        - undefined
+        - true
+      refinee:
+        type: "includes"
+        args: ["foo"]
+
+- comment: Support refining for isObserved with wildcard parent sync
+  listeners:
+    - path: "/foo/a"
+    - path: "/foo/*/b"
+      calls:
+        - true
+      refinee:
+        type: "isObserved"
+        args: []
+
+- comment: Support refining for isObserved with wildcard exact sync
+  listeners:
+    - path: "/foo/a/b"
+    - path: "/foo/*/b"
+      calls:
+        - true
+      refinee:
+        type: "isObserved"
+        args: []
+
+- comment: Support refining for isObserved with wildcard async
+  listeners:
+    - path: "/foo/a/b"
+      asyncAppend: true
+      asyncUnsubscribe: true
+    - path: "/foo/*/b"
+      calls:
+        - true
+        - false
+      refinee:
+        type: "isObserved"
+        args: []
+
+- comment: Should trigger wildcards for all existing values without nesting
+  doc:
+    foo:
+      a123: 123
+      a321: 321
+  listeners:
+    - path: "/foo/*"
+      calls:
+        - 123
+        - 321
+      refinee:
+        type: "value"
+        args: []
+
+- comment: Should trigger wildcards for all existing values with nesting
+  doc:
+    foo:
+      a123:
+        name:
+          value: 123
+      a321:
+        name:
+          value: 321
+  listeners:
+    - path: "/foo/*/name/value"
+      calls:
+        - 123
+        - 321
+      refinee:
+        type: "value"
+        args: []
+
+- comment: Should trigger wildcards for patch with nesting
+  only: true
+  patch:
+    - op: add
+      path: /foo
+      value:
+        id1:
+          name:
+            value: 123
+  listeners:
+    - path: "/foo/*/name/value"
+      calls:
+        - 123
+      refinee:
+        type: "value"
+        args: []

@@ -1160,32 +1160,46 @@ test("should keep arg references for path updates in async processes", (done) =>
     },
     bar: {
       a: 123,
+      b: 321,
+    },
+    baz: {
+      a: 111,
+      b: 222,
     },
   };
+  const mockGet = jest.fn();
   const struct: producer = ({
     foo = observe.foo.bar,
     updateFoo = update.foo.bar,
-    getFoo = get.foo.bar,
+    getFoo = get.baz[arg.foo],
     updateBar = update.bar[arg.foo],
   }) => {
-    updateFoo.remove();
+    updateFoo.set("b");
     if (!foo) {
       return;
     }
 
-    setTimeout(() => {
-      updateBar.remove();
-    });
+    setTimeout(
+      () => {
+        mockGet(getFoo.value());
+        updateBar.remove();
+      },
+      foo === "a" ? 2000 : 1000
+    );
   };
 
   const { db, producer } = run(struct, state, {});
   jest.runAllTimers();
 
-  console.log("final", db.get("/foo"));
-  expect(db.get("/bar/a")).toBeUndefined();
+  expect(db.get("/bar")).toStrictEqual({});
+  expect(mockGet.mock.calls[0][0]).toBe(222);
+  expect(mockGet.mock.calls[1][0]).toBe(111);
   done();
 });
 
+//TODO: add refining with path controls:
+// get.baz.includes(arg.foo)
+// get.baz.includes(prop.bar)
 test("should support get refining", () => {
   const state = {
     foo: 123,
@@ -1219,6 +1233,147 @@ test("should support get refining", () => {
   expect(mock.mock.calls[0][0].id2len).toBe(2);
   expect(mock.mock.calls[0][0].id2has).toBe(true);
   expect(mock.mock.calls[0][0].id3link).toBe("foobar");
+});
+
+test("should support wildcard in paths", () => {
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+  const mock = jest.fn((x) => x);
+  const a: producer = ({ value = observe[path.foo[wildcard]] }) => {
+    if (!value) {
+      return;
+    }
+    mock(value);
+  };
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  DB.patch([{ op: "add", path: "/foo/a", value: 321 }]);
+  jest.runAllTimers();
+  expect(mock.mock.calls[0][0]).toBe(321);
+});
+
+//TODO: make a test specific for testing the removeListener functionality
+
+test("should support observe syntax with refinee", () => {
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+
+  const mockA = jest.fn((x) => x);
+
+  const a: producer = ({ isObserved = observe.foo.isObserved() }) => {
+    mockA(isObserved);
+  };
+
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+
+  expect(mockA.mock.calls[0][0]).toBe(false);
+
+  const b: producer = ({ val = observe.foo }) => {};
+  const instB = new Producer(b, ctx);
+  instB.mount();
+  jest.runAllTimers();
+
+  expect(mockA.mock.calls[1][0]).toBe(true);
+
+  instB.unmount();
+  jest.runAllTimers();
+  expect(mockA.mock.calls[2][0]).toBe(false);
+});
+
+test("should support observe syntax with refinee for wildcards", () => {
+  const DB = db({});
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+
+  const mockA = jest.fn();
+  const mockB = jest.fn();
+
+  const a: producer = ({
+    id = wildcard,
+    isObserved = observe.foo[arg.id].isObserved(),
+    updateFoo = update.foo[arg.id],
+  }) => {
+    mockA(id, isObserved);
+    if (id && isObserved) {
+      updateFoo.set("321");
+    }
+  };
+
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+
+  const b: producer = ({ val = observe.foo.a123 }) => {
+    mockB(val);
+  };
+  const instB = new Producer(b, ctx);
+  instB.mount();
+  jest.runAllTimers();
+
+  expect(mockA.mock.calls[0]).toEqual([undefined, undefined]);
+  expect(mockA.mock.calls[1]).toEqual(["a123", true]);
+  expect(mockB.mock.calls).toEqual([[undefined], ["321"]]);
+});
+
+test("should keep arg refs with wildcards", () => {
+  const DB = db({
+    foo: {
+      a123: 100,
+    },
+  });
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+
+  const mockA = jest.fn();
+  const mockB = jest.fn();
+
+  const a: producer = ({
+    id = wildcard,
+    value = observe.foo[arg.id],
+    updateBar = update.bar[arg.id],
+  }) => {
+    if (!id) {
+      return;
+    }
+
+    setTimeout(
+      () => {
+        updateBar.set(value + 1);
+      },
+      id === "a123" ? 2000 : 1000
+    );
+  };
+
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+
+  const b: producer = ({ updateFoo = update.foo.a321 }) => {
+    updateFoo.set(200);
+  };
+  const instB = new Producer(b, ctx);
+  instB.mount();
+  jest.runAllTimers();
+
+  expect(DB.get("/bar/a123")).toEqual(101);
+  expect(DB.get("/bar/a321")).toEqual(201);
 });
 
 // Add test that checks that references are kept

@@ -54,7 +54,11 @@ export interface RefiningValue {
   };
 }
 
-export type StaticValue = ConstValue | ExternalValue | InternalValue;
+export type StaticValue =
+  | ConstValue
+  | ExternalValue
+  | InternalValue
+  | RefiningValue;
 export type InvokableValue = StaticValue | InvokeValue | RefiningValue;
 
 export type StaticPath = StaticValue[];
@@ -215,6 +219,7 @@ export enum AccessMethods {
   value = "value",
   includes = "includes",
   length = "length",
+  isObserved = "isObserved",
   // keys = "keys",
   // isValid = "isValid",
   // isEq = "isEq", // is equal
@@ -237,6 +242,7 @@ export type GetValue<T = any, P = {}> = {
   [AccessMethods.value]: (params?: Params<P>) => T;
   [AccessMethods.includes]: (value: any, params?: Params<P>) => boolean;
   [AccessMethods.length]: (params?: Params<P>) => number;
+  [AccessMethods.isObserved]: (params?: Params<P>) => boolean;
 };
 
 export type ObservePath<T> = T;

@@ -1,9 +1,16 @@
+import { AccessMethods } from ".";
+
 export type RemoveListener = () => void;
 export interface Patch {
   op: string;
   path: string;
   value?: any;
 }
+
+export type AccessMethodRefinee = {
+  type: AccessMethods;
+  args: any[];
+};
 
 export interface DatastoreInstance {
   node(
@@ -12,8 +19,12 @@ export interface DatastoreInstance {
     fn: (args: any) => any
   ): any;
   has(path: string): boolean;
-  get(path: string): any;
-  on(path: string, cb: (value: any, patch: Patch[]) => void): RemoveListener;
+  get(path: string, refinee?: AccessMethodRefinee): any;
+  on(
+    path: string,
+    cb: (value: any, patch: Patch[]) => void,
+    refinee?: AccessMethodRefinee
+  ): RemoveListener;
   patch(patches: Patch[]): void;
   db: Datastore;
 }
@@ -38,6 +49,7 @@ export interface Datastore {
     fns: any;
   };
   updates: {
+    refinees: any;
     cache: any;
     triggers: any;
     fns: any;

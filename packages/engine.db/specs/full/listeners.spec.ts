@@ -32,10 +32,11 @@ it("Should trigger listeners with nodes that are loaded in inorder", () => {
   return new Promise((resolve) => {
     jest.runAllTimers();
 
-    expect(fn.mock.calls.length).toBe(3);
-    expect(fn.mock.calls[0][0]).toBe(true);
-    expect(fn.mock.calls[1][0]).toBe(false);
-    expect(fn.mock.calls[2][0]).toBe(true);
+    expect(fn.mock.calls.length).toBe(4);
+    expect(fn.mock.calls[0][0]).toBe(undefined);
+    expect(fn.mock.calls[1][0]).toBe(true);
+    expect(fn.mock.calls[2][0]).toBe(false);
+    expect(fn.mock.calls[3][0]).toBe(true);
 
     resolve();
   });

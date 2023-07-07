@@ -1,20 +1,35 @@
 import "setimmediate";
 import { randomId } from "@c11/engine.utils";
-import getNode from "./getNode";
-import err from "./err";
 import isPlainObject from "lodash/isPlainObject";
 import isArray from "lodash/isArray";
+import { getRefinedValue } from "./getRefinedValue";
+import err from "./err";
+import { Patch } from "@c11/engine.types";
+import { isWildcardPath } from "./isWildcardPath";
 
-function callNode(db, path, i, patch = []) {
+function callNode(db, path, i, patch: Patch[] = []) {
   let fns = db.updates.fns[path];
 
-  if (!fns || !fns[i]) {
+  if (!fns || !fns[i] || !fns[i].fn) {
     return;
   }
 
-  let fn = fns[i];
+  let fn = fns[i].fn;
+  let refinee = fns[i].refinee;
+  let isWildcard = isWildcardPath(path);
 
-  let val = getNode(db, path, patch);
+  // Wildcard triggers need concrete values to have meaning
+  // as such wildcard existance shouldn't trigger other wildcard paths
+  if (
+    isWildcard &&
+    patch[0] &&
+    patch[0].op === "test" &&
+    isWildcardPath(patch[0].path)
+  ) {
+    return;
+  }
+
+  let val = getRefinedValue(db, path, patch, refinee);
 
   const replacer = (key, value) => {
     if (isPlainObject(value) || isArray(value) || value !== Object(value)) {
@@ -25,9 +40,13 @@ function callNode(db, path, i, patch = []) {
     return randomId();
   };
   let cacheTest = JSON.stringify(val, replacer);
+  let cacheIndex = isWildcard && patch[0] ? i + "-" + patch[0].path : i;
 
-  if (db.updates.cache[path][i] !== cacheTest) {
-    db.updates.cache[path][i] = cacheTest;
+  if (
+    !db.updates.cache[path].hasOwnProperty(cacheIndex) ||
+    db.updates.cache[path][cacheIndex] !== cacheTest
+  ) {
+    db.updates.cache[path][cacheIndex] = cacheTest;
     (function () {
       try {
         fn.call(null, val, patch);
@@ -61,7 +80,7 @@ function triggerListener(db, path, patch = []) {
   }
 }
 
-export function triggerListenerFn(db, path, fnId, patch) {
+export function triggerListenerFn(db, path, fnId, patch: Patch[] = []) {
   setImmediate(() => {
     callNode(db, path, fnId, patch);
   });

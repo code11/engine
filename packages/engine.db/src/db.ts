@@ -44,6 +44,7 @@ function jsonmvcdb(data: any): DatastoreInstance {
       fns: {},
     },
     updates: {
+      refinees: {},
       cache: {},
       triggers: {},
       fns: {},

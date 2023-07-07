@@ -1,5 +1,6 @@
 import { GraphStructure, PathSymbol } from "@c11/engine.types";
 import { isPath, PathObject } from "../path";
+import { wildcard } from "../wildcard";
 
 export const getValue = (
   type: string,

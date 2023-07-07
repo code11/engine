@@ -26,6 +26,11 @@ const errFn = () => {
 
 const identity = (x) => x;
 
+const only = tests.find((x) => x.only === true);
+if (only) {
+  tests = [only];
+}
+
 tests.forEach((x) => {
   if (x.disabled) {
     return;
@@ -69,8 +74,18 @@ tests.forEach((x) => {
         db.node(y, x.dynamic[y], fn);
       });
     }
+    if (x.listeners) {
+      x.listeners.forEach((y, i) => {
+        db.on(y, () => {});
+      });
+    }
 
-    let val = db.get(x.get);
+    let val;
+    if (x.get && x.get.path) {
+      val = db.get(x.get.path, x.get.refinee);
+    } else {
+      val = db.get(x.get);
+    }
 
     if (x.errFn) {
       expect(db.get("/err/node").length).toBe(1);
@@ -82,8 +97,6 @@ tests.forEach((x) => {
       let after = db.get(x.get + "/" + x.reference);
       expect(after).toEqual(before);
     } else {
-      let val = db.get(x.get);
-
       if (val === undefined && x.expect === "undefined") {
         val = "undefined";
       }

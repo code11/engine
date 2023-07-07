@@ -32,6 +32,9 @@ import { isDataEqual } from "./isDataEqual";
 import { cloneCbData } from "./cloneCbData";
 import { GetOperationSymbol } from "./getOperation";
 import { refineGet } from "./refineGet";
+import { getRefinee } from "./getRefinee";
+import { UpdateOperationSymbol } from "./updateOperation";
+import { getValue } from "./getValue";
 
 export class Graph {
   private structure: GraphStructure;
@@ -87,7 +90,11 @@ export class Graph {
         );
         if (result.type === ComputeType.PATH && result.value) {
           node.path = result.value;
-          node.value = this.db.get(result.value);
+          node.value = this.db.get(
+            result.value,
+            //@ts-ignore
+            getRefinee(node.op.path)
+          );
         } else if (result.type === ComputeType.VALUE) {
           node.value = result.value;
         }
@@ -165,10 +172,17 @@ export class Graph {
         if (value === wildcard) {
           const node = this.structure[`internal.${x}`];
           if (node) {
-            // There should be only one dependency to a wildcard node
-            const depId = node.isDependedBy[0];
+            // There should be only one observe dependency to a wildcard node
+            const depId =
+              node.isDependedBy.find(
+                (depId) =>
+                  // @ts-ignore
+                  this.structure[depId]?.op?.type === OperationTypes.OBSERVE
+              ) || "";
+
             const dep = this.structure[depId];
             if (
+              dep &&
               dep.type === GraphNodeType.INTERNAL &&
               dep.op &&
               dep.op.type === OperationTypes.OBSERVE
@@ -185,15 +199,40 @@ export class Graph {
                 const wildcardValue = parts[idx];
                 if (wildcardValue) {
                   acc[x] = wildcardValue;
+                  node.wildcardValue = wildcardValue;
                 }
               }
+            } else {
+              acc[x] = undefined;
             }
           }
         } else if (refs.includes(`internal.${x}`) || isFunction(data[x])) {
           acc[x] = value;
         } else {
           if (value?.__operation__?.symbol === GetOperationSymbol) {
-            acc[x] = refineGet(this.structure, value);
+            const refinee = getRefinee(value.__operation__.path);
+            if (refinee) {
+              acc[x] = refineGet(this.structure, value);
+            } else {
+              acc[x] = acc[x] = {
+                ...value,
+                __operation__: {
+                  id: value.__operation__.id,
+                  path: cloneDeep(value.__operation__.path),
+                  symbol: value.__operation__.symbol,
+                },
+              };
+            }
+          } else if (value?.__operation__?.symbol === UpdateOperationSymbol) {
+            // acc[x] = value;
+            acc[x] = {
+              ...value,
+              __operation__: {
+                id: value.__operation__.id,
+                path: cloneDeep(value.__operation__.path),
+                symbol: value.__operation__.symbol,
+              },
+            };
           } else {
             acc[x] = cloneDeep(value);
           }
@@ -208,6 +247,29 @@ export class Graph {
     ) {
       return;
     }
+
+    // snapshot the deps for Get and Update operations
+    Object.values(data).forEach((x) => {
+      if (
+        x?.__operation__?.symbol === GetOperationSymbol ||
+        x?.__operation__?.symbol === UpdateOperationSymbol
+      ) {
+        //@ts-ignore
+        x.__operation__.path.forEach((part) => {
+          if (part.type === ValueTypes.INTERNAL) {
+            const value = getValue("internal", this.structure, part.path);
+            if (value === wildcard) {
+              const node = this.structure[`internal.${part.path.join(".")}`];
+              if (node) {
+                part.snapshot = cloneDeep(node.wildcardValue);
+              }
+            } else {
+              part.snapshot = cloneDeep(value);
+            }
+          }
+        });
+      }
+    });
 
     this.isFirstCall = false;
 
@@ -261,7 +323,12 @@ export class Graph {
               node
             );
             node.listener = listener;
-            node.removeListener = this.db.on(path, listener);
+            node.removeListener = this.db.on(
+              path,
+              listener,
+              //@ts-ignore
+              getRefinee(node.op.path)
+            );
           }
         } else if (node.op.type === OperationTypes.FUNC) {
           node.op.value.params.forEach((op, i) => {

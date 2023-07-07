@@ -44,6 +44,7 @@ export const constructorOperation = (
         throw new Error("Invalid path. `observe` was not set.");
       }
 
+      //TODO: add refinee support
       const removeListener = db.on(observePath, cb);
       const listenerId = randomId();
       node.listenersFromConstructors[listenerId] = removeListener;
