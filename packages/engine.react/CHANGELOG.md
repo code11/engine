@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.121](https://github.com/code11/engine/compare/v4.0.0-alpha.120...v4.0.0-alpha.121) (2023-07-10)
+
+
+### Bug Fixes
+
+* trigger graph listeners with same value if paths use wildcards ([72427ca](https://github.com/code11/engine/commit/72427caf3fdb46228276de3d26ddd5720bbf6cd6))
+
+
+
+
+
 # [4.0.0-alpha.120](https://github.com/code11/engine/compare/v4.0.0-alpha.119...v4.0.0-alpha.120) (2023-07-07)
 
 
