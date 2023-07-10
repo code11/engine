@@ -15,6 +15,8 @@ export interface GraphNode {
   wildcardValue?: any;
   isDependedBy: string[];
   fromPatch?: Patch[];
+  isAffectedByWildcards?: boolean;
+  wildcardsMatched?: { [key: string]: any };
 }
 
 export interface GraphExternalNode extends GraphNode {

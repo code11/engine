@@ -1301,6 +1301,8 @@ test("should support observe syntax with refinee for wildcards", () => {
 
   const mockA = jest.fn();
   const mockB = jest.fn();
+  const mockC = jest.fn();
+  const mockD = jest.fn();
 
   const a: producer = ({
     id = wildcard,
@@ -1309,7 +1311,7 @@ test("should support observe syntax with refinee for wildcards", () => {
   }) => {
     mockA(id, isObserved);
     if (id && isObserved) {
-      updateFoo.set("321");
+      updateFoo.set(`${id}value`);
     }
   };
 
@@ -1317,16 +1319,30 @@ test("should support observe syntax with refinee for wildcards", () => {
   instA.mount();
   jest.runAllTimers();
 
-  const b: producer = ({ val = observe.foo.a123 }) => {
+  const b: producer = ({ val = observe.foo.b123 }) => {
     mockB(val);
   };
-  const instB = new Producer(b, ctx);
-  instB.mount();
+  const c: producer = ({ val = observe.foo.c123 }) => {
+    mockC(val);
+  };
+  const d: producer = ({ val = observe.foo.d123 }) => {
+    mockD(val);
+  };
+  new Producer(b, ctx).mount();
+  new Producer(c, ctx).mount();
+  new Producer(d, ctx).mount();
+
   jest.runAllTimers();
 
-  expect(mockA.mock.calls[0]).toEqual([undefined, undefined]);
-  expect(mockA.mock.calls[1]).toEqual(["a123", true]);
-  expect(mockB.mock.calls).toEqual([[undefined], ["321"]]);
+  expect(mockA.mock.calls).toEqual([
+    [undefined, undefined],
+    ["b123", true],
+    ["c123", true],
+    ["d123", true],
+  ]);
+  expect(mockB.mock.calls).toEqual([[undefined], ["b123value"]]);
+  expect(mockC.mock.calls).toEqual([[undefined], ["c123value"]]);
+  expect(mockD.mock.calls).toEqual([[undefined], ["d123value"]]);
 });
 
 test("should keep arg refs with wildcards", () => {
@@ -1340,9 +1356,6 @@ test("should keep arg refs with wildcards", () => {
     props: undefined,
     debug: false,
   };
-
-  const mockA = jest.fn();
-  const mockB = jest.fn();
 
   const a: producer = ({
     id = wildcard,

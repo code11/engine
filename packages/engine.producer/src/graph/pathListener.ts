@@ -28,9 +28,22 @@ export const pathListener = (
   // operation that would otherwise call the update multiple
   // times for the same value
   return (newValue: any, patch?: Patch[], shouldUpdate?: boolean) => {
-    if (newValue === node.value) {
+    const path = patch?.[0]?.path;
+    if (node.isAffectedByWildcards) {
+      if (path && node.wildcardsMatched?.[path] === newValue) {
+        return;
+      }
+    } else if (newValue === node.value) {
       return;
     }
+
+    if (node.isAffectedByWildcards && path) {
+      if (!node.wildcardsMatched) {
+        node.wildcardsMatched = {};
+      }
+      node.wildcardsMatched[path] = newValue;
+    }
+
     node.value = newValue;
     node.fromPatch = patch;
     set(_this.data, node.nesting, node.value);

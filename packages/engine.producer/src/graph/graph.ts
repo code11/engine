@@ -35,6 +35,7 @@ import { refineGet } from "./refineGet";
 import { getRefinee } from "./getRefinee";
 import { UpdateOperationSymbol } from "./updateOperation";
 import { getValue } from "./getValue";
+import { resolveWildcards } from "./resolveWildcards";
 
 export class Graph {
   private structure: GraphStructure;
@@ -63,6 +64,7 @@ export class Graph {
     const internalNodes = getInternalNodes(op);
     const struct = merge(internalNodes, getExternalNodes(internalNodes, props));
     resolveDependencies(struct);
+    resolveWildcards(struct);
     this.props = props;
     this.structure = struct;
     this.db = db;
@@ -115,12 +117,6 @@ export class Graph {
     }
 
     const serializationResult = serializeProps(props, this.serializers);
-
-    // console.log(
-    //   serializationResult,
-    //   this.serializedProps,
-    //   this.nonSerializedProps
-    // );
 
     if (
       isEqual(serializationResult.serialized, this.serializedProps) &&
