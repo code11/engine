@@ -24,6 +24,7 @@ const features = [
         boilerplate to focus on the actual product
       </>
     ),
+    buttonUrl: "/engine/docs/#goals"
   },
   {
     imageUrl: "/img/reduced-complexity.svg",
@@ -34,6 +35,7 @@ const features = [
         complexity from growing exponentially over time
       </>
     ),
+    buttonUrl: "/engine/docs/concepts/state"
   },
   {
     imageUrl: "/img/development-tools.svg",
@@ -44,10 +46,11 @@ const features = [
         you always know what goes on in there
       </>
     ),
+    buttonUrl: "/engine/docs/packages/dashboard/"
   },
 ];
 
-function Feature({ imageUrl, title, description }) {
+function Feature({ imageUrl, title, description, buttonUrl }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
     <>
@@ -57,9 +60,11 @@ function Feature({ imageUrl, title, description }) {
         )}
         <h3>{title}</h3>
         <p className={styles.featureDescription}>{description}</p>
-        <a className={clsx("button button--outline", styles.featureButton)}>
+        <Link className={clsx("button button--outline", styles.featureButton)}
+          to={useBaseUrl(buttonUrl)}
+        >
           Find out more
-        </a>
+        </Link>
       </div>
       <span className={styles.separator}></span>
     </>
