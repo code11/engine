@@ -93,5 +93,7 @@ export const getOperation = (
     },
   };
 
+  // TODO: bind the functions to the operation
+
   return operation;
 };

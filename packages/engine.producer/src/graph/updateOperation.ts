@@ -185,5 +185,7 @@ export const updateOperation = (
     },
   };
 
+  // TODO: bind the functions to the operation
+
   return operation;
 };
