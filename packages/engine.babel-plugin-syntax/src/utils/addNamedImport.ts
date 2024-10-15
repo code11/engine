@@ -26,7 +26,7 @@ export const addNamedImport = (
     const body = program.get("body.0");
     //@ts-ignore
     body.insertBefore(newNode);
-  } else if (t.isImportDeclaration(path)) {
+  } else if (t.isImportDeclaration(path.node)) {
     const node = path.node as Babel.types.ImportDeclaration;
     const exportedVariable = node.specifiers.find((x) => {
       if (t.isImportSpecifier(x)) {

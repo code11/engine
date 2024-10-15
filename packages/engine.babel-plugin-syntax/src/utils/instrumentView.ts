@@ -91,7 +91,7 @@ export const instrumentView = (
     ]);
 
     const configId = `__ENGINE_CONFIG__${metaProps.name}`;
-    const declaration = path.find((x) => t.isVariableDeclaration(x));
+    const declaration = path.find((x) => t.isVariableDeclaration(x.node));
     if (declaration) {
       const foo = t.variableDeclaration("const", [
         t.variableDeclarator(t.identifier(configId), result),

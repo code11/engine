@@ -23,7 +23,7 @@ export const instrument = (
 
   const alias = addNamedImport(babel, program, "@c11/engine.runtime", "update");
 
-  const declaration = path.find((x) => t.isDeclaration(x));
+  const declaration = path.find((x) => t.isDeclaration(x.node));
 
   if (declaration && t.isIdentifier(node.id)) {
     declaration.insertAfter(

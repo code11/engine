@@ -1,10 +1,8 @@
 import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
 import { join } from "../src";
 import { engine } from "@c11/engine.runtime";
-import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -33,7 +31,7 @@ test("should support join() with multiple react components", async () => {
     },
     use: [render(<Component value="123" />, rootEl)],
   });
-  await act(async () => {
+  await React.act(async () => {
     return await app.start();
   });
   jest.runAllTimers();

@@ -42,7 +42,7 @@ export interface TodoItem {
 
 Notice that for the status of `TodoItem`s, an enum of statuses is used instead
 of a boolean flag (e.g `isDone` or `isPending`). It is an [Engine best
-practice](/docs/best-practices#prefer-explicit-types-over-boolean-flags) to
+practice](/docs/best-practices#prefer-explicit-types-for-defining-states) to
 prefer explicit types over boolean flags.
 
 Knowledge of the shape of `TodoItem`s allows adding some initial todos the

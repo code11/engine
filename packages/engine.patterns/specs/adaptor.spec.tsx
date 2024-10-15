@@ -1,10 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { waitFor, getByTestId } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
 import { adaptor } from "../src";
 import { createRoot } from "react-dom/client";
-import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -34,7 +31,7 @@ test("should support adaptor functionality", async () => {
     );
   };
   const mountRoot = createRoot(rootEl);
-  await act(async () => {
+  await React.act(async () => {
     mountRoot.render(<Component2 />);
   });
   jest.runAllTimers();

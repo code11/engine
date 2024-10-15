@@ -120,4 +120,4 @@ anything in todosById changes, this producer is executed. Whenever status of any
 todo item is updated, `pendingCount` gets updated accordingly.
 
 In the next chapter, we'll take a look at how producers make it possible to a
-very create workflow for view <-> producer communication.
+very create workflow for view producer communication.

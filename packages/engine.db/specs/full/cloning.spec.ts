@@ -59,8 +59,9 @@ test("Should not clone Streams", (done) => {
 
     value.res.writeHead(200, { "Content-Type": "text/plain" });
     value.res.end("ok");
-    server.close();
-    done();
+    server.close(() => {
+      done();
+    });
   });
 
   server.listen(1337, "127.0.0.1", () => {
@@ -71,4 +72,4 @@ test("Should not clone Streams", (done) => {
     const req = http.request(options);
     req.end();
   });
-});
+}, 10 * 1000);

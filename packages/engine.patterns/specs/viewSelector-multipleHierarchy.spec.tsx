@@ -1,10 +1,8 @@
 import React from "react";
 import { waitFor, getByTestId } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
 import { render } from "@c11/engine.react";
 import { viewSelector } from "../src";
 import { engine, path } from "@c11/engine.runtime";
-import { act } from "react-dom/test-utils";
 
 const nextTick = process.nextTick;
 const flushPromises = () => {
@@ -109,7 +107,7 @@ test("should support viewSelector() with multiple hierarchy", async () => {
     use: [render(<Parent />, rootEl)],
   });
 
-  await act(async () => {
+  await React.act(async () => {
     return await app.start();
   });
 
@@ -118,7 +116,7 @@ test("should support viewSelector() with multiple hierarchy", async () => {
 
   let x = await waitFor(() => getByTestId(document.body, Ids.A));
   expect(x.innerHTML).toBe(Ids.A);
-  await act(async () => {
+  await React.act(async () => {
     _updateParent.set({
       loadB: true,
     });
@@ -128,7 +126,7 @@ test("should support viewSelector() with multiple hierarchy", async () => {
   // x = await waitFor(() => getByTestId(document.body, Ids.B));
   // x = await waitFor(() => getByTestId(document.body, ChildIds.D));
   // expect(x.innerHTML).toBe(ChildIds.D);
-  // await act(async () => {
+  // await React.act(async () => {
   //   _updateChildData({ load: ChildIds.C });
   // });
   // jest.runAllTimers();

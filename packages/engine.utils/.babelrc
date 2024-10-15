@@ -9,7 +9,7 @@
     [
       "@c11/engine.babel-plugin-syntax",
       {
-        "viewLibrary": "@c11/engine.react"
+        "viewLibrary": "../../engine.react/dist/index.js"
       }
     ]
   ]
