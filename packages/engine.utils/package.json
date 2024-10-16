@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.utils",
-  "version": "4.0.0-alpha.121",
+  "version": "4.0.0-alpha.122",
   "description": "Utilities for managing engine specific constructs",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -26,7 +26,7 @@
     "@babel/preset-env": "^7.19.3",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.121",
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.122",
     "@types/clone-deep": "^4.0.1",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.186",
