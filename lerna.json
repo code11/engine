@@ -5,6 +5,5 @@
   ],
   "npmClient": "yarn",
   "version": "4.0.0-alpha.121",
-  "useWorkspaces": true,
   "changelogPreset": "angular"
 }
