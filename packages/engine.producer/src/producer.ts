@@ -164,13 +164,20 @@ export class Producer implements ProducerInstance {
         }
         return acc;
       }, {} as { [k: string]: any });
+
       // TODO: add an out fn in the constructor to pipe things properly
       console.log(loc, logParams);
     }
     //TODO: could the producer become unmounted here?
     // maybe the call shouldn't be made
     this.emit(EventNames.PRODUCER_CALLED, params);
-    const result = this.fn.call(null, params);
+    let result
+    try {
+      result = this.fn.call(null, params);
+    } catch(e) {
+      console.error("producer sync call error", params, e);
+      return
+    }
 
     if (isFunction(result)) {
       //TODO: could the producer become unmounted here?
@@ -187,6 +194,8 @@ export class Producer implements ProducerInstance {
           }
           this.results.push(cb);
         }
+      }).catch(e => {
+        console.error(`producer async call error:`, params, e);
       });
     }
   }
@@ -210,7 +219,11 @@ export class Producer implements ProducerInstance {
     this.state = ProducerStates.UNMOUNTED;
     this.results.forEach((x) => {
       if (x) {
-        x();
+        try {
+          x();
+        } catch(e) {
+          console.error("producer unmount error", e);
+        }
       }
     });
     this.emit(EventNames.PRODUCER_UNMOUNTED);

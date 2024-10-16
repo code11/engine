@@ -7,7 +7,23 @@ import { isPath, path, pathFn } from "../src/path";
 import { wildcard } from "../src/wildcard";
 import "./global";
 
-jest.useFakeTimers();
+const nextTick = process.nextTick;
+const flushPromises = () => {
+  return new Promise(nextTick);
+};
+
+// useFakeTimer is global regardless where it is called.
+// some tests need to handle promises which require nextTick
+// so these timers need to be reset afterwards/before to ensure
+// timers are handled properly for sync tests
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useFakeTimers();
+  jest.restoreAllMocks();
+});
 
 function run(producer, state = {}, props = {}, DB = db(state), debug = false) {
   const ctx = {
@@ -58,12 +74,14 @@ test("should support paths with identifiers", () => {
 });
 
 test("should support producers stats", () => {
+  const logSpy = jest.spyOn(global.console, 'log').mockImplementation(jest.fn());
   const struct: producer = ({ color = observe.foo }) => {};
   const result = run(struct, undefined, undefined, undefined, true);
   result.db.patch([{ op: "add", path: "/foo", value: "321" }]);
   jest.runAllTimers();
   const stats = result.producer.getStats();
   expect(stats).toStrictEqual({ executionCount: 2 });
+  expect(logSpy).toHaveBeenCalled();
 });
 
 test("should support Value operations with INTERNAL values", () => {
@@ -1387,6 +1405,50 @@ test("should keep arg refs with wildcards", () => {
 
   expect(DB.get("/bar/a123")).toEqual(101);
   expect(DB.get("/bar/a321")).toEqual(201);
+});
+
+
+test("should log errors for producers", async () => {
+  jest.useFakeTimers({
+    doNotFake: ["nextTick"]
+  });
+  const logSpy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+  const obj = {
+    foo: 123
+  }
+  const DB = db(obj);
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+
+  const a: producer = ({
+    foo = observe.foo
+  }) => {
+    throw new Error("A");
+  };
+
+  const b: producer = async ({
+    foo = observe.foo
+  }) => {
+    throw new Error("B");
+  };
+
+  const instA = new Producer(a, ctx);
+  const instB = new Producer(b, ctx);
+  instA.mount();
+  instB.mount();
+  jest.runAllTimers();
+  await flushPromises();
+
+  expect(logSpy.mock.calls[0][0]).toEqual(expect.any(String));
+  expect(logSpy.mock.calls[0][1]).toEqual(obj);
+  expect(logSpy.mock.calls[0][2]).toBeInstanceOf(Error);
+
+  expect(logSpy.mock.calls[1][0]).toEqual(expect.any(String));
+  expect(logSpy.mock.calls[1][1]).toEqual(obj);
+  expect(logSpy.mock.calls[1][2]).toBeInstanceOf(Error);
 });
 
 // Add test that checks that references are kept
