@@ -7,8 +7,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "echo \"skipping\"",
-    "test": "echo \"skipping\"",
-    "publish": "yarn npm publish --tolerate-republish"
+    "test": "echo \"skipping\""
   },
   "author": {
     "name": "Constantin Dumitrescu",
