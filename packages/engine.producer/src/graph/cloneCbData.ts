@@ -16,7 +16,13 @@ export const cloneCbData = (
 
   data = Object.keys(data).reduce((acc: any, x) => {
     const value = data[x];
-    if (refs.includes(`internal.${x}`) || isFunction(data[x])) {
+    if (value && value.__operation__) {
+      const keys = Object.keys(value).filter(x => x !== "__operation__");
+      for (const key of keys) {
+        value[key].bind(value);
+      }
+      acc[x] = cloneDeep(value);
+    } else if (refs.includes(`internal.${x}`) || isFunction(data[x])) {
       acc[x] = value;
     } else {
       acc[x] = cloneDeep(value);

@@ -1451,6 +1451,48 @@ test("should log errors for producers", async () => {
   expect(logSpy.mock.calls[1][2]).toBeInstanceOf(Error);
 });
 
+test("ensure operation functions are binded to the operation", () => {
+  const DB = db({
+    foo: 123
+  });
+  const ctx = {
+    db: DB,
+    props: undefined,
+    debug: false,
+  };
+  let getters = {};
+  let setters = {};
+  const a: producer = ({
+    opGetter = get.foo,
+    opSetter = update.foo,
+    baz = get.foo.value()
+  }) => {
+    expect(baz).toBe(123);
+    getters = opGetter;
+    setters = opSetter;
+  };
+  const instA = new Producer(a, ctx);
+  instA.mount();
+  jest.runAllTimers();
+  for (const key in getters) {
+    if (key == "__operation__") {
+      continue;
+    }
+    expect(() => {
+      getters[key]()
+    }).not.toThrow();
+  }
+  for (const key in setters) {
+    if (key == "__operation__") {
+      continue;
+    }
+    expect(() => {
+      setters[key]()
+    }).not.toThrow();
+  }
+})
+
+
 // Add test that checks that references are kept
 
 /*
