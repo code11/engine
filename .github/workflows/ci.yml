@@ -31,6 +31,10 @@ jobs:
           YARN_NODE_LINKER: pnp
         run: |
           yarn install --immutable --mode=skip-build
+      - name: Publish packages
+        run: yarn publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 
   build:

@@ -32,7 +32,7 @@
     "release": "yarn clean && yarn setup && yarn ./packages/engine.utils run build && yarn build --exclude @c11/engine.utils && yarn test",
     "release:packages": "yarn clean && yarn ./packages/engine.utils run build && yarn build --exclude @c11/engine.utils && yarn test",
     "version:lerna": "lerna version --conventional-commits --exact",
-    "publish": "lerna publish from-package",
+    "publish": "lerna publish from-package -y",
     "publish:local": "lerna publish from-package --registry http://localhost:4873",
     "code:format": "prettier --write \"./**/*.(js|jsx|ts|tsx|html|css|json)\"",
     "setup": "yarn install && yarn ./nm-packages/engine.dashboard"
