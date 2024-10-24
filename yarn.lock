@@ -1812,10 +1812,10 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.18.6"
     "@babel/runtime": "npm:^7.19.0"
     "@c11/engine.babel-plugin-syntax": "npm:4.0.0-alpha.122"
-    "@c11/engine.patterns": "npm:4.0.0-alpha.123"
-    "@c11/engine.react": "npm:4.0.0-alpha.123"
-    "@c11/engine.runtime": "npm:4.0.0-alpha.123"
-    "@c11/engine.service-web": "npm:4.0.0-alpha.123"
+    "@c11/engine.patterns": "npm:4.0.0-alpha.122"
+    "@c11/engine.react": "npm:4.0.0-alpha.122"
+    "@c11/engine.runtime": "npm:4.0.0-alpha.122"
+    "@c11/engine.service-web": "npm:4.0.0-alpha.122"
     "@c11/engine.types": "npm:4.0.0-alpha.121"
     "@c11/engine.utils": "npm:4.0.0-alpha.122"
     "@chakra-ui/icons": "npm:^1.1.7"
@@ -1896,7 +1896,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.patterns@npm:4.0.0-alpha.123, @c11/engine.patterns@workspace:packages/engine.patterns":
+"@c11/engine.patterns@npm:4.0.0-alpha.122":
+  version: 4.0.0-alpha.122
+  resolution: "@c11/engine.patterns@npm:4.0.0-alpha.122"
+  dependencies:
+    "@c11/engine.utils": "npm:4.0.0-alpha.122"
+    http-status-codes: "npm:^2.3.0"
+    lodash: "npm:^4.17.21"
+    react-is: "npm:^18.3.1"
+  peerDependencies:
+    react: ">=16"
+  checksum: 10/951da331c0cb5c6fcae7dce4d7e7cc96ae2cc186ced73ba6f1778246efbf575edc24a41cf2cf93b7a15442177b67f6b97799e6547076d040e4734ee1a21fb771
+  languageName: node
+  linkType: hard
+
+"@c11/engine.patterns@workspace:packages/engine.patterns":
   version: 0.0.0-use.local
   resolution: "@c11/engine.patterns@workspace:packages/engine.patterns"
   dependencies:
@@ -1950,6 +1964,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@c11/engine.producer@npm:4.0.0-alpha.122":
+  version: 4.0.0-alpha.122
+  resolution: "@c11/engine.producer@npm:4.0.0-alpha.122"
+  dependencies:
+    "@c11/engine.db": "npm:4.0.0-alpha.122"
+    "@c11/engine.types": "npm:4.0.0-alpha.121"
+    "@c11/engine.utils": "npm:4.0.0-alpha.118"
+    clone-deep: "npm:^4.0.1"
+    is-promise: "npm:^4.0.0"
+    lodash: "npm:^4.17.21"
+  checksum: 10/e321105d9557265708c43b0698f4917afcf1279d1e4180dae7f072109e3d6ed5a1a2e05f0ce58513b42f5f89faa0430d550ec1fe7d4017376a74e7fd03c67066
+  languageName: node
+  linkType: hard
+
 "@c11/engine.producer@npm:4.0.0-alpha.123, @c11/engine.producer@workspace:packages/engine.producer":
   version: 0.0.0-use.local
   resolution: "@c11/engine.producer@workspace:packages/engine.producer"
@@ -1993,6 +2021,23 @@ __metadata:
     react: ">=16"
     react-dom: ">=16"
   checksum: 10/4c922e2bc87bfe9d9cba7707ab939766e035952339708c1c51318bec5d4c2836266acac0b54b56000138bf12507af00226ca930eac4f2b1ec46dadd0ebb9d2ec
+  languageName: node
+  linkType: hard
+
+"@c11/engine.react@npm:4.0.0-alpha.122":
+  version: 4.0.0-alpha.122
+  resolution: "@c11/engine.react@npm:4.0.0-alpha.122"
+  dependencies:
+    "@c11/engine.producer": "npm:4.0.0-alpha.122"
+    "@c11/engine.runtime": "npm:4.0.0-alpha.122"
+    "@c11/engine.types": "npm:4.0.0-alpha.121"
+    "@c11/engine.utils": "npm:4.0.0-alpha.122"
+    jest-silent-reporter: "npm:^0.5.0"
+    lodash: "npm:^4.17.21"
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 10/6b23a33add0654fb8d62bdd40e969c356ff16e8cc6ac1e58c26151008316c9b1f8fcdfd8b3e4ebb59f220a72c4192a23d0689801f63596ecc7cee9ec778b0e47
   languageName: node
   linkType: hard
 
@@ -2045,6 +2090,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@c11/engine.runtime@npm:4.0.0-alpha.122":
+  version: 4.0.0-alpha.122
+  resolution: "@c11/engine.runtime@npm:4.0.0-alpha.122"
+  dependencies:
+    "@c11/engine.db": "npm:4.0.0-alpha.122"
+    "@c11/engine.producer": "npm:4.0.0-alpha.122"
+    "@c11/engine.types": "npm:4.0.0-alpha.121"
+    "@c11/engine.utils": "npm:4.0.0-alpha.118"
+    lodash: "npm:^4.17.21"
+  checksum: 10/88fc10e5c216bfa97c6b1abf3339fc8afee99a3bf4c40553fed889a21a64d61b76895029601d37cd24716e7199e316d0dcc6ee344ac483342fc47a9ea83eb15f
+  languageName: node
+  linkType: hard
+
 "@c11/engine.runtime@npm:4.0.0-alpha.123, @c11/engine.runtime@workspace:packages/engine.runtime":
   version: 0.0.0-use.local
   resolution: "@c11/engine.runtime@workspace:packages/engine.runtime"
@@ -2067,7 +2125,59 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@c11/engine.service-web@npm:4.0.0-alpha.123, @c11/engine.service-web@workspace:packages/engine.service-web":
+"@c11/engine.service-web@npm:4.0.0-alpha.122":
+  version: 4.0.0-alpha.122
+  resolution: "@c11/engine.service-web@npm:4.0.0-alpha.122"
+  dependencies:
+    "@babel/core": "npm:^7.19.3"
+    "@babel/plugin-proposal-class-properties": "npm:^7.18.6"
+    "@babel/plugin-transform-runtime": "npm:^7.19.1"
+    "@babel/preset-env": "npm:^7.19.3"
+    "@babel/preset-react": "npm:^7.18.6"
+    "@babel/preset-typescript": "npm:^7.18.6"
+    "@babel/runtime": "npm:^7.19.0"
+    "@c11/engine.babel-plugin-hmr": "npm:4.0.0-alpha.122"
+    "@c11/engine.babel-plugin-syntax": "npm:4.0.0-alpha.122"
+    "@c11/engine.react": "npm:4.0.0-alpha.122"
+    "@c11/engine.runtime": "npm:4.0.0-alpha.122"
+    "@c11/engine.utils": "npm:4.0.0-alpha.122"
+    "@svgr/webpack": "npm:^5.5.0"
+    "@teamsupercell/typings-for-css-modules-loader": "npm:^2.5.1"
+    "@types/react": "npm:^18.0.27"
+    autoprefixer: "npm:^10.4.12"
+    babel-loader: "npm:^8.2.5"
+    babel-plugin-module-rewrite: "npm:^0.2.0"
+    babel-plugin-react-require: "npm:^3.1.3"
+    commander: "npm:^8.3.0"
+    css-loader: "npm:^6.7.1"
+    file-loader: "npm:^6.2.0"
+    find-root: "npm:^1.1.0"
+    fs-extra: "npm:^10.1.0"
+    html-webpack-plugin: "npm:^5.5.0"
+    init-pkg-json: "npm:^1.0.0"
+    mini-css-extract-plugin: "npm:^2.6.1"
+    ncp: "npm:^2.0.0"
+    pacote: "npm:^11.3.5"
+    postcss: "npm:^8.4.17"
+    postcss-import: "npm:^14.1.0"
+    postcss-loader: "npm:^6.2.1"
+    postcss-preset-env: "npm:^7.8.2"
+    style-loader: "npm:^3.3.1"
+    svg-inline-loader: "npm:^0.8.2"
+    url-loader: "npm:^4.1.1"
+    webpack: "npm:^5.74.0"
+    webpack-bundle-analyzer: "npm:^4.6.1"
+    webpack-dev-server: "npm:^4.11.1"
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  bin:
+    engine-service-web: dist/cli.js
+  checksum: 10/121c285e1ff0cbfa4b94551e0089c1c32d66cab4c3dd6660971eb1cdf85a7c8f68355bbf7ded0a37626565014a8924c93c067bd0c75a41ce04159f23f8b04507
+  languageName: node
+  linkType: hard
+
+"@c11/engine.service-web@workspace:packages/engine.service-web":
   version: 0.0.0-use.local
   resolution: "@c11/engine.service-web@workspace:packages/engine.service-web"
   dependencies:
