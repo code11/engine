@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.123](https://github.com/code11/engine/compare/v4.0.0-alpha.122...v4.0.0-alpha.123) (2024-10-24)
+
+**Note:** Version bump only for package @c11/engine.dashboard
+
 # [4.0.0-alpha.122](https://github.com/code11/engine/compare/v4.0.0-alpha.121...v4.0.0-alpha.122) (2024-10-16)
 
 **Note:** Version bump only for package @c11/engine.dashboard

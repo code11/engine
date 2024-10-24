@@ -1,6 +1,6 @@
 {
  "name": "@c11/engine.dashboard",
- "version": "4.0.0-alpha.122",
+ "version": "4.0.0-alpha.123",
  "description": "A dashboard for visualizing and interacting with the engine instance",
  "scripts": {
   "test": "echo \"engine-service-web test\"",
@@ -17,7 +17,7 @@
  "typings": "dist/index.d.ts",
  "devDependencies": {
   "@babel/cli": "^7.19.3",
-  "@c11/engine.service-web": "4.0.0-alpha.122",
+  "@c11/engine.service-web": "4.0.0-alpha.123",
   "@types/babel__core": "^7",
   "@types/body-parser": "^1",
   "@types/cors": "^2",
@@ -48,9 +48,9 @@
   "@babel/preset-typescript": "^7.18.6",
   "@babel/runtime": "^7.19.0",
   "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.122",
-  "@c11/engine.patterns": "4.0.0-alpha.122",
-  "@c11/engine.react": "4.0.0-alpha.122",
-  "@c11/engine.runtime": "4.0.0-alpha.122",
+  "@c11/engine.patterns": "4.0.0-alpha.123",
+  "@c11/engine.react": "4.0.0-alpha.123",
+  "@c11/engine.runtime": "4.0.0-alpha.123",
   "@c11/engine.types": "4.0.0-alpha.121",
   "@c11/engine.utils": "4.0.0-alpha.122",
   "@chakra-ui/icons": "^1.1.7",

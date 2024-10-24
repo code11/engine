@@ -1,6 +1,6 @@
 {
   "packages": ["packages/*", "nm-packages/*"],
   "npmClient": "yarn",
-  "version": "4.0.0-alpha.122",
+  "version": "4.0.0-alpha.123",
   "changelogPreset": "angular"
 }
