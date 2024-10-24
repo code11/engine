@@ -17,7 +17,8 @@
     "build": "tsc",
     "test:simple": "jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/*",
     "test:coverage": "jest --runInBand --config ./jest.config.js --coverageDirectory='./coverage' --collectCoverage --collectCoverageFrom='[\"./src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
-    "test": "yarn run test:coverage"
+    "test": "yarn run test:coverage",
+    "publish": "yarn npm publish --tolerate-republish"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",

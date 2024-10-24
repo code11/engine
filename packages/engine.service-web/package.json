@@ -30,7 +30,8 @@
     "tsc": "tsc --project tsconfig.json",
     "build": "babel src --out-dir dist --extensions \".ts\" && chmod +x dist/index.js",
     "test": "echo \"jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/*\"",
-    "test:coverage": "jest --runInBand --config ./jest.config.js --collectCoverage --collectCoverageFrom=./src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*"
+    "test:coverage": "jest --runInBand --config ./jest.config.js --collectCoverage --collectCoverageFrom=./src/**/*.{ts,tsx,js,jsx} --runTestsByPath ./specs/*",
+    "publish": "yarn npm publish --tolerate-republish"
   },
   "peerDependencies": {
     "react": ">=16",

@@ -9,7 +9,8 @@
     "test:simple": "NODE_ENV=test jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/api*",
     "test:update": "jest --runInBand --config ./jest.config.js --runTestsByPath ./specs/* --updateSnapshot",
     "test:coverage": "jest --runInBand --config ./jest.config.js --coverageDirectory='./coverage' --collectCoverage --collectCoverageFrom='[\"./src/**/*.{ts,tsx,js,jsx}\"]' --runTestsByPath ./specs/*",
-    "test": "yarn run test:coverage"
+    "test": "yarn run test:coverage",
+    "publish": "yarn npm publish --tolerate-republish"
   },
   "author": {
     "name": "Constantin Dumitrescu",

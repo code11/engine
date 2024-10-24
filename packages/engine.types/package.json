@@ -10,7 +10,8 @@
     "email": "dum.constantin@gmail.com"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "publish": "yarn npm publish --tolerate-republish"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
