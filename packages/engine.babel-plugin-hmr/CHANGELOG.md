@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.124](https://github.com/code11/engine/compare/v4.0.0-alpha.123...v4.0.0-alpha.124) (2024-11-18)
+
+**Note:** Version bump only for package @c11/engine.babel-plugin-hmr
+
 # [4.0.0-alpha.122](https://github.com/code11/engine/compare/v4.0.0-alpha.121...v4.0.0-alpha.122) (2024-10-16)
 
 **Note:** Version bump only for package @c11/engine.babel-plugin-hmr

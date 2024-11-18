@@ -1,6 +1,6 @@
 {
   "name": "@c11/engine.types-generator",
-  "version": "4.0.0-alpha.122",
+  "version": "4.0.0-alpha.124",
   "private": true,
   "description": "Produces typescript types for views and producers",
   "main": "dist/index.js",
@@ -18,10 +18,10 @@
     "@babel/core": "^7.19.3",
     "@babel/plugin-syntax-typescript": "^7.18.6",
     "@babel/types": "^7.19.3",
-    "@c11/engine.types": "4.0.0-alpha.121",
+    "@c11/engine.types": "4.0.0-alpha.124",
     "prettier": "^2.7.1"
   },
   "dependencies": {
-    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.122"
+    "@c11/engine.babel-plugin-syntax": "4.0.0-alpha.124"
   }
 }
