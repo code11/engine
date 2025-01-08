@@ -45,3 +45,21 @@ const MyView: view = ({ barVal = observe.foo.bar }) => { ... }
 
 Whenever an `observe`d value in state is changed (e.g with
 [update](/docs/api/update)), the view or producer using it is re-triggered.
+
+## .isObserved()
+
+If a reaction is needed in the case that a certain path is observed by a producer or a view, e.g. when needing to populate information on-demand, then `isObserved` can be used.
+
+This will return a boolean with the status of the path.
+
+```
+const Foo: producer = ({ status = observe.foo.bar.isObserved() }) => { 
+    if (!status) {
+        // not being observed
+        return
+    }
+
+    // there is at least an observer
+    // ...
+}
+```
