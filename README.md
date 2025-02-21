@@ -11,6 +11,10 @@ The Code11 Engine is a declarative state management system and application build
 
 Get started using the [cli](https://code11.github.io/engine/docs/cli):
 
+The engine supports both Babel and SWC for processing type annotations:
+- `@c11/engine.babel-plugin-syntax` - Babel plugin (default)
+- `@c11/engine.swc-plugin-syntax` - SWC plugin (faster alternative)
+
 ```
 npx @c11/engine.cli create my-app
 cd my-app
