@@ -1,5 +1,7 @@
 # @c11/engine.swc-plugin-syntax
 
+[![SWC Plugin CI](https://github.com/code11/engine/actions/workflows/swc-plugin.yml/badge.svg)](https://github.com/code11/engine/actions/workflows/swc-plugin.yml)
+
 A SWC plugin that processes TypeScript type annotations to identify special engine keywords (`view` and `producer`) and transforms them into instrumented code. This is a Rust implementation of the functionality provided by [@c11/engine.babel-plugin-syntax](../engine.babel-plugin-syntax).
 
 ## Installation
