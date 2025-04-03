@@ -37,6 +37,7 @@ test("Simple load of a react component", async () => {
     return <div data-testid="foo">{foo}</div>;
   };
 
+  Component.displayName;
   expect(Component.displayName).not.toBeUndefined();
 
   const on = jest.fn();

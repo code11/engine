@@ -24,6 +24,9 @@ const foo = viewRandomId({
       },
     },
   },
+  meta: {
+    name: "foo",
+  },
   type: "view",
   buildId: "unique_id",
 });
@@ -42,6 +45,9 @@ const bar = viewRandomId({
         ],
       },
     },
+  },
+  meta: {
+    name: "bar",
   },
   type: "view",
   buildId: "unique_id",
@@ -73,6 +79,9 @@ const foo = viewRandomId({
       },
     },
   },
+  meta: {
+    name: "foo",
+  },
   type: "view",
   buildId: "unique_id",
 });
@@ -91,6 +100,9 @@ const foo = viewRandomId({
   fn: () => {},
   props: {
     type: "PASSTHROUGH",
+  },
+  meta: {
+    name: "foo",
   },
   type: "view",
   buildId: "unique_id",
@@ -114,6 +126,9 @@ const foo = viewRandomId({
   props: {
     type: "PASSTHROUGH",
   },
+  meta: {
+    name: "foo",
+  },
   type: "view",
   buildId: "unique_id",
 });
@@ -135,6 +150,9 @@ const foo = viewRandomId({
   fn: (props) => {},
   props: {
     type: "PASSTHROUGH",
+  },
+  meta: {
+    name: "foo",
   },
   type: "view",
   buildId: "unique_id",
@@ -163,6 +181,9 @@ const foo = viewRandomId({
         },
       },
     },
+  },
+  meta: {
+    name: "foo",
   },
   type: "view",
   buildId: "unique_id",

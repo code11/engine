@@ -100,9 +100,13 @@ export const instrumentView = (
     }
     node.init = t.callExpression(t.identifier(alias), [t.identifier(configId)]);
   } else {
+    const meta = rawObjectCompiler(babel, {
+      name: metaProps.name
+    });
     const result = t.objectExpression([
       t.objectProperty(t.identifier("fn"), fn),
       t.objectProperty(t.identifier("props"), props),
+      t.objectProperty(t.identifier("meta"), meta),
       t.objectProperty(t.identifier("type"), t.stringLiteral("view")),
       t.objectProperty(t.identifier("buildId"), t.stringLiteral(buildId)),
     ]);

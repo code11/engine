@@ -102,7 +102,7 @@ export function view(config: ViewConfig) {
     emit: RenderContext["emit"];
     config: ViewConfig;
     static contextType = ViewContext;
-    static displayName = `${config.meta?.relativeFilePath}::${config.meta?.name}:${config.meta?.location?.start.line}`;
+    static displayName = config.meta?.name;
     stateUpdate: any = {};
     fn: any;
     isComponentMounted: boolean = false;

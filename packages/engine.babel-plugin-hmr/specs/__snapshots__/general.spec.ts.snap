@@ -104,6 +104,9 @@ const result = viewRandomId({
       },
     },
   },
+  meta: {
+    name: "result",
+  },
   type: "view",
   buildId: "unique_id",
 });
@@ -120,6 +123,9 @@ const result2 = viewRandomId({
         },
       },
     },
+  },
+  meta: {
+    name: "result2",
   },
   type: "view",
   buildId: "unique_id",
@@ -150,6 +156,9 @@ export const result = viewRandomId({
         },
       },
     },
+  },
+  meta: {
+    name: "result",
   },
   type: "view",
   buildId: "unique_id",

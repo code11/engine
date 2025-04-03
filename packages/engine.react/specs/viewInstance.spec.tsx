@@ -67,6 +67,7 @@ test("should create a state instance for a view", async () => {
     );
   };
 
+  Component.displayName;
   expect(Component.displayName).not.toBeUndefined();
 
   let get;
