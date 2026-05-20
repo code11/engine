@@ -1448,6 +1448,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@c11/engine.babel-plugin-syntax@npm:4.0.0-alpha.124":
+  version: 4.0.0-alpha.124
+  resolution: "@c11/engine.babel-plugin-syntax@npm:4.0.0-alpha.124"
+  dependencies:
+    "@babel/core": "npm:^7.19.3"
+    "@c11/engine.utils": "npm:4.0.0-alpha.118"
+    lodash: "npm:^4.17.21"
+  checksum: 10/c773c7ed5ef8107d63ec7238c142df5625d16f03560d866869073fb993f81ce2901f0a742e378c2422954933099d7a93482d5fa9d9f255d2094843eac4494e42
+  languageName: node
+  linkType: hard
+
 "@c11/engine.dashboard@workspace:.":
   version: 0.0.0-use.local
   resolution: "@c11/engine.dashboard@workspace:."
@@ -1459,13 +1470,13 @@ __metadata:
     "@babel/preset-env": "npm:^7.19.3"
     "@babel/preset-typescript": "npm:^7.18.6"
     "@babel/runtime": "npm:^7.19.0"
-    "@c11/engine.babel-plugin-syntax": "npm:4.0.0-alpha.122"
+    "@c11/engine.babel-plugin-syntax": "npm:4.0.0-alpha.124"
     "@c11/engine.patterns": "npm:4.0.0-alpha.122"
     "@c11/engine.react": "npm:4.0.0-alpha.122"
     "@c11/engine.runtime": "npm:4.0.0-alpha.122"
     "@c11/engine.service-web": "npm:4.0.0-alpha.122"
-    "@c11/engine.types": "npm:4.0.0-alpha.121"
-    "@c11/engine.utils": "npm:4.0.0-alpha.122"
+    "@c11/engine.types": "npm:4.0.0-alpha.124"
+    "@c11/engine.utils": "npm:4.0.0-alpha.124"
     "@chakra-ui/icons": "npm:^1.1.7"
     "@chakra-ui/react": "npm:^1.8.9"
     "@chakra-ui/system": "npm:^1.12.1"
@@ -1636,6 +1647,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@c11/engine.types@npm:4.0.0-alpha.124":
+  version: 4.0.0-alpha.124
+  resolution: "@c11/engine.types@npm:4.0.0-alpha.124"
+  checksum: 10/6bc1ff2329990f7c260fc06bd18bf2416c504650b5a352f207b82739b5b924b6c4817d74aedc3a394537145542dbf3030e9503bc680779f6490fb37a265f8a18
+  languageName: node
+  linkType: hard
+
 "@c11/engine.utils@npm:4.0.0-alpha.118":
   version: 4.0.0-alpha.118
   resolution: "@c11/engine.utils@npm:4.0.0-alpha.118"
@@ -1653,6 +1671,16 @@ __metadata:
     lodash: "npm:^4.17.21"
     nanoid: "npm:^3.3.4"
   checksum: 10/22db5d556a3f1278cb4a98cbdf9e25a8157669d085d867f7be1fdc522080ccec2bbb218549d1dba0e5a5a6ecc97259a45e91ea95181bc6578c861ccb159ccc22
+  languageName: node
+  linkType: hard
+
+"@c11/engine.utils@npm:4.0.0-alpha.124":
+  version: 4.0.0-alpha.124
+  resolution: "@c11/engine.utils@npm:4.0.0-alpha.124"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    nanoid: "npm:^3.3.4"
+  checksum: 10/c664ca7424a60fd85a2dfda41a5b36fbe29731b038cdf2ed3c9348961681faf8edf7b611386db5516fa0ff2689c734670a3e2a38d4fdcdaab44952dfb3b6a020
   languageName: node
   linkType: hard
 
