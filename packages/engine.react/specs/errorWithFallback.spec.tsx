@@ -46,5 +46,5 @@ test("should replace the failing component with the provided fallback", async ()
   await flushPromises();
   jest.runAllTimers();
   expect(onError).toBeCalled();
-  expect(onError).toBeCalledWith(error, expect.any(String), undefined);
+  expect(onError).toBeCalledWith(error, expect.any(String), expect.objectContaining({ name: "Component" }));
 });
