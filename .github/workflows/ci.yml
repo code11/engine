@@ -60,8 +60,8 @@ jobs:
       - name: Build
         run: |
           yarn ./packages/engine.utils run build
-          yarn build --exclude @c11/engine.utils
+          yarn build --exclude @c11/engine.utils @c11/engine.swc-plugin-syntax
       - name: Test
-        run: yarn test
+        run: yarn test --exclude @c11/engine.swc-plugin-syntax
       - name: Upload coverage report
         uses: codecov/codecov-action@v1

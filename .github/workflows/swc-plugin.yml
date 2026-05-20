@@ -1,0 +1,94 @@
+name: SWC Plugin CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'packages/engine.swc-plugin-syntax/**'
+  pull_request:
+    paths:
+      - 'packages/engine.swc-plugin-syntax/**'
+
+jobs:
+  build-and-test:
+    name: Build and Test SWC Plugin
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/engine.swc-plugin-syntax
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-wasi
+          override: true
+          components: rustfmt, clippy
+
+      - name: Cache Rust dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            packages/engine.swc-plugin-syntax/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Check formatting
+        run: cargo fmt -- --check
+
+      - name: Run clippy
+        run: cargo clippy -- -D warnings
+
+      - name: Run Rust tests
+        run: cargo test
+
+      - name: Build WASM
+        run: |
+          cargo build --release --target wasm32-wasi
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: swc-plugin-wasm
+          path: packages/engine.swc-plugin-syntax/target/wasm32-wasi/release/engine_swc_plugin_syntax.wasm
+
+  integration:
+    name: Integration with Node.js
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          
+      - name: Download WASM artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: swc-plugin-wasm
+          path: packages/engine.swc-plugin-syntax/dist
+          
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('yarn.lock') }}
+          
+      - name: Install dependencies
+        run: yarn install --immutable
+        
+      - name: Run integration tests
+        run: yarn test
+        working-directory: packages/engine.swc-plugin-syntax

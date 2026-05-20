@@ -1,0 +1,36 @@
+{
+  "name": "@c11/engine.swc-plugin-syntax",
+  "version": "1.0.0",
+  "description": "SWC plugin for processing engine type annotations",
+  "main": "target/wasm32-wasi/release/engine_swc_plugin_syntax.wasm",
+  "files": [
+    "target/wasm32-wasi/release/engine_swc_plugin_syntax.wasm",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "cargo build --target wasm32-wasi --release",
+    "test": "cargo test",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "swc-plugin",
+    "engine",
+    "typescript",
+    "ast",
+    "transformation"
+  ],
+  "author": "Code11 Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code11/engine.git"
+  },
+  "bugs": {
+    "url": "https://github.com/code11/engine/issues"
+  },
+  "homepage": "https://github.com/code11/engine#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
